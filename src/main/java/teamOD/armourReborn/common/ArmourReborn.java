@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import teamOD.armourReborn.common.lib.LibMisc;
 
-@Mod(modid = LibMisc.MOD_ID, version = LibMisc.VERSION) 
+@Mod(modid = LibMisc.MOD_ID, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.MC_VERSIONS) 
 
 public class ArmourReborn {
 	
@@ -27,15 +27,14 @@ public class ArmourReborn {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
 		// some example code
-        System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
-    }
-    
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-    	
-    }
+	    System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		
+	}
 }

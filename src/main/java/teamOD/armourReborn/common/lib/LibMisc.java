@@ -7,7 +7,8 @@ public final class LibMisc {
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String MC_VERSIONS = "[1.8.8,1.8.9]";
+	public static final String DEPENDENCIES = "required-after:Forge@[12.16.1.1898,]" ;
+	public static final String MC_VERSIONS = "[1.9]";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
