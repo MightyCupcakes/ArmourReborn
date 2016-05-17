@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.tweaks.NerfVanillaArmours;
 
 @Mod(modid = LibMisc.MOD_ID, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.MC_VERSIONS) 
 
@@ -40,6 +41,6 @@ public class ArmourReborn {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		
+		MinecraftForge.EVENT_BUS.register( new NerfVanillaArmours () );
 	}
 }
