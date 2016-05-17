@@ -15,7 +15,7 @@ import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.tweaks.NerfVanillaArmours;
 
-@Mod(modid = LibMisc.MOD_ID, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.MC_VERSIONS) 
+@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.MC_VERSIONS) 
 
 public class ArmourReborn {
 	

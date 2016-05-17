@@ -1,7 +1,10 @@
 package teamOD.armourReborn.common.tweaks;
 
+import org.apache.logging.log4j.Level;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +26,11 @@ public class NerfVanillaArmours {
 		
 		// I give up... if the player wears even one piece of vanilla armor, he shall receive pure damage.
 		for (ItemStack stack : player.getArmorInventoryList()) {
-			ResourceLocation name = stack.getItem().getRegistryName() ;
-			String mod = name.toString().split(":")[0] ;
+			if (stack == null) continue ;
 			
-			if (mod == "minecraft") {
+			int itemID = Item.getIdFromItem(stack.getItem()) ;
+			
+			if (itemID >= 298 && itemID <= 317) {
 				hasVanilla = true ;
 				break ;
 			}
@@ -40,10 +44,9 @@ public class NerfVanillaArmours {
 	@SubscribeEvent
 	public void onToolTip (ItemTooltipEvent event) {
 		if (event.getItemStack().getItem() instanceof ItemArmor) {
-			ResourceLocation name = event.getItemStack().getItem().getRegistryName() ;
-			String mod = name.toString().split(":")[0] ;
+			int itemID = Item.getIdFromItem(event.getItemStack().getItem()) ;
 			
-			if (mod == "minecraft") {
+			if (itemID >= 298 && itemID <= 317) {
 				event.getToolTip().add(TextFormatting.DARK_RED + "This armour is useless! Equip at your own risk!") ;
 			}
 		}
