@@ -6,7 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 /** 
  * This interface is to be implemented by all armour items that are levelable.
- * @author Uproller
+ * @author MightyCupcakes
+ * @see ItemModArmour
  *
  */
 

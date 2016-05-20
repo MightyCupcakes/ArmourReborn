@@ -3,7 +3,7 @@ package teamOD.armourReborn.common.lib;
 public final class LibMisc {
 
 	// Mod Constants
-	public static final String MOD_ID = "ArmorReborn";
+	public static final String MOD_ID = "ArmourReborn";
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
@@ -13,6 +13,10 @@ public final class LibMisc {
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
+	
+	// Proxy Constants
+	public static final String PROXY_COMMON = "teamOD.armourReborn.common.core.proxy.CommonProxy" ;
+	public static final String PROXY_CLIENT = "teamOD.armourReborn.client.core.proxy.ClientProxy" ;
 
 	public static final int[] CONTROL_CODE_COLORS = new int[] {
 		0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,

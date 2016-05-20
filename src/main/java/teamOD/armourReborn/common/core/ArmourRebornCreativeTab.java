@@ -1,13 +1,18 @@
 package teamOD.armourReborn.common.core;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
 
 public class ArmourRebornCreativeTab extends CreativeTabs {
 	public static ArmourRebornCreativeTab INSTANCE = new ArmourRebornCreativeTab () ;
+	
+	List <ItemStack> list ;
 	
 	public ArmourRebornCreativeTab () {
 		super (LibMisc.MOD_ID) ;
@@ -21,5 +26,17 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 	@Override
 	public Item getTabIconItem () {
 		return getIconItemStack().getItem() ;
+	}
+	
+	@Override
+	public void displayAllRelevantItems (List<ItemStack> list) {
+		this.list = list ;
+		
+		addItem (ModItems.STEEL_INGOT) ;
+		
+	}
+	
+	private void addItem (Item item) {
+		item.getSubItems(item, this, list);
 	}
 }
