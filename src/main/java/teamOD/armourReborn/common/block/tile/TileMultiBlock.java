@@ -14,27 +14,7 @@ public abstract class TileMultiBlock extends TileMod {
     public void updateEntity() {
     }
     
-    public boolean checkMultiBlockForm() {
-        int i = 0;
-        // Scan a 3x3x3 area, starting with the bottom left corner
-        for (int x = masterX - 1; x < masterX + 2; x++) {
-            for (int y = masterY; y < masterY + 3; y++) {
-                for (int z = masterZ - 1; z < masterZ + 2; z++) {
-                     TileEntity tile = worldObj.getTileEntity(new BlockPos (x, y, z) );
-                     // Make sure tile isn't null, is an instance of the same Tile, and isn't already a part of a multiblock
-                     if (tile != null && (tile instanceof TileMultiBlock)) {
-                         if (this.isMaster()) {
-                             if (((TileMultiBlock)tile).hasMaster())
-                                 i++;
-                         } else if (!((TileMultiBlock)tile).hasMaster())
-                             i++;
-                     }
-                 }
-            }
-        }
-         // check if there are 26 blocks present ((3*3*3) - 1) and check that center block is empty
-         return i > 25 && worldObj.isAirBlock(new BlockPos (masterX, masterY + 1, masterZ)) ;
-    }
+    public abstract boolean checkMultiBlockForm() ;
     
     /** Reset method to be run when the master is gone or tells them to */
     public void reset() {
@@ -52,35 +32,10 @@ public abstract class TileMultiBlock extends TileMod {
     }
     
     /** Reset all the parts of the structure */
-    public void resetStructure() {
-        for (int x = masterX - 1; x < masterX + 2; x++) {
-            for (int y = masterY; y < masterY + 3; y++) {
-                for (int z = masterZ - 1; z < masterZ + 2; z++) {
-                    TileEntity tile = worldObj.getTileEntity( new BlockPos (x, y, z) );
-                    if (tile != null && (tile instanceof TileMultiBlock))
-                        ((TileMultiBlock) tile).reset();
-                }
-            }
-        }
-    }
+    public abstract void resetStructure() ;
     
     /** Setup all the blocks in the structure*/
-    public void setupStructure() {
-        for (int x = masterX - 1; x < masterX + 2; x++) {
-            for (int y = masterY; y < masterY + 3; y++) {
-                for (int z = masterZ - 1; z < masterZ + 2; z++) {
-                    TileEntity tile = worldObj.getTileEntity( new BlockPos (x, y, z) );
-                    // Check if block is bottom center block
-                    boolean master = (x == masterX && y == masterY && z == masterZ);
-                    if (tile != null && (tile instanceof TileMultiBlock)) {
-                        ((TileMultiBlock) tile).setMasterCoords(masterX, masterY, masterZ);
-                        ((TileMultiBlock) tile).setHasMaster(true);
-                        ((TileMultiBlock) tile).setIsMaster(master);
-                    }
-                }
-            }
-        }
-    }
+    public abstract void setupStructure() ;
  
     @Override
     public void writeToNBT(NBTTagCompound data) {

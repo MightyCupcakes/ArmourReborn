@@ -2,13 +2,16 @@ package teamOD.armourReborn.common.item.equipment;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.leveling.ILevelable;
@@ -17,6 +20,11 @@ import teamOD.armourReborn.common.lib.LibMisc;
 public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable  {
 	
 	public EntityEquipmentSlot type;
+	
+	public static final ArmorMaterial paperArmourMat = EnumHelper.addArmorMaterial("PAPER", "paper", 1, new int[] {1,2,3,2}, 1, SoundEvents.item_armor_equip_generic) ;
+	public static final ArmorMaterial ironArmourMat = EnumHelper.addArmorMaterial("IRON", "modIron", 16, new int[] {2,4,4,2}, 1, SoundEvents.item_armor_equip_iron) ;
+	public static final ArmorMaterial steelArmourMat = EnumHelper.addArmorMaterial("STEEL", "steel", 20, new int[] {4,4,4,2}, 1, SoundEvents.item_armor_equip_gold) ;
+	public static final ArmorMaterial aluminiumArmourMat = EnumHelper.addArmorMaterial("ALUMINIUM", "aluminium", 34, new int[] {3,8,6,3}, 1, SoundEvents.item_armor_equip_diamond) ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super (mat, 0, type) ;
@@ -46,7 +54,7 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		stack.damageItem(damage, entity);
+		stack.damageItem(damage, entity); 
 	}
 	
 	@Override

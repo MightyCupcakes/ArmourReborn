@@ -4,7 +4,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import teamOD.armourReborn.client.lib.LibResources;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -26,6 +25,6 @@ public class ItemMod extends Item {
 	
 	@Override
 	public String getUnlocalizedNameInefficiently (ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibResources.PREFIX_MOD);
+		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibMisc.PREFIX_MOD);
 	}
 }
