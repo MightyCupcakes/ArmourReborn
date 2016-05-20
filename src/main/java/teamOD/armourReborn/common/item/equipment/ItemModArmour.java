@@ -21,10 +21,9 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	
 	public EntityEquipmentSlot type;
 	
-	public static final ArmorMaterial paperArmourMat = EnumHelper.addArmorMaterial("PAPER", "paper", 1, new int[] {1,2,3,2}, 1, SoundEvents.item_armor_equip_generic) ;
-	public static final ArmorMaterial ironArmourMat = EnumHelper.addArmorMaterial("IRON", "modIron", 16, new int[] {2,4,4,2}, 1, SoundEvents.item_armor_equip_iron) ;
-	public static final ArmorMaterial steelArmourMat = EnumHelper.addArmorMaterial("STEEL", "steel", 20, new int[] {4,4,4,2}, 1, SoundEvents.item_armor_equip_gold) ;
-	public static final ArmorMaterial aluminiumArmourMat = EnumHelper.addArmorMaterial("ALUMINIUM", "aluminium", 34, new int[] {3,8,6,3}, 1, SoundEvents.item_armor_equip_diamond) ;
+	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
+	public ItemStack[] armourSet ;
+	public int armourModifier = 1 ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super (mat, 0, type) ;
@@ -56,6 +55,34 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		stack.damageItem(damage, entity); 
 	}
+	
+	public boolean hasArmourSet (EntityPlayer player) {
+		if (armourSet == null) return false ;
+		
+		return hasArmourSetItem (player, 0) && hasArmourSetItem (player, 1) && hasArmourSetItem (player, 2) && hasArmourSetItem (player, 3) ;
+		
+	}
+	
+	public boolean hasArmourSetItem (EntityPlayer player, int slot) {
+		ItemStack stack = player.inventory.armorItemInSlot(slot);
+		
+		if (stack == null) return false ;
+		
+		switch (slot) {
+		
+		case 0 :
+			return stack.getItem() == armourSet[0].getItem() ;
+		case 1:
+			return stack.getItem() == armourSet[1].getItem() ;
+		case 2:
+			return stack.getItem() == armourSet[2].getItem() ;
+		case 3:
+			return stack.getItem() == armourSet[3].getItem() ;
+ 		}
+		
+		return false ;
+	}
+	
 	
 	@Override
 	public void addBaseTags (NBTTagCompound tag) {
