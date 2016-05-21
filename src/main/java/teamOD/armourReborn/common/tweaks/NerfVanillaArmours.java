@@ -39,10 +39,14 @@ public class NerfVanillaArmours {
 	
 	@SubscribeEvent
 	public void onToolTip (ItemTooltipEvent event) {
+		
+		if (event.getEntityPlayer() == null) return ;
+		
 		if (event.getItemStack().getItem() instanceof ItemArmor) {
 			int itemID = Item.getIdFromItem(event.getItemStack().getItem()) ;
 			
 			if (itemID >= 298 && itemID <= 317) {
+				
 				event.getToolTip().add(TextFormatting.DARK_RED + "This armour is useless! Equip at your own risk!") ;
 			}
 		}

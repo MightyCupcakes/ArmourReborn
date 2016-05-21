@@ -1,8 +1,8 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "ArmourReborn",
+  "name": "ArmourReborn",
+  "description": "A mod that introduces better armour progression and variety",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
