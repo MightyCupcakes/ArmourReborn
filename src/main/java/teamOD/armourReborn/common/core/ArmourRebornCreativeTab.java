@@ -32,7 +32,7 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 	public void displayAllRelevantItems (List<ItemStack> list) {
 		this.list = list ;
 		
-		addItem (ModItems.STEEL_INGOT) ;
+		addItem (ModItems.MATERIALS) ;
 		
 	}
 	

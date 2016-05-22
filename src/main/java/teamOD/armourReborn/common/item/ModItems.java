@@ -4,9 +4,9 @@ import net.minecraft.item.Item;
 
 public final class ModItems {
 	
-	public static Item STEEL_INGOT ;
+	public static Item MATERIALS ;
 	
 	public static void init () {
-		STEEL_INGOT = new ItemIngotSteel () ;
+		MATERIALS = new ItemMaterials () ;
 	}
 }
