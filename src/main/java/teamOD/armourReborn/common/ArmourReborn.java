@@ -11,9 +11,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.core.proxy.CommonProxy;
-import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.leveling.LevelingEventHandler;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.tweaks.NerfVanillaArmours;
@@ -29,6 +28,10 @@ public class ArmourReborn {
 	
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT) 
 	public static CommonProxy proxy ;
+	
+	static {
+		ModFluids.registerBucket() ;
+	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

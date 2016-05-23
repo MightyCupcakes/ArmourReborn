@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
 
