@@ -15,26 +15,17 @@ public class FluidMod extends Fluid {
 		super (fluidName, still, flowing) ;
 		
 		this.colour = colour ;
-		this.setDensity(2000) ;
-		this.setViscosity(10000) ;
+		this.setDensity(1000) ;
+		this.setViscosity(8000) ;
 		this.setTemperature(1000) ;
 		this.setLuminosity(10) ;
 		
-		setUnlocalizedName (LibMisc.MOD_ID + "." + fluidName) ;
-		
-		if (shouldRegister()) {
-			FluidRegistry.registerFluid(this) ;
-			FluidRegistry.addBucketForFluid(this) ;
-		}
+		setUnlocalizedName (fluidName) ;
+		FluidRegistry.registerFluid(this) ;
 	}
 	
 	public FluidMod (String fluidName, int colour) {
 		this (fluidName, colour, molten_still, molten_flowing) ;
-	}
-	
-	protected boolean shouldRegister () {
-		// If for some reason you don't want to register this fluid, override this method
-		return true ;
 	}
 	
 	@Override

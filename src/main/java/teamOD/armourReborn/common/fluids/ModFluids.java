@@ -1,6 +1,7 @@
 package teamOD.armourReborn.common.fluids;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -15,33 +16,27 @@ public class ModFluids {
 	public static FluidMod steel ;
 	public static FluidMod aluminium ;
 	
-	public static Item molten_iron ;
-	
 	public static void registerBucket () {
 		FluidRegistry.enableUniversalBucket();
 	}
 	
 	public static void init () {
 		
-		registerMoltenBlock (iron, molten_iron, "iron", LibMisc.CONTROL_CODE_COLORS[15]) ;
+		iron = registerMoltenBlock ("iron", 0xFFFF0000) ;
+		steel = registerMoltenBlock ("steel", 0xFFFFFFFF) ;
 	}
 	
-	private static void registerMoltenBlock (Fluid fluid, Item item, String name, int colour) {
+	private static FluidMod registerMoltenBlock (String name, int colour) {
 		
+		FluidMod fluid ;
 		String regName = "molten_" + name ;
 		
 		fluid = new FluidMod (regName, colour) ;
+		
 		BlockModFluid block = new BlockModFluid (fluid) ;
-		
-		item = new ItemMod (regName) ;
-		
-		ResourceLocation resource = new ResourceLocation (LibMisc.MOD_ID, regName) ;
-		
-		GameRegistry.register(block, resource) ;
-		GameRegistry.register(item) ;
 		
 		fluid.setBlock(block) ;
 		
-		block.setUnlocalizedName (regName) ;
+		return fluid ;
 	}
 }
