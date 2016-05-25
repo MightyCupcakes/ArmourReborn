@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.common.FMLLog;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemNames;
 import teamOD.armourReborn.common.lib.LibMisc;
@@ -74,9 +73,7 @@ public class ModelHandler {
 		
 		public FluidMeshDefinition (Fluid fluid) {
 			this.fluid = fluid ;
-			FMLLog log = new FMLLog () ;
-			log.info("NAME OF FLUID IS : %s", fluid.getName());
-			this.location = new ModelResourceLocation(LibMisc.MOD_ID.toLowerCase() + ":" + "molten_metal", fluid.getName() );
+			this.location = new ModelResourceLocation(new ResourceLocation (LibMisc.MOD_ID, "molten_metal"), fluid.getName() );
 		}
 		
 		@Override

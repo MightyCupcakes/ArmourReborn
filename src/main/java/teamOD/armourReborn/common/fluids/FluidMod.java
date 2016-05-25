@@ -15,8 +15,8 @@ public class FluidMod extends Fluid {
 		super (fluidName, still, flowing) ;
 		
 		this.colour = colour ;
-		this.setDensity(1000) ;
-		this.setViscosity(8000) ;
+		this.setDensity(3000) ;
+		this.setViscosity(10000) ;
 		this.setTemperature(1000) ;
 		this.setLuminosity(10) ;
 		

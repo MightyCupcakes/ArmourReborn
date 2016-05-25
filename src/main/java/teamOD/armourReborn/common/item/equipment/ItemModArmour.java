@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.leveling.ILevelable;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable  {
 	
@@ -90,36 +91,17 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 		tag.setInteger(TAG_EXP, 0) ;
 	}
 	
-	@Override
-	public int getLevel(NBTTagCompound tags) {
-		return tags.getInteger(TAG_LEVEL) ;
-	}
-
-	@Override
-	public int getExp(NBTTagCompound tags) {
-		return tags.getInteger(TAG_EXP) ;
-	}
-
-	@Override
-	public boolean hasLevel(NBTTagCompound tags) {
-		return tags.hasKey(TAG_LEVEL) ;
-	}
-
-	@Override
-	public boolean hasExp(NBTTagCompound tags) {
-		return tags.hasKey(TAG_EXP) ;
-	}
 
 	@Override
 	public boolean isMaxLevel(NBTTagCompound tags) {
-		return tags.getInteger(TAG_LEVEL)  == 10 ;
+		return tags.getInteger(TAG_LEVEL)  == MAX_LEVEL ;
 	}
 
 	@Override
 	public void setExp(ItemStack armour, EntityPlayer player, int armourExp) {
-		NBTTagCompound tag = armour.getTagCompound().getCompoundTag("ArmourReborn") ;
+		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
 		
-		if ( !hasLevel (tag) || !hasExp (tag) ) {
+		if ( !LibUtil.hasTag(tag, TAG_LEVEL) || !LibUtil.hasTag(tag, TAG_EXP) ) {
 			return ;
 		}
 		
@@ -131,9 +113,9 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 
 	@Override
 	public void addExp(ItemStack armour, EntityPlayer player, int armourExp) {
-		NBTTagCompound tag = armour.getTagCompound().getCompoundTag("ArmourReborn") ;
+		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
 		
-		if ( !hasLevel (tag) || !hasExp (tag) ) {
+		if ( !LibUtil.hasTag(tag, TAG_LEVEL) || !LibUtil.hasTag(tag, TAG_EXP) ) {
 			return ;
 		}
 		
@@ -145,7 +127,7 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 
 	@Override
 	public void levelUpArmour(ItemStack armour, EntityPlayer player) {
-		NBTTagCompound tag = armour.getTagCompound().getCompoundTag("ArmourReborn") ;
+		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
 		
 		tag.setInteger(TAG_LEVEL, tag.getInteger(TAG_LEVEL) + 1 ) ;
 		tag.setInteger(TAG_EXP, 0) ;
