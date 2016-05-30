@@ -2,6 +2,7 @@ package teamOD.armourReborn.common.block.tile;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,10 +10,22 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
+	public static final String NAME = "forgeInventory" ;
+	public static final int STACKSIZE = 1 ;
+	public static final int INVENTORY_SIZE = 4 ;
+	
 	private boolean isActive = false ;
+	private ItemStack[] inventory ;
+	
+	public TileForgeMaster () {
+		super ();
+		
+		inventory = new ItemStack[INVENTORY_SIZE] ;
+	}
 
 	@Override
 	public void checkMultiBlockForm() {
@@ -62,71 +75,98 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		
 		isActive = true ;
 	}
+	
+	public boolean isActive () {
+		return isActive ;
+	}
 
+	// =================================================================================== |
+	//                                Inventory Handlers                                   |
+	// =================================================================================== |
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return NAME;
 	}
 
 	@Override
 	public boolean hasCustomName() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public ITextComponent getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TextComponentString(getName());
 	}
 
 	@Override
 	public int getSizeInventory() {
-		// TODO Auto-generated method stub
-		return 0;
+		return inventory.length ;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= inventory.length) return null ;
+		
+		return inventory[index] ;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ItemStack stack = getStackInSlot (index) ;
+		
+		if (stack == null) return null ;
+		
+		if (stack.stackSize <= count) {
+			removeStackFromSlot (index) ;
+		} else {
+			stack = stack.splitStack(count) ;
+			
+			if (getStackInSlot (index).stackSize == 0) {
+				removeStackFromSlot (index) ;
+			}
+		}
+		
+		this.markDirty() ;
+		return stack ;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ItemStack stack = getStackInSlot (index) ;
+		setInventorySlotContents (index, null) ;
+		
+		return stack ;		
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		// TODO Auto-generated method stub
+		if (index < 0 || index >= inventory.length) return ;
 		
+		inventory[index] = stack ;
+		
+		if (stack != null && stack.stackSize > getInventoryStackLimit() ) {
+			stack.stackSize = getInventoryStackLimit () ;
+		}
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		// TODO Auto-generated method stub
-		return 0;
+		return STACKSIZE ;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		return false;
+		if(worldObj.getTileEntity(pos) != this || worldObj.getBlockState(pos).getBlock() == Blocks.air) {
+			return false ;
+		}
+		return true;
 	}
 
 	@Override
 	public void openInventory(EntityPlayer player) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -137,31 +177,37 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		// TODO Auto-generated method stub
-		return false;
+		ItemStack inventory = getStackInSlot (index) ;
+		
+		if (index >= getSizeInventory () ) return false ;
+		
+		if (inventory == null || stack.stackSize + inventory.stackSize <= getInventoryStackLimit() ) {
+			return true ;
+		}
+		
+		return false ;
 	}
 
 	@Override
 	public int getField(int id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setField(int id, int value) {
-		// TODO Auto-generated method stub
-		
+		// NO OP	
 	}
 
 	@Override
 	public int getFieldCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < getSizeInventory(); i ++) {
+			removeStackFromSlot (i) ;
+		}
 		
 	}
 	
@@ -202,8 +248,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 				}
 			}
 		}
-		
-		cmp.setTag("inventory", nbttaglist) ;
 	}
 
 }
