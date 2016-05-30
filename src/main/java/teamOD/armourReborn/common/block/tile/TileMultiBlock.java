@@ -7,14 +7,11 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class TileMultiBlock extends TileMod {
 	
-	private boolean hasMaster, isMaster ;
+	private boolean hasMaster ;
+	private boolean isMaster;
 	private int masterX, masterY, masterZ ;
-	
-    @Override
-    public void updateEntity() {
-    }
     
-    public abstract boolean checkMultiBlockForm() ;
+    public abstract void checkMultiBlockForm() ;
     
     /** Reset method to be run when the master is gone or tells them to */
     public void reset() {
@@ -82,6 +79,16 @@ public abstract class TileMultiBlock extends TileMod {
     	default :
     		return 0 ;
     	}
+    }
+    
+    public boolean isMasterCoords (BlockPos pos) {
+    	return masterX == pos.getX() && masterY == pos.getY() && masterZ == pos.getZ() ;
+    }
+    
+    public TileEntity getMasterBlock () {
+    	if (!hasMaster) return null ;
+    	
+    	return worldObj.getTileEntity(new BlockPos (masterX, masterY, masterZ)) ;
     }
 
     public void setHasMaster(boolean bool) {

@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
@@ -36,6 +37,7 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 		addItem (ModItems.MATERIALS) ;
 		addItem( Item.getItemFromBlock(ModFluids.steel.getBlock()) ) ;
 		addItem( Item.getItemFromBlock(ModFluids.iron.getBlock()) ) ;
+		addItem( Item.getItemFromBlock(ModBlocks.forgeMaster) ) ;
 		
 	}
 	

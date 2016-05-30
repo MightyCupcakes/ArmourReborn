@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
+import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemNames;
 import teamOD.armourReborn.common.lib.LibMisc;
@@ -23,9 +24,14 @@ public class ModelHandler {
 	public static void registerModels () {
 		registerResources () ;
 		registerFluids () ;
+		registerBlocks () ;
 	}
 	
 	private static void registerStandardItems () {
+	}
+	
+	private static void registerBlocks () {
+		registerBlockModels (ModBlocks.forgeMaster) ;
 	}
 	
 	private static void registerFluids () {
@@ -86,6 +92,10 @@ public class ModelHandler {
 			return location ;
 		}
 		
+	}
+	
+	public static void registerBlockModels (Block block) {
+		registerItemModel (Item.getItemFromBlock(block)) ;
 	}
 
 }
