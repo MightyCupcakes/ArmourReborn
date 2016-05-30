@@ -26,6 +26,7 @@ public class BlockForgeMaster extends BlockContainer {
 		
 		GameRegistry.register(this, new ResourceLocation (LibMisc.MOD_ID, LibItemNames.FORGE_CONTROLLER)) ;
 		GameRegistry.register(new ItemBlock (this), getRegistryName() ) ;
+		GameRegistry.registerTileEntity(TileForgeMaster.class, "forgeMaster") ;
 	}
 	
 	@Override

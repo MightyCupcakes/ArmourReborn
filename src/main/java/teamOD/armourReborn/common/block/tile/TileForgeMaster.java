@@ -4,6 +4,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -161,6 +163,47 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	public void clear() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	// NBT
+	@Override
+	public void writeCustomNBT(NBTTagCompound cmp) {
+		// write inventory contents to nbt
+		IInventory inventory = this ;
+		NBTTagList nbttaglist = new NBTTagList();
+		
+		for (int i = 0; i < inventory.getSizeInventory(); i ++) {
+			if (inventory.getStackInSlot(i) != null) {
+				NBTTagCompound itemTag = new NBTTagCompound () ;
+				
+				itemTag.setByte("slot", (byte) i) ;
+				inventory.getStackInSlot(i).writeToNBT(itemTag) ;
+				nbttaglist.appendTag(itemTag) ;
+			}
+		}
+		
+		cmp.setTag("inventory", nbttaglist) ;
+	}
+	
+	@Override
+	public void readCustomNBT(NBTTagCompound cmp) {
+		// write inventory contents to nbt
+		IInventory inventory = this ;
+		NBTTagList nbttaglist = cmp.getTagList("inventory" , 0) ;
+		
+		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
+			if (inventory.getStackInSlot(i) != null) {
+				NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(i) ;
+				
+				int slot = itemTag.getByte("slot") & 0xFF;
+				
+				if (slot > 0 && slot < inventory.getSizeInventory()) {
+					inventory.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(itemTag));
+				}
+			}
+		}
+		
+		cmp.setTag("inventory", nbttaglist) ;
 	}
 
 }
