@@ -11,7 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import teamOD.armourReborn.common.lib.LibUtil;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
@@ -30,10 +29,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	}
 	
 	@Override
-	public void update () { // Called every tick. 1 second <=> 20 ticks
-		if(this.worldObj.isRemote) {
-			return ;
-		}
+	public void updateEntity () { // Called every tick. 1 second <=> 20 ticks
 		
 		if(!isActive()) {
 			if(tick == 0) {
@@ -57,7 +53,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 					continue ;
 				}
 				
-				resetStructure () ; LibUtil.LogToFML(1, "component.", "");
+				resetStructure () ;
 				return ;
 			}
 		}
@@ -69,7 +65,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	@Override
 	protected void resetStructure() {
 		isActive = false ;
-		LibUtil.LogToFML(1, "no.", "");
 		
 		for (int x = getMasterCoords ('x') - 1; x <= getMasterCoords ('x') + 1; x ++) {
 			for (int y = getMasterCoords ('y'); y <= getMasterCoords ('y') + 1; y ++) {
@@ -85,7 +80,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 
 	@Override
 	protected void setupStructure() {
-		LibUtil.LogToFML(1, "yes.", "");
+
 		BlockPos position = this.getPos() ;
 		
 		isActive = true ;
