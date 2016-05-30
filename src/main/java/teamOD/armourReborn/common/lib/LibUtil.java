@@ -12,20 +12,20 @@ public class LibUtil {
 	 * @param format a string formatter
 	 * @param message
 	 */
-	public static void LogToFML (int level, String format, String message) {
+	public static void LogToFML (int level, String format, Object... data) {
 		
 		switch (level) {
 		case 1:
-			FMLLog.info(format, message) ;
+			FMLLog.info(format, data) ;
 			break ;
 		case 2:
-			FMLLog.warning(format, message) ;
+			FMLLog.warning(format, data) ;
 			break ;
 		case 3:
-			FMLLog.severe(format, message) ;
+			FMLLog.severe(format, data) ;
 			break ;
 		default:
-			FMLLog.fine(format, message) ;
+			FMLLog.fine(format, data) ;
 		}
 	}
 	

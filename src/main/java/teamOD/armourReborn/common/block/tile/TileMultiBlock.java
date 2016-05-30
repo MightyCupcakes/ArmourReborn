@@ -29,10 +29,10 @@ public abstract class TileMultiBlock extends TileMod {
     }
     
     /** Reset all the parts of the structure */
-    public abstract void resetStructure() ;
+    protected abstract void resetStructure() ;
     
     /** Setup all the blocks in the structure*/
-    public abstract void setupStructure() ;
+    protected abstract void setupStructure() ;
  
     @Override
     public void writeToNBT(NBTTagCompound data) {
@@ -99,10 +99,14 @@ public abstract class TileMultiBlock extends TileMod {
         isMaster = bool;
     }
 
-    public void setMasterCoords(int x, int y, int z) {
+    public void setMasterCoords (int x, int y, int z) {
         masterX = x;
         masterY = y;
         masterZ = z;
+    }
+    
+    public void setMasterCoords (BlockPos pos) {
+    	setMasterCoords (pos.getX(), pos.getY(), pos.getZ() ) ;
     }
 	
 }

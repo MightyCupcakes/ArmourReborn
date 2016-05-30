@@ -10,7 +10,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.block.tile.TileForgeComponent;
+import teamOD.armourReborn.common.block.tile.TileForgeMaster;
 
 public class BlockForgeStructure extends BlockMod implements ITileEntityProvider {
 
@@ -20,6 +22,12 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		this.isBlockContainer = true ; // This is a Tile entity
 		this.setHardness(4F) ;
 		this.setResistance(20F) ;
+		
+		GameRegistry.registerTileEntity(TileForgeComponent.class, "forgeComponent") ;
+	}
+	
+	public BlockForgeStructure (String name) {
+		this (Material.rock, name) ;
 	}
 
 	@Override
@@ -46,11 +54,14 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		for (EnumFacing direction: EnumFacing.values()) {
 			TileEntity entity = worldIn.getTileEntity(pos.offset(direction)) ;
 			
+			if (entity == null) continue ;
+			
 			if (entity instanceof TileForgeComponent) {
-				if ( ( (TileForgeComponent) entity).hasMaster() ) {
-					((TileForgeComponent) entity).checkMultiBlockForm() ;
-					break ;
-				}
+				((TileForgeComponent) entity).checkMultiBlockForm() ;
+				break ;
+			} else if (entity instanceof TileForgeMaster) {
+				((TileForgeMaster) entity).checkMultiBlockForm() ;
+				break ;
 			}
 		}
 	}

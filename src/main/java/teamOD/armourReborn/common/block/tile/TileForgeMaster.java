@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
@@ -20,32 +21,44 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
 	private boolean isActive = false ;
 	private ItemStack[] inventory ;
+	private int tick ;
 	
 	public TileForgeMaster () {
 		super ();
 		
 		inventory = new ItemStack[INVENTORY_SIZE] ;
 	}
+	
+	@Override
+	public void update () { // Called every tick. 1 second <=> 20 ticks
+		if(this.worldObj.isRemote) {
+			return ;
+		}
+		
+		if(!isActive()) {
+			if(tick == 0) {
+				checkMultiBlockForm () ;
+			}
+		}
+		
+		tick = (tick + 1) % 20 ;
+	}
 
 	@Override
 	public void checkMultiBlockForm() {
-		IBlockState state = this.worldObj.getBlockState(getPos());
 		
 		BlockPos position = this.getPos() ;
 		
 		for (int x = position.getX() - 1; x <= position.getX() + 1; x ++) {
 			for (int y = position.getY(); y <= position.getY() + 1; y ++) {
-				TileEntity entity = worldObj.getTileEntity(new BlockPos (x, y, position.getZ())) ;
+				TileEntity entity = this.worldObj.getTileEntity(new BlockPos (x, y, position.getZ())) ;
 				
-				if (entity != null && entity instanceof TileForgeComponent) {					
-					if ( ( (TileForgeComponent) entity).isMaster() && !( (TileForgeComponent) entity).isMasterCoords (entity.getPos())) {
-						resetStructure () ;
-						return ;
-					}
-				} else {
-					resetStructure () ;
-					return ;
+				if (entity instanceof TileForgeMaster || entity instanceof TileForgeComponent ) {					
+					continue ;
 				}
+				
+				resetStructure () ; LibUtil.LogToFML(1, "component.", "");
+				return ;
 			}
 		}
 		
@@ -54,8 +67,9 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	}
 
 	@Override
-	public void resetStructure() {
+	protected void resetStructure() {
 		isActive = false ;
+		LibUtil.LogToFML(1, "no.", "");
 		
 		for (int x = getMasterCoords ('x') - 1; x <= getMasterCoords ('x') + 1; x ++) {
 			for (int y = getMasterCoords ('y'); y <= getMasterCoords ('y') + 1; y ++) {
@@ -70,10 +84,28 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	}
 
 	@Override
-	public void setupStructure() {
+	protected void setupStructure() {
+		LibUtil.LogToFML(1, "yes.", "");
 		BlockPos position = this.getPos() ;
 		
 		isActive = true ;
+		this.setIsMaster(true) ;
+		this.setMasterCoords(position) ;
+		
+		for (int x = position.getX() - 1; x <= position.getX() + 1; x ++) {
+			for (int y = position.getY(); y <= position.getY() + 1; y ++) {
+				
+				BlockPos currentPos = new BlockPos (x, y, position.getZ()) ;
+				
+				if (this.isMasterCoords(currentPos)) continue ;
+				
+				// Safe to cast it as TileForgeComponent as it was previously checked to be as such
+				TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
+				
+				tile.setMasterCoords(position) ;
+				tile.setHasMaster(true) ;
+			}
+		}
 	}
 	
 	public boolean isActive () {

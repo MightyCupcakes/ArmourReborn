@@ -10,20 +10,20 @@ public class TileForgeComponent extends TileMultiBlock {
 	@Override
 	public void checkMultiBlockForm() {
 		
-		TileMultiBlock entity = (TileMultiBlock) getMasterBlock() ;
-		entity.checkMultiBlockForm() ;
+		if (this.hasMaster()) {
+			TileMultiBlock entity = (TileMultiBlock) getMasterBlock() ;
+			entity.checkMultiBlockForm() ;
+		}
 	}
 
 	@Override
-	public void resetStructure() {
-		TileMultiBlock entity = (TileMultiBlock) getMasterBlock() ;
-		entity.resetStructure() ;
+	protected void resetStructure() {
+		// NO OP
 	}
 
 	@Override
-	public void setupStructure() {
-		TileMultiBlock entity = (TileMultiBlock) getMasterBlock() ;
-		entity.setupStructure() ;
+	protected void setupStructure() {
+		// NO OP
 	}
 
 }

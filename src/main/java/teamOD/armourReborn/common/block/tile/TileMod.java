@@ -59,7 +59,7 @@ public class TileMod extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public final void update() {
+	public void update() {
 		if (!isInvalid() && worldObj.isBlockLoaded(getPos(), !worldObj.isRemote)) {
 			updateEntity();
 		}
