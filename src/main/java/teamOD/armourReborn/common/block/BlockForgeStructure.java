@@ -40,11 +40,11 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		TileEntity entity = worldIn.getTileEntity(pos) ;
 		
 		if (entity instanceof TileForgeComponent) {
-			( (TileForgeComponent) entity).reset() ;
+			( (TileForgeComponent) entity).notifyMaster() ;
 		}
 		
-		super.breakBlock(worldIn, pos, state) ;
 		worldIn.removeTileEntity(pos) ;
+		super.breakBlock(worldIn, pos, state) ;
 		
 	}
 	

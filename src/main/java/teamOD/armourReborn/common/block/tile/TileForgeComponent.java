@@ -25,5 +25,11 @@ public class TileForgeComponent extends TileMultiBlock {
 	protected void setupStructure() {
 		// NO OP
 	}
+	
+	public void notifyMaster () {
+		if (hasMaster ()) {
+			getMasterBlock().checkMultiBlockForm();
+		}
+	}
 
 }

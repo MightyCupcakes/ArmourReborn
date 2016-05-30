@@ -85,10 +85,10 @@ public abstract class TileMultiBlock extends TileMod {
     	return masterX == pos.getX() && masterY == pos.getY() && masterZ == pos.getZ() ;
     }
     
-    public TileEntity getMasterBlock () {
+    public TileForgeMaster getMasterBlock () {
     	if (!hasMaster) return null ;
     	
-    	return worldObj.getTileEntity(new BlockPos (masterX, masterY, masterZ)) ;
+    	return (TileForgeMaster) worldObj.getTileEntity(new BlockPos (masterX, masterY, masterZ)) ;
     }
 
     public void setHasMaster(boolean bool) {
