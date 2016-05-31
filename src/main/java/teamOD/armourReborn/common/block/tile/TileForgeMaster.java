@@ -75,7 +75,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		BlockPos position = this.getPos() ;
 		IBlockState state = worldObj.getBlockState(getPos()) ;
 		
-		EnumFacing[] directions = EnumFacing.values();
 		TileEntity entity ;
 		
 		this.reset() ;
@@ -145,6 +144,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		
 		EnumFacing[] directions = EnumFacing.values();
 		
+		// Will not check downwards
 		for (int i = 1; i < directions.length; i ++) {
 			TileEntity entity = worldObj.getTileEntity( pos.offset(directions[i]) ) ;
 			
