@@ -42,9 +42,6 @@ public abstract class TileMultiBlock extends TileMod {
         data.setInteger("masterZ", masterZ);
         data.setBoolean("hasMaster", hasMaster);
         data.setBoolean("isMaster", isMaster);
-        if (hasMaster() && isMaster()) {
-            // Any other values should ONLY BE SAVED TO THE MASTER
-        }
     }
 
     @Override
@@ -55,9 +52,6 @@ public abstract class TileMultiBlock extends TileMod {
         masterZ = data.getInteger("masterZ");
         hasMaster = data.getBoolean("hasMaster");
         isMaster = data.getBoolean("isMaster");
-        if (hasMaster() && isMaster()) {
-            // Any other values should ONLY BE READ BY THE MASTER
-        }
     }
 
     public boolean hasMaster() {

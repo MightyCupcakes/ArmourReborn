@@ -14,6 +14,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -230,6 +232,20 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	public boolean isActive () {
 		return isActive ;
 	}
+	
+	@Override
+	public void onDataPacket (NetworkManager net, SPacketUpdateTileEntity packet) {
+		super.onDataPacket(net, packet) ;
+		
+		boolean wasActive = this.isActive() ;
+		
+		readFromNBT (packet.getNbtCompound()) ;
+		
+		if (isActive != wasActive) {
+			IBlockState state = worldObj.getBlockState(getPos()) ;
+			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+		}
+	}
 
 	// =================================================================================== |
 	//                                Inventory Handlers                                   |
@@ -380,6 +396,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		}
 		
 		cmp.setTag("inventory", nbttaglist) ;
+		
+		cmp.setBoolean("active", isActive() ) ;
 	}
 	
 	@Override
@@ -387,6 +405,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		// write inventory contents to nbt
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = cmp.getTagList("inventory" , 0) ;
+		
+		isActive = cmp.getBoolean("active") ;
 		
 		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
 			if (inventory.getStackInSlot(i) != null) {

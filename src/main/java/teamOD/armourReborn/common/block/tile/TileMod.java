@@ -48,8 +48,8 @@ public class TileMod extends TileEntity implements ITickable {
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
-		writeCustomNBT(nbttagcompound);
-		return new SPacketUpdateTileEntity(pos, -999, nbttagcompound);
+		writeToNBT(nbttagcompound);
+		return new SPacketUpdateTileEntity(pos, this.getBlockMetadata(), nbttagcompound);
 	}
 
 	@Override
