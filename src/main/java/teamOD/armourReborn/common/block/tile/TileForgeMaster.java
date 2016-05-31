@@ -104,6 +104,11 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		width = maxZ - minZ + 1 ;
 		height = maxY - position.getY() +  1 ;
 		
+		if (wasActive) {
+			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+			this.markDirty() ;
+		}
+		
 		if (!IS_SQUARE && length == width) {
 			resetStructure () ;
 			return ;
@@ -128,11 +133,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		if (height != FORGE_HEIGHT) {
 			resetStructure () ;
 			return ;
-		}
-		
-		if (wasActive) {
-			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
-			this.markDirty() ;
 		}
 		
 		setupStructure () ;
@@ -170,6 +170,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	public void reset () {
 		super.reset() ;
 		
+		isActive = false ;
+		
 		BlockPos position = this.getPos() ;
 		
 		minX = position.getX() ;
@@ -183,7 +185,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 
 	@Override
 	protected void resetStructure() {
-		isActive = false ;
 		
 		for (int x = minX; x <= maxX; x ++) {
 			for (int y = minY; y <= maxY ; y ++) {
@@ -221,7 +222,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 					TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
 					
 					tile.setMasterCoords(position) ;
-					tile.setHasMaster(true) ;
 				}
 			}
 		}

@@ -90,11 +90,7 @@ public abstract class TileMultiBlock extends TileMod {
     	
     	return (TileForgeMaster) worldObj.getTileEntity(new BlockPos (masterX, masterY, masterZ)) ;
     }
-
-    public void setHasMaster(boolean bool) {
-        hasMaster = bool;
-    }
-
+    
     public void setIsMaster(boolean bool) {
         isMaster = bool;
     }
@@ -103,6 +99,8 @@ public abstract class TileMultiBlock extends TileMod {
         masterX = x;
         masterY = y;
         masterZ = z;
+        
+        hasMaster = true ;
     }
     
     public void setMasterCoords (BlockPos pos) {

@@ -37,6 +37,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+			
 		TileEntity entity = worldIn.getTileEntity(pos) ;
 		
 		if (entity instanceof TileForgeComponent) {
@@ -57,7 +58,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 			if (entity == null) continue ;
 			
 			if (entity instanceof TileForgeComponent) {
-				((TileForgeComponent) entity).checkMultiBlockForm() ;
+				((TileForgeComponent) entity).notifyMaster() ;
 				break ;
 			} else if (entity instanceof TileForgeMaster) {
 				((TileForgeMaster) entity).checkMultiBlockForm() ;
