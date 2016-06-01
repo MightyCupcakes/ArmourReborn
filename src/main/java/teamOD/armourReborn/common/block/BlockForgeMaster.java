@@ -2,6 +2,8 @@ package teamOD.armourReborn.common.block;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -12,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.ArmourReborn;
@@ -22,9 +25,13 @@ import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
 
 public class BlockForgeMaster extends BlockContainer {
+	
+	public static PropertyBool ACTIVE = PropertyBool.create("active");
 
 	protected BlockForgeMaster() {
 		super(Material.iron);
+		
+		this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
 		
 		setUnlocalizedName (LibItemNames.FORGE_CONTROLLER) ;
 		
@@ -45,14 +52,23 @@ public class BlockForgeMaster extends BlockContainer {
 		return new TileForgeMaster () ;
 	}
 	
-	public boolean isStructureActive (World world, BlockPos pos) {
-		TileEntity entity = world.getTileEntity(pos) ;
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return state.withProperty(ACTIVE, isStructureActive(worldIn, pos));
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer (this, ACTIVE) ;
+	}
+	
+	public boolean isStructureActive (IBlockAccess world, BlockPos pos) {
+		return getTileEntity(world, pos).isActive() ;
 		
-		if (entity instanceof TileForgeMaster) {
-			return ( (TileForgeMaster) entity).isActive() ;
-		}
-		
-		return false ;
+	}
+	
+	private TileForgeMaster getTileEntity (IBlockAccess world, BlockPos pos) {
+		return (TileForgeMaster) world.getTileEntity(pos) ;
 	}
 	
 	@Override
@@ -64,8 +80,8 @@ public class BlockForgeMaster extends BlockContainer {
 		
 		// TODO: Handle GUI HERE
 		
-		if (isStructureActive (world, pos) ) {
-			LibUtil.LogToFML(1, "ForgeMaster inventory opened", "");
+		if (isStructureActive (world, pos) && !world.isRemote) {
+			LibUtil.LogToFML(1, "Inventory opened", "");
 		}
 		
 		return true ;

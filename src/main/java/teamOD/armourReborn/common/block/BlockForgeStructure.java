@@ -44,7 +44,6 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 			( (TileForgeComponent) entity).notifyMaster() ;
 		}
 		
-		worldIn.removeTileEntity(pos) ;
 		super.breakBlock(worldIn, pos, state) ;
 		
 	}

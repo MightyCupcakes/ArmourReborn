@@ -25,7 +25,7 @@ import net.minecraft.util.text.TextComponentString;
 public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
 	public static final String NAME = "forgeInventory" ;
-	public static final int STACKSIZE = 1 ;
+	public static final int STACKSIZE = 8 ;
 	public static final int INVENTORY_SIZE = 4 ;
 	
 	public static final int FORGE_LENGTH = 3 ;
@@ -76,7 +76,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		BlockPos position = this.getPos() ;
 		IBlockState state = worldObj.getBlockState(getPos()) ;
 		
-		HashSet <Long> visited = new HashSet ( (int) (TOTAL_BLOCKS/0.75) + 1) ;
+		HashSet <Long> visited = new HashSet <Long>( (int) (TOTAL_BLOCKS/0.75) + 1) ;
 		ArrayDeque<BlockPos> queue = Queues.newArrayDeque() ;
 		
 		queue.offer(position) ;
