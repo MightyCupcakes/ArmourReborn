@@ -1,10 +1,10 @@
 package teamOD.armourReborn.common.block.tile;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Queues ;
 
 import java.util.ArrayDeque;
+import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
@@ -58,10 +58,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		} else {
 			
 			if (tick == 0) {
-				if (++ timeElapsed >= 5) {
-					timeElapsed = 0 ;
-					checkMultiBlockForm () ;
-				}
+				checkMultiBlockForm () ;
 			}
 		}
 		
@@ -74,14 +71,12 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		int length, width, height ;
 		boolean wasActive = isActive () ;
 		
+		this.reset () ;
+		
 		BlockPos position = this.getPos() ;
 		IBlockState state = worldObj.getBlockState(getPos()) ;
 		
-		TileEntity entity ;
-		
-		this.reset() ;
-		
-		HashMultiset <Long> visited = HashMultiset.create() ;
+		HashSet <Long> visited = new HashSet ( (int) (TOTAL_BLOCKS/0.75) + 1) ;
 		ArrayDeque<BlockPos> queue = Queues.newArrayDeque() ;
 		
 		queue.offer(position) ;
@@ -111,6 +106,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			this.markDirty() ;
 		}
 		
+		// TODO: Clean up this section...
 		if (!IS_SQUARE && length == width) {
 			resetStructure () ;
 			return ;
@@ -137,7 +133,9 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			return ;
 		}
 		
-		setupStructure () ;
+		if (!wasActive) {
+			setupStructure () ;
+		}
 		
 	}
 	
@@ -172,8 +170,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	public void reset () {
 		super.reset() ;
 		
-		isActive = false ;
-		
 		BlockPos position = this.getPos() ;
 		
 		minX = position.getX() ;
@@ -187,6 +183,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 
 	@Override
 	protected void resetStructure() {
+		
+		isActive = false ;
 		
 		for (int x = minX; x <= maxX; x ++) {
 			for (int y = minY; y <= maxY ; y ++) {
@@ -238,8 +236,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		super.onDataPacket(net, packet) ;
 		
 		boolean wasActive = this.isActive() ;
-		
-		readFromNBT (packet.getNbtCompound()) ;
 		
 		if (isActive != wasActive) {
 			IBlockState state = worldObj.getBlockState(getPos()) ;
