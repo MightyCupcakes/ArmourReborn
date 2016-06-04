@@ -1,15 +1,43 @@
 {
 	"forge_marker": 1,
 	"defaults": {
-		"model": "cube_all",
+		"model": "orientable",
 		"transform": "forge:default-block",
 		"textures": {
-			"all":"armourreborn:blocks/forgeController"
+			"particle": "#side",
+			"side": "#top",
+			"top":"armourreborn:blocks/multiblock/forgeback_1_2",
+			"front" : "armourreborn:blocks/forgeController",
+			"back": "armourreborn:blocks/multiblock/forgeback_1_2"
 		}
 	},
 
 	"variants": {
 		"normal": [{}],
-		"inventory": [{}]
+		"active": {
+			"true": { 
+				"textures": {
+					"front": "armourreborn:blocks/multiblock/forgefront_1_2"
+				}
+			},
+			"false": {
+				"textures" : {
+					"front" : "armourreborn:blocks/forgeController"
+				}
+			}
+		},
+		"inventory": [{}],
+		"facing": {
+            "north": { },
+            "east": {
+                "y": 90
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            }
+        }
 	}
 }

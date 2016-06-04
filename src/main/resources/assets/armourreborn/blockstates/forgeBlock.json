@@ -1,0 +1,62 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "orientable",
+		"transform": "forge:default-block",
+		"textures": {
+			"particle": "#side",
+			"side": "#top",
+			"top":"armourreborn:blocks/forgeBlock",
+			"front": "#top"
+		}
+	},
+
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}],
+		"facing": {
+            "north": {},
+            "east": {
+                "y": 90
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            }
+        },
+        "block" : {
+	    	"none": {
+	    	},
+	    	"btmleft": { "textures": {
+	    		"side": "armourreborn:blocks/multiblock/forgeback_1_2",
+	    		"front": "armourreborn:blocks/multiblock/forgefront_1_1"
+	    		}
+	    	},
+	    	"btmright":{ "textures": {
+	    		"side": "armourreborn:blocks/multiblock/forgeback_1_2",
+	    		"front": "armourreborn:blocks/multiblock/forgefront_1_3"
+	    		}
+	    	},
+	    	"topleft":{ "textures": {
+	    		"side": "armourreborn:blocks/multiblock/forgeback_1_2",
+	    		"front": "armourreborn:blocks/multiblock/forgefront_2_1",
+	    		"top":"armourreborn:blocks/multiblock/forgetop_1"
+	    		}
+	    	},
+	    	"center":{ "textures": {
+	    		"side": "armourreborn:blocks/multiblock/forgeback_1_2",
+	    		"front": "armourreborn:blocks/multiblock/forgefront_2_2",
+	    		"top":"armourreborn:blocks/multiblock/forgetop_2"
+	    		}
+	    	},
+	    	"topright":{ "textures": {
+	    		"side": "armourreborn:blocks/multiblock/forgeback_1_2",
+	    		"front": "armourreborn:blocks/multiblock/forgefront_2_3",
+	    		"top":"armourreborn:blocks/multiblock/forgetop_3"
+	    		}
+	    	}
+    	}
+	}
+}

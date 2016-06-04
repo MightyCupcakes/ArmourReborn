@@ -189,10 +189,12 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		for (int x = minX; x <= maxX; x ++) {
 			for (int y = minY; y <= maxY ; y ++) {
 				for (int z = minZ; z <= maxZ; z ++) {
-					TileEntity entity = worldObj.getTileEntity(new BlockPos (x, y, z)) ;
+					BlockPos currentPos = new BlockPos (x, y, z) ;
+					TileEntity entity = worldObj.getTileEntity(currentPos) ;
 					
 					if (entity != null && entity instanceof TileForgeComponent) {					
 						( (TileForgeComponent) entity).reset() ;
+						worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
 					}
 				}
 			}
@@ -222,9 +224,12 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 					TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
 					
 					tile.setMasterCoords(position) ;
+					worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
 				}
 			}
 		}
+		
+		worldObj.notifyNeighborsOfStateChange(getPos(), this.blockType);
 	}
 	
 	public boolean isActive () {

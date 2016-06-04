@@ -3,8 +3,10 @@ package teamOD.armourReborn.common.block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -26,7 +28,8 @@ import teamOD.armourReborn.common.lib.LibUtil;
 
 public class BlockForgeMaster extends BlockContainer {
 	
-	public static PropertyBool ACTIVE = PropertyBool.create("active");
+	public static PropertyBool ACTIVE = PropertyBool.create("active") ;
+	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 
 	protected BlockForgeMaster() {
 		super(Material.iron);
@@ -59,7 +62,7 @@ public class BlockForgeMaster extends BlockContainer {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer (this, ACTIVE) ;
+		return new BlockStateContainer (this, ACTIVE, FACING) ;
 	}
 	
 	public boolean isStructureActive (IBlockAccess world, BlockPos pos) {
@@ -69,6 +72,11 @@ public class BlockForgeMaster extends BlockContainer {
 	
 	private TileForgeMaster getTileEntity (IBlockAccess world, BlockPos pos) {
 		return (TileForgeMaster) world.getTileEntity(pos) ;
+	}
+	
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
 	@Override
@@ -85,6 +93,16 @@ public class BlockForgeMaster extends BlockContainer {
 		}
 		
 		return true ;
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta (int meta) {
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta)) ;
+	}
+	
+	@Override
+	public int getMetaFromState (IBlockState state) {
+		return state.getValue(FACING).getIndex() ;
 	}
 	
 	@Override
