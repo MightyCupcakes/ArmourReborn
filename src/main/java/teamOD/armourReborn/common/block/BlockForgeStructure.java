@@ -1,5 +1,9 @@
 package teamOD.armourReborn.common.block;
 
+import com.google.common.collect.ImmutableSet;
+
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -26,6 +30,8 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	
 	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 	public static PropertyEnum BLOCK = PropertyEnum.create("block", EnumBlockType.class) ;
+	
+	private static final ImmutableSet<EnumFacing> invert_directions = ImmutableSet.of(EnumFacing.NORTH, EnumFacing.EAST) ;
 
 	public BlockForgeStructure(Material par2Material, String name) {
 		super(par2Material, name);
@@ -33,8 +39,6 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		this.isBlockContainer = true ; // This is a Tile entity
 		this.setHardness(4F) ;
 		this.setResistance(20F) ;
-		
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		
 		GameRegistry.registerTileEntity(TileForgeComponent.class, "forgeComponent") ;
 	}
@@ -102,6 +106,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		this.getDefaultState().withProperty(BLOCK, makeConnectedTextures (worldIn, pos));
+
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
@@ -118,7 +123,9 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		
 		TileForgeComponent tile = (TileForgeComponent) world.getTileEntity(pos) ;
 		
-		if (tile != null && !tile.hasMaster()) {
+		if (tile == null) {
+			return EnumBlockType.NONE ;
+		} else if (!tile.hasMaster()) {
 			return EnumBlockType.NONE ;
 		}
 		
@@ -138,13 +145,15 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 			
 			i ++ ;
 		}
+		
+		EnumFacing state = world.getBlockState(pos).getValue(FACING) ;
 
 		if (!neighbors[0]) {
 			if (neighbors[3] || neighbors[5]) {
-				return EnumBlockType.BTMLEFT;
+				return (invert_directions.contains(state)) ? EnumBlockType.BTMRIGHT : EnumBlockType.BTMLEFT ;
 			}
 			else if (neighbors[2] || neighbors[4]) {
-				return EnumBlockType.BTMRIGHT ;
+				return (invert_directions.contains(state)) ? EnumBlockType.BTMLEFT : EnumBlockType.BTMRIGHT ;
 			}
 			else {
 				return EnumBlockType.NONE ;
@@ -154,10 +163,10 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 				return EnumBlockType.CENTER ;
 			}
 			else if (neighbors[3] || neighbors[5]) {
-				return EnumBlockType.TOPLEFT;
+				return (invert_directions.contains(state)) ? EnumBlockType.TOPRIGHT : EnumBlockType.TOPLEFT ;
 			}
 			else if (neighbors[2] || neighbors[4]) {
-				return EnumBlockType.TOPRIGHT ; 
+				return (invert_directions.contains(state)) ? EnumBlockType.TOPLEFT : EnumBlockType.TOPRIGHT ;
 			}
 			else {
 				return EnumBlockType.NONE ;

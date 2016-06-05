@@ -21,6 +21,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import teamOD.armourReborn.common.block.BlockForgeMaster;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	
@@ -101,7 +102,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		width = maxZ - minZ + 1 ;
 		height = maxY - position.getY() +  1 ;
 		
-		if (wasActive) {
+		if (wasActive != isActive) {
 			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
 			this.markDirty() ;
 		}
@@ -133,9 +134,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			return ;
 		}
 		
-		if (!wasActive) {
-			setupStructure () ;
-		}
+		setupStructure () ;
 		
 	}
 	
@@ -195,6 +194,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 					if (entity != null && entity instanceof TileForgeComponent) {					
 						( (TileForgeComponent) entity).reset() ;
 						worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
+						entity.markDirty() ;
 					}
 				}
 			}

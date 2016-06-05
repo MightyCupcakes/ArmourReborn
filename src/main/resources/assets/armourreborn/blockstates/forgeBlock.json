@@ -15,7 +15,7 @@
 		"normal": [{}],
 		"inventory": [{}],
 		"facing": {
-            "north": {},
+            "north": { 	},
             "east": {
                 "y": 90
             },
