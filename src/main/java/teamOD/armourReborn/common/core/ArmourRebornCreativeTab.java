@@ -38,6 +38,7 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 		addItem( Item.getItemFromBlock(ModFluids.steel.getBlock()) ) ;
 		addItem( Item.getItemFromBlock(ModFluids.iron.getBlock()) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeMaster) ) ;
+		addItem( Item.getItemFromBlock(ModBlocks.forgeBlocks) ) ;
 		
 	}
 	

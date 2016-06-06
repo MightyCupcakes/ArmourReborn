@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -14,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -108,5 +111,37 @@ public class BlockForgeMaster extends BlockContainer {
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
+	}
+	
+	@Override
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		if (!this.isStructureActive(world, pos)) {
+			return ;
+		}
+		
+		EnumFacing facing = state.getValue(FACING) ;
+		
+		double x = pos.getX() + 0.5D ;
+		double y = pos.getY() + 0.5D ;
+		double z = pos.getZ() + 0.5D ;
+		
+		double offset = 0.55D ;
+		
+		switch (facing) {
+		case EAST:
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + offset, y, z, 0D, 0D, 0D) ;
+			break ;
+		case WEST:
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x - offset, y, z, 0D, 0D, 0D) ;
+			break ;
+		case NORTH:
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z - offset, 0D, 0D, 0D) ;
+			break ;
+		case SOUTH:
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z + offset, 0D, 0D, 0D) ;
+			break ;
+		default:
+			break ;
+		}
 	}
 }
