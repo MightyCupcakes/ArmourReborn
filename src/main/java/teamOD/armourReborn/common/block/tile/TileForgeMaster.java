@@ -30,13 +30,14 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 	public static final int INVENTORY_SIZE = 4 ;
 	
 	public static final int FORGE_LENGTH = 3 ;
-	public static final int FORGE_WIDTH = 1 ;
+	public static final int FORGE_WIDTH = 2 ;
 	public static final int FORGE_HEIGHT = 2 ;
 	public static final int TOTAL_BLOCKS = FORGE_LENGTH * FORGE_WIDTH * FORGE_HEIGHT ;
 	public static final boolean IS_SQUARE = false ;
 	
 	private boolean isActive = false ;
 	private ItemStack[] inventory ;
+	private TileHeatingComponent heater ;
 	private int tick, timeElapsed ;
 	
 	private int minX, minY, minZ ;
@@ -61,6 +62,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			if (tick == 0) {
 				checkMultiBlockForm () ;
 			}
+			
+			heater.heatItems() ;
 		}
 		
 		tick = (tick + 1) % 20 ;
@@ -132,6 +135,13 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		if (height != FORGE_HEIGHT) {
 			resetStructure () ;
 			return ;
+		}
+		
+		if ( !(worldObj.getTileEntity( position.offset( state.getValue( BlockForgeMaster.FACING).getOpposite() )) instanceof TileHeatingComponent) ) {
+			resetStructure () ;
+			return ;
+		} else {
+			heater = (TileHeatingComponent) worldObj.getTileEntity(position.offset(state.getValue( BlockForgeMaster.FACING).getOpposite())) ;
 		}
 		
 		setupStructure () ;
@@ -313,6 +323,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 		if (index < 0 || index >= inventory.length) return ;
 		
 		inventory[index] = stack ;
+		heater.updateItemHeatReq(index, stack) ;
 		
 		if (stack != null && stack.stackSize > getInventoryStackLimit() ) {
 			stack.stackSize = getInventoryStackLimit () ;
