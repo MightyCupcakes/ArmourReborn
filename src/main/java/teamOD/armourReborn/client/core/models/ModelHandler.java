@@ -33,6 +33,7 @@ public class ModelHandler {
 	private static void registerBlocks () {
 		registerBlockModels (ModBlocks.forgeMaster) ;
 		registerBlockModels (ModBlocks.forgeBlocks) ;
+		registerBlockModels (ModBlocks.forgeHeater) ;
 	}
 	
 	private static void registerFluids () {

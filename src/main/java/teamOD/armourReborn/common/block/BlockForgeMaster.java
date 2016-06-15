@@ -59,6 +59,13 @@ public class BlockForgeMaster extends BlockContainer {
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		
+		if (isStructureActive(worldIn, pos)) {
+			this.setLightLevel(10F) ;
+		} else {
+			this.setLightLevel(0F) ;
+		}
+		
 		return state.withProperty(ACTIVE, isStructureActive(worldIn, pos));
 	}
 	
@@ -121,23 +128,28 @@ public class BlockForgeMaster extends BlockContainer {
 		EnumFacing facing = state.getValue(FACING) ;
 		
 		double x = pos.getX() + 0.5D ;
-		double y = pos.getY() + 0.5D ;
+		double y = pos.getY() + 0.5D + (rand.nextFloat() * 0.3D);
 		double z = pos.getZ() + 0.5D ;
 		
 		double offset = 0.55D ;
+		double random = rand.nextDouble() * 0.5D ;
 		
 		switch (facing) {
 		case EAST:
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + offset, y, z, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + offset, y, z + random, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.FLAME, x + offset, y, z + random, 0D, 0D, 0D) ;
 			break ;
 		case WEST:
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x - offset, y, z, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x - offset, y, z + random, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.FLAME, x - offset, y, z + random, 0D, 0D, 0D) ;
 			break ;
 		case NORTH:
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z - offset, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + random, y, z - offset, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.FLAME, x + random, y, z - offset, 0D, 0D, 0D) ;
 			break ;
 		case SOUTH:
-			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z + offset, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + random, y, z + offset, 0D, 0D, 0D) ;
+			world.spawnParticle(EnumParticleTypes.FLAME, x + random, y, z + offset, 0D, 0D, 0D) ;
 			break ;
 		default:
 			break ;
