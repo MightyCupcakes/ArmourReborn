@@ -122,12 +122,19 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		int i = 0 ;
 		
 		TileForgeComponent tile = (TileForgeComponent) world.getTileEntity(pos) ;
+		EnumFacing state = world.getBlockState(pos).getValue(FACING) ;
 		
 		if (tile == null || !tile.hasMaster()) {
 			return EnumBlockType.NONE ;
 		}
 		
 		for (EnumFacing direction: EnumFacing.VALUES) {
+			
+			if (direction == state.getOpposite()) {
+				neighbors[i] = false ;
+				continue ;
+			}
+			
 			if (world.getTileEntity(pos.offset(direction)) instanceof TileForgeMaster) {
 				//neighbors[0] = false ;
 				neighbors[i] = true ;
@@ -143,10 +150,9 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 			
 			i ++ ;
 		}
-		
-		EnumFacing state = world.getBlockState(pos).getValue(FACING) ;
 
 		if (!neighbors[0]) {
+			
 			if (neighbors[3] || neighbors[5]) {
 				return (invertFacing.contains(state)) ? EnumBlockType.BTMRIGHT : EnumBlockType.BTMLEFT ;
 			}

@@ -2,8 +2,11 @@ package teamOD.armourReborn.client.core.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import teamOD.armourReborn.common.block.tile.TileForgeMaster;
 
+@SideOnly (Side.CLIENT)
 public class ForgeGui extends GuiContainer {
 	
 	private TileForgeMaster forge ;
@@ -16,7 +19,7 @@ public class ForgeGui extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		// TODO Auto-generated method stub
+		this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY) ;
 		
 	}
 

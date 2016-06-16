@@ -69,6 +69,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 				checkMultiBlockForm () ;
 			}
 			
+			if (heater == null) isActive = false ;
+			
 			heater.heatItems() ;
 			heater.createAlloys() ;
 		}
