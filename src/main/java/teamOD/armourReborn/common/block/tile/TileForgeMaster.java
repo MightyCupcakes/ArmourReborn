@@ -25,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
@@ -65,11 +66,9 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 			}
 		} else {
 			
-			if (tick == 0) {
+			if (tick == 0 || heater == null) {
 				checkMultiBlockForm () ;
 			}
-			
-			if (heater == null) isActive = false ;
 			
 			heater.heatItems() ;
 			heater.createAlloys() ;
@@ -274,8 +273,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 
 	@Override
 	public GuiContainer createGui(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ForgeGui (createContainer(inventoryPlayer, world, pos), this) ;
 	}
 
 	// =================================================================================== |

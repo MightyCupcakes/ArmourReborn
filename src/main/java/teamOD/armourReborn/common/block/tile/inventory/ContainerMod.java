@@ -26,7 +26,7 @@ public class ContainerMod <T extends TileEntity & IInventory> extends Container 
 
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		return false;
+		return true;
 	}
 
 }

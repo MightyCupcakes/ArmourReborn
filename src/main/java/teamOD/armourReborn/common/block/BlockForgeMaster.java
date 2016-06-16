@@ -99,7 +99,7 @@ public class BlockForgeMaster extends BlockContainer {
 		if (isStructureActive (world, pos) && !world.isRemote) {
 			LibUtil.LogToFML(1, "Inventory opened", "") ;
 			
-			// player.openGui(ArmourReborn.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ArmourReborn.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		
 		return true ;

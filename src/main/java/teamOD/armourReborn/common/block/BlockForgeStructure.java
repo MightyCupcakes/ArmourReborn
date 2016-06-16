@@ -122,7 +122,14 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		int i = 0 ;
 		
 		TileForgeComponent tile = (TileForgeComponent) world.getTileEntity(pos) ;
-		EnumFacing state = world.getBlockState(pos).getValue(FACING) ;
+		
+		EnumFacing state ;
+		
+		try {
+			 state = world.getBlockState(pos).getValue(FACING) ;
+		} catch (IllegalArgumentException e) {
+			return EnumBlockType.NONE ;
+		}
 		
 		if (tile == null || !tile.hasMaster()) {
 			return EnumBlockType.NONE ;
