@@ -268,7 +268,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	
 	@Override
 	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		return new ContainerMod <TileForgeMaster> (this) ;
+		return new ContainerMod <TileForgeMaster> (this, inventoryPlayer) ;
 	}
 
 	@Override
