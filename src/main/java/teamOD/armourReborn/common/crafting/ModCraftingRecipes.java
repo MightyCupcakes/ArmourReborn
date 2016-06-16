@@ -22,6 +22,6 @@ public final class ModCraftingRecipes {
 	}
 	
 	public static void addOreDictMeltingRecipes (Fluid fluid, String name) {
-		OreDictionary.getOres(name) ;
+		// OreDictionary.getOres(name) ;
 	}
 }

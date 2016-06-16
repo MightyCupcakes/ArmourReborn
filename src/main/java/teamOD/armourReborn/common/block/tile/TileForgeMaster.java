@@ -26,6 +26,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
+import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
@@ -266,8 +267,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	
 	@Override
 	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContainerMod <TileForgeMaster> (this) ;
 	}
 
 	@Override
