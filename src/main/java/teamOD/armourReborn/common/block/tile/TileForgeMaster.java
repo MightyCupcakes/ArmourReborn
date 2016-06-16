@@ -8,8 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,9 +24,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
+import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 
-public class TileForgeMaster extends TileMultiBlock implements IInventory {
+public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
 	
 	public static final String NAME = "forgeInventory" ;
 	public static final int STACKSIZE = 8 ;
@@ -64,6 +69,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			}
 			
 			heater.heatItems() ;
+			heater.createAlloys() ;
 		}
 		
 		tick = (tick + 1) % 20 ;
@@ -256,6 +262,18 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory {
 			IBlockState state = worldObj.getBlockState(getPos()) ;
 			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
 		}
+	}
+	
+	@Override
+	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GuiContainer createGui(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// =================================================================================== |

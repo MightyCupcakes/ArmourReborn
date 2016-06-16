@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import teamOD.armourReborn.common.core.GuiHandler;
 import teamOD.armourReborn.common.core.proxy.CommonProxy;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.leveling.LevelingEventHandler;
@@ -29,6 +31,8 @@ public class ArmourReborn {
 	@SidedProxy(serverSide = LibMisc.PROXY_COMMON, clientSide = LibMisc.PROXY_CLIENT) 
 	public static CommonProxy proxy ;
 	
+	public static GuiHandler guiHandler = new GuiHandler() ;
+	
 	static {
 		ModFluids.registerBucket() ;
 	}
@@ -38,6 +42,7 @@ public class ArmourReborn {
 		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
 		
 		MinecraftForge.EVENT_BUS.register(this);
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 		
 		proxy.preInit(event) ;
 	}

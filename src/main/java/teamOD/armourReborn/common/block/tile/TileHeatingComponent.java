@@ -65,6 +65,10 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		if (hasHeated) consumeFuel () ;
 	}
 	
+	public void createAlloys () {
+		
+	}
+	
 	public void consumeFuel () {
 		FluidStack fluid = tank.getFluid() ;
 		
