@@ -35,7 +35,7 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		internalTemp = 20 ;
 	}
 	
-	public void heatItems () {
+	public void heatItems (InternalForgeTank internalTank) {
 		if (!this.hasMaster()) return ;
 		
 		TileForgeMaster master = this.getMasterBlock() ;
@@ -53,7 +53,7 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 				if (itemTemps[i] >= itemMeltingTemps[i]) {
 					// TODO Melt stuff here according to recipes
 					FluidStack fluid = ModCraftingRecipes.findRecipe(stack) ;
-					itemMelted (i, stack, fluid) ;
+					itemMelted (internalTank, i, stack, fluid) ;
 					
 					itemMeltingTemps[i] = 0 ;
 					itemTemps[i] = 0 ;
@@ -106,10 +106,8 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		}
 	}
 	
-	public void itemMelted (int slot, ItemStack item, FluidStack fluid) {
+	public void itemMelted (InternalForgeTank masterTank, int slot, ItemStack item, FluidStack fluid) {
 		if (!this.hasMaster()) return ;
-		
-		InternalForgeTank masterTank = this.getMasterBlock().getInternalTank() ;
 		
 		if (fluid != null) {
 			int amt = masterTank.fill(fluid, false) ;

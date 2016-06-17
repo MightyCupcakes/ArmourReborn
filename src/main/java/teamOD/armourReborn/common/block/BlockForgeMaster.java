@@ -101,8 +101,18 @@ public class BlockForgeMaster extends BlockContainer {
 			// TODO GUI to display all relevant information
 			LibUtil.LogToFML(1, "Inventory opened", "") ;
 			
-			FluidStack fluid = getTileEntity(world, pos).getHeater().getTankInfo().fluid ;
-			LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature());
+			FluidStack fluid = getTileEntity(world, pos).getHeater().fluid ;
+			LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature()) ;
+			
+			int size = getTileEntity(world, pos).getInternalTank().size() ;
+			String fluids = "" ;
+			
+			for (FluidStack liquid: getTileEntity(world, pos).getInternalTank()) {
+				fluids += liquid.getUnlocalizedName() + ": " + liquid.amount + " mB" ;
+			}
+			
+			LibUtil.LogToFML(1, "INTERNAL TANK: %s", fluids);
+			
 			
 			player.openGui(ArmourReborn.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		}

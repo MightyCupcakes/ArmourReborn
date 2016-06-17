@@ -25,6 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
@@ -73,7 +75,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 				checkMultiBlockForm () ;
 			}
 			
-			heater.heatItems() ;
+			heater.heatItems(internalTank) ;
 			heater.createAlloys() ;
 		}
 		
@@ -279,12 +281,12 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		return new ForgeGui (createContainer(inventoryPlayer, world, pos), this) ;
 	}
 	
-	public InternalForgeTank getInternalTank () {
-		return internalTank ;
+	public List<FluidStack> getInternalTank () {
+		return internalTank.getFluids() ;
 	}
 	
-	public TileHeatingComponent getHeater () {
-		return heater ;
+	public FluidTankInfo getHeater () {
+		return heater.getTankInfo() ;
 	}
 
 	// =================================================================================== |
