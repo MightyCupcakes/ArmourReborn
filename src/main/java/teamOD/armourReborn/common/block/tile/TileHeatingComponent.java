@@ -8,11 +8,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import scala.actors.threadpool.Arrays;
+import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 
 public class TileHeatingComponent extends TileForgeComponent implements IFluidHandler {
 	
 	public static final int CAPACITY = 2000 ;
-	public static final int DRAIN_AMT = 10 ; // mB of fuel consumed per tick 
+	public static final int DRAIN_AMT = 1 ; // fuel consumed per tick
+	public static final int FUEL_MULTIPLIER = 6 ;
 	
 	private int fuelLeft ;
 	private int internalTemp ;
@@ -20,7 +23,7 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	private int[] itemTemps ;
 	private int[] itemMeltingTemps ;
 	
-	public FluidTank tank ;
+	protected FluidTank tank ;
 	
 	public TileHeatingComponent () {
 		this.tank = new FluidTank (CAPACITY) ;
@@ -42,12 +45,14 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 			ItemStack stack = master.getStackInSlot(i) ;
 			
 			if (stack == null) continue ;
-			
+
 			if (itemMeltingTemps[i] == 0) continue ;
 			
-			if (fuelLeft >= 10) {
+			if (fuelLeft > 0) {
 				if (itemTemps[i] >= itemMeltingTemps[i]) {
 					// TODO Melt stuff here according to recipes
+					FluidStack fluid = ModCraftingRecipes.findRecipe(stack) ;
+					itemMelted (stack, fluid) ;
 					
 					itemMeltingTemps[i] = 0 ;
 					hasHeated = true ;
@@ -83,6 +88,23 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	
 	public void updateItemHeatReq (int slot, ItemStack stack) {
 		// TODO get melting temps from recipes
+		
+		if (stack == null) {
+			itemMeltingTemps[slot] = 0 ;
+		
+		} else {
+			FluidStack fluid = ModCraftingRecipes.findRecipe(stack) ;
+			
+			if (fluid != null) {
+				itemMeltingTemps[slot] = fluid.getFluid().getTemperature() ;
+			} else {
+				itemMeltingTemps[slot] = 0 ;
+			}
+		}
+	}
+	
+	public void itemMelted (ItemStack item, FluidStack fluid) {
+		
 	}
 	
 	// Fluid handlers
@@ -92,7 +114,7 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		
 		if (doFill) {
 			internalTemp = resource.getFluid().getTemperature() ;
-			fuelLeft += resource.amount ;
+			fuelLeft += resource.amount * FUEL_MULTIPLIER ;
 		}
 		
 		return amt ;
@@ -124,7 +146,8 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 
 	@Override
 	public boolean canFill(EnumFacing from, Fluid fluid) {
-		return tank.getCapacity() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity()) ;
+		return true ;
+		//return tank.getCapacity() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity()) ;
 	}
 
 	@Override

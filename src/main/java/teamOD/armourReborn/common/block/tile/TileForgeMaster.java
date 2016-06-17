@@ -29,6 +29,7 @@ import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
+import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
 	
@@ -42,8 +43,11 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	public static final int TOTAL_BLOCKS = FORGE_LENGTH * FORGE_WIDTH * FORGE_HEIGHT ;
 	public static final boolean IS_SQUARE = false ;
 	
+	public static final int INTERNAL_CAPACITY = 5000 ;
+	
 	private boolean isActive = false ;
 	private ItemStack[] inventory ;
+	private InternalForgeTank internalTank ;
 	private TileHeatingComponent heater ;
 	private int tick, timeElapsed ;
 	
@@ -53,6 +57,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	public TileForgeMaster () {
 		super ();
 		
+		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
 		
 		this.reset() ;
@@ -415,6 +420,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = new NBTTagList();
 		
+		internalTank.writeToNBT(cmp) ;
+		
 		for (int i = 0; i < inventory.getSizeInventory(); i ++) {
 			if (inventory.getStackInSlot(i) != null) {
 				NBTTagCompound itemTag = new NBTTagCompound () ;
@@ -437,6 +444,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		NBTTagList nbttaglist = cmp.getTagList("inventory" , 0) ;
 		
 		isActive = cmp.getBoolean("active") ;
+		internalTank.readToNBT(cmp) ;
 		
 		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
 			if (inventory.getStackInSlot(i) != null) {
