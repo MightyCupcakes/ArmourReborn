@@ -14,4 +14,25 @@ public final class LibItemStats {
 	public static final int VALUE_INGOT = 144;
 	public static final int VALUE_NUGGET = VALUE_INGOT / 9;
 	public static final int VALUE_BLOCK = VALUE_INGOT * 9;
+	public static final int VALUE_ORE = VALUE_INGOT * 2;
+	
+	public static int getValue (String suffix) {
+		if (suffix.equals("nugget")) {
+			return VALUE_NUGGET ;
+		} 
+		
+		else if (suffix.equals("ingot")) {
+			return VALUE_INGOT ;
+		}
+		
+		else if (suffix.equals("block")) {
+			return VALUE_BLOCK ;
+		}
+		
+		else if (suffix.equals("ore")) {
+			return VALUE_ORE ;
+		}
+		
+		return 0 ;
+	}
 }

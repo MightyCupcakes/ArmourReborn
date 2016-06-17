@@ -27,14 +27,14 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
-import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
+import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
 	
 	public static final String NAME = "forgeInventory" ;
 	public static final int STACKSIZE = 8 ;
-	public static final int INVENTORY_SIZE = 4 ;
+	public static final int INVENTORY_SIZE = 9 ;
 	
 	public static final int FORGE_LENGTH = 3 ;
 	public static final int FORGE_WIDTH = 2 ;
@@ -268,7 +268,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	
 	@Override
 	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		return new ContainerMod <TileForgeMaster> (this, inventoryPlayer) ;
+		return new ContainerForge <TileForgeMaster> (this, inventoryPlayer) ;
 	}
 
 	@Override
