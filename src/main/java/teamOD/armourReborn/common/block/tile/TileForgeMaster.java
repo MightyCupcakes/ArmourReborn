@@ -43,8 +43,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	public static final int TOTAL_BLOCKS = FORGE_LENGTH * FORGE_WIDTH * FORGE_HEIGHT ;
 	public static final boolean IS_SQUARE = false ;
 	
-	public static final int INTERNAL_CAPACITY = 5000 ;
-	
 	private boolean isActive = false ;
 	private ItemStack[] inventory ;
 	private InternalForgeTank internalTank ;
@@ -279,6 +277,14 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	@Override
 	public GuiContainer createGui(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
 		return new ForgeGui (createContainer(inventoryPlayer, world, pos), this) ;
+	}
+	
+	public InternalForgeTank getInternalTank () {
+		return internalTank ;
+	}
+	
+	public TileHeatingComponent getHeater () {
+		return heater ;
 	}
 
 	// =================================================================================== |

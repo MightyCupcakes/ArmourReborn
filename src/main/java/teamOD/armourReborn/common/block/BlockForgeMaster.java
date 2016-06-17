@@ -21,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.ArmourReborn;
 import teamOD.armourReborn.common.block.tile.TileForgeMaster;
@@ -97,7 +98,11 @@ public class BlockForgeMaster extends BlockContainer {
 		}
 		
 		if (isStructureActive (world, pos) && !world.isRemote) {
+			// TODO GUI to display all relevant information
 			LibUtil.LogToFML(1, "Inventory opened", "") ;
+			
+			FluidStack fluid = getTileEntity(world, pos).getHeater().getTankInfo().fluid ;
+			LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature());
 			
 			player.openGui(ArmourReborn.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		}

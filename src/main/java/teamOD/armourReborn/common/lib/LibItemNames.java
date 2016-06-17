@@ -7,8 +7,8 @@ public final class LibItemNames {
 	public static final String MATERIALS = "materials" ;
 	
 	public static final String[] MATERIALS_NAMES = {
-			"steelIngot",
-			"aluminiumIngot"
+			"ingotSteel",
+			"ingotAluminium"
 	} ;
 	
 }

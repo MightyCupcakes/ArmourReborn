@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import scala.actors.threadpool.Arrays;
+import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 
 public class TileHeatingComponent extends TileForgeComponent implements IFluidHandler {
@@ -52,13 +53,15 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 				if (itemTemps[i] >= itemMeltingTemps[i]) {
 					// TODO Melt stuff here according to recipes
 					FluidStack fluid = ModCraftingRecipes.findRecipe(stack) ;
-					itemMelted (stack, fluid) ;
+					itemMelted (i, stack, fluid) ;
 					
 					itemMeltingTemps[i] = 0 ;
+					itemTemps[i] = 0 ;
+					
 					hasHeated = true ;
 				
 				} else {
-					itemTemps[i] += internalTemp / 100 ;
+					itemTemps[i] += internalTemp / 300 ;
 					hasHeated = true ;
 				}
 			} else {
@@ -103,11 +106,29 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		}
 	}
 	
-	public void itemMelted (ItemStack item, FluidStack fluid) {
+	public void itemMelted (int slot, ItemStack item, FluidStack fluid) {
+		if (!this.hasMaster()) return ;
+		
+		InternalForgeTank masterTank = this.getMasterBlock().getInternalTank() ;
+		
+		if (fluid != null) {
+			int amt = masterTank.fill(fluid, false) ;
+			
+			if (amt == fluid.amount) {
+				masterTank.fill(fluid, true) ;
+				getMasterBlock().setInventorySlotContents(slot, null) ;
+				System.out.println("Item Melted, fluid added:" + fluid.getFluid().getUnlocalizedName());
+			}
+		}
 		
 	}
 	
 	// Fluid handlers
+	
+	public FluidTankInfo getTankInfo () {
+		return tank.getInfo() ;
+	}
+	
 	@Override
 	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
 		int amt = tank.fill (resource, doFill) ;
@@ -164,6 +185,8 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
+		tank.writeToNBT(cmp) ;
+		
 		cmp.setInteger("fuel", fuelLeft) ;
 		cmp.setInteger("temp", internalTemp) ;
 		cmp.setIntArray("itemTemps", itemTemps) ;
@@ -172,6 +195,8 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
+		tank.readFromNBT(cmp) ;
+		
 		fuelLeft = cmp.getInteger("fuel") ;
 		internalTemp = cmp.getInteger("temp") ;
 		itemTemps = cmp.getIntArray("itemTemps") ;
