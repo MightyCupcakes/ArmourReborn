@@ -20,4 +20,13 @@ public class BlockMod extends Block {
 		GameRegistry.register(new ItemBlock (this), getRegistryName ()) ;
 		
 	}
+	
+	public BlockMod (String name) {
+		super (Material.rock) ;
+		setUnlocalizedName (name) ;
+		
+		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
+		
+		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+	}
 }

@@ -22,9 +22,4 @@ public class ItemMod extends Item {
 		// If for some reason you don't want to register an item, override this method
 		return true ;
 	}
-	
-	@Override
-	public String getUnlocalizedNameInefficiently (ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibMisc.PREFIX_MOD);
-	}
 }
