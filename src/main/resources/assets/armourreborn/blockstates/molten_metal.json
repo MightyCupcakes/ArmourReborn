@@ -12,6 +12,10 @@
 
         "molten_steel": [{
 	        "custom": {"fluid": "molten_steel"}
+        }],
+
+        "molten_aluminium": [{
+        	"custom": {"fluid": "molten_aluminium"}
         }]
     }
 }

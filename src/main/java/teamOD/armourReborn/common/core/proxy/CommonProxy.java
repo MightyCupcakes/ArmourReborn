@@ -7,6 +7,7 @@ import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.network.PacketHandler;
 
 public class CommonProxy {
 	
@@ -15,6 +16,8 @@ public class CommonProxy {
 		ModItems.init () ;
 		ModFluids.init ();
 		ModCraftingRecipes.init() ;
+		
+		PacketHandler.init(); 
 	}
 	
 	public void init (FMLInitializationEvent event) {

@@ -8,6 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 import teamOD.armourReborn.common.block.tile.TileForgeMaster;
+import teamOD.armourReborn.common.block.tile.network.ForgeFluidUpdatePacket;
+import teamOD.armourReborn.common.network.PacketHandler;
 
 public class InternalForgeTank {
 	
@@ -53,6 +55,7 @@ public class InternalForgeTank {
 		resource.amount = filledAmt ;
 		
 		liquids.add(resource) ;
+		tankChanged ();
 		
 		return filledAmt ;
 	}
@@ -73,11 +76,22 @@ public class InternalForgeTank {
 				
 				resource = resource.copy() ;
 				resource.amount = maxDrained ;
+				tankChanged () ;
 				return resource ;
 			}
 		}
 		
 		return null ;
+	}
+	
+	public void updateFluidsFromPacket (List<FluidStack> fluid) {
+		this.liquids = fluid ;
+	}
+	
+	public void tankChanged () {
+		if (!master.getWorld().isRemote) {
+			PacketHandler.sendToAll(new ForgeFluidUpdatePacket (master.getPos(), liquids));
+		}
 	}
 	
 	public void writeToNBT (NBTTagCompound tag) {

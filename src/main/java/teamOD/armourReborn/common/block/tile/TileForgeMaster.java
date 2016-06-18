@@ -25,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
@@ -32,6 +33,8 @@ import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
+import teamOD.armourReborn.common.block.tile.network.ForgeInventoryUpdatePacket;
+import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
 	
@@ -356,6 +359,10 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		inventory[index] = stack ;
 		heater.updateItemHeatReq(index, stack) ;
 		
+		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
+			PacketHandler.sendToPlayers( (WorldServer) worldObj, getPos(), new ForgeInventoryUpdatePacket (getPos(), stack, index));
+		}
+		
 		if (stack != null && stack.stackSize > getInventoryStackLimit() ) {
 			stack.stackSize = getInventoryStackLimit () ;
 		}
@@ -465,6 +472,10 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 				}
 			}
 		}
+	}
+	
+	public void updateFluidsFromPacket (List<FluidStack> liquids) {
+		internalTank.updateFluidsFromPacket(liquids) ;
 	}
 
 }
