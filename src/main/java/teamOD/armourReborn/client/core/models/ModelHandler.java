@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemNames;
@@ -44,10 +45,18 @@ public class ModelHandler {
 	
 	private static void registerResources () {
 		Item item = MATERIALS ;
-		 for (int i = 0; i < LibItemNames.MATERIALS_NAMES.length; i++) {
+		
+		for (int i = 0; i < LibItemNames.MATERIALS_NAMES.length; i++) {
 			 String name = LibMisc.MOD_ID + ":" + LibItemNames.MATERIALS_NAMES[i];
 			 ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
-		 }
+		}
+		 
+		item = Item.getItemFromBlock(ModBlocks.oresMaterials) ;
+		 
+		for (int i = 0; i < LibItemNames.ORE_MATERIALS_NAMES.length; i ++) {
+			String name = LibMisc.MOD_ID + ":" + LibItemNames.ORE_MATERIALS_NAMES[i];
+			ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));	
+		}
 	}
 	
 	public static void registerItemModel (Item item, int meta) {

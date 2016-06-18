@@ -12,4 +12,9 @@ public final class LibItemNames {
 			"ingotAluminium"
 	} ;
 	
+	public static final String[] ORE_MATERIALS_NAMES = {
+			"oreAluminium",
+			"oreCopper"
+	} ;
+	
 }

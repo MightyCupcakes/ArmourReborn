@@ -13,8 +13,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.item.ItemBlockWithMeta;
+import teamOD.armourReborn.common.lib.LibMisc;
 
 public class BlockMaterial extends BlockMod {
 	
@@ -22,7 +24,7 @@ public class BlockMaterial extends BlockMod {
 	private Ores[] values ;
 	
 	public BlockMaterial(String name) {
-		super(name);
+		super(Material.rock, name);
 		
 		this.setHarvestLevel("pickaxe", 2);
         this.setHardness(10f);
@@ -30,7 +32,13 @@ public class BlockMaterial extends BlockMod {
         
         values = Ores.class.getEnumConstants() ;
         
+        GameRegistry.register (this, new ResourceLocation(LibMisc.MOD_ID, name));
         GameRegistry.register (new ItemBlockWithMeta(this), this.getRegistryName()) ;
+	}
+	
+	@Override
+	protected boolean shouldRegister () {
+		return false ;
 	}
 	
 	@Override

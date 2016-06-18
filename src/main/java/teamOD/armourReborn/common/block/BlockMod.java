@@ -16,17 +16,15 @@ public class BlockMod extends Block {
 		
 		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
 		
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(new ItemBlock (this), getRegistryName ()) ;
+		if (shouldRegister ()) {
+			GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+			GameRegistry.register(new ItemBlock (this), getRegistryName ()) ;
+		}
 		
 	}
 	
-	public BlockMod (String name) {
-		super (Material.rock) ;
-		setUnlocalizedName (name) ;
-		
-		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
-		
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+	protected boolean shouldRegister () {
+		// If for some reason you don't want to register an item, override this method
+		return true ;
 	}
 }

@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.block;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.lib.LibItemNames;
 
 public final class ModBlocks {
@@ -13,5 +15,13 @@ public final class ModBlocks {
 		forgeBlocks = new BlockForgeStructure (LibItemNames.FORGE_BLOCK) ;
 		forgeHeater = new BlockForgeHeater (LibItemNames.FORGE_HEATER) ;
 		oresMaterials = new BlockMaterial (LibItemNames.oreMATERIALS) ;
+		
+		registerOreDict () ;
+	}
+	
+	private static void registerOreDict () {
+		for (int i = 0; i < LibItemNames.ORE_MATERIALS_NAMES.length; i ++) {
+			OreDictionary.registerOre (LibItemNames.ORE_MATERIALS_NAMES[0], new ItemStack (oresMaterials, 1, i) ) ;
+		}
 	}
 }
