@@ -10,7 +10,9 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
+import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
+import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileHeatingComponent extends TileForgeComponent implements IFluidHandler {
 	
@@ -81,11 +83,20 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 		FluidStack fluid = tank.getFluid() ;
 		
 		if (fluid != null) {
-			FluidStack drained = tank.drain(DRAIN_AMT, false) ;
+			int amt = tank.getFluidAmount() ;
 			
-			if (drained.amount == DRAIN_AMT) {
-				tank.drain(DRAIN_AMT, true) ;
+			if (amt > (fuelLeft/FUEL_MULTIPLIER) ){
+				int drainAmt = amt - (fuelLeft/FUEL_MULTIPLIER) ;
+				
+				FluidStack drained = tank.drain(drainAmt, false) ;
+				
+				if (drained.amount == drainAmt) {
+					tank.drain(drainAmt, true) ;
+					PacketHandler.sendToAll(new ForgeFuelUpdatePacket (getPos(), tank.getFluid()));
+				}
 			}
+			
+			fuelLeft -= DRAIN_AMT ;
 		}
 	}
 	
@@ -125,6 +136,10 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	
 	public FluidTankInfo getTankInfo () {
 		return tank.getInfo() ;
+	}
+	
+	public void setFuelStack (FluidStack stack) {
+		tank.setFluid(stack) ;
 	}
 	
 	@Override

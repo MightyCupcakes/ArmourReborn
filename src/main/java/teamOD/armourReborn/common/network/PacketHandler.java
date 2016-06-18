@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import teamOD.armourReborn.common.block.tile.network.ForgeFluidUpdatePacket;
+import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
 import teamOD.armourReborn.common.block.tile.network.ForgeInventoryUpdatePacket;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -24,7 +25,8 @@ public class PacketHandler {
 	
 	public static void init () {
 		INSTANCE.registerClient (ForgeFluidUpdatePacket.class) ;
-		INSTANCE.registerClient(ForgeInventoryUpdatePacket.class);
+		INSTANCE.registerClient(ForgeInventoryUpdatePacket.class) ;
+		INSTANCE.registerClient(ForgeFuelUpdatePacket.class) ;
 	}
 	
 	public static void sendToAll (PacketReborn packet) {
