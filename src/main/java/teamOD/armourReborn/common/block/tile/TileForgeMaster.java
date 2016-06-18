@@ -154,6 +154,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		}
 		
 		if ( !(worldObj.getTileEntity( position.offset( state.getValue( BlockForgeMaster.FACING).getOpposite() )) instanceof TileHeatingComponent) ) {
+			heater = null ;
+			
 			resetStructure () ;
 			return ;
 		} else {

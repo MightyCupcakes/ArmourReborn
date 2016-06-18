@@ -1,9 +1,12 @@
 package teamOD.armourReborn.common.block.tile;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -15,6 +18,9 @@ import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileHeatingComponent extends TileForgeComponent implements IFluidHandler {
+	
+	// List of allowed fuels.
+	public static final ImmutableList<Fluid> ALLOWED_FUEL = ImmutableList.of (FluidRegistry.LAVA) ;
 	
 	public static final int CAPACITY = 2000 ;
 	public static final int DRAIN_AMT = 1 ; // fuel consumed per tick
@@ -171,7 +177,7 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
 		FluidStack amt = tank.drain(maxDrain, doDrain) ;
 		
-		if (doDrain) fuelLeft -= maxDrain ;
+		if (doDrain) fuelLeft -= (maxDrain * FUEL_MULTIPLIER) ;
 		
 		if (fuelLeft < 0) fuelLeft = 0 ;
 		
@@ -180,8 +186,17 @@ public class TileHeatingComponent extends TileForgeComponent implements IFluidHa
 
 	@Override
 	public boolean canFill(EnumFacing from, Fluid fluid) {
-		return true ;
-		//return tank.getCapacity() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity()) ;
+		
+		if (tank.getFluid() != null && tank.getFluid().getFluid() == fluid) return true ;
+		
+		for (Fluid liquid: ALLOWED_FUEL) {
+			
+			if (liquid == fluid) {
+				return true ;
+			}
+		}
+		
+		return false ;
 	}
 
 	@Override

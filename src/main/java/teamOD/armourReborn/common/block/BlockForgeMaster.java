@@ -102,7 +102,9 @@ public class BlockForgeMaster extends BlockContainer {
 			LibUtil.LogToFML(1, "Inventory opened", "") ;
 			
 			FluidStack fluid = getTileEntity(world, pos).getHeater().fluid ;
-			LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature()) ;
+			if (fluid != null) {
+				LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature()) ;
+			}
 			
 			int size = getTileEntity(world, pos).getInternalTank().size() ;
 			String fluids = "" ;
