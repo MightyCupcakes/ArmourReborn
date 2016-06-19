@@ -1,0 +1,13 @@
+{
+	"forge_marker": 1,
+
+	"defaults" : {
+		"model": "armourreborn:forgeAnvil",
+		"textures": {"particle": "blocks/cauldron_inner"}
+	},
+
+	"variants" : {
+		"normal": [{}],
+		"inventory" : [{}]
+	}
+}

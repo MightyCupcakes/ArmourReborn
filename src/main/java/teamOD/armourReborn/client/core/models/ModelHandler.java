@@ -11,9 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.block.ModBlocks;
+import teamOD.armourReborn.common.block.tile.TileForgeAnvil;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemNames;
 import teamOD.armourReborn.common.lib.LibMisc;
@@ -36,6 +38,8 @@ public class ModelHandler {
 		registerBlockModels (ModBlocks.forgeMaster) ;
 		registerBlockModels (ModBlocks.forgeBlocks) ;
 		registerBlockModels (ModBlocks.forgeHeater) ;
+		
+		registerTESR (ModBlocks.forgeAnvil) ;
 	}
 	
 	private static void registerFluids () {
@@ -70,6 +74,12 @@ public class ModelHandler {
 	
 	public static void registerItemModel (Item item) {
 		registerItemModel (item, 0) ;
+	}
+	
+	private static void registerTESR (Block block) {
+		registerBlockModels (block) ;
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileForgeAnvil.class, new ModelForgeAnvil () );
 	}
 	
 	private static void registerFluidsModel (Fluid fluid) {
