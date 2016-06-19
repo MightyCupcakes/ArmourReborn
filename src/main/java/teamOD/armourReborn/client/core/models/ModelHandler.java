@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.ModFluids;
@@ -41,6 +42,7 @@ public class ModelHandler {
 		registerFluidsModel (ModFluids.iron) ;
 		registerFluidsModel (ModFluids.steel) ;
 		registerFluidsModel (ModFluids.aluminium) ;
+		registerFluidsModel (ModFluids.copper) ;
 	}
 	
 	private static void registerResources () {
@@ -54,8 +56,8 @@ public class ModelHandler {
 		item = Item.getItemFromBlock(ModBlocks.oresMaterials) ;
 		 
 		for (int i = 0; i < LibItemNames.ORE_MATERIALS_NAMES.length; i ++) {
-			String name = LibMisc.MOD_ID + ":" + LibItemNames.ORE_MATERIALS_NAMES[i];
-			ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));	
+			String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.oresMaterials).toString() ;
+			ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory_" + LibItemNames.ORE_MATERIALS_NAMES[i]));	
 		}
 	}
 	

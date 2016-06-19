@@ -21,7 +21,7 @@ public final class ModBlocks {
 	
 	private static void registerOreDict () {
 		for (int i = 0; i < LibItemNames.ORE_MATERIALS_NAMES.length; i ++) {
-			OreDictionary.registerOre (LibItemNames.ORE_MATERIALS_NAMES[0], new ItemStack (oresMaterials, 1, i) ) ;
+			OreDictionary.registerOre (LibItemNames.ORE_MATERIALS_NAMES[i], new ItemStack (oresMaterials, 1, i) ) ;
 		}
 	}
 }
