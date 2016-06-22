@@ -23,7 +23,6 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	// List of allowed fuels.
 	public static final ImmutableList<Fluid> ALLOWED_FUEL = ImmutableList.of (FluidRegistry.LAVA) ;
 	
-	public static final int CAPACITY = 2000 ;
 	public static final int DRAIN_AMT = 1 ; // fuel consumed per tick
 	public static final int FUEL_MULTIPLIER = 6 ;
 	
@@ -190,6 +189,8 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		
+		super.writeCustomNBT(cmp) ;
+		
 		if (heaterTankPos != null) {
 			cmp.setIntArray("heaterPos", new int[] {heaterTankPos.getX(), heaterTankPos.getY(), heaterTankPos.getZ()} );
 			getTankAt(heaterTankPos).writeToNBT(cmp) ;
@@ -206,6 +207,8 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
+		
+		super.readCustomNBT(cmp) ;
 		
 		if (cmp.getIntArray("heaterPos") != null) {
 			int[] tmpPos = cmp.getIntArray("heaterPos") ;

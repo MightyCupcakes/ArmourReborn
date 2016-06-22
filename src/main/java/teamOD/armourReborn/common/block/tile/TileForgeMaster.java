@@ -65,7 +65,6 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		itemTemps = new int[INVENTORY_SIZE] ;
 		itemMeltingTemps = new int[INVENTORY_SIZE] ;
 		
-		this.reset() ;
 	}
 	
 	@Override
@@ -217,6 +216,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 					
 					if (entity != null && entity instanceof TileForgeComponent) {					
 						( (TileForgeComponent) entity).reset() ;
+						
+						worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
 						entity.markDirty() ;
 					}
 				}
@@ -247,6 +248,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 					TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
 					
 					tile.setMasterCoords(position) ;
+					worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
+					tile.markDirty() ;
 				}
 			}
 		}
@@ -352,12 +355,12 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		if (index < 0 || index >= inventory.length) return ;
 		
-		inventory[index] = stack ;
-		updateItemHeatReq(index, stack) ;
-		
 		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers( (WorldServer) worldObj, getPos(), new ForgeInventoryUpdatePacket (getPos(), stack, index));
 		}
+		
+		inventory[index] = stack ;
+		updateItemHeatReq(index, stack) ;
 		
 		if (stack != null && stack.stackSize > getInventoryStackLimit() ) {
 			stack.stackSize = getInventoryStackLimit () ;
@@ -427,11 +430,11 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	// NBT
 	@Override
 	public void writeCustomNBT(NBTTagCompound cmp) {
+		super.writeCustomNBT(cmp) ;
+		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = new NBTTagList();
-		
-		super.writeCustomNBT(cmp) ;
 		
 		internalTank.writeToNBT(cmp) ;
 		
@@ -452,24 +455,22 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
+		super.readCustomNBT(cmp) ;
+		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = cmp.getTagList("inventory" , 10) ;
-		
-		super.readCustomNBT(cmp) ;
 		
 		isActive = cmp.getBoolean("active") ;
 		internalTank.readFromNBT(cmp) ;
 		
 		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
-			if (inventory.getStackInSlot(i) != null) {
-				NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(i) ;
-				
-				int slot = itemTag.getByte("slot") & 0xFF;
-				
-				if (slot > 0 && slot < inventory.getSizeInventory()) {
-					inventory.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(itemTag));
-				}
+			NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(i) ;
+			
+			int slot = itemTag.getByte("slot") & 255 ;
+			
+			if (slot >= 0 && slot < inventory.getSizeInventory()) {
+				inventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(itemTag));
 			}
 		}
 	}
