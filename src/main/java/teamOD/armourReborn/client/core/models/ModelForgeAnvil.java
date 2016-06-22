@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -26,25 +28,26 @@ public class ModelForgeAnvil extends TileEntitySpecialRenderer<TileForgeAnvil> {
 		
 		renderItem (te) ;
 		
-		GlStateManager.popAttrib() ;
 		GlStateManager.popMatrix() ;
+		GlStateManager.popAttrib() ;
 	}
 	
 	private void renderItem (TileForgeAnvil te) {
-		ItemStack stack = te.getStack() ;
+		ItemStack stack = te.getStack();
 		
 		if (stack != null) {
 			RenderHelper.enableStandardItemLighting() ;
 			GlStateManager.enableLighting() ;
 			GlStateManager.pushMatrix() ;
 			
-			GlStateManager.translate(0.5f, 0.9f, 0.5f) ;
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.translate(0.5f, 1.25f, 0.5f) ;
 			GlStateManager.scale(0.4f, 0.4f, 0.4f) ;
 			
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE) ;
 			
 			GlStateManager.popMatrix() ;
-		}
+		} 
 	}
 
 }

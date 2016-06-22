@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import teamOD.armourReborn.common.block.tile.TileHeatingComponent;
+import teamOD.armourReborn.common.block.tile.TileForgeTank;
 
 public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 	
@@ -24,7 +24,7 @@ public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 		this.setHardness(4F) ;
 		this.setResistance(20F) ;
 		
-		GameRegistry.registerTileEntity(TileHeatingComponent.class, "forgeHeater") ;
+		GameRegistry.registerTileEntity(TileForgeTank.class, "forgeHeater") ;
 	}
 	
 	public BlockForgeHeater (String name) {
@@ -33,7 +33,7 @@ public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileHeatingComponent() ;
+		return new TileForgeTank() ;
 	}
 	
 	@Override

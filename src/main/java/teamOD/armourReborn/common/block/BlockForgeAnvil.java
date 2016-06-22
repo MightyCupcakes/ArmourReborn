@@ -56,6 +56,27 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		
+		if (worldIn.isRemote) return true ;
+		
+		TileForgeAnvil entity = this.getTile(worldIn, pos) ;
+		
+		if (entity.getStack() == null) {
+			if (heldItem != null) {
+				entity.setStack(heldItem) ;
+				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null) ;
+				playerIn.openContainer.detectAndSendChanges() ;
+				entity.sync() ;
+			}
+		} else {
+			if (heldItem == null) {
+				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, entity.getStack()) ;
+				entity.setStack(null) ;
+				playerIn.openContainer.detectAndSendChanges() ;
+				entity.sync() ;
+			}
+		}
+		
 		return true ;
 	}
 	

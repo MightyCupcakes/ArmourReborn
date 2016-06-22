@@ -1,5 +1,9 @@
 package teamOD.armourReborn.common.block.tile.inventory;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -15,6 +19,7 @@ public class ContainerMod <T extends TileEntity & IInventory> extends Container 
 	protected T tile ;
 	protected final World world ;
 	protected final BlockPos pos ;
+	public List<Slot> internalInventory = Lists.<Slot>newArrayList() ; 
 	
 	public ContainerMod (T tile, InventoryPlayer inventoryPlayer) {
 		this.tile = tile ;
@@ -28,6 +33,7 @@ public class ContainerMod <T extends TileEntity & IInventory> extends Container 
 	public T getTile () {
 		return tile ;
 	}
+	
 
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import teamOD.armourReborn.common.block.tile.TileMod;
 import teamOD.armourReborn.common.block.tile.network.ForgeFluidUpdatePacket;
 import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
 import teamOD.armourReborn.common.block.tile.network.ForgeInventoryUpdatePacket;
@@ -49,6 +50,7 @@ public class PacketHandler {
 			}
 		}
 	}
+	
 	
 	public PacketHandler () {
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(LibMisc.MOD_ID) ;

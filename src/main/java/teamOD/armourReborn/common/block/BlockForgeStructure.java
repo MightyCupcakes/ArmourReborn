@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.TileForgeComponent;
 import teamOD.armourReborn.common.block.tile.TileForgeMaster;
 
@@ -119,6 +120,8 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	private EnumBlockType makeConnectedTextures (IBlockAccess world, BlockPos pos) {
 		
 		Boolean[] neighbors = new Boolean[6] ; // follows EnumFacing.VALUES
+		Arrays.fill(neighbors, false) ;
+		
 		int i = 0 ;
 		
 		TileForgeComponent tile = (TileForgeComponent) world.getTileEntity(pos) ;

@@ -138,6 +138,15 @@ public class BlockForgeMaster extends BlockContainer {
 	}
 	
 	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		TileForgeMaster entity = getTileEntity (worldIn, pos) ;
+		
+		entity.resetStructure() ;
+		
+		super.breakBlock(worldIn, pos, state) ;
+	}
+	
+	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if (!this.isStructureActive(world, pos)) {
 			return ;

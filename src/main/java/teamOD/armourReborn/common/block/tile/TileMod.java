@@ -55,12 +55,12 @@ public class TileMod extends TileEntity implements ITickable {
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(net, packet);
-		readCustomNBT(packet.getNbtCompound());
+		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
 	public final void update() {
-		if (!isInvalid() && worldObj.isBlockLoaded(getPos(), !worldObj.isRemote)) {
+		if (!isInvalid() && worldObj.isBlockLoaded(getPos(), !worldObj.isRemote) && !worldObj.isRemote) {
 			updateEntity();
 		}
 	}

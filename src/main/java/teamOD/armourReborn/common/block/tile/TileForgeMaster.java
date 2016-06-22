@@ -12,7 +12,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,12 +30,13 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
+import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeInventoryUpdatePacket;
 import teamOD.armourReborn.common.network.PacketHandler;
 
-public class TileForgeMaster extends TileMultiBlock implements IInventory, ITileInventory {
+public class TileForgeMaster extends TileHeatingComponent implements IInventory, ITileInventory {
 	
 	public static final String NAME = "forgeInventory" ;
 	public static final int STACKSIZE = 8 ;
@@ -51,7 +51,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	private boolean isActive = false ;
 	private ItemStack[] inventory ;
 	private InternalForgeTank internalTank ;
-	private TileHeatingComponent heater ;
 	private int tick, timeElapsed ;
 	
 	private int minX, minY, minZ ;
@@ -63,23 +62,26 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
 		
+		itemTemps = new int[INVENTORY_SIZE] ;
+		itemMeltingTemps = new int[INVENTORY_SIZE] ;
+		
 		this.reset() ;
 	}
 	
 	@Override
 	public void updateEntity () { // Called every tick. 1 second <=> 20 ticks
-		if(!isActive) {
+		if(!isActive || heaterTankPos == null) {
 			if (tick == 0) {
 				checkMultiBlockForm () ;
 			}
 		} else {
 			
-			if (tick == 0 || heater == null) {
+			if (tick == 0) {
 				checkMultiBlockForm () ;
 			}
 			
-			heater.heatItems(internalTank) ;
-			heater.createAlloys() ;
+			heatItems(internalTank) ;
+			createAlloys() ;
 		}
 		
 		tick = (tick + 1) % 20 ;
@@ -121,48 +123,42 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		width = maxZ - minZ + 1 ;
 		height = maxY - position.getY() +  1 ;
 		
-		if (wasActive != isActive) {
-			worldObj.notifyBlockUpdate(getPos(), state, state, 3);
-			this.markDirty() ;
-		}
-		
 		// TODO: Clean up this section...
 		if (!IS_SQUARE && length == width) {
 			resetStructure () ;
-			return ;
 		}
 		
-		if (visited.size() != TOTAL_BLOCKS) {
+		else if (visited.size() != TOTAL_BLOCKS) {
 			resetStructure () ;
-			return ;
 		}
 		
 		// To account for people putting down the forge along the x-axis or the z-axis
-		if (length != FORGE_LENGTH && length != FORGE_WIDTH) {
+		else if (length != FORGE_LENGTH && length != FORGE_WIDTH) {
 			resetStructure () ;
-			return ;
 		}
 		
-		if (width != FORGE_LENGTH && width != FORGE_WIDTH) {
+		else if (width != FORGE_LENGTH && width != FORGE_WIDTH) {
 			resetStructure () ;
-			return ;
 		}
 		
-		if (height != FORGE_HEIGHT) {
+		else if (height != FORGE_HEIGHT) {
 			resetStructure () ;
-			return ;
 		}
 		
-		if ( !(worldObj.getTileEntity( position.offset( state.getValue( BlockForgeMaster.FACING).getOpposite() )) instanceof TileHeatingComponent) ) {
-			heater = null ;
+		else if ( !(worldObj.getTileEntity( position.offset( state.getValue( BlockForgeMaster.FACING).getOpposite() )) instanceof TileForgeTank) ) {
+			heaterTankPos = null ;
 			
 			resetStructure () ;
-			return ;
-		} else {
-			heater = (TileHeatingComponent) worldObj.getTileEntity(position.offset(state.getValue( BlockForgeMaster.FACING).getOpposite())) ;
+		} 
+		
+		else {
+			heaterTankPos = position.offset(state.getValue( BlockForgeMaster.FACING).getOpposite()) ;
+			setupStructure () ;
 		}
 		
-		setupStructure () ;
+		worldObj.notifyBlockUpdate(getPos(), state, state.withProperty(BlockForgeMaster.ACTIVE, isActive), 3);
+		worldObj.notifyNeighborsOfStateChange(getPos(), this.blockType);
+		this.markDirty() ;
 		
 	}
 	
@@ -209,7 +205,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	}
 
 	@Override
-	protected void resetStructure() {
+	public void resetStructure() {
 		
 		isActive = false ;
 		
@@ -221,7 +217,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 					
 					if (entity != null && entity instanceof TileForgeComponent) {					
 						( (TileForgeComponent) entity).reset() ;
-						worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
 						entity.markDirty() ;
 					}
 				}
@@ -252,7 +247,6 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 					TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
 					
 					tile.setMasterCoords(position) ;
-					worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
 				}
 			}
 		}
@@ -266,9 +260,9 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	
 	@Override
 	public void onDataPacket (NetworkManager net, SPacketUpdateTileEntity packet) {
-		super.onDataPacket(net, packet) ;
-		
 		boolean wasActive = this.isActive() ;
+		
+		super.onDataPacket(net, packet) ;
 		
 		if (isActive != wasActive) {
 			IBlockState state = worldObj.getBlockState(getPos()) ;
@@ -277,7 +271,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	}
 	
 	@Override
-	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
+	public ContainerMod createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
 		return new ContainerForge <TileForgeMaster> (this, inventoryPlayer) ;
 	}
 
@@ -291,7 +285,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	}
 	
 	public FluidTankInfo getHeater () {
-		return heater.getTankInfo() ;
+		return (getTankAt(heaterTankPos) != null) ? getTankAt(heaterTankPos).getTankInfo() : null ;
 	}
 
 	// =================================================================================== |
@@ -359,7 +353,7 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		if (index < 0 || index >= inventory.length) return ;
 		
 		inventory[index] = stack ;
-		heater.updateItemHeatReq(index, stack) ;
+		updateItemHeatReq(index, stack) ;
 		
 		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers( (WorldServer) worldObj, getPos(), new ForgeInventoryUpdatePacket (getPos(), stack, index));
@@ -437,6 +431,8 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = new NBTTagList();
 		
+		super.writeCustomNBT(cmp) ;
+		
 		internalTank.writeToNBT(cmp) ;
 		
 		for (int i = 0; i < inventory.getSizeInventory(); i ++) {
@@ -458,10 +454,12 @@ public class TileForgeMaster extends TileMultiBlock implements IInventory, ITile
 	public void readCustomNBT(NBTTagCompound cmp) {
 		// write inventory contents to nbt
 		IInventory inventory = this ;
-		NBTTagList nbttaglist = cmp.getTagList("inventory" , 0) ;
+		NBTTagList nbttaglist = cmp.getTagList("inventory" , 10) ;
+		
+		super.readCustomNBT(cmp) ;
 		
 		isActive = cmp.getBoolean("active") ;
-		internalTank.readToNBT(cmp) ;
+		internalTank.readFromNBT(cmp) ;
 		
 		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
 			if (inventory.getStackInSlot(i) != null) {

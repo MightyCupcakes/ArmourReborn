@@ -17,7 +17,7 @@ public class TileForgeComponent extends TileMultiBlock {
 	}
 
 	@Override
-	protected void resetStructure() {
+	public void resetStructure() {
 		// NO OP
 	}
 

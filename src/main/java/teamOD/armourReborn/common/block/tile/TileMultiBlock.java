@@ -29,14 +29,13 @@ public abstract class TileMultiBlock extends TileMod {
     }
     
     /** Reset all the parts of the structure */
-    protected abstract void resetStructure() ;
+    public abstract void resetStructure() ;
     
     /** Setup all the blocks in the structure*/
     protected abstract void setupStructure() ;
  
     @Override
-    public void writeToNBT(NBTTagCompound data) {
-        super.writeToNBT(data);
+    public void writeCustomNBT(NBTTagCompound data) {
         data.setInteger("masterX", masterX);
         data.setInteger("masterY", masterY);
         data.setInteger("masterZ", masterZ);
@@ -45,8 +44,7 @@ public abstract class TileMultiBlock extends TileMod {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound data) {
-        super.readFromNBT(data);
+    public void readCustomNBT(NBTTagCompound data) {
         masterX = data.getInteger("masterX");
         masterY = data.getInteger("masterY");
         masterZ = data.getInteger("masterZ");

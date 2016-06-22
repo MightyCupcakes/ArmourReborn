@@ -86,6 +86,7 @@ public class InternalForgeTank {
 	
 	public void updateFluidsFromPacket (List<FluidStack> fluid) {
 		this.liquids = fluid ;
+		tankChanged() ;
 	}
 	
 	public void tankChanged () {
@@ -107,7 +108,7 @@ public class InternalForgeTank {
 		tag.setTag("liquids", tagList);
 	}
 	
-	public void readToNBT (NBTTagCompound tag) {
+	public void readFromNBT (NBTTagCompound tag) {
 		NBTTagList tagList = tag.getTagList("liquids", 10) ;
 		
 		liquids.clear() ;
