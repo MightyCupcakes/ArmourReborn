@@ -38,6 +38,17 @@ public class ForgeGui extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(BACKGROUND) ;
 		this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize) ;
 		
+		if (forge.getHeater().fluid != null && forge.getHeater().fluid.amount > 0) {
+			int x = 152 + this.guiLeft ;
+			int y = 65 + this.guiTop;
+			int w = 12 ;
+			int h = 52 ;
+			
+			h = (int) (h * (float) forge.getHeater().fluid.amount / forge.getHeater().capacity) ;
+			
+			RenderUtils.renderTiledFluid(x, y - h, w, h, this.zLevel, forge.getHeater().fluid);
+		}
+		
 	}
 	
 	@Override

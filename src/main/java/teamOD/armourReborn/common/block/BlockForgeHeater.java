@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import teamOD.armourReborn.common.block.tile.TileForgeComponent;
 import teamOD.armourReborn.common.block.tile.TileForgeTank;
 
 public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
@@ -34,6 +35,19 @@ public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileForgeTank() ;
+	}
+	
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+			
+		TileEntity entity = worldIn.getTileEntity(pos) ;
+		
+		if (entity instanceof TileForgeComponent) {
+			( (TileForgeComponent) entity).notifyMaster() ;
+		}
+		
+		super.breakBlock(worldIn, pos, state) ;
+		
 	}
 	
 	@Override
