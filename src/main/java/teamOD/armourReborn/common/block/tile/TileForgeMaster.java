@@ -34,6 +34,7 @@ import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeInventoryUpdatePacket;
+import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileForgeMaster extends TileHeatingComponent implements IInventory, ITileInventory {
@@ -432,6 +433,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp) ;
 		
+		cmp.setBoolean("active", isActive() ) ;
+		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
 		NBTTagList nbttaglist = new NBTTagList();
@@ -449,8 +452,6 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		}
 		
 		cmp.setTag("inventory", nbttaglist) ;
-		
-		cmp.setBoolean("active", isActive() ) ;
 	}
 	
 	@Override

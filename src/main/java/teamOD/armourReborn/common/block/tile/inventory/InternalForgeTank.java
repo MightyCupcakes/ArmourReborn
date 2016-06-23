@@ -117,9 +117,7 @@ public class InternalForgeTank {
 			NBTTagCompound cmp = tagList.getCompoundTagAt(i) ;
 			FluidStack liquid = FluidStack.loadFluidStackFromNBT(cmp) ;
 			
-			if (liquid != null) {
-				liquids.add(liquid) ;
-			}
+			liquids.add(liquid) ;
 		}
 	}
 

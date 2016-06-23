@@ -41,8 +41,8 @@ public class ModelForgeAnvil extends TileEntitySpecialRenderer<TileForgeAnvil> {
 			GlStateManager.pushMatrix() ;
 			
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.translate(0.5f, 1.25f, 0.5f) ;
-			GlStateManager.scale(0.4f, 0.4f, 0.4f) ;
+			GlStateManager.translate(0.5f, 0.9f, 0.5f) ;
+			GlStateManager.scale(0.2f, 0.2f, 0.2f) ;
 			
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE) ;
 			

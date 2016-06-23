@@ -6,9 +6,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileForgeAnvil extends TileMod {
 	
@@ -28,11 +25,6 @@ public class TileForgeAnvil extends TileMod {
 	}
 	
 	@Override
-	public void onDataPacket (NetworkManager net, SPacketUpdateTileEntity packet) {
-		this.readFromNBT(packet.getNbtCompound()) ;
-	}
-	
-	@Override
 	public void readCustomNBT (NBTTagCompound cmp) {
 		if (cmp.hasKey("item")) {
 			itemInventory = ItemStack.loadItemStackFromNBT(cmp.getCompoundTag("item")) ;
@@ -46,7 +38,7 @@ public class TileForgeAnvil extends TileMod {
 		if (itemInventory != null) {
 			NBTTagCompound tag = new NBTTagCompound() ;
 			itemInventory.writeToNBT(tag) ;
-			tag.setTag("item", tag) ;
+			cmp.setTag("item", tag) ;
 		}
 	}
 	
