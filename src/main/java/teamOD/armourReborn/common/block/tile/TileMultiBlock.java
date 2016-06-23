@@ -53,7 +53,7 @@ public abstract class TileMultiBlock extends TileMod {
     }
 
     public boolean hasMaster() {
-        return hasMaster;
+        return hasMaster && (worldObj.getTileEntity(new BlockPos (masterX, masterY, masterZ)) instanceof TileForgeMaster);
     }
 
     public boolean isMaster() {

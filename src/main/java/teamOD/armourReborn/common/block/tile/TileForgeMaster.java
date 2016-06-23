@@ -156,7 +156,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			setupStructure () ;
 		}
 		
-		worldObj.notifyBlockUpdate(getPos(), state, state.withProperty(BlockForgeMaster.ACTIVE, isActive), 3);
+		worldObj.notifyBlockUpdate(getPos(), state, state, 3);
 		worldObj.notifyNeighborsOfStateChange(getPos(), this.blockType);
 		this.markDirty() ;
 		
@@ -250,12 +250,11 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 					
 					tile.setMasterCoords(position) ;
 					worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
+					worldObj.notifyNeighborsOfStateChange(getPos(), worldObj.getBlockState(currentPos).getBlock());
 					tile.markDirty() ;
 				}
 			}
 		}
-		
-		worldObj.notifyNeighborsOfStateChange(getPos(), this.blockType);
 	}
 	
 	public boolean isActive () {
@@ -478,6 +477,13 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	
 	public void updateFluidsFromPacket (List<FluidStack> liquids) {
 		internalTank.updateFluidsFromPacket(liquids) ;
+	}
+	
+	@Override
+	public void validate() {
+		super.validate() ;
+		
+		isActive = false ;
 	}
 
 }

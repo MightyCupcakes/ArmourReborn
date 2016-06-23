@@ -40,6 +40,8 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	
 	public void heatItems (InternalForgeTank internalTank) {
 		
+		if (!this.hasMaster()) return ;
+		
 		TileForgeMaster inventory = this.getMasterBlock() ;
 		
 		boolean hasHeated = false ;

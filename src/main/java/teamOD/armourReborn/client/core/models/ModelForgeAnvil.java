@@ -36,12 +36,15 @@ public class ModelForgeAnvil extends TileEntitySpecialRenderer<TileForgeAnvil> {
 		ItemStack stack = te.getStack();
 		
 		if (stack != null) {
-			RenderHelper.enableStandardItemLighting() ;
-			GlStateManager.enableLighting() ;
 			GlStateManager.pushMatrix() ;
 			
+			RenderHelper.enableStandardItemLighting() ;
+			GlStateManager.enableLighting() ;
+			
+			float angle = (System.currentTimeMillis() / 200) % 360;
+	
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.translate(0.5f, 0.9f, 0.5f) ;
+			GlStateManager.translate(0.5f, 0.95f + (Math.sin(angle)) * 0.01F, 0.5f) ;
 			GlStateManager.scale(0.2f, 0.2f, 0.2f) ;
 			
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE) ;
