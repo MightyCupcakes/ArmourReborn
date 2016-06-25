@@ -198,7 +198,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		if (!isItemValidForSlot(index, stack) && !forced) return ; 
 		
-		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
+		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, null));
 		}
 		

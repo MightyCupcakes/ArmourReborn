@@ -151,7 +151,6 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		} 
 		
 		else {
-			heaterTankPos = position.offset(state.getValue( BlockForgeMaster.FACING).getOpposite()) ;
 			setupStructure () ;
 		}
 		
@@ -246,6 +245,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 					
 					// Safe to cast it as TileForgeComponent as it was previously checked to be as such
 					TileForgeComponent tile = (TileForgeComponent) worldObj.getTileEntity( currentPos );
+					
+					if (tile instanceof TileForgeTank) setHeaterPos (currentPos) ;
 					
 					tile.setMasterCoords(position) ;
 					worldObj.notifyBlockUpdate(currentPos, worldObj.getBlockState(currentPos), worldObj.getBlockState(currentPos), 3);
@@ -354,7 +355,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		if (index < 0 || index >= inventory.length) return ;
 		
-		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
+		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers( (WorldServer) worldObj, getPos(), new ForgeInventoryUpdatePacket (getPos(), stack, index));
 		}
 		

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
@@ -16,6 +17,7 @@ import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
+import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.network.PacketHandler;
 
 public abstract class TileHeatingComponent extends TileMultiBlock {
@@ -189,6 +191,10 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		getTankAt(heaterTankPos).setFuelStack(stack) ;
 	}
 	
+	protected void setHeaterPos (BlockPos newpos) {
+		heaterTankPos = newpos ;
+	}
+	
 	// NBTS
 	
 	@Override
@@ -196,13 +202,11 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		
 		super.writeCustomNBT(cmp) ;
 		
-		if (heaterTankPos != null) {
-			cmp.setIntArray("heaterPos", new int[] {heaterTankPos.getX(), heaterTankPos.getY(), heaterTankPos.getZ()} );
-			getTankAt(heaterTankPos).writeToNBT(cmp) ;
+		NBTTagList tagList = new NBTTagList () ;
 		
-		} else {
-			cmp.setIntArray("heaterPos", new int[] {});
-		}
+		tagList.appendTag(LibUtil.writePos(heaterTankPos)) ;
+		
+		cmp.setTag("heaterPos", tagList);
 		
 		cmp.setInteger("fuel", fuelLeft) ;
 		cmp.setInteger("temp", internalTemp) ;
@@ -215,14 +219,8 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		
 		super.readCustomNBT(cmp) ;
 		
-		if (cmp.getIntArray("heaterPos").length > 0) {
-			int[] tmpPos = cmp.getIntArray("heaterPos") ;
-			heaterTankPos = new BlockPos (tmpPos[0], tmpPos[1], tmpPos[2]) ;
-			getTankAt(heaterTankPos).readFromNBT(cmp) ;
-		
-		} else {
-			heaterTankPos = null ;
-		}
+		NBTTagList tagList = cmp.getTagList("heaterPos", 10);
+		setHeaterPos (LibUtil.readPos(tagList.getCompoundTagAt(0))) ;
 		
 		fuelLeft = cmp.getInteger("fuel") ;
 		internalTemp = cmp.getInteger("temp") ;
