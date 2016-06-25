@@ -2,11 +2,14 @@ package teamOD.armourReborn.common.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemStats;
 
@@ -23,6 +26,17 @@ public final class ModCraftingRecipes {
 	
 	public static void init () {
 		addMeltingRecipes () ;
+		addArmourRecipes () ;
+		addForgeRecipes () ;
+	}
+	
+	private static void addArmourRecipes () {
+		
+	}
+	
+	private static void addForgeRecipes () {
+		addOreDictRecipe(new ItemStack(ModBlocks.forgeBlocks,1,0),
+				"III", "I I", "III", 'I', "ingotIron");
 	}
 	
 	private static void addMeltingRecipes () {
@@ -60,5 +74,9 @@ public final class ModCraftingRecipes {
 		} 
 		
 		return null ;
+	}
+
+	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
 	}
 }
