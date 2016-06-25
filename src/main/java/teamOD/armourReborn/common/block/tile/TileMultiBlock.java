@@ -36,20 +36,20 @@ public abstract class TileMultiBlock extends TileMod {
  
     @Override
     public void writeCustomNBT(NBTTagCompound data) {
-        data.setInteger("masterX", masterX);
-        data.setInteger("masterY", masterY);
-        data.setInteger("masterZ", masterZ);
-        data.setBoolean("hasMaster", hasMaster);
-        data.setBoolean("isMaster", isMaster);
+        data.setInteger("MasterX", masterX);
+        data.setInteger("MasterY", masterY);
+        data.setInteger("MasterZ", masterZ);
+        data.setBoolean("HasMaster", hasMaster);
+        data.setBoolean("IsMaster", isMaster);
     }
 
     @Override
     public void readCustomNBT(NBTTagCompound data) {
-        masterX = data.getInteger("masterX");
-        masterY = data.getInteger("masterY");
-        masterZ = data.getInteger("masterZ");
-        hasMaster = data.getBoolean("hasMaster");
-        isMaster = data.getBoolean("isMaster");
+        masterX = data.getInteger("MasterX");
+        masterY = data.getInteger("MasterY");
+        masterZ = data.getInteger("MasterZ");
+        hasMaster = data.getBoolean("HasMaster");
+        isMaster = data.getBoolean("IsMaster");
     }
 
     public boolean hasMaster() {

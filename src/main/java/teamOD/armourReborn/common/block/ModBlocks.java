@@ -12,7 +12,7 @@ public final class ModBlocks {
 	public static BlockMod oresMaterials ;
 	
 	public static void init () {
-		forgeMaster = new BlockForgeMaster () ;
+		forgeMaster = new BlockForgeMaster (LibItemNames.FORGE_CONTROLLER) ;
 		forgeBlocks = new BlockForgeStructure (LibItemNames.FORGE_BLOCK) ;
 		forgeHeater = new BlockForgeHeater (LibItemNames.FORGE_HEATER) ;
 		oresMaterials = new BlockMaterial (LibItemNames.oreMATERIALS) ;

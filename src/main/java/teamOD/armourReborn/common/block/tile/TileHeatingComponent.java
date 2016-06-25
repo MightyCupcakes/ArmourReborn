@@ -34,6 +34,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	protected int[] itemMeltingTemps ;
 	
 	public TileHeatingComponent () {
+		super () ;
 		
 		internalTemp = 20 ;
 	}
@@ -198,7 +199,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 			getTankAt(heaterTankPos).writeToNBT(cmp) ;
 		
 		} else {
-			cmp.setIntArray("heaterPos", null);
+			cmp.setIntArray("heaterPos", new int[] {});
 		}
 		
 		cmp.setInteger("fuel", fuelLeft) ;
@@ -212,7 +213,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		
 		super.readCustomNBT(cmp) ;
 		
-		if (cmp.getIntArray("heaterPos") != null) {
+		if (cmp.getIntArray("heaterPos").length > 0) {
 			int[] tmpPos = cmp.getIntArray("heaterPos") ;
 			heaterTankPos = new BlockPos (tmpPos[0], tmpPos[1], tmpPos[2]) ;
 			getTankAt(heaterTankPos).readFromNBT(cmp) ;

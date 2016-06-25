@@ -49,7 +49,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	public static final int TOTAL_BLOCKS = FORGE_LENGTH * FORGE_WIDTH * FORGE_HEIGHT ;
 	public static final boolean IS_SQUARE = false ;
 	
-	private boolean isActive = false ;
+	private boolean isActive ;
 	private ItemStack[] inventory ;
 	private InternalForgeTank internalTank ;
 	private int tick, timeElapsed ;
@@ -59,6 +59,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	
 	public TileForgeMaster () {
 		super ();
+		
+		isActive = false ;
 		
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
@@ -432,7 +434,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	public void writeCustomNBT(NBTTagCompound cmp) {
 		super.writeCustomNBT(cmp) ;
 		
-		cmp.setBoolean("active", isActive() ) ;
+		cmp.setBoolean("Active", isActive() ) ;
 		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
@@ -450,7 +452,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			}
 		}
 		
-		cmp.setTag("inventory", nbttaglist) ;
+		cmp.setTag("Inventory", nbttaglist) ;
 	}
 	
 	@Override
@@ -459,9 +461,9 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
-		NBTTagList nbttaglist = cmp.getTagList("inventory" , 10) ;
+		NBTTagList nbttaglist = cmp.getTagList("Inventory" , 10) ;
 		
-		isActive = cmp.getBoolean("active") ;
+		isActive = cmp.getBoolean("Active") ;
 		internalTank.readFromNBT(cmp) ;
 		
 		for (int i = 0; i < nbttaglist.tagCount(); i ++) {

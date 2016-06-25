@@ -36,16 +36,16 @@ public class BlockForgeMaster extends BlockContainer {
 	public static PropertyBool ACTIVE = PropertyBool.create("active") ;
 	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 
-	protected BlockForgeMaster() {
+	public BlockForgeMaster (String name) {
 		super(Material.iron);
 		
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
 		
-		setUnlocalizedName (LibItemNames.FORGE_CONTROLLER) ;
+		setUnlocalizedName (name) ;
 		
 		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
 		
-		GameRegistry.register(this, new ResourceLocation (LibMisc.MOD_ID, LibItemNames.FORGE_CONTROLLER)) ;
+		GameRegistry.register(this, new ResourceLocation (LibMisc.MOD_ID, name)) ;
 		GameRegistry.register(new ItemBlock (this), getRegistryName() ) ;
 		GameRegistry.registerTileEntity(TileForgeMaster.class, "forgeMaster") ;
 	}
