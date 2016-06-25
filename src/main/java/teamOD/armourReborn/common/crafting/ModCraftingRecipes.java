@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import teamOD.armourReborn.common.block.ModBlocks;
+import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.lib.LibItemStats;
 
@@ -23,14 +24,22 @@ public final class ModCraftingRecipes {
 	private static final ImmutableList <String> suffixes = ImmutableList.of ("ingot", "block", "ore") ;
 	public static HashMap <String, FluidStack> meltingRecipes ;
 	public static HashMap <Integer, String> oreIDs ;
+	public static HashMap <FluidMod, ItemStack[]> castingRecipes = new HashMap <FluidMod, ItemStack[]> () ; ;
 	
 	public static void init () {
 		addMeltingRecipes () ;
-		addArmourRecipes () ;
 		addForgeRecipes () ;
+		addCastingRecipes () ;
 	}
 	
-	private static void addArmourRecipes () {
+	private static void addCastingRecipes () {
+		registerCastingRecipe (ModFluids.iron, 
+				new ItemStack(Items.iron_ingot, 1, 0), 
+				new ItemStack(Items.iron_boots, 4, 0),
+				new ItemStack(Items.iron_leggings, 7, 0),
+				new ItemStack(Items.iron_chestplate, 8, 0),
+				new ItemStack(Items.iron_helmet, 5, 0)
+				) ;	
 		
 	}
 	
@@ -77,6 +86,25 @@ public final class ModCraftingRecipes {
 		} 
 		
 		return null ;
+	}
+	
+	/**
+	 * For each molten metal, register ALL possible items it can be casted into in the anvil
+	 * For the itemstack, the amount represents the AMOUNT OF INGOTS required for this item
+	 * 
+	 */
+	private static void registerCastingRecipe (FluidMod fluid, ItemStack... items) {
+		castingRecipes.put(fluid, items) ;
+	}
+	
+	/**
+	 * Given a molten metal, returns all possible Items that is registered to this fluid.
+	 * The amount represented in the ItemStack is the amount of ingots needed to make this item in the anvil
+	 * @param fluid
+	 * @return ItemStack[] representing all possible items castable by this fluid
+	 */
+	public static ItemStack[] getCastingRecipe (Fluid fluid) {
+		return castingRecipes.get(fluid) ;
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

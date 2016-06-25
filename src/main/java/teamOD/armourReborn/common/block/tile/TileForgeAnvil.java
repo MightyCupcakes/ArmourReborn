@@ -32,10 +32,12 @@ import teamOD.armourReborn.common.block.tile.inventory.ContainerAnvil;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 import teamOD.armourReborn.common.block.tile.network.ForgeAnvilInventoryUpdatePacket;
+import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.network.PacketHandler;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.lib.LibItemStats;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory, IFluidHandler {
 	
@@ -53,6 +55,45 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	
 	@Override
 	protected void updateEntity() {
+		if (fluidInventory.getFluid() == null) {
+			return ;
+		}
+		
+		ItemStack[] anvilRecipes = ModCraftingRecipes.getCastingRecipe(fluidInventory.getFluid().getFluid()) ;
+		
+		if (anvilRecipes == null) {
+			return ;
+		}
+		
+		for (ItemStack item : anvilRecipes) {
+			if (fluidInventory.getFluidAmount() >= item.stackSize * LibItemStats.VALUE_INGOT ) {
+				switch (item.stackSize) {
+				case 1:
+					setInventorySlotContents(8, new ItemStack(item.getItem()), true);
+					break ;
+					
+				case 4:
+					setInventorySlotContents(7, new ItemStack(item.getItem()), true);
+					break ;
+					
+				case 5:
+					setInventorySlotContents(4, new ItemStack(item.getItem()), true);
+					break ;
+					
+				case 7:
+					setInventorySlotContents(6, new ItemStack(item.getItem()), true);
+					break ;
+					
+				case 8:
+					setInventorySlotContents(5, new ItemStack(item.getItem()), true);
+					break ;
+					
+				default:
+						break ;
+				}
+			}
+		}
+		/*
 		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
 			setInventorySlotContents(9, new ItemStack(Items.iron_ingot)); 
 		}
@@ -67,7 +108,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		}
 		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
 			setInventorySlotContents(5, new ItemStack(Items.iron_helmet)); 
-		}
+		}*/
 	}
 
 	@Override
@@ -190,7 +231,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		setInventorySlotContents (index, stack, false) ;
+		setInventorySlotContents (index, stack, false) ;LibUtil.LogToFML(1, "HAHA");
 	}
 	
 	public void setInventorySlotContents(int index, ItemStack stack, boolean forced) {
@@ -205,7 +246,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		if (index < inputInventory.length) {
 			inputInventory[index] = stack ;
 		} else {
-			outputInventory[index] = stack ;
+			outputInventory[index - inputInventory.length] = stack ;
 		}
 	}
 
