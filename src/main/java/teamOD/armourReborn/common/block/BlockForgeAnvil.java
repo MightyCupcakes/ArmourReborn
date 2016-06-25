@@ -75,7 +75,7 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 		
 		ItemStack item = playerIn.getHeldItemMainhand() ;
 		
-		System.out.println("Internal Tank: " + entity.getTankInfo(EnumFacing.NORTH)[0].fluid.amount);
+		//System.out.println("Internal Tank: " + entity.getTankInfo(EnumFacing.NORTH)[0].fluid.amount);
 	
 		
 		if (item == null) {

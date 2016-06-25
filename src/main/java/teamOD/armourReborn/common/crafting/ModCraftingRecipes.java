@@ -36,7 +36,10 @@ public final class ModCraftingRecipes {
 	
 	private static void addForgeRecipes () {
 		addOreDictRecipe(new ItemStack(ModBlocks.forgeBlocks,1,0),
-				"III", "I I", "III", 'I', "ingotIron");
+				"III", 
+				"I I", 
+				"III", 
+				'I', "ingotIron");
 	}
 	
 	private static void addMeltingRecipes () {
