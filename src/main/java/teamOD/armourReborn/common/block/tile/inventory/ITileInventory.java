@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public interface ITileInventory {
-	public Container createContainer (InventoryPlayer inventoryPlayer, World world, BlockPos pos) ;
+	public ContainerMod createContainer (InventoryPlayer inventoryPlayer, World world, BlockPos pos) ;
 	
 	public GuiContainer createGui (InventoryPlayer inventoryPlayer, World world, BlockPos pos) ;
 }

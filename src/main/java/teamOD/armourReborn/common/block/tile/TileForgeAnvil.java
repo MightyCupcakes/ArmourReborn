@@ -2,53 +2,114 @@ package teamOD.armourReborn.common.block.tile;
 
 import java.util.Stack;
 
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import teamOD.armourReborn.client.core.gui.ForgeAnvilGui;
+import teamOD.armourReborn.client.core.gui.ForgeGui;
+import teamOD.armourReborn.common.block.tile.inventory.ContainerAnvil;
+import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
+import teamOD.armourReborn.common.block.tile.network.ForgeAnvilInventoryUpdatePacket;
+import teamOD.armourReborn.common.network.PacketHandler;
+import teamOD.armourReborn.common.fluids.ModFluids;
+import teamOD.armourReborn.common.fluids.FluidMod;
+import teamOD.armourReborn.common.lib.LibItemStats;
 
-public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory {
+public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory, IFluidHandler {
 	
-	private ItemStack itemInventory ;
+	public static final ImmutableList<FluidMod> WHITELIST_LIQUIDS = ImmutableList.of(ModFluids.iron, ModFluids.aluminium, ModFluids.copper, ModFluids.steel);
 	
-	public ItemStack getStack() {
-		return itemInventory ;
-	}
+	private ItemStack[] inputInventory ;
+	private ItemStack[] outputInventory;
+	private FluidTank fluidInventory;
 	
-	public void setStack (ItemStack stack) {
-		itemInventory = stack ;
-		
-		this.markDirty() ;
-		
-		IBlockState state = worldObj.getBlockState(getPos()) ;
-		worldObj.notifyBlockUpdate(getPos(), state, state, 3) ;
+	public TileForgeAnvil(){
+		inputInventory = new ItemStack[4];
+		outputInventory = new ItemStack[5];
+		fluidInventory = new FluidTank(5000);
 	}
 	
 	@Override
-	public void readCustomNBT (NBTTagCompound cmp) {
-		if (cmp.hasKey("item")) {
-			itemInventory = ItemStack.loadItemStackFromNBT(cmp.getCompoundTag("item")) ;
-		} else {
-			itemInventory = null ;
+	protected void updateEntity() {
+		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
+			setInventorySlotContents(9, new ItemStack(Items.iron_ingot)); 
+		}
+		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
+			setInventorySlotContents(8, new ItemStack(Items.iron_boots)); 
+		}
+		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
+			setInventorySlotContents(7, new ItemStack(Items.iron_leggings)); 
+		}
+		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
+			setInventorySlotContents(6, new ItemStack(Items.iron_chestplate)); 
+		}
+		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
+			setInventorySlotContents(5, new ItemStack(Items.iron_helmet)); 
+		}
+	}
+
+	@Override
+	public void readCustomNBT (NBTTagCompound cmp) { 
+		super.readCustomNBT(cmp) ;
+		
+		TileForgeAnvil inventory = this ;
+		NBTTagList nbttaglist = cmp.getTagList("Inventory" , 10) ;
+		
+		fluidInventory.readFromNBT(cmp) ;
+		
+		for (int i = 0; i < nbttaglist.tagCount(); i ++) {
+			NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(i) ;
+			
+			int slot = itemTag.getByte("slot") & 255 ;
+			
+			if (slot >= 0 && slot < inventory.getSizeInventory()) {
+				inventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(itemTag), true);
+			}
 		}
 	}
 	
 	@Override
 	public void writeCustomNBT (NBTTagCompound cmp) {
-		if (itemInventory != null) {
-			NBTTagCompound tag = new NBTTagCompound() ;
-			itemInventory.writeToNBT(tag) ;
-			cmp.setTag("item", tag) ;
+		super.writeCustomNBT(cmp);
+		
+		IInventory inventory = this ;
+		NBTTagList nbttaglist = new NBTTagList();
+		
+		fluidInventory.writeToNBT(cmp) ;
+		
+		for (int i = 0; i < inventory.getSizeInventory(); i ++) {
+			if (inventory.getStackInSlot(i) != null) {
+				NBTTagCompound itemTag = new NBTTagCompound () ;
+				
+				itemTag.setByte("slot", (byte) i) ;
+				inventory.getStackInSlot(i).writeToNBT(itemTag) ;
+				nbttaglist.appendTag(itemTag) ;
+			}
 		}
+		
+		cmp.setTag("Inventory", nbttaglist) ;
 	}
 	
 	public void sync () {
@@ -74,57 +135,90 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	}
 
 	@Override
-	public Container createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		// TODO Auto-generated method stub
-		return null;
+	public ContainerMod createContainer(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
+		return new ContainerAnvil <TileForgeAnvil> (this, inventoryPlayer) ;
 	}
 
 	@Override
 	public GuiContainer createGui(InventoryPlayer inventoryPlayer, World world, BlockPos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ForgeAnvilGui (createContainer(inventoryPlayer, world, pos), this) ;
 	}
 
 	@Override
 	public int getSizeInventory() {
 		// TODO Auto-generated method stub
-		return 0;
+		return inputInventory.length + outputInventory.length ;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		// TODO Auto-generated method stub
+		if (index >= 0 && index < inputInventory.length){
+			return inputInventory[index];
+		} else if (index >= inputInventory.length && index < getSizeInventory()) {
+			return outputInventory[index - inputInventory.length];
+		}
 		return null;
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		ItemStack stack = getStackInSlot (index) ;
+		
+		if (stack == null) return null ;
+		
+		if (stack.stackSize <= count) {
+			removeStackFromSlot (index) ;
+		} else {
+			stack = stack.splitStack(count) ;
+			
+			if (getStackInSlot (index).stackSize == 0) {
+				removeStackFromSlot (index) ;
+			}
+		}
+		
+		this.markDirty() ;
+		return stack ;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		ItemStack stack = getStackInSlot (index) ;
+		setInventorySlotContents (index, null) ;
+		
+		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		// TODO Auto-generated method stub
+		setInventorySlotContents (index, stack, false) ;
+	}
+	
+	public void setInventorySlotContents(int index, ItemStack stack, boolean forced) {
+		if (index < 0 || index >= this.getSizeInventory()) return ;
 		
+		if (!isItemValidForSlot(index, stack) && !forced) return ; 
+		
+		if (!ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
+			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, null));
+		}
+		
+		if (index < inputInventory.length) {
+			inputInventory[index] = stack ;
+		} else {
+			outputInventory[index] = stack ;
+		}
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 64;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -141,8 +235,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		// TODO Auto-generated method stub
-		return false;
+		if (index < 0 || index >= inputInventory.length) return false ;
+		
+		return true ;
 	}
 
 	@Override
@@ -153,19 +248,72 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 
 	@Override
 	public void setField(int id, int value) {
-		// TODO Auto-generated method stub
-		
+		// NO OP
 	}
 
 	@Override
 	public int getFieldCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		// NO OP
+	}
+
+	@Override
+	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
+		int amt = fluidInventory.fill (resource, doFill) ;
 		
+		return amt ;
+	}
+
+	@Override
+	public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
+		if (resource == null || fluidInventory.getFluidAmount() <= 0) {
+			return null ;
+		}
+		
+		if (!fluidInventory.getFluid().isFluidEqual(resource)) {
+			return null ;
+		}
+		
+		return this.drain (from, resource.amount, doDrain) ;
+	}
+
+	@Override
+	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
+		FluidStack amt = fluidInventory.drain(maxDrain, doDrain) ;
+		
+		return amt ;
+	}
+
+	@Override
+	public boolean canFill(EnumFacing from, Fluid fluid) {
+		
+		if (fluidInventory.getFluid() != null && fluidInventory.getFluid().getFluid() == fluid) return true ;
+		
+		for (Fluid liquid: WHITELIST_LIQUIDS) {
+			
+			if (liquid == fluid) {
+				return false ;
+			}
+		}
+		
+		return true ;
+	}
+
+	@Override
+	public boolean canDrain(EnumFacing from, Fluid fluid) {
+		return fluidInventory.getCapacity() > 0 && fluidInventory.getFluid().getFluid() == fluid ;
+	}
+
+	@Override
+	public FluidTankInfo[] getTankInfo(EnumFacing from) {
+		return new FluidTankInfo[] { new FluidTankInfo (fluidInventory) } ;
+	}
+	
+	public void setFluidInventory (FluidStack stack) {
+		//this.fluidInventory.setFluid(stack) ;
 	}
 }

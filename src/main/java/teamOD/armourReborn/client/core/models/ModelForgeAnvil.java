@@ -33,7 +33,7 @@ public class ModelForgeAnvil extends TileEntitySpecialRenderer<TileForgeAnvil> {
 	}
 	
 	private void renderItem (TileForgeAnvil te) {
-		ItemStack stack = te.getStack();
+		ItemStack stack = null;
 		
 		if (stack != null) {
 			GlStateManager.pushMatrix() ;
@@ -52,5 +52,4 @@ public class ModelForgeAnvil extends TileEntitySpecialRenderer<TileForgeAnvil> {
 			GlStateManager.popMatrix() ;
 		} 
 	}
-
 }

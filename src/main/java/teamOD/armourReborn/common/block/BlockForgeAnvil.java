@@ -11,9 +11,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamOD.armourReborn.common.ArmourReborn;
 import teamOD.armourReborn.common.block.tile.TileForgeAnvil;
 import teamOD.armourReborn.common.block.tile.TileHeatingComponent;
 
@@ -59,8 +62,28 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 		
 		if (worldIn.isRemote) return true ;
 		
+		
 		TileForgeAnvil entity = this.getTile(worldIn, pos) ;
 		
+		IFluidHandler tank = null ;
+		
+		if (entity instanceof IFluidHandler) {
+			tank = (IFluidHandler) entity ;
+		} else {
+			return false ;
+		}
+		
+		ItemStack item = playerIn.getHeldItemMainhand() ;
+		
+		System.out.println("Internal Tank: " + entity.getTankInfo(EnumFacing.NORTH)[0].fluid.amount);
+	
+		
+		if (item == null) {
+			playerIn.openGui(ArmourReborn.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		} else {
+			FluidUtil.interactWithTank(item, playerIn, tank, side) ;
+		}
+		/*
 		if (entity.getStack() == null) {
 			if (heldItem != null) {
 				entity.setStack(heldItem) ;
@@ -76,7 +99,7 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 				entity.sync() ;
 			}
 		}
-		
+		*/
 		return true ;
 	}
 	

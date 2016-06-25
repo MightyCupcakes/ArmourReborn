@@ -40,6 +40,8 @@ public class ModFluids {
 		
 		fluid.setBlock(block) ;
 		
+		FluidRegistry.addBucketForFluid(fluid);
+		
 		return fluid ;
 	}
 }
