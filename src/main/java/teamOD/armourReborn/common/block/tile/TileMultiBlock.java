@@ -10,6 +10,17 @@ public abstract class TileMultiBlock extends TileMod {
 	private boolean hasMaster ;
 	private boolean isMaster;
 	private int masterX, masterY, masterZ ;
+	
+	public TileMultiBlock () {
+		
+		super () ;
+		
+		masterX = 0;
+        masterY = 0;
+        masterZ = 0;
+        hasMaster = false;
+        isMaster = false;
+	}
     
     public abstract void checkMultiBlockForm() ;
     

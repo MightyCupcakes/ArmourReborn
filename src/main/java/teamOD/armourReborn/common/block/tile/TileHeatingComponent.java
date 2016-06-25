@@ -33,10 +33,12 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	protected int[] itemTemps ;
 	protected int[] itemMeltingTemps ;
 	
-	public TileHeatingComponent () {
+	public TileHeatingComponent (int inventorySize) {
 		super () ;
 		
 		internalTemp = 20 ;
+		itemTemps = new int[inventorySize] ;
+		itemMeltingTemps = new int[inventorySize] ;
 	}
 	
 	public void heatItems (InternalForgeTank internalTank) {

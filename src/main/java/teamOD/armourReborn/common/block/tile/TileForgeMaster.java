@@ -58,15 +58,12 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	private int maxX, maxY, maxZ ;
 	
 	public TileForgeMaster () {
-		super ();
+		super (INVENTORY_SIZE);
 		
 		isActive = false ;
 		
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
-		
-		itemTemps = new int[INVENTORY_SIZE] ;
-		itemMeltingTemps = new int[INVENTORY_SIZE] ;
 		
 	}
 	
