@@ -92,22 +92,6 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				}
 			}
 		}
-		/*
-		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
-			setInventorySlotContents(9, new ItemStack(Items.iron_ingot)); 
-		}
-		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
-			setInventorySlotContents(8, new ItemStack(Items.iron_boots)); 
-		}
-		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
-			setInventorySlotContents(7, new ItemStack(Items.iron_leggings)); 
-		}
-		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
-			setInventorySlotContents(6, new ItemStack(Items.iron_chestplate)); 
-		}
-		if (fluidInventory.getFluidAmount() > LibItemStats.VALUE_INGOT){
-			setInventorySlotContents(5, new ItemStack(Items.iron_helmet)); 
-		}*/
 	}
 
 	@Override
@@ -223,8 +207,35 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack stack = getStackInSlot (index) ;
-		setInventorySlotContents (index, null, true) ;
 		
+		System.out.println("Removing from slot " + index);
+		
+		if (index >= 4){
+			for (int i=4; i<9; i++){
+				setInventorySlotContents(i, null, true);
+			}
+		} else {
+			setInventorySlotContents (index, null, true) ;
+		}
+		
+		switch (index){
+		case 4:
+			fluidInventory.drain(LibItemStats.VALUE_INGOT * 5, true);
+			break;
+		case 5:
+			fluidInventory.drain(LibItemStats.VALUE_INGOT * 8, true);
+			break;
+		case 6:
+			fluidInventory.drain(LibItemStats.VALUE_INGOT * 7, true);
+			break;
+		case 7:
+			fluidInventory.drain(LibItemStats.VALUE_INGOT * 4, true);
+			break;
+		case 8:
+			fluidInventory.drain(LibItemStats.VALUE_INGOT * 1, true);
+			break;
+		}
+		System.out.println("Remaining Fluid: " + fluidInventory.getFluidAmount());
 		return stack;
 	}
 
