@@ -13,7 +13,7 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 	
 	public int index = 0;
 	
-	public ContainerAnvil(TileEntity tile, InventoryPlayer inventoryPlayer) {
+	public ContainerAnvil(T tile, InventoryPlayer inventoryPlayer) {
 		super(tile, inventoryPlayer);
 
 		addInventorySlots(8, 13, 4);

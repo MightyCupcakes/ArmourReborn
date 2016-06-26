@@ -37,7 +37,6 @@ import teamOD.armourReborn.common.network.PacketHandler;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.lib.LibItemStats;
-import teamOD.armourReborn.common.lib.LibUtil;
 
 public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory, IFluidHandler {
 	
@@ -224,14 +223,14 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack stack = getStackInSlot (index) ;
-		setInventorySlotContents (index, null) ;
+		setInventorySlotContents (index, null, true) ;
 		
 		return stack;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		setInventorySlotContents (index, stack, false) ;LibUtil.LogToFML(1, "HAHA");
+		setInventorySlotContents (index, stack, false) ;
 	}
 	
 	public void setInventorySlotContents(int index, ItemStack stack, boolean forced) {
@@ -240,7 +239,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		if (!isItemValidForSlot(index, stack) && !forced) return ; 
 		
 		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
-			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, null));
+			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, fluidInventory.getFluid()));
 		}
 		
 		if (index < inputInventory.length) {
@@ -306,6 +305,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
 		int amt = fluidInventory.fill (resource, doFill) ;
 		
+		if (doFill) tankContentChanged() ;
 		return amt ;
 	}
 
@@ -326,6 +326,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
 		FluidStack amt = fluidInventory.drain(maxDrain, doDrain) ;
 		
+		if (doDrain) tankContentChanged() ;
 		return amt ;
 	}
 
@@ -337,11 +338,11 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		for (Fluid liquid: WHITELIST_LIQUIDS) {
 			
 			if (liquid == fluid) {
-				return false ;
+				return true ;
 			}
 		}
 		
-		return true ;
+		return false ;
 	}
 
 	@Override
@@ -355,6 +356,12 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	}
 	
 	public void setFluidInventory (FluidStack stack) {
-		//this.fluidInventory.setFluid(stack) ;
+		this.fluidInventory.setFluid(stack) ;
+	}
+	
+	public void tankContentChanged () {
+		if (worldObj != null && !worldObj.isRemote) {
+			PacketHandler.sendToAll(new ForgeAnvilInventoryUpdatePacket (getPos(), null, -1, fluidInventory.getFluid()) );
+		}
 	}
 }
