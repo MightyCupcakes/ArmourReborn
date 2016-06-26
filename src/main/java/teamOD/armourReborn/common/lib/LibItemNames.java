@@ -10,7 +10,8 @@ public final class LibItemNames {
 	
 	public static final String[] MATERIALS_NAMES = {
 			"ingotSteel",
-			"ingotAluminium"
+			"ingotAluminium",
+			"ingotCopper"
 	} ;
 	
 	public static final String[] ORE_MATERIALS_NAMES = {

@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
@@ -44,10 +45,31 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addForgeRecipes () {
-		addOreDictRecipe(new ItemStack(ModBlocks.forgeBlocks,1,0),
+		addOreDictRecipe(new ItemStack(ModBlocks.forgeBlocks,5,0),
 				"III", 
 				"I I", 
 				"III", 
+				'I', "ingotIron");
+		
+		addOreDictRecipe(new ItemStack(ModBlocks.forgeAnvil,1,0),
+				"   ",
+				" B ",
+				"III",
+				'B', "blockIron",
+				'I', "ingotIron");
+		
+		addOreDictRecipe(new ItemStack(ModBlocks.forgeHeater,1,0),
+				"III",
+				"IBI",
+				"III",
+				'B', new ItemStack(Items.bucket),
+				'I', "ingotIron");
+		
+		addOreDictRecipe(new ItemStack(ModBlocks.forgeMaster,1,0),
+				"III",
+				"IRI",
+				"III",
+				'R', "dustRedstone",
 				'I', "ingotIron");
 	}
 	
@@ -109,5 +131,9 @@ public final class ModCraftingRecipes {
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
+	}
+	
+	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
+		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
 	}
 }
