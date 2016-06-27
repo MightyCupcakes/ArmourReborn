@@ -1,7 +1,5 @@
 package teamOD.armourReborn.common.block.tile;
 
-import com.sun.xml.internal.stream.Entity;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
