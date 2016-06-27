@@ -30,6 +30,10 @@ public class LibUtil {
 		}
 	}
 	
+	public static String getPrefix (String name) {
+		return LibMisc.PREFIX_MOD + "." + name ;
+	}
+	
 	public static boolean hasTag (NBTTagCompound tag, String key) {
 		return tag.hasKey(key) ;
 	}

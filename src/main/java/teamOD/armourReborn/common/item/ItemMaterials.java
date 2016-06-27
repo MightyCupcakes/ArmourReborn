@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamOD.armourReborn.common.lib.LibItemNames;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ItemMaterials extends ItemMod {
 	
@@ -29,7 +30,7 @@ public class ItemMaterials extends ItemMod {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.MATERIALS_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
+		return "item." + LibUtil.getPrefix(LibItemNames.MATERIALS_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())]);
 	}
 
 }

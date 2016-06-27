@@ -7,12 +7,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class BlockMod extends Block {
 	
 	public BlockMod (Material par2Material, String name) {
 		super (par2Material) ;
-		setUnlocalizedName (name) ;
+		setUnlocalizedName (LibUtil.getPrefix(name)) ;
 		
 		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
 		

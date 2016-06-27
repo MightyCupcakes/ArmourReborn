@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ItemMod extends Item {
 	public ItemMod (String name) {
@@ -15,7 +16,7 @@ public class ItemMod extends Item {
 			GameRegistry.register(this, new ResourceLocation (LibMisc.MOD_ID, name)) ;
 		}
 		
-		setUnlocalizedName (name) ;
+		setUnlocalizedName (LibUtil.getPrefix(name)) ;
 	}
 	
 	protected boolean shouldRegister () {

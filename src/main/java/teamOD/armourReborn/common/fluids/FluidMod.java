@@ -4,6 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class FluidMod extends Fluid {
 	public final int colour ;
@@ -20,7 +21,7 @@ public class FluidMod extends Fluid {
 		this.setTemperature(1000) ;
 		this.setLuminosity(10) ;
 		
-		setUnlocalizedName (fluidName) ;
+		setUnlocalizedName (LibUtil.getPrefix(fluidName)) ;
 		FluidRegistry.registerFluid(this) ;
 	}
 	

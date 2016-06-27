@@ -41,7 +41,7 @@ public class BlockForgeMaster extends BlockContainer {
 		
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
 		
-		setUnlocalizedName (name) ;
+		setUnlocalizedName (LibUtil.getPrefix(name)) ;
 		
 		setCreativeTab (ArmourRebornCreativeTab.INSTANCE) ;
 		
