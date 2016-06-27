@@ -32,7 +32,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 	public static PropertyEnum BLOCK = PropertyEnum.create("block", EnumBlockType.class) ;
 	
-	private static final ImmutableSet<EnumFacing> invertFacing = ImmutableSet.of(EnumFacing.NORTH, EnumFacing.EAST) ;
+	private static final ImmutableSet<EnumFacing> invertFacing = ImmutableSet.of(EnumFacing.SOUTH, EnumFacing.EAST) ;
 
 	public BlockForgeStructure(Material par2Material, String name) {
 		super(par2Material, name);
@@ -140,7 +140,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 		
 		for (EnumFacing direction: EnumFacing.VALUES) {
 			
-			if (direction == state.getOpposite()) {
+			if (direction.equals(state.getOpposite())) {
 				neighbors[i] = false ;
 				continue ;
 			}
@@ -173,7 +173,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 				return EnumBlockType.NONE ;
 			}
 		} else {
-			if ( (neighbors[4] && neighbors[5]) || (neighbors[2] && neighbors[3]) ) {
+			if ( (neighbors[4] && neighbors[3]) || (neighbors[2] && neighbors[3]) ) {
 				return EnumBlockType.CENTER ;
 			}
 			else if (neighbors[3] || neighbors[5]) {
