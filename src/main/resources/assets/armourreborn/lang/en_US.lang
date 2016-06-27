@@ -1,3 +1,18 @@
 itemGroup.ArmourReborn=ArmourReborn
 
-item.armourReborn:steelIngot.name=Steel Ingot
+# ITEM NAMES
+item.armourreborn.ingotSteel.name=Steel Ingot
+item.armourreborn.ingotAluminium.name=Aluminium Ingot
+item.armourreborn.ingotCopper.name=Copper Ingot
+
+# BLOCKS NAMES
+tile.armourreborn.forgeController.name=Forge Controller
+tile.armourreborn.forgeBlock.name=Forge Block Structure
+tile.armourreborn.forgeHeater.name=Forge Fuel Tank
+tile.armourreborn.forgeAnvil.name=Forge Anvil
+
+# FLUID NAMES
+tile.fluid.armourreborn.molten_iron.name=Molten Iron
+tile.fluid.armourreborn.molten_steel.name=Molten Steel
+tile.fluid.armourreborn.molten_aluminium.name=Molten Aluminium
+tile.fluid.armourreborn.molten_copper.name=Molten Copper
