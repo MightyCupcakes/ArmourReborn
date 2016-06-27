@@ -366,6 +366,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		return new FluidTankInfo[] { new FluidTankInfo (fluidInventory) } ;
 	}
 	
+	public FluidTankInfo getTankInfo() {
+		return getTankInfo(null)[0] ;
+	}
+	
 	public void setFluidInventory (FluidStack stack) {
 		this.fluidInventory.setFluid(stack) ;
 	}

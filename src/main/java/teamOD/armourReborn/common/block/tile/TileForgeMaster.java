@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Queues ;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	private boolean isActive ;
 	private ItemStack[] inventory ;
 	private InternalForgeTank internalTank ;
+	private HashMap<FluidStack, BlockPos> anvilPos ;
 	private int tick, timeElapsed ;
 	
 	private int minX, minY, minZ ;
@@ -64,6 +66,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
+		anvilPos = new HashMap<FluidStack, BlockPos> () ;
 		
 	}
 	
@@ -81,6 +84,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			
 			heatItems(internalTank) ;
 			createAlloys() ;
+			outputToAnvil() ;
 		}
 		
 		tick = (tick + 1) % 20 ;
@@ -152,6 +156,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		
 		else {
 			setupStructure () ;
+			findAdjacentAnvil () ;
 		}
 		
 		worldObj.notifyBlockUpdate(getPos(), state, state, 3);
@@ -175,6 +180,26 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		}
 		
 		return result ;
+	}
+	
+	private void findAdjacentAnvil () {
+		
+		anvilPos.clear() ;
+		
+		for (int x = minX; x <= maxX; x ++) {
+			for (int z = minZ; z <= maxZ; z ++) {
+				BlockPos currentPos = new BlockPos (x, minY, z) ;
+				
+				for (EnumFacing directions: EnumFacing.HORIZONTALS) {
+					TileEntity entity = worldObj.getTileEntity(currentPos.offset(directions)) ;
+					
+					if (entity instanceof TileForgeAnvil) {
+						TileForgeAnvil a = (TileForgeAnvil) entity ;
+						anvilPos.put(a.getTankInfo().fluid, currentPos.offset(directions)) ;
+					}
+				}
+			}
+		}
 	}
 	
 	private void setMaxCoords (BlockPos pos) {
@@ -259,6 +284,50 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	
 	public boolean isActive () {
 		return isActive ;
+	}
+	
+	public void outputToAnvil () {
+		// If forge is currently melting stuff down, or forming alloys, don't output its contents.
+		// or there is no anvil to output to
+		if (forgeBusy || anvilPos.size() == 0) {
+			return ;
+		}
+		
+		for (int i = 0; i < internalTank.getFluids().size(); i ++) {
+			
+			FluidStack fluid = internalTank.getFluids().get(i) ;
+			
+			// Try to find an anvil with the current fluid and fill it first
+			// Else get any empty anvil.
+			BlockPos aPos = (anvilPos.containsKey(fluid)) ? anvilPos.get(fluid) : anvilPos.get(null) ;
+			
+			// No empty anvil available and not anvil filled with the current liquid
+			if (aPos == null) {
+				return ;
+			}
+			
+			TileForgeAnvil anvil = (TileForgeAnvil) worldObj.getTileEntity(aPos) ;
+			
+			if (!anvil.canFill(null, fluid.getFluid())) continue ;
+			
+			int amt = anvil.fill(null, fluid, false) ;
+			
+			if (amt == fluid.amount) {
+				// Anvil can accept all of this liquid.
+				// Fully drain the internal tank of this fluid
+				anvil.fill(null, fluid, true) ;
+				internalTank.drain(fluid, true) ;
+			
+			} else if (amt > 0 && amt != fluid.amount) {
+				// Anvil don't have sufficient space to fully drain the internal tank
+				FluidStack tmpFluid = fluid.copy() ;
+				tmpFluid.amount = amt ;
+				
+				anvil.fill(null, tmpFluid, true) ;
+				internalTank.drain(tmpFluid, true) ;
+			}
+		}
+		
 	}
 	
 	@Override
@@ -433,6 +502,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		super.writeCustomNBT(cmp) ;
 		
 		cmp.setBoolean("Active", isActive() ) ;
+		writeAnvilPos (cmp) ;
 		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
@@ -453,9 +523,21 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		cmp.setTag("Inventory", nbttaglist) ;
 	}
 	
+	private void writeAnvilPos(NBTTagCompound cmp) {
+		NBTTagList nbttaglist = new NBTTagList() ;
+		
+		for (BlockPos bp : anvilPos.values()) {
+			nbttaglist.appendTag(LibUtil.writePos(bp)) ;
+		}
+		
+		cmp.setTag("anvilPos", nbttaglist);
+	}
+	
 	@Override
 	public void readCustomNBT(NBTTagCompound cmp) {
 		super.readCustomNBT(cmp) ;
+		
+		readAnvilPos(cmp) ;
 		
 		// write inventory contents to nbt
 		IInventory inventory = this ;
@@ -471,6 +553,21 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			
 			if (slot >= 0 && slot < inventory.getSizeInventory()) {
 				inventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(itemTag));
+			}
+		}
+	}
+	
+	private void readAnvilPos(NBTTagCompound cmp) {
+		NBTTagList tagList = cmp.getTagList("anvilPos", 10);
+		
+		anvilPos.clear();
+		
+		for (int i = 0; i < tagList.tagCount(); i++) {
+			BlockPos p = LibUtil.readPos(tagList.getCompoundTagAt(i)) ;
+			
+			if (worldObj != null) {
+				TileForgeAnvil anvil = (TileForgeAnvil) worldObj.getTileEntity(p) ;
+				if (anvil != null) anvilPos.put (anvil.getTankInfo().fluid, p) ;
 			}
 		}
 	}

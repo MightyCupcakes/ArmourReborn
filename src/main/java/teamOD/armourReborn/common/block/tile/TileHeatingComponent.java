@@ -35,12 +35,15 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	protected int[] itemTemps ;
 	protected int[] itemMeltingTemps ;
 	
+	protected boolean forgeBusy ; // If true, the forge will not output its internal liquid inventory to any adjacent anvil.
+	
 	public TileHeatingComponent (int inventorySize) {
 		super () ;
 		
 		internalTemp = 20 ;
 		itemTemps = new int[inventorySize] ;
 		itemMeltingTemps = new int[inventorySize] ;
+		forgeBusy = false ;
 	}
 	
 	public void heatItems (InternalForgeTank internalTank) {
@@ -50,6 +53,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		TileForgeMaster inventory = this.getMasterBlock() ;
 		
 		boolean hasHeated = false ;
+		forgeBusy = false ;
 		
 		for (int i = 0; i < inventory.getSizeInventory(); i ++) {
 			ItemStack stack = inventory.getStackInSlot(i) ;
@@ -82,7 +86,10 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 			}
 		}
 		
-		if (hasHeated) consumeFuel () ;
+		if (hasHeated) {
+			consumeFuel () ;
+			forgeBusy = true ;
+		}
 	}
 	
 	public void createAlloys () {
