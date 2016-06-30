@@ -47,7 +47,7 @@ public class ForgeGui extends GuiContainer {
 			h = (int) (h * (float) forge.getHeater().fluid.amount / forge.getHeater().capacity) ;
 			
 			RenderUtils.renderTiledFluid(x, y - h, w, h, this.zLevel, forge.getHeater().fluid);
-		}
+		} 
 		
 	}
 	

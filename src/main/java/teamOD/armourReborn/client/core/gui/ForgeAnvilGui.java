@@ -32,7 +32,7 @@ public class ForgeAnvilGui extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(BACKGROUND) ;
 		this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize) ;
 		
-		FluidTankInfo tankInfo = anvil.getTankInfo(EnumFacing.NORTH)[0] ;
+		FluidTankInfo tankInfo = anvil.getTankInfo() ;
 		
 		if (tankInfo.fluid != null && tankInfo.fluid.amount > 0) {
 			int x = 152 + this.guiLeft ;
