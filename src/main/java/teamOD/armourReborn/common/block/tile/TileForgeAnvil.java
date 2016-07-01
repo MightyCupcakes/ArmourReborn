@@ -40,7 +40,7 @@ import teamOD.armourReborn.common.lib.LibItemStats;
 
 public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory, IFluidHandler {
 	
-	public static final ImmutableList<FluidMod> WHITELIST_LIQUIDS = ImmutableList.of(ModFluids.iron, ModFluids.aluminium, ModFluids.copper, ModFluids.steel);
+	public static final ImmutableList<FluidMod> WHITELIST_LIQUIDS = ImmutableList.copyOf(ModFluids.modFluids) ;
 	
 	private ItemStack[] inputInventory ;
 	private ItemStack[] outputInventory;

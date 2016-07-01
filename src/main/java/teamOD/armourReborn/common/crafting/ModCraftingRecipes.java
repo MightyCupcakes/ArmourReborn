@@ -34,6 +34,10 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addCastingRecipes () {
+		registerCastingRecipe (ModFluids.gold,
+				new ItemStack (Items.gold_ingot, 1, 0)
+				) ;
+		
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
 				new ItemStack(Items.iron_boots, 4, 0),

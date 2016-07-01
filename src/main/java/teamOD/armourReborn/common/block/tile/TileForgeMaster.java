@@ -41,7 +41,7 @@ import teamOD.armourReborn.common.network.PacketHandler;
 public class TileForgeMaster extends TileHeatingComponent implements IInventory, ITileInventory {
 	
 	public static final String NAME = "forgeInventory" ;
-	public static final int STACKSIZE = 8 ;
+	public static final int STACKSIZE = 1 ;
 	public static final int INVENTORY_SIZE = 9 ;
 	
 	public static final int FORGE_LENGTH = 3 ;
@@ -307,6 +307,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			}
 			
 			TileForgeAnvil anvil = (TileForgeAnvil) worldObj.getTileEntity(aPos) ;
+			
+			if (anvil == null) continue ;
 			
 			if (!anvil.canFill(null, fluid.getFluid())) continue ;
 			

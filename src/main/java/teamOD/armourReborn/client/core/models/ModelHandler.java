@@ -47,6 +47,7 @@ public class ModelHandler {
 		registerFluidsModel (ModFluids.steel) ;
 		registerFluidsModel (ModFluids.aluminium) ;
 		registerFluidsModel (ModFluids.copper) ;
+		registerFluidsModel (ModFluids.gold) ;
 	}
 	
 	private static void registerResources () {

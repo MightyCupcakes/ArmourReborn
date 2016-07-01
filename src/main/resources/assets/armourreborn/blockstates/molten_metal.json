@@ -20,6 +20,10 @@
 
         "molten_copper": [{
         	"custom": {"fluid": "molten_copper"}
+        }],
+
+        "molten_gold": [{
+            "custom": {"fluid": "molten_gold"}
         }]
     }
 }

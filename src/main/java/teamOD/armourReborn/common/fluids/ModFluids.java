@@ -1,5 +1,9 @@
 package teamOD.armourReborn.common.fluids;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
@@ -18,6 +22,8 @@ public class ModFluids {
 	public static FluidMod copper ;
 	public static FluidMod gold ;
 	
+	public static List<FluidMod> modFluids = Lists.newLinkedList() ;
+	
 	public static void registerBucket () {
 		FluidRegistry.enableUniversalBucket();
 	} ;
@@ -26,9 +32,9 @@ public class ModFluids {
 		
 		iron = registerMoltenBlock ("iron", 0xFFFF0000) ;
 		steel = registerMoltenBlock ("steel", 0xFFFFFFFF) ;
-		aluminium = registerMoltenBlock ("aluminium", 0x80808080) ;
-		copper = registerMoltenBlock ("copper", 0xC8753300) ;
-		gold = registerMoltenBlock ("gold", 0xf6d60900) ;
+		aluminium = registerMoltenBlock ("aluminium", 0xff808080) ;
+		copper = registerMoltenBlock ("copper", 0xffC87533) ;
+		gold = registerMoltenBlock ("gold", 0xfff6d609) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {
@@ -43,6 +49,7 @@ public class ModFluids {
 		fluid.setBlock(block) ;
 		
 		FluidRegistry.addBucketForFluid(fluid);
+		modFluids.add(fluid) ;
 		
 		return fluid ;
 	}
