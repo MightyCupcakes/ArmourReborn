@@ -4,11 +4,22 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
+import net.minecraft.util.text.TextFormatting;
 
 public abstract class AbstractModifier implements IModifier {
+	
+	protected String identifier ;
+	protected TextFormatting colour ;
+	
+	public AbstractModifier (String identifier, TextFormatting colour) {
+		this.identifier = identifier ;
+		this.colour = colour ;
+	}
 
 	@Override
-	public abstract String getIdentifier() ;
+	public String getIdentifier() {
+		return identifier ;
+	}
 
 	@Override
 	public int getLevel() {
@@ -33,6 +44,11 @@ public abstract class AbstractModifier implements IModifier {
 	@Override
 	public void onStatusEffect(ItemStack armour, EntityLivingBase target, PotionType status) {
 		// NO OP		
+	}
+
+	@Override
+	public boolean negateDamage(ItemStack armour, EntityLivingBase target) {
+		return false;
 	}
 
 }

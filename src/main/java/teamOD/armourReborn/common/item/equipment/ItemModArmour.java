@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.item.equipment;
 
+import java.util.List;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -17,8 +19,10 @@ import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.leveling.ILevelable;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
+import teamOD.armourReborn.common.modifiers.IModifiable;
+import teamOD.armourReborn.common.modifiers.IModifier;
 
-public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable  {
+public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
 	
 	public EntityEquipmentSlot type;
 	
@@ -132,6 +136,23 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 		tag.setInteger(TAG_LEVEL, tag.getInteger(TAG_LEVEL) + 1 ) ;
 		tag.setInteger(TAG_EXP, 0) ;
 		
-	}	
+	}
+	
+	@Override
+	public boolean updateItemStackNBT(NBTTagCompound cmp) {
+		return true ;
+	}
+
+	@Override
+	public void addModifier(ItemStack armour) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<IModifier> getModifiers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
+import net.minecraft.util.DamageSource;
 
 public interface IModifier {
 	
@@ -38,11 +39,20 @@ public interface IModifier {
 	/**
 	 * Called when an player entity is hit, just before damage is dealt. Damage is the final damage dealt after critical hit calculations (if any)
 	 * 
-	 * @param armour		The amour the target is wearing
+	 * @param armour		The armour the target is wearing
 	 * @param target		The player targeted
-	 * @param damage		The final damage value dealt to the target player
+	 * @param damage		The final damage
 	 */
 	public void onHit (ItemStack armour, EntityLivingBase target, float damage) ;
+	
+	/**
+	 * For modifiers that gives a chance to negate damage fully or partially
+	 * 
+	 * @param armour	The armour the target is wearing
+	 * @param target	The player targeted
+	 * @return			True if damage should be negated; false otherwise
+	 */
+	public boolean negateDamage (ItemStack armour, EntityLivingBase target) ;
 	
 	/**
 	 * Called before applying status effect to the target.

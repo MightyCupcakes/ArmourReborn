@@ -16,6 +16,8 @@ public class ModifierEvents {
 			Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 			
 			for (ItemStack armourPiece : armour) {
+				if (armourPiece == null) continue ;
+				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					IModifiable thisArmour = (IModifiable) armourPiece.getItem() ;
 					
@@ -35,11 +37,18 @@ public class ModifierEvents {
 			Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 			
 			for (ItemStack armourPiece : armour) {
+				if (armourPiece == null) continue ;
+				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					IModifiable thisArmour = (IModifiable) armourPiece.getItem() ;
 					
 					for (IModifier modifier : thisArmour.getModifiers()) {
 						modifier.onHit(armourPiece, player, event.getAmount());
+						
+						if (modifier.negateDamage(armourPiece, player)) {
+							event.setCanceled(true) ;
+							break ;
+						}
 					}
 				}
 			}
