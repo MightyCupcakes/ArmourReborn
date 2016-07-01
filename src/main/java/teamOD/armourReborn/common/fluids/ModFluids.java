@@ -16,10 +16,11 @@ public class ModFluids {
 	public static FluidMod steel ;
 	public static FluidMod aluminium ;
 	public static FluidMod copper ;
+	public static FluidMod gold ;
 	
 	public static void registerBucket () {
 		FluidRegistry.enableUniversalBucket();
-	}
+	} ;
 	
 	public static void init () {
 		
@@ -27,6 +28,7 @@ public class ModFluids {
 		steel = registerMoltenBlock ("steel", 0xFFFFFFFF) ;
 		aluminium = registerMoltenBlock ("aluminium", 0x80808080) ;
 		copper = registerMoltenBlock ("copper", 0xC8753300) ;
+		gold = registerMoltenBlock ("gold", 0xf6d60900) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {
