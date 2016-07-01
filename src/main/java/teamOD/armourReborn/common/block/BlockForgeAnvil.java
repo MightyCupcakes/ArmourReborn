@@ -2,7 +2,10 @@ package teamOD.armourReborn.common.block;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +24,8 @@ import teamOD.armourReborn.common.block.tile.TileForgeAnvil;
 import teamOD.armourReborn.common.block.tile.TileHeatingComponent;
 
 public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
+	
+	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 	
 	public BlockForgeAnvil (Material par2Material, String name) {
 		super(par2Material, name);
@@ -81,30 +86,32 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 		
 		if (item == null) {
 			playerIn.openGui(ArmourReborn.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		} else {
-			FluidUtil.interactWithTank(item, playerIn, tank, side) ;
-		}
-		/*
-		if (entity.getStack() == null) {
-			if (heldItem != null) {
-				entity.setStack(heldItem) ;
-				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null) ;
-				playerIn.openContainer.detectAndSendChanges() ;
-				entity.sync() ;
-			}
-		} else {
-			if (heldItem == null) {
-				playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, entity.getStack()) ;
-				entity.setStack(null) ;
-				playerIn.openContainer.detectAndSendChanges() ;
-				entity.sync() ;
-			}
-		}
-		*/
+		} 
+		
 		return true ;
 	}
 	
 	private TileForgeAnvil getTile (World world, BlockPos pos) {
 		return (TileForgeAnvil) world.getTileEntity(pos) ;
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer (this, FACING) ;
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta (int meta) {
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta)) ;
+	}
+	
+	@Override
+	public int getMetaFromState (IBlockState state) {
+		return state.getValue(FACING).getIndex() ;
+	}
+	
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 }
