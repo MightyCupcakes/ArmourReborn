@@ -18,7 +18,9 @@ public class FluidMod extends Fluid {
 		this.colour = colour ;
 		this.setDensity(3000) ;
 		this.setViscosity(10000) ;
-		this.setTemperature(1000) ;
+		
+		// This temperature represents the melting point of the associated material. Higher temps == more time to melt
+		this.setTemperature(1000) ; 
 		this.setLuminosity(10) ;
 		
 		setUnlocalizedName (LibUtil.getPrefix(fluidName)) ;

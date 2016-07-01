@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
-public class TraitEvasion extends AbstractModifier {
+public class TraitEvasion extends AbstractTrait {
 
 	public TraitEvasion(String identifier, TextFormatting colour) {
 		super("evasion", TextFormatting.GREEN) ;

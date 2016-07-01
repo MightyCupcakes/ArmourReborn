@@ -31,18 +31,23 @@ public class ModFluids {
 	public static void init () {
 		
 		iron = registerMoltenBlock ("iron", 0xFFFF0000) ;
-		steel = registerMoltenBlock ("steel", 0xFFFFFFFF) ;
-		aluminium = registerMoltenBlock ("aluminium", 0xff808080) ;
+		steel = registerMoltenBlock ("steel", 0xFFFFFFFF, 1200) ;
+		aluminium = registerMoltenBlock ("aluminium", 0xff808080, 1300) ;
 		copper = registerMoltenBlock ("copper", 0xffC87533) ;
 		gold = registerMoltenBlock ("gold", 0xfff6d609) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {
+		return registerMoltenBlock (name, colour, 1000) ;
+	}
+	
+	private static FluidMod registerMoltenBlock (String name, int colour, int meltingPoint) {
 		
 		FluidMod fluid ;
 		String regName = "molten_" + name ;
 		
 		fluid = new FluidMod (regName, colour) ;
+		fluid.setTemperature(meltingPoint) ;
 		
 		BlockModFluid block = new BlockModFluid (fluid) ;
 		

@@ -9,6 +9,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -16,13 +19,15 @@ import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
+import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.leveling.ILevelable;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.IModifier;
+import teamOD.armourReborn.common.modifiers.ITrait;
 
-public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
+public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
 	
 	public EntityEquipmentSlot type;
 	
@@ -105,7 +110,7 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	public void setExp(ItemStack armour, EntityPlayer player, int armourExp) {
 		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
 		
-		if ( !LibUtil.hasTag(tag, TAG_LEVEL) || !LibUtil.hasTag(tag, TAG_EXP) ) {
+		if ( !tag.hasKey(TAG_EXP) || !tag.hasKey(TAG_LEVEL)) {
 			return ;
 		}
 		
@@ -119,7 +124,7 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	public void addExp(ItemStack armour, EntityPlayer player, int armourExp) {
 		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
 		
-		if ( !LibUtil.hasTag(tag, TAG_LEVEL) || !LibUtil.hasTag(tag, TAG_EXP) ) {
+		if ( !tag.hasKey(TAG_LEVEL) || !tag.hasKey(TAG_EXP) ) {
 			return ;
 		}
 		
@@ -140,6 +145,9 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	
 	@Override
 	public boolean updateItemStackNBT(NBTTagCompound cmp) {
+		if ( LibUtil.hasModTag(cmp) ) {
+			// TODO: Rebuild armour from NBT
+		}
 		return true ;
 	}
 
@@ -153,6 +161,55 @@ public class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelabl
 	public List<IModifier> getModifiers() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public abstract List<ITrait> getArmourTypeTrait () ;
+	
+	
+	@Override
+	public ItemStack buildItem(List<MaterialsMod> materials) {
+		ItemStack armour = new ItemStack (this) ;
+		armour.setTagCompound( buildItemTag (materials) );
+		
+		return armour ;
+	}
+	
+	public NBTTagCompound buildItemTag (List<MaterialsMod> materials) {
+		NBTTagCompound tag = new NBTTagCompound () ;
+		
+		NBTTagList modTag = new NBTTagList () ;
+		
+		// Levels
+		NBTTagCompound dataTag = new NBTTagCompound () ;
+		
+		this.addBaseTags(dataTag) ;
+		modTag.appendTag(dataTag) ;
+		
+		NBTTagInt sizeTag ;
+		
+		// Size of materials list for reading later
+		sizeTag = new NBTTagInt(materials.size()) ;
+		modTag.appendTag(sizeTag) ;
+		
+		// Materials Traits
+		for (MaterialsMod material : materials) {
+			NBTTagCompound materialTag = new NBTTagCompound () ;
+			material.writeToNBT(materialTag) ;
+			modTag.appendTag(materialTag) ;
+		}
+		
+		// Armour type specific traits
+		sizeTag = new NBTTagInt (getArmourTypeTrait().size()) ;
+		modTag.appendTag(sizeTag) ;
+		
+		for (ITrait trait: getArmourTypeTrait() ) {
+			NBTTagCompound armourTypeTag = new NBTTagCompound () ;
+			armourTypeTag.setString(IDENTIFIER, trait.getIdentifier()) ;
+			modTag.appendTag(armourTypeTag) ;
+		}
+		
+		tag.setTag(LibUtil.MOD_TAG, modTag);
+		return tag ;
 	}
 	
 }
