@@ -17,9 +17,9 @@ public class TraitReprisal extends AbstractTrait {
 	
 	public static final ImmutableList<Float> percentages = ImmutableList.of(0.05F, 0.1F, 0.2F) ;
 	
-	public TraitReprisal() {
+	public TraitReprisal(int level) {
 		
-		super("reprisal", TextFormatting.RED) ;
+		super("reprisal", level, TextFormatting.RED) ;
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class TraitReprisal extends AbstractTrait {
 		
 		float randNum = LibUtil.getRandomFloat() ;
 		
-		if (randNum <= percentage) {
+		if (randNum <= percentage && entity != null) {
 			entity.attackEntityFrom (DamageSource.generic, damage) ;
 		}
 	}

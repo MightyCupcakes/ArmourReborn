@@ -1,5 +1,9 @@
 package teamOD.armourReborn.common.modifiers;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,6 +14,12 @@ import net.minecraft.potion.PotionType;
  * 
  */
 public interface ITrait {
+	
+	public static final Map<Integer, String> levelStrings = ImmutableMap.<Integer, String>builder()
+			.put(0, "I")
+			.put(1, "II")
+			.put(2, "III")
+			.build() ;
 	/**
 	 * Returns a string identifier that uniquely identifies this modifier
 	 *
@@ -18,7 +28,9 @@ public interface ITrait {
 	
 	/**
 	 * A modifier may have multiple levels of increasing effects.
-	 * @return int representing the modifier level. Default is 1
+	 * Levels are 0-indexed. Therefore the integer 0 represents level 1
+	 * 
+	 * @return int representing the modifier level. Default is 0
 	 */
 	public int getLevel () ;
 	

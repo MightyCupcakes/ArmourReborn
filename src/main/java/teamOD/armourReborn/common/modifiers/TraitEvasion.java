@@ -17,8 +17,8 @@ public class TraitEvasion extends AbstractTrait {
 	
 	public static final ImmutableList<Float> percentages = ImmutableList.of(0.05F, 0.1F, 0.2F) ;
 
-	public TraitEvasion(String identifier, TextFormatting colour) {
-		super("evasion", TextFormatting.GREEN) ;
+	public TraitEvasion(int level) {
+		super("evasion", level, TextFormatting.GREEN) ;
 	}
 	
 	@Override

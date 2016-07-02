@@ -17,7 +17,7 @@ public abstract class AbstractTrait implements ITrait {
 	}
 	
 	public AbstractTrait (String identifier, int level, TextFormatting colour) {
-		this.identifier = identifier ;
+		this.identifier = identifier + " " + ITrait.levelStrings.get(level) ;
 		this.colour = colour ;
 		this.level = level ;
 	}
