@@ -21,6 +21,11 @@ public abstract class AbstractTrait implements ITrait {
 		this.colour = colour ;
 		this.level = level ;
 	}
+	
+	@Override
+	public TextFormatting getColour() {
+		return colour ;
+	}
 
 	@Override
 	public String getIdentifier() {

@@ -6,8 +6,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
+import teamOD.armourReborn.common.crafting.ModMaterials;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 import teamOD.armourReborn.common.network.PacketHandler;
 import teamOD.armourReborn.common.world.WorldGenReborn;
 
@@ -17,6 +19,8 @@ public class CommonProxy {
 		ModBlocks.init () ;
 		ModItems.init () ;
 		ModFluids.init ();
+		ModMaterials.init() ;
+		ModTraitsModifiersRegistry.init() ;
 		
 		PacketHandler.init(); 
 	}

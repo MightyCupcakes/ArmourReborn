@@ -31,6 +31,7 @@ public final class ModCraftingRecipes {
 		addMeltingRecipes () ;
 		addForgeRecipes () ;
 		addCastingRecipes () ;
+		addArmourRecipes () ;
 	}
 	
 	private static void addCastingRecipes () {
@@ -86,6 +87,10 @@ public final class ModCraftingRecipes {
 		addMeltingRecipe ("Aluminium", ModFluids.aluminium) ;
 		addMeltingRecipe ("Copper", ModFluids.copper) ;
 		addMeltingRecipe ("Gold", ModFluids.gold) ;
+	}
+	
+	private static void addArmourRecipes () {
+		
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

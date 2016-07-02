@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.lib.LibUtil;
 
@@ -31,7 +32,7 @@ public class ModifierEvents {
 	}
 	
 	@SubscribeEvent
-	public void onPlayerDamage (LivingHurtEvent event) {
+	public void onPlayerDamaged (LivingHurtEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
 			
@@ -59,6 +60,15 @@ public class ModifierEvents {
 					}
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onTooltipDisplay (ItemTooltipEvent event) {
+		if (event.getEntityPlayer() == null) return ;
+		
+		if (event.getItemStack().getItem() instanceof IModifiable) {
+			event.getToolTip().addAll( LibUtil.getItemToolTip(event.getItemStack()) ) ;
 		}
 	}
 	

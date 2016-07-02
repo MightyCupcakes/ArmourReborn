@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
+import net.minecraft.util.text.TextFormatting;
 
 /**
  * A trait is a special feature associated to the material itself and cannot be modified.
@@ -25,6 +26,8 @@ public interface ITrait {
 	 *
 	 */
 	public String getIdentifier () ;
+	
+	public TextFormatting getColour () ;
 	
 	/**
 	 * A modifier may have multiple levels of increasing effects.

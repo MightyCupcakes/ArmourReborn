@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLLog;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
@@ -95,6 +96,29 @@ public class LibUtil {
 		}
 		
 		return list ;
+	}
+	
+	public static List<String> getItemToolTip (ItemStack stack) {
+		List<String> tooltip = Lists.newLinkedList() ;
+		
+		List<ITrait> traits = getModifiersList (stack) ;
+		
+		for (ITrait trait : traits) {
+			tooltip.add( formatIdentifier(trait) ) ;
+		}
+		
+		return tooltip ;
+	}
+	
+	public static String formatIdentifier (ITrait trait) {
+		String s, identifier ;
+		identifier = trait.getIdentifier() ;
+		
+		s = "" + trait.getColour() ;
+		
+		s += identifier.substring(0, 1).toUpperCase() + identifier.substring(1) ;
+		
+		return s ;
 	}
 
 }
