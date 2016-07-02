@@ -6,6 +6,10 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 
+/**
+ * Armour with this trait tends to absorb too much water and becomes a burden
+ *
+ */
 public class TraitWaterlogged extends AbstractTrait {
 	
 	public TraitWaterlogged() {

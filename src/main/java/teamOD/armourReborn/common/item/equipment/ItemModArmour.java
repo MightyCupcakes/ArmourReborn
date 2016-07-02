@@ -9,7 +9,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.DamageSource;
@@ -108,7 +107,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	@Override
 	public void setExp(ItemStack armour, EntityPlayer player, int armourExp) {
-		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
+		NBTTagCompound tag = armour.getTagCompound() ;
 		
 		if ( !tag.hasKey(TAG_EXP) || !tag.hasKey(TAG_LEVEL)) {
 			return ;
@@ -122,7 +121,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	@Override
 	public void addExp(ItemStack armour, EntityPlayer player, int armourExp) {
-		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
+		NBTTagCompound tag = armour.getTagCompound() ;
 		
 		if ( !tag.hasKey(TAG_LEVEL) || !tag.hasKey(TAG_EXP) ) {
 			return ;
@@ -136,7 +135,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	@Override
 	public void levelUpArmour(ItemStack armour, EntityPlayer player) {
-		NBTTagCompound tag = LibUtil.getModCompoundTag(armour) ;
+		NBTTagCompound tag = armour.getTagCompound() ;
 		
 		tag.setInteger(TAG_LEVEL, tag.getInteger(TAG_LEVEL) + 1 ) ;
 		tag.setInteger(TAG_EXP, 0) ;
@@ -145,24 +144,12 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public boolean updateItemStackNBT(NBTTagCompound cmp) {
-		if ( LibUtil.hasModTag(cmp) ) {
+		if ( cmp.hasKey("traits") ) {
 			// TODO: Rebuild armour from NBT
 		}
 		return true ;
 	}
 
-	@Override
-	public void addModifier(ItemStack armour) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<IModifier> getModifiers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public abstract List<ITrait> getArmourTypeTrait () ;
 	
 	
@@ -177,20 +164,12 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public NBTTagCompound buildItemTag (List<MaterialsMod> materials) {
 		NBTTagCompound tag = new NBTTagCompound () ;
 		
-		NBTTagList modTag = new NBTTagList () ;
-		
 		// Levels
-		NBTTagCompound dataTag = new NBTTagCompound () ;
+		this.addBaseTags(tag) ;
 		
-		this.addBaseTags(dataTag) ;
-		modTag.appendTag(dataTag) ;
-		
-		NBTTagInt sizeTag ;
-		
-		// Size of materials list for reading later
-		sizeTag = new NBTTagInt(materials.size()) ;
-		modTag.appendTag(sizeTag) ;
-		
+		// Modifiers and traits
+		NBTTagList modTag = new NBTTagList () ;
+				
 		// Materials Traits
 		for (MaterialsMod material : materials) {
 			NBTTagCompound materialTag = new NBTTagCompound () ;
@@ -198,17 +177,14 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			modTag.appendTag(materialTag) ;
 		}
 		
-		// Armour type specific traits
-		sizeTag = new NBTTagInt (getArmourTypeTrait().size()) ;
-		modTag.appendTag(sizeTag) ;
-		
+		// Armour type specific traits		
 		for (ITrait trait: getArmourTypeTrait() ) {
 			NBTTagCompound armourTypeTag = new NBTTagCompound () ;
 			armourTypeTag.setString(IDENTIFIER, trait.getIdentifier()) ;
 			modTag.appendTag(armourTypeTag) ;
 		}
 		
-		tag.setTag(LibUtil.MOD_TAG, modTag);
+		tag.setTag("traits", modTag);
 		return tag ;
 	}
 	

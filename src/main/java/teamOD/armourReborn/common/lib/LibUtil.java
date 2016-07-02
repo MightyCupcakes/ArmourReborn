@@ -1,13 +1,20 @@
 package teamOD.armourReborn.common.lib;
 
+import java.util.List;
+import java.util.Random;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLLog;
+import teamOD.armourReborn.common.modifiers.IModifiable;
+import teamOD.armourReborn.common.modifiers.ITrait;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class LibUtil {
-	
-	public static final String MOD_TAG = "ArmourReborn" ;
 	
 	/**
 	 * Log a message using the logger provided by ForgeModLoader
@@ -35,18 +42,6 @@ public class LibUtil {
 	public static String getPrefix (String name) {
 		return LibMisc.PREFIX_MOD + "." + name ;
 	}
-	
-	public static boolean hasModTag (NBTTagCompound tag) {
-		return tag.hasKey(MOD_TAG) ;
-	}
-	
-	public static NBTTagCompound getModCompoundTag (ItemStack stack) {
-		return stack.getTagCompound().getCompoundTag(MOD_TAG) ;
-	}
-	
-	public static NBTTagCompound getModCompoundTag (NBTTagCompound cmp) {
-		return cmp.getCompoundTag(MOD_TAG) ;
-	}
 
 	public static NBTTagCompound writePos(BlockPos pos) {
 		NBTTagCompound tag = new NBTTagCompound();
@@ -65,7 +60,41 @@ public class LibUtil {
 		return null;
 	}
 	
+	public static float getRandomFloat () {
+		Random randGenerator = new Random () ;
+		
+		return randGenerator.nextFloat() ;
+	}
+	
 	// Modifiers tags utilities 
 	
+	public static NBTTagList getModifiersTag (ItemStack stack) {
+		if ( !(stack.getItem() instanceof IModifiable) ) {
+			return null ;
+		}
+		
+		NBTTagCompound tag = stack.getTagCompound() ;
+		NBTTagList result = tag.getTagList("traits", 10) ;
+		
+		return result ;
+	}
+	
+	public static List<ITrait> getModifiersList (ItemStack stack) {
+		NBTTagList tagList = getModifiersTag(stack) ;
+		
+		if (tagList == null) {
+			return null ;
+		}
+		
+		List<ITrait> list = Lists.newLinkedList() ;
+		
+		for (int i = 0; i < tagList.tagCount(); i ++) {
+			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
+			
+			list.add(ModTraitsModifiersRegistry.getTraitFromIdentifier(tag.getString(IModifiable.IDENTIFIER))) ;
+		}
+		
+		return list ;
+	}
 
 }

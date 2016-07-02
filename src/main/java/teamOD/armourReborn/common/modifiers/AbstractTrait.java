@@ -10,11 +10,16 @@ public abstract class AbstractTrait implements ITrait {
 	protected String identifier ;
 	protected TextFormatting colour ;
 	
-	public int level ;
+	protected int level ;
 	
 	public AbstractTrait (String identifier, TextFormatting colour) {
+		this (identifier, 0, colour) ;
+	}
+	
+	public AbstractTrait (String identifier, int level, TextFormatting colour) {
 		this.identifier = identifier ;
 		this.colour = colour ;
+		this.level = level ;
 	}
 
 	@Override
@@ -38,7 +43,7 @@ public abstract class AbstractTrait implements ITrait {
 	}
 
 	@Override
-	public void onHit(ItemStack armour, EntityLivingBase target, float damage) {
+	public void onHit(ItemStack armour, EntityLivingBase entity, EntityLivingBase target, float damage) {
 		// NO OP		
 	}
 

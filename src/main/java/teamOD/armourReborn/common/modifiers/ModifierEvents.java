@@ -1,10 +1,12 @@
 package teamOD.armourReborn.common.modifiers;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ModifierEvents {
 	
@@ -19,9 +21,8 @@ public class ModifierEvents {
 				if (armourPiece == null) continue ;
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
-					IModifiable thisArmour = (IModifiable) armourPiece.getItem() ;
 					
-					for (IModifier modifier : thisArmour.getModifiers()) {
+					for (ITrait modifier : LibUtil.getModifiersList(armourPiece)) {
 						modifier.modifyMovementSpeed(player, armourPiece) ;
 					}
 				}
@@ -40,10 +41,16 @@ public class ModifierEvents {
 				if (armourPiece == null) continue ;
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
-					IModifiable thisArmour = (IModifiable) armourPiece.getItem() ;
 					
-					for (IModifier modifier : thisArmour.getModifiers()) {
-						modifier.onHit(armourPiece, player, event.getAmount());
+					for (ITrait modifier : LibUtil.getModifiersList(armourPiece)) {
+						
+						EntityLivingBase entity = null ;
+						
+						if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
+							entity = (EntityLivingBase) event.getSource().getEntity() ; 
+						}
+						
+						modifier.onHit(armourPiece, entity, player, event.getAmount());
 						
 						if (modifier.negateDamage(armourPiece, player)) {
 							event.setCanceled(true) ;

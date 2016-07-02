@@ -3,6 +3,7 @@ package teamOD.armourReborn.common.crafting;
 import java.util.List;
 
 import net.minecraft.nbt.NBTTagCompound;
+import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
 
 public class MaterialsMod {
@@ -24,6 +25,9 @@ public class MaterialsMod {
 	}
 	
 	public void writeToNBT (NBTTagCompound cmp) {
+		for (ITrait trait: traits) {			
+			cmp.setString(IModifiable.IDENTIFIER, trait.getIdentifier()) ;
+		}
 	}
 
 }

@@ -42,10 +42,11 @@ public interface ITrait {
 	 * Called when an player entity is hit, just before damage is dealt. Damage is the final damage dealt after critical hit calculations (if any)
 	 * 
 	 * @param armour		The armour the target is wearing
+	 * @param entity		The entity responsible for dealing this hit
 	 * @param target		The player targeted
 	 * @param damage		The final damage
 	 */
-	public void onHit (ItemStack armour, EntityLivingBase target, float damage) ;
+	public void onHit (ItemStack armour, EntityLivingBase entity, EntityLivingBase target, float damage) ;
 	
 	/**
 	 * For modifiers that gives a chance to negate damage fully or partially

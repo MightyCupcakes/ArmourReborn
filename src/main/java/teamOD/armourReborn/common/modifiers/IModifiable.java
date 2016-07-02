@@ -13,12 +13,7 @@ import teamOD.armourReborn.common.crafting.MaterialsMod;
 
 public interface IModifiable {
 	
-	public static final String LEVEL = "level" ;
 	public static final String IDENTIFIER = "identifier" ;
 	
 	public ItemStack buildItem (List<MaterialsMod> materials) ;
-	
-	public void addModifier (ItemStack armour) ;
-	
-	public List<IModifier> getModifiers () ;
 }
