@@ -55,8 +55,11 @@ public class ForgeGui extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String title = this.forge.getDisplayName().getFormattedText() ;
 		
-		//this.fontRendererObj.drawString(title, 88 - this.fontRendererObj.getStringWidth(title), 6, 0x404040) ;
 		RenderHelper.disableStandardItemLighting();
+		
+		this.fontRendererObj.drawString(title, 88 - this.fontRendererObj.getStringWidth(title), 4, 0x404040) ;
+		
+		GlStateManager.color(1.0f, 1.0f, 1.0f) ;
 		Iterator <Slot> iterator = forgeContainer.internalInventory.iterator();
 		
 		this.mc.getTextureManager().bindTexture(BACKGROUND) ;

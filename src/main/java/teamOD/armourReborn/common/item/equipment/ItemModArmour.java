@@ -38,6 +38,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		super (mat, 0, type) ;
 		
 		this.type = type;
+		this.setNoRepair() ;
+		
 		setCreativeTab(ArmourRebornCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);

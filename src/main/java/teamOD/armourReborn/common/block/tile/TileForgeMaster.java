@@ -40,7 +40,6 @@ import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileForgeMaster extends TileHeatingComponent implements IInventory, ITileInventory {
 	
-	public static final String NAME = "forgeInventory" ;
 	public static final int STACKSIZE = 1 ;
 	public static final int INVENTORY_SIZE = 9 ;
 	
@@ -83,7 +82,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			}
 			
 			heatItems(internalTank) ;
-			createAlloys() ;
+			createAlloys(internalTank) ;
 			outputToAnvil() ;
 		}
 		
@@ -367,7 +366,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	// =================================================================================== |
 	@Override
 	public String getName() {
-		return NAME;
+		return "Forge Furnance";
 	}
 
 	@Override

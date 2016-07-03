@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
+import teamOD.armourReborn.common.crafting.AlloyRecipes;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.network.PacketHandler;
@@ -92,8 +93,18 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		}
 	}
 	
-	public void createAlloys () {
+	public void createAlloys (InternalForgeTank internalTank) {
+		AlloyRecipes recipe = ModCraftingRecipes.getAlloyRecipeFromFluid(internalTank.getFluids()) ;
 		
+		if (recipe != null) {
+			forgeBusy = true ;
+			
+			for (FluidStack fluidDrain : recipe.getRequiredMetals()) {
+				internalTank.drain(fluidDrain, true) ;
+			}
+			
+			internalTank.fill(recipe.getOutput(), true) ;
+		}
 	}
 	
 	public void searchForFuel () {

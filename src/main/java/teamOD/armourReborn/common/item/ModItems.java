@@ -1,5 +1,6 @@
 package teamOD.armourReborn.common.item;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -13,6 +14,9 @@ public final class ModItems {
 		MATERIALS = new ItemMaterials () ;
 		
 		registerOreDict ();
+		
+		// add minecraft:Coal to oredict
+		OreDictionary.registerOre("ingotCoal", Items.coal);
 	}
 	
 	public static void registerOreDict () {

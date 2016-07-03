@@ -93,6 +93,18 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			}
 		}
 	}
+	
+	protected void addArmoursAndModifiers (int slot, ItemStack item) {
+		for (int i = 0; i < inputInventory.length; i ++) {
+			ItemStack stack = getStackInSlot (i) ;
+			
+			if (stack != null) {
+				// TODO add modifiers to armour here
+			}
+		}
+		
+		setInventorySlotContents(slot, item, true) ;
+	}
 
 	@Override
 	public void readCustomNBT (NBTTagCompound cmp) { 
