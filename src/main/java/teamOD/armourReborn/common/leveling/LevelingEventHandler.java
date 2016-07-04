@@ -3,7 +3,9 @@ package teamOD.armourReborn.common.leveling;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamOD.armourReborn.common.lib.LibMisc;
 
 public class LevelingEventHandler {
 	@SubscribeEvent
@@ -21,6 +23,18 @@ public class LevelingEventHandler {
 			if ( ! (stack.getItem() instanceof ILevelable) ) continue ;
 			
 			
+		}
+	}
+	
+	@SubscribeEvent
+	public void onTooltipEvent (ItemTooltipEvent event) {
+		if (event.getEntityPlayer() == null) return ;
+		
+		if (event.getItemStack().getItem() instanceof ILevelable) {
+			ILevelable armour = (ILevelable) event.getItemStack().getItem() ;
+			int level = armour.getLevel(event.getItemStack()) ;
+			
+			event.getItemStack().setStackDisplayName(LibMisc.itemLevelColours[level] + event.getItemStack().getDisplayName()) ;
 		}
 	}
 }

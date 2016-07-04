@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -139,6 +140,13 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		setExp (armour, player, tag.getInteger(TAG_EXP) + armourExp) ;
 	}
+	
+	@Override
+	public int getLevel (ItemStack armour) {
+		NBTTagCompound tag = armour.getTagCompound() ;
+		
+		return tag.getInteger(TAG_LEVEL) ;
+	}
 
 	@Override
 	public void levelUpArmour(ItemStack armour, EntityPlayer player) {
@@ -199,4 +207,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		return tag ;
 	}
 	
+	@Override
+	public EnumRarity getRarity(ItemStack stack) {
+		return EnumRarity.COMMON ;
+	}
 }

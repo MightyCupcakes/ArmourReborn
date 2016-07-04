@@ -8,6 +8,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamOD.armourReborn.common.lib.LibMisc;
 
 public class NerfVanillaArmours {
 	@SubscribeEvent
@@ -46,7 +47,6 @@ public class NerfVanillaArmours {
 			int itemID = Item.getIdFromItem(event.getItemStack().getItem()) ;
 			
 			if (itemID >= 298 && itemID <= 317) {
-				
 				event.getToolTip().add(TextFormatting.DARK_RED + "This armour is useless! Equip at your own risk!") ;
 			}
 		}

@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 
 public interface ILevelable {
+	
 	public static final String TAG_LEVEL = "ArmourLevel" ;
 	public static final String TAG_EXP = "ArmourExp" ;
 	
@@ -34,6 +35,8 @@ public interface ILevelable {
 	public void setExp (ItemStack armour, EntityPlayer player, int armourExp) ;
 	
 	public void addExp (ItemStack armour, EntityPlayer player, int armourExp) ;
+	
+	public int getLevel (ItemStack armour) ;
 	
 	/**
 	 * Levels the armour up after meeting some requirements set by the above functions
