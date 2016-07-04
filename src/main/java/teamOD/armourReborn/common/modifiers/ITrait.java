@@ -22,6 +22,10 @@ public interface ITrait {
 			.put(1, "II")
 			.put(2, "III")
 			.build() ;
+	
+	public static final String MATERIAL_TRAITS = "materialTraits" ;
+	public static final String ARMOUR_SET_TRAITS = "armourTraits" ;
+	
 	/**
 	 * Returns a string identifier that uniquely identifies this modifier
 	 *

@@ -72,15 +72,16 @@ public class LibUtil {
 	
 	// Modifiers tags utilities 
 	
-	public static NBTTagList getModifiersTag (ItemStack stack) {
-		if ( !(stack.getItem() instanceof IModifiable) ) {
-			return null ;
+	public static List<ITrait> getModifiersFromTag (NBTTagList tagList) {
+		List <ITrait> list = Lists.newLinkedList() ;
+		
+		for (int i = 0; i < tagList.tagCount(); i ++) {
+			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
+			
+			list.add(ModTraitsModifiersRegistry.getTraitFromIdentifier(tag.getString(IModifiable.IDENTIFIER))) ;
 		}
 		
-		NBTTagCompound tag = stack.getTagCompound() ;
-		NBTTagList result = tag.getTagList("traits", 10) ;
-		
-		return result ;
+		return list ;
 	}
 	
 	/**
@@ -92,43 +93,52 @@ public class LibUtil {
 	}
 	
 	public static List<ITrait> getModifiersListAll (ItemStack stack) {
-		return getModifiersList (stack, false, false) ;
+		return getModifiersList (stack, true, true) ;
+	}
+	
+	public static List<ITrait> getModifiersListArmourSet (ItemStack stack) {
+		return getModifiersList (stack, false, true) ;
 	}
 	
 	/**
 	 * Gets the modifiers list from the given itemstack. Only applicable to items that implements IModifiable. Otherwise it returns null.
 	 * 
 	 * @param stack
-	 * @param onlyMaterials		If set to true, only traits/modifiers associated to materials are included.
-	 * @param onlyArmourSet		If set to true, only traits/modifiers associated to the armour set are included.
+	 * @param getMaterials		If set to true, only traits/modifiers associated to materials are included.
+	 * @param getArmourSet		If set to true, only traits/modifiers associated to the armour set are included.
 	 * 
 	 */
-	public static List<ITrait> getModifiersList (ItemStack stack, boolean onlyMaterials, boolean onlyArmourSet) {
-		NBTTagList tagList = getModifiersTag(stack) ;
+	public static List<ITrait> getModifiersList (ItemStack stack, boolean getMaterials, boolean getArmourSet) {
 		
-		if (tagList == null) {
+		if ( !(stack.getItem() instanceof IModifiable) ) {
 			return null ;
 		}
 		
+		NBTTagCompound tag = stack.getTagCompound() ;
 		List<ITrait> list = Lists.newLinkedList() ;
-		boolean isArmourSet = false ;
 		
-		for (int i = 0; i < tagList.tagCount(); i ++) {
-			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
-			
-			if (tag.hasKey("seperator")) {
-				isArmourSet = true ;
-				continue ;
+		NBTTagList tagList ;
+		
+		if (getMaterials) {
+		
+			tagList = tag.getTagList(ITrait.MATERIAL_TRAITS, 10) ;
+		
+			if (tagList == null) {
+				return null ;
 			}
 			
-			if (isArmourSet && onlyMaterials) {
-				break ;
+			list.addAll(getModifiersFromTag (tagList)) ;
+		
+		}
+		
+		if (getArmourSet) {
+			tagList = tag.getTagList(ITrait.ARMOUR_SET_TRAITS, 10) ;
 			
-			} else if (!isArmourSet && onlyArmourSet) {
-				continue ;
+			if (tagList == null) {
+				return null ;
 			}
 			
-			list.add(ModTraitsModifiersRegistry.getTraitFromIdentifier(tag.getString(IModifiable.IDENTIFIER))) ;
+			list.addAll(getModifiersFromTag (tagList)) ;
 		}
 		
 		return list ;
@@ -152,6 +162,13 @@ public class LibUtil {
 		return tooltip ;
 	}
 	
+	/**
+	 * Format a trait's identifier to modify the level into Roman numerals (i.e. Evasion 1 == Evasion I)
+	 * the original identifier is not modified.
+	 * 
+	 * @param trait		the trait object.
+	 * @return	the formatted string
+	 */
 	public static String formatIdentifier (ITrait trait) {
 		String s, identifier ;
 		identifier = trait.getIdentifier() ;
@@ -163,6 +180,12 @@ public class LibUtil {
 		return s ;
 	}
 	
+	/**
+	 * Call to repair any armour to fire the onrepair event.
+	 * 
+	 * @param stack		The armour itemstack
+	 * @param amount	The amount to repair. This might be modified later by traits.
+	 */
 	public static void repairArmour (ItemStack stack, int amount) {
 		
 		ModifierEvents.OnRepair.fireEvent(stack, amount) ;

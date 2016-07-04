@@ -178,12 +178,13 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	public NBTTagCompound buildItemTag (List<MaterialsMod> materials) {
 		NBTTagCompound tag = new NBTTagCompound () ;
+		NBTTagList modTag ;
 		
 		// Levels
 		this.addBaseTags(tag) ;
 		
 		// Modifiers and traits
-		NBTTagList modTag = new NBTTagList () ;
+		modTag = new NBTTagList () ;
 				
 		// Materials Traits
 		for (MaterialsMod material : materials) {
@@ -192,23 +193,29 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			modTag.appendTag(materialTag) ;
 		}
 		
-		NBTTagCompound seperator = new NBTTagCompound () ;
-		seperator.setString("seperator", "seperator") ;
-		modTag.appendTag(seperator) ;
+		tag.setTag(ITrait.MATERIAL_TRAITS, modTag);
 		
-		// Armour type specific traits		
+		// Armour type specific traits
+		modTag = new NBTTagList () ;
+		
 		for (ITrait trait: getArmourTypeTrait() ) {
 			NBTTagCompound armourTypeTag = new NBTTagCompound () ;
 			armourTypeTag.setString(IDENTIFIER, trait.getIdentifier()) ;
 			modTag.appendTag(armourTypeTag) ;
 		}
 		
-		tag.setTag("traits", modTag);
+		tag.setTag(ITrait.ARMOUR_SET_TRAITS, modTag);
+		
 		return tag ;
 	}
 	
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
 		return EnumRarity.COMMON ;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		tooltip.add("Kappa") ;
 	}
 }
