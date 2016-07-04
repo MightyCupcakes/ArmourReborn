@@ -163,8 +163,7 @@ public class LibUtil {
 	}
 	
 	/**
-	 * Format a trait's identifier to modify the level into Roman numerals (i.e. Evasion 1 == Evasion I)
-	 * the original identifier is not modified.
+	 * Format a trait's identifier for display; the original identifier is not modified.
 	 * 
 	 * @param trait		the trait object.
 	 * @return	the formatted string

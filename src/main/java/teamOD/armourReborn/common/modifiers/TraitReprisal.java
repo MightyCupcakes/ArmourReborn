@@ -15,7 +15,7 @@ import teamOD.armourReborn.common.lib.LibUtil;
  */
 public class TraitReprisal extends AbstractTrait {
 	
-	public static final ImmutableList<Float> percentages = ImmutableList.of(0.05F, 0.1F, 0.2F) ;
+	public static final ImmutableList<Float> percentages = ImmutableList.of(0F, 0.05F, 0.1F, 0.2F) ;
 	
 	public TraitReprisal(int level) {
 		

@@ -18,9 +18,10 @@ import net.minecraft.world.World;
 public interface ITrait {
 	
 	public static final Map<Integer, String> levelStrings = ImmutableMap.<Integer, String>builder()
-			.put(0, "I")
-			.put(1, "II")
-			.put(2, "III")
+			.put(0, "")
+			.put(1, "I")
+			.put(2, "II")
+			.put(3, "III")
 			.build() ;
 	
 	public static final String MATERIAL_TRAITS = "materialTraits" ;
@@ -36,7 +37,7 @@ public interface ITrait {
 	
 	/**
 	 * A modifier may have multiple levels of increasing effects.
-	 * Levels are 0-indexed. Therefore the integer 0 represents level 1
+	 * If level is set to 0, then the trait has only one level and cannot be leveled.
 	 * 
 	 * @return int representing the modifier level. Default is 0
 	 */

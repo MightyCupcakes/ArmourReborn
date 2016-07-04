@@ -13,6 +13,7 @@ public class ModTraitsModifiersRegistry {
 	public static ITrait reprisal2 = new TraitReprisal(1) ;
 	public static ITrait reprisal3 = new TraitReprisal(2) ;
 	public static ITrait waterlogged = new TraitWaterlogged() ;
+	public static ITrait surge = new TraitSurge() ;
 	
 	public static void init () {
 		registerTrait (evasion1) ;
@@ -22,6 +23,7 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (reprisal2) ;
 		registerTrait (reprisal3) ;
 		registerTrait (waterlogged) ;
+		registerTrait (surge) ;
 	}
 	
 	public static ITrait getTraitFromIdentifier (String identifier) {

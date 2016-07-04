@@ -18,7 +18,7 @@ public class ModifierEvents {
 	public void updatePlayerMovementStatus (LivingUpdateEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
-			
+
 			Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 			
 			for (ItemStack armourPiece : armour) {
