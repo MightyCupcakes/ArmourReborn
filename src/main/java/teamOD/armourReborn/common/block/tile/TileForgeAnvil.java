@@ -223,7 +223,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		System.out.println("Removing from slot " + index);
 		
 		if (index >= 4){
-			for (int i=4; i<9; i++){
+			for (int i = 4; i < 9; i++){
 				setInventorySlotContents(i, null, true);
 			}
 		} else {
@@ -232,19 +232,19 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		switch (index){
 		case 4:
-			fluidInventory.drain(LibItemStats.VALUE_INGOT * 5, true);
+			this.drain(null, LibItemStats.VALUE_INGOT * 5, true) ;
 			break;
 		case 5:
-			fluidInventory.drain(LibItemStats.VALUE_INGOT * 8, true);
+			this.drain(null, LibItemStats.VALUE_INGOT * 8, true) ;
 			break;
 		case 6:
-			fluidInventory.drain(LibItemStats.VALUE_INGOT * 7, true);
+			this.drain(null, LibItemStats.VALUE_INGOT * 7, true) ;
 			break;
 		case 7:
-			fluidInventory.drain(LibItemStats.VALUE_INGOT * 4, true);
+			this.drain(null, LibItemStats.VALUE_INGOT * 4, true) ;
 			break;
 		case 8:
-			fluidInventory.drain(LibItemStats.VALUE_INGOT * 1, true);
+			this.drain(null, LibItemStats.VALUE_INGOT, true) ;
 			break;
 		}
 		System.out.println("Remaining Fluid: " + fluidInventory.getFluidAmount());
