@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
 /**
  * A trait is a special feature associated to the material itself and cannot be modified.
@@ -80,4 +81,22 @@ public interface ITrait {
 	 * @param status	The status effect to be applied to the target
 	 */
 	public void onStatusEffect (ItemStack armour, EntityLivingBase target, PotionType status) ;
+	
+	/**
+	 * Called when the armour is repaired. For modifiers that does something when the armour is about to be repaired.
+	 * 
+	 * @param armour	The armour to be repaired
+	 * @param amount	The amount repaired.
+	 */
+	public void onRepair (ItemStack armour, int amount) ;
+	
+	/**
+	 * Called every tick
+	 * 
+	 * @param world
+	 * @param player
+	 * @param itemStack
+	 */
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) ;
+
 }

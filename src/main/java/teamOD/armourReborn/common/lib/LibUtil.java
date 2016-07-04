@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
+import teamOD.armourReborn.common.modifiers.ModifierEvents;
 
 public class LibUtil {
 	
@@ -119,6 +120,12 @@ public class LibUtil {
 		s += identifier.substring(0, 1).toUpperCase() + identifier.substring(1) ;
 		
 		return s ;
+	}
+	
+	public static void repairArmour (ItemStack stack, int amount) {
+		// TODO complete this function
+		
+		ModifierEvents.OnRepair.fireEvent(stack, amount) ;
 	}
 
 }

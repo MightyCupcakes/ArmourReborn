@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 
 public abstract class AbstractTrait implements ITrait {
 	protected String identifier ;
@@ -60,5 +61,15 @@ public abstract class AbstractTrait implements ITrait {
 	@Override
 	public boolean negateDamage(ItemStack armour, EntityLivingBase target) {
 		return false;
+	}
+	
+	@Override
+	public void onRepair (ItemStack armour, int amount) {
+		// NO-OP
+	}
+	
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
+		// NO-OP
 	}
 }

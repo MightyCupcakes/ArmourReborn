@@ -3,9 +3,11 @@ package teamOD.armourReborn.common.modifiers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.lib.LibUtil;
 
@@ -69,6 +71,32 @@ public class ModifierEvents {
 		
 		if (event.getItemStack().getItem() instanceof IModifiable) {
 			event.getToolTip().addAll( LibUtil.getItemToolTip(event.getItemStack()) ) ;
+		}
+	}
+	
+	@SubscribeEvent
+	public void onRepair (ModifierEvents.OnRepair event) {
+		if (event.stack.getItem() instanceof IModifiable) {
+			for ( ITrait trait : LibUtil.getModifiersList(event.stack) ) {
+				trait.onRepair(event.stack, event.amount);
+			}
+		}
+	}
+	
+	public static class OnRepair extends Event {
+		
+		public final int amount ;
+		public final ItemStack stack ;
+		
+		public OnRepair (ItemStack stack, int amount) {
+			this.stack = stack ;
+			this.amount = amount ;
+		}
+		
+		public static boolean fireEvent (ItemStack stack, int amount) {
+			OnRepair event = new OnRepair (stack, amount) ;
+			
+			return !MinecraftForge.EVENT_BUS.post(event) ;
 		}
 	}
 	
