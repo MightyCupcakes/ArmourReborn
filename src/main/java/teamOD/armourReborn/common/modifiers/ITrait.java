@@ -87,11 +87,23 @@ public interface ITrait {
 	 * 
 	 * @param armour	The armour to be repaired
 	 * @param amount	The amount repaired.
+	 * @return			The amount to be repaired. Default is the given amount.
 	 */
-	public void onRepair (ItemStack armour, int amount) ;
+	public int onRepair (ItemStack armour, int amount) ;
 	
 	/**
-	 * Called every tick
+	 * Called when a armour is about to be damaged. For traits that do something when armour is damaged
+	 * 
+	 * @param armour	The armour itemstack
+	 * @param amount	The original amount of damage to be dealt to the armour
+	 * @param newAmount	The new amount (if any) modified by traits/modifiers
+	 * @param entity	The owner of the itemstack
+	 * @return			The damage to deal. Default is the given amount ;
+	 */
+	public int onDamage (ItemStack armour, int amount, int newAmount, EntityLivingBase entity) ;
+	
+	/**
+	 * Called every tick when the armour is equipped (by forgeAPI)
 	 * 
 	 * @param world
 	 * @param player

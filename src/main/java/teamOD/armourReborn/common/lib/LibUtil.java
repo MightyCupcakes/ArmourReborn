@@ -5,12 +5,14 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLLog;
+import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
@@ -81,7 +83,27 @@ public class LibUtil {
 		return result ;
 	}
 	
-	public static List<ITrait> getModifiersList (ItemStack stack) {
+	/**
+	 * Gets the list of modifiers/traits associated only to its materials from a IModifiable
+	 * 
+	 */
+	public static List<ITrait> getModifiersListMaterials (ItemStack stack) {
+		return getModifiersList (stack, true, false) ;
+	}
+	
+	public static List<ITrait> getModifiersListAll (ItemStack stack) {
+		return getModifiersList (stack, false, false) ;
+	}
+	
+	/**
+	 * Gets the modifiers list from the given itemstack. Only applicable to items that implements IModifiable. Otherwise it returns null.
+	 * 
+	 * @param stack
+	 * @param onlyMaterials		If set to true, only traits/modifiers associated to materials are included.
+	 * @param onlyArmourSet		If set to true, only traits/modifiers associated to the armour set are included.
+	 * 
+	 */
+	public static List<ITrait> getModifiersList (ItemStack stack, boolean onlyMaterials, boolean onlyArmourSet) {
 		NBTTagList tagList = getModifiersTag(stack) ;
 		
 		if (tagList == null) {
@@ -89,9 +111,22 @@ public class LibUtil {
 		}
 		
 		List<ITrait> list = Lists.newLinkedList() ;
+		boolean isArmourSet = false ;
 		
 		for (int i = 0; i < tagList.tagCount(); i ++) {
 			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
+			
+			if (tag.hasKey("seperator")) {
+				isArmourSet = true ;
+				continue ;
+			}
+			
+			if (isArmourSet && onlyMaterials) {
+				break ;
+			
+			} else if (!isArmourSet && onlyArmourSet) {
+				continue ;
+			}
 			
 			list.add(ModTraitsModifiersRegistry.getTraitFromIdentifier(tag.getString(IModifiable.IDENTIFIER))) ;
 		}
@@ -99,10 +134,16 @@ public class LibUtil {
 		return list ;
 	}
 	
-	public static List<String> getItemToolTip (ItemStack stack) {
+	public static List<String> getItemToolTip (EntityPlayer player, ItemStack stack, ItemModArmour armour) {
 		List<String> tooltip = Lists.newLinkedList() ;
 		
-		List<ITrait> traits = getModifiersList (stack) ;
+		List<ITrait> traits ;
+		
+		if (!armour.hasArmourSet(player)) {
+			traits = getModifiersListMaterials (stack) ;
+		} else {
+			traits = getModifiersListAll (stack) ;
+		}
 		
 		for (ITrait trait : traits) {
 			tooltip.add( formatIdentifier(trait) ) ;
@@ -123,9 +164,11 @@ public class LibUtil {
 	}
 	
 	public static void repairArmour (ItemStack stack, int amount) {
-		// TODO complete this function
 		
 		ModifierEvents.OnRepair.fireEvent(stack, amount) ;
+		
+		int repairAmt = Math.min(amount, stack.getItemDamage()) ;
+		stack.setItemDamage(stack.getItemDamage() - repairAmt) ;
 	}
 
 }

@@ -64,12 +64,17 @@ public abstract class AbstractTrait implements ITrait {
 	}
 	
 	@Override
-	public void onRepair (ItemStack armour, int amount) {
-		// NO-OP
+	public int onRepair (ItemStack armour, int amount) {
+		return amount ;
 	}
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
 		// NO-OP
+	}
+	
+	@Override
+	public int onDamage (ItemStack armour, int amount, int newAmount, EntityLivingBase entity) {
+		return amount ;
 	}
 }

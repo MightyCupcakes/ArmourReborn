@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ModifierEvents {
@@ -25,7 +26,7 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getModifiersList(armourPiece)) {
+					for (ITrait modifier : LibUtil.getModifiersListMaterials(armourPiece)) {
 						modifier.modifyMovementSpeed(player, armourPiece) ;
 					}
 				}
@@ -45,7 +46,7 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getModifiersList(armourPiece)) {
+					for (ITrait modifier : LibUtil.getModifiersListMaterials(armourPiece)) {
 						
 						EntityLivingBase entity = null ;
 						
@@ -69,15 +70,17 @@ public class ModifierEvents {
 	public void onTooltipDisplay (ItemTooltipEvent event) {
 		if (event.getEntityPlayer() == null) return ;
 		
-		if (event.getItemStack().getItem() instanceof IModifiable) {
-			event.getToolTip().addAll( LibUtil.getItemToolTip(event.getItemStack()) ) ;
+		if (event.getItemStack().getItem() instanceof ItemModArmour) {
+			ItemModArmour modArmour = (ItemModArmour) event.getItemStack().getItem() ;
+			
+			event.getToolTip().addAll( LibUtil.getItemToolTip(event.getEntityPlayer(), event.getItemStack(), modArmour ) ) ;
 		}
 	}
 	
 	@SubscribeEvent
 	public void onRepair (ModifierEvents.OnRepair event) {
 		if (event.stack.getItem() instanceof IModifiable) {
-			for ( ITrait trait : LibUtil.getModifiersList(event.stack) ) {
+			for ( ITrait trait : LibUtil.getModifiersListMaterials(event.stack) ) {
 				trait.onRepair(event.stack, event.amount);
 			}
 		}

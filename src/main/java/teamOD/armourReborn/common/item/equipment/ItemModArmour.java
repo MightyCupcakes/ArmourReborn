@@ -64,6 +64,11 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+		
+		for (ITrait modifier : LibUtil.getModifiersListMaterials(stack)) {
+			damage = modifier.onDamage(stack, damage, damage, entity);
+		}
+		
 		stack.damageItem(damage, entity); 
 	}
 	
@@ -178,6 +183,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			material.writeToNBT(materialTag) ;
 			modTag.appendTag(materialTag) ;
 		}
+		
+		NBTTagCompound seperator = new NBTTagCompound () ;
+		seperator.setString("seperator", "seperator") ;
+		modTag.appendTag(seperator) ;
 		
 		// Armour type specific traits		
 		for (ITrait trait: getArmourTypeTrait() ) {
