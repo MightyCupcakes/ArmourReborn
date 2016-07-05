@@ -26,12 +26,5 @@ public final class LibMisc {
 		0x555555, 0x5555FF, 0x55FF55, 0x55FFFF,
 		0xFF5555, 0xFF55FF, 0xFFFF55, 0xFFFFFF
 	};
-	
-	public static final TextFormatting[] itemLevelColours = new TextFormatting[] {
-			TextFormatting.WHITE, TextFormatting.WHITE, TextFormatting.WHITE,
-			TextFormatting.BLUE, TextFormatting.BLUE, TextFormatting.GREEN,
-			TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.GOLD,
-			TextFormatting.DARK_PURPLE 
-	};
 
 }

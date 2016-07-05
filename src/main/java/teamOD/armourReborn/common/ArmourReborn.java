@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import teamOD.armourReborn.common.core.GuiHandler;
 import teamOD.armourReborn.common.core.proxy.CommonProxy;
@@ -57,8 +58,14 @@ public class ArmourReborn {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event) ;
+	
 		MinecraftForge.EVENT_BUS.register( new NerfVanillaArmours () );
 		MinecraftForge.EVENT_BUS.register( new LevelingEventHandler () );
 		MinecraftForge.EVENT_BUS.register( new ModifierEvents () );
+	}
+	
+	@EventHandler
+	public void serverStarting(FMLServerStartingEvent event) {
+		proxy.serverStarting(event);
 	}
 }

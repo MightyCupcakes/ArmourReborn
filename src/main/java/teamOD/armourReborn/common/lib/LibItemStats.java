@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.lib;
 
+import com.google.common.collect.Maps;
+
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
