@@ -13,13 +13,9 @@ public class ItemPlateArmour extends ItemModArmour {
 	
 	public ItemPlateArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super (type, "plate", mat) ;
-	}
-	
-	@Override
-	public void onArmorTick (World world, EntityPlayer player, ItemStack stack) {
-		if ( hasArmourSet (player) ) {
-			// do stuff here
-		}
+		
+		this.armourModifier = 1D ;
+		this.durabilityModifier = 1D ;
 	}
 
 	@Override

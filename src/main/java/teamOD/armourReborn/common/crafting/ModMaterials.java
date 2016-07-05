@@ -12,9 +12,21 @@ public class ModMaterials {
 	
 	public static HashMap<Item, MaterialsMod> materialsRegistry = new HashMap<Item, MaterialsMod> () ;
 	
-	public static MaterialsMod paper = new MaterialsMod ("paper", Items.paper, ImmutableList.of(ModTraitsModifiersRegistry.waterlogged, ModTraitsModifiersRegistry.evasion2)) ;
+	public static MaterialsMod paper ;
+	public static MaterialsMod iron ;
+	public static MaterialsMod steel ;
+	public static MaterialsMod aluAlloy ;
 	
 	public static void init () {
+		
+		// paper
+		paper = new MaterialsMod ("paper", Items.paper, 
+				ImmutableList.of(
+						ModTraitsModifiersRegistry.waterlogged, 
+						ModTraitsModifiersRegistry.evasion2
+						)) ;
+		
+		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}) ;
 		registerMaterial (paper.getItem(), paper) ;
 	}
 	

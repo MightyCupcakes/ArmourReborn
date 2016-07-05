@@ -16,4 +16,6 @@ public interface IModifiable {
 	public static final String IDENTIFIER = "identifier" ;
 	
 	public ItemStack buildItem (List<MaterialsMod> materials) ;
+	
+	public void addModifier (ItemStack armour, IModifier modifier) ;
 }

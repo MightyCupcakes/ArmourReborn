@@ -33,7 +33,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
 	public ItemStack[] armourSet ;
-	public int armourModifier = 1 ;
+	public double armourModifier ;
+	public double durabilityModifier ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super (mat, 0, type) ;
@@ -167,6 +168,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	public abstract List<ITrait> getArmourTypeTrait () ;
 	
+	@Override
+	public void addModifier (ItemStack armour, IModifier modifier) {
+		
+	}
 	
 	@Override
 	public ItemStack buildItem(List<MaterialsMod> materials) {
