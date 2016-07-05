@@ -1,9 +1,12 @@
 package teamOD.armourReborn.common.crafting;
 
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -15,6 +18,7 @@ import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibItemStats;
+import teamOD.armourReborn.common.lib.LibMisc;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +33,8 @@ public final class ModCraftingRecipes {
 	public static HashMap <String, FluidStack> meltingRecipes = new HashMap <String, FluidStack> () ;
 	public static HashMap <Integer, String> oreIDs = new HashMap <Integer, String> () ;
 	public static HashMap <FluidMod, ItemStack[]> castingRecipes = new HashMap <FluidMod, ItemStack[]> () ;
+	
+	public static HashMap <String, ArmorMaterial> armourMaterials = new HashMap <String, ArmorMaterial> () ;
 	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
 	
@@ -113,6 +119,26 @@ public final class ModCraftingRecipes {
 	
 	private static void addArmourRecipes () {
 		
+		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
+		
+		for (String key : LibItemStats.armourTypesStats.keySet()) {
+			
+			for (MaterialsMod material : materials) {
+				
+				String name = material.getIdentifier() + key ;
+				String textureName = LibMisc.PREFIX_MOD + ":" + name ;
+				
+				int durability = (int) (material.getBaseDurabilityMultiplier() + LibItemStats.armourTypesStats.get(key)[1]) ;
+				int[] reductionAmounts = new int[4] ;
+				
+				for (int i = 0; i < reductionAmounts.length; i ++) {
+					reductionAmounts[i] = (int) (material.getBaseArmourValue()[i] * LibItemStats.armourTypesStats.get(key)[0]) ;
+				}
+				
+				ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 1, SoundEvents.item_armor_equip_generic) ;
+				armourMaterials.put(mat.getName(), mat) ;
+			}
+		}
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

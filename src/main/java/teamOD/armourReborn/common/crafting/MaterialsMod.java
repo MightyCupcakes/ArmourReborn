@@ -54,5 +54,13 @@ public class MaterialsMod {
 			cmp.setString(IModifiable.IDENTIFIER, trait.getIdentifier()) ;
 		}
 	}
+	
+	public int[] getBaseArmourValue () {
+		return baseArmourValue ;
+	}
+	
+	public double getBaseDurabilityMultiplier () {
+		return baseDurabilityMutiplier ;
+	}
 
 }

@@ -1,5 +1,6 @@
 package teamOD.armourReborn.common.item;
 
+
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,7 @@ import teamOD.armourReborn.common.lib.LibItemNames;
 
 public final class ModItems {
 	
-	public static Item MATERIALS ;
+	public static Item MATERIALS ; 
 	
 	public static void init () {
 		MATERIALS = new ItemMaterials () ;

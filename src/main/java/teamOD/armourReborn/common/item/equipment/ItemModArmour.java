@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.leveling.ILevelable;
+import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.IModifiable;
@@ -33,8 +34,11 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
 	public ItemStack[] armourSet ;
-	public double armourModifier ;
-	public double durabilityModifier ;
+	
+	protected int modifiersSlot = LibItemStats.DEFAULT_MODIFIER_SLOTS ; 
+	
+	public static double armourModifier = 1 ;
+	public static double durabilityModifier = 1 ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
 		super (mat, 0, type) ;
@@ -44,7 +48,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		setCreativeTab(ArmourRebornCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setUnlocalizedName(LibUtil.getPrefix(name));
 		
 	}
 	
