@@ -34,6 +34,9 @@ public final class ModCraftingRecipes {
 	public static HashMap <Integer, String> oreIDs = new HashMap <Integer, String> () ;
 	public static HashMap <FluidMod, ItemStack[]> castingRecipes = new HashMap <FluidMod, ItemStack[]> () ;
 	
+	/**
+	 * The identifier string for armormaterials in this hashmap is registered as : material + armourType
+	 */
 	public static HashMap <String, ArmorMaterial> armourMaterials = new HashMap <String, ArmorMaterial> () ;
 	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
@@ -121,11 +124,12 @@ public final class ModCraftingRecipes {
 		
 		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
 		
+		// Create ArmorMaterial class for each material first before registering armour to the game
 		for (String key : LibItemStats.armourTypesStats.keySet()) {
 			
 			for (MaterialsMod material : materials) {
 				
-				String name = material.getIdentifier() + key ;
+				String name = material.getIdentifier() + key ; // i.e "ironplate", "ironchain", "ironleather"
 				String textureName = LibMisc.PREFIX_MOD + ":" + name ;
 				
 				int durability = (int) (material.getBaseDurabilityMultiplier() + LibItemStats.armourTypesStats.get(key)[1]) ;
@@ -139,6 +143,11 @@ public final class ModCraftingRecipes {
 				armourMaterials.put(mat.getName(), mat) ;
 			}
 		}
+		
+		// Register armours to the gameregistry
+		ModItems.registerArmours() ;
+		
+		// TODO ADD ARMOUR CRAFTING RECIPES HERE
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

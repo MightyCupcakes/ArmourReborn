@@ -11,8 +11,8 @@ import teamOD.armourReborn.common.modifiers.ITrait;
 
 public class ItemPlateArmour extends ItemModArmour {
 	
-	public ItemPlateArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
-		super (type, "plate", mat) ;
+	public ItemPlateArmour (String name, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
+		super (type, name, mat, index) ;
 		
 		this.armourModifier = 1D ;
 		this.durabilityModifier = 1D ;

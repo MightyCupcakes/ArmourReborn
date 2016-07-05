@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.leveling.ILevelable;
+import teamOD.armourReborn.common.leveling.ModLevels;
+import teamOD.armourReborn.common.leveling.ModLevels.LevelInfo;
 import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
@@ -40,8 +42,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public static double armourModifier = 1 ;
 	public static double durabilityModifier = 1 ;
 	
-	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat) {
-		super (mat, 0, type) ;
+	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat, int index) {
+		super (mat, index, type) ;
 		
 		this.type = type;
 		this.setNoRepair() ;
@@ -157,7 +159,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public void levelUpArmour(ItemStack armour, EntityPlayer player) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		
-		tag.setInteger(TAG_LEVEL, tag.getInteger(TAG_LEVEL) + 1 ) ;
+		LevelInfo info = ModLevels.levels.get(getLevel(armour)) ;
+		
+		if (info.getTraitIdentifiers() != null) {
+			for (ITrait trait : info.getTraitIdentifiers()) {
+				addModifier (armour, trait) ;
+			}
+		}
+		
+		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
 		tag.setInteger(TAG_EXP, 0) ;
 		
 	}
@@ -174,6 +184,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void addModifier (ItemStack armour, IModifier modifier) {
+		addModifier (armour, modifier) ;
+	}
+	
+	/**
+	 * For traits provided by leveling up of armour.
+	 * @param armour
+	 * @param modifier
+	 */
+	private void addModifier (ItemStack armour, ITrait modifier) {
 		
 	}
 	

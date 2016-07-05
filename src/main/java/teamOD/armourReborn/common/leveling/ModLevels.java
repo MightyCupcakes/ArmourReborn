@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import net.minecraft.util.text.TextFormatting;
+import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public final class ModLevels {
@@ -16,7 +17,7 @@ public final class ModLevels {
 		levels.add(new LevelInfo (2, "Acclimating", TextFormatting.WHITE)) ;
 		levels.add(new LevelInfo (3, "Comfortable", TextFormatting.WHITE)) ;
 		levels.add(new LevelInfo (4, "Accustomed", TextFormatting.BLUE)) ;
-		levels.add(new LevelInfo (5, "Well Accustomed", TextFormatting.BLUE, ModTraitsModifiersRegistry.surge.getIdentifier())) ;
+		levels.add(new LevelInfo (5, "Well Accustomed", TextFormatting.BLUE, ModTraitsModifiersRegistry.surge)) ;
 		levels.add(new LevelInfo (6, "Adept", TextFormatting.GREEN)) ;
 		levels.add(new LevelInfo (7, "Expert", TextFormatting.GREEN)) ;
 		levels.add(new LevelInfo (8, "Master", TextFormatting.YELLOW)) ;
@@ -29,9 +30,9 @@ public final class ModLevels {
 		private final int level ;
 		private final TextFormatting colour ;
 		private final String skill ;
-		private final String[] traitsIdentifiers ;
+		private final ITrait[] traitsIdentifiers ;
 		
-		public LevelInfo (int level, String skill, TextFormatting colour, String... traitsIdentifiers) {
+		public LevelInfo (int level, String skill, TextFormatting colour, ITrait... traitsIdentifiers) {
 			this.level = level ;
 			this.skill = skill ;
 			this.colour = colour ;
@@ -50,7 +51,7 @@ public final class ModLevels {
 			return skill ;
 		}
 		
-		public String[] getTraitIdentifiers () {
+		public ITrait[] getTraitIdentifiers () {
 			return traitsIdentifiers ;
 		}
 	}
