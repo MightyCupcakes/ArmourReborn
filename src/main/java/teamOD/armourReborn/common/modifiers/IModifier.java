@@ -15,6 +15,8 @@ import net.minecraft.util.DamageSource;
 
 public interface IModifier extends ITrait {
 	
+	public static final String MODIFIERS = "modifiers" ;
+	
 	/**
 	 * Associates this item to this modifier. That is, given this item in anvil, this modifier will be added to the armour
 	 * @param item

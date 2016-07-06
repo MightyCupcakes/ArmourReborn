@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
@@ -29,6 +30,7 @@ import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.IModifier;
 import teamOD.armourReborn.common.modifiers.ITrait;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
 	
@@ -168,10 +170,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		return tag.getInteger(TAG_LEVEL) ;
 	}
 	
-	protected void levelingUpdate (ItemStack armour, EntityPlayer player) {
+	public int getExp (ItemStack armour) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		
-		if ( tag.getInteger(TAG_EXP) >= ModLevels.levels.get(getLevel(armour) - 1).getExpNeeded() ) {
+		return tag.getInteger(TAG_EXP) ;
+	}
+	
+	protected void levelingUpdate (ItemStack armour, EntityPlayer player) {
+		
+		if ( getExp (armour) >= ModLevels.getLevelInfo(getLevel(armour)).getExpNeeded() ) {
 			levelUpArmour (armour, player) ;
 		}
 	}
@@ -182,7 +189,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		if (isMaxLevel(tag)) return ;
 		
-		LevelInfo info = ModLevels.levels.get(getLevel(armour) - 1) ;
+		LevelInfo info = ModLevels.getLevelInfo (getLevel(armour)) ;
 		
 		if (info.getTraitIdentifiers() != null) {
 			for (ITrait trait : info.getTraitIdentifiers()) {
@@ -192,6 +199,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - info.getExpNeeded() ) ;
 		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
+		
+		player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
 		
 	}
 	
@@ -216,7 +225,20 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 * @param modifier
 	 */
 	private void addModifier (ItemStack armour, ITrait modifier) {
+		NBTTagCompound tag = armour.getTagCompound() ;
+		NBTTagList modTag ;
 		
+		if (tag.hasKey(IModifier.MODIFIERS)) {
+			modTag = tag.getTagList(IModifier.MODIFIERS, 10) ;
+		} else {
+			modTag = new NBTTagList () ;
+		}
+		
+		NBTTagCompound newMod = new NBTTagCompound () ;
+		newMod.setString(IDENTIFIER, modifier.getIdentifier()) ;
+		modTag.appendTag(newMod) ;
+		
+		tag.setTag(IModifier.MODIFIERS, modTag);
 	}
 	
 	@Override
@@ -267,6 +289,51 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		tooltip.add("Kappa") ;
+		// Leveling stuff
+		LevelInfo level = ModLevels.getLevelInfo(getLevel(stack)) ;
+		
+		tooltip.add(level.getColour() + level.getSkillString()) ;
+		
+		// Modifiers and traits
+		NBTTagCompound tag = stack.getTagCompound() ;
+		NBTTagList thisList ;
+		
+		// Materials Traits
+		thisList = tag.getTagList(ITrait.MATERIAL_TRAITS, 10) ;
+		
+		for (int i = 0; i < thisList.tagCount(); i++ ) {
+			NBTTagCompound thisTag = thisList.getCompoundTagAt(i) ;
+			ITrait trait = ModTraitsModifiersRegistry.getTraitFromIdentifier(thisTag.getString(IDENTIFIER)) ;
+			
+			tooltip.add(LibUtil.formatIdentifier(trait)) ;
+		}
+		
+		// Armour set specific traits
+		if (stack.getItem() instanceof ItemModArmour) {
+			ItemModArmour armour = (ItemModArmour) stack.getItem() ;
+			
+			if (armour.hasArmourSet(playerIn)) {
+				thisList = tag.getTagList(ITrait.ARMOUR_SET_TRAITS, 10) ;
+				
+				for (int i = 0; i < thisList.tagCount(); i++ ) {
+					NBTTagCompound thisTag = thisList.getCompoundTagAt(i) ;
+					ITrait trait = ModTraitsModifiersRegistry.getTraitFromIdentifier(thisTag.getString(IDENTIFIER)) ;
+					
+					tooltip.add(LibUtil.formatIdentifier(trait)) ;
+				}
+			}
+		}
+		
+		// Additional modifiers (if any)
+		if (tag.hasKey(IModifier.MODIFIERS)) {
+			thisList = tag.getTagList(IModifier.MODIFIERS, 10) ;
+			
+			for (int i = 0; i < thisList.tagCount(); i++ ) {
+				NBTTagCompound thisTag = thisList.getCompoundTagAt(i) ;
+				ITrait trait = ModTraitsModifiersRegistry.getTraitFromIdentifier(thisTag.getString(IDENTIFIER)) ;
+				
+				tooltip.add(LibUtil.formatIdentifier(trait)) ;
+			}
+		}
 	}
 }

@@ -34,7 +34,7 @@ public class LevelingEventHandler {
 			ILevelable armour = (ILevelable) event.getItemStack().getItem() ;
 			int level = armour.getLevel(event.getItemStack()) ;
 			
-			event.getItemStack().setStackDisplayName(ModLevels.levels.get(level).getColour() + event.getItemStack().getDisplayName()) ;
+			event.getItemStack().setStackDisplayName(ModLevels.getLevelInfo(level).getColour() + event.getItemStack().getDisplayName()) ;
 		}
 	}
 }

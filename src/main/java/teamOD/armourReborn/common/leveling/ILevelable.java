@@ -16,7 +16,7 @@ public interface ILevelable {
 	public static final String TAG_LEVEL = "ArmourLevel" ;
 	public static final String TAG_EXP = "ArmourExp" ;
 	
-	public static final int MAX_LEVEL = ModLevels.levels.size() ;
+	public static final int MAX_LEVEL = ModLevels.getMaxLevel() ;
 	
 	/**
 	 * Associates the base EXP and LEVEL tags to this armour

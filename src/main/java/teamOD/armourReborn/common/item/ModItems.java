@@ -78,8 +78,8 @@ public final class ModItems {
 					
 					armour[0] = new ItemPlateArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
 					armour[1] = new ItemPlateArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemPlateArmour (armourName + key + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemPlateArmour (armourName + key + "boots", mat, EntityEquipmentSlot.LEGS, 1) ;
+					armour[2] = new ItemPlateArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemPlateArmour (armourName + "boots", mat, EntityEquipmentSlot.LEGS, 1) ;
 					
 					modArmours.put(material.getIdentifier() + key, armour) ;
 				

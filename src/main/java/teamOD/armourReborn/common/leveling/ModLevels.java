@@ -9,7 +9,7 @@ import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public final class ModLevels {
-	public static List<LevelInfo> levels = Lists.newLinkedList();
+	private static List<LevelInfo> levels = Lists.newLinkedList();
 	
 	public static void init () {
 		
@@ -23,6 +23,16 @@ public final class ModLevels {
 		levels.add(new LevelInfo (8, "Master", 4129, TextFormatting.GOLD)) ;
 		levels.add(new LevelInfo (9, "Grandmaster", 4567, TextFormatting.RED)) ;
 		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE)) ;
+	}
+	
+	public static LevelInfo getLevelInfo (int level) {
+		if (level > levels.size()) return null ;
+		
+		return levels.get(level - 1 ) ;
+	}
+	
+	public static int getMaxLevel () {
+		return levels.size() ;
 	}
 	
 	public static class LevelInfo {

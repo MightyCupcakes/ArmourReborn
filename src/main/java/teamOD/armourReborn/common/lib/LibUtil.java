@@ -3,6 +3,8 @@ package teamOD.armourReborn.common.lib;
 import java.util.List;
 import java.util.Random;
 
+import org.lwjgl.input.Keyboard;
+
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -68,6 +70,10 @@ public class LibUtil {
 		Random randGenerator = new Random () ;
 		
 		return randGenerator.nextFloat() ;
+	}
+	
+	public static boolean isShiftKeyDown () {
+		return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ;
 	}
 	
 	// Modifiers tags utilities 
