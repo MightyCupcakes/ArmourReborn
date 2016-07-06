@@ -69,6 +69,19 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return damageReduceAmount ;
 	}
+	
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		if (itemStack.getItem() instanceof ILevelable) {
+			levelingUpdate (itemStack, player) ;
+		}
+		
+		if (itemStack.getItem() instanceof IModifiable) {
+			for ( ITrait traits : LibUtil.getModifiersListAll(itemStack) ) {
+				traits.onArmorTick(world, player, itemStack) ;
+			}
+		}
+	}
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
@@ -154,12 +167,22 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		return tag.getInteger(TAG_LEVEL) ;
 	}
+	
+	protected void levelingUpdate (ItemStack armour, EntityPlayer player) {
+		NBTTagCompound tag = armour.getTagCompound() ;
+		
+		if ( tag.getInteger(TAG_EXP) >= ModLevels.levels.get(getLevel(armour) - 1).getExpNeeded() ) {
+			levelUpArmour (armour, player) ;
+		}
+	}
 
 	@Override
 	public void levelUpArmour(ItemStack armour, EntityPlayer player) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		
-		LevelInfo info = ModLevels.levels.get(getLevel(armour)) ;
+		if (isMaxLevel(tag)) return ;
+		
+		LevelInfo info = ModLevels.levels.get(getLevel(armour) - 1) ;
 		
 		if (info.getTraitIdentifiers() != null) {
 			for (ITrait trait : info.getTraitIdentifiers()) {
@@ -167,8 +190,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			}
 		}
 		
+		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - info.getExpNeeded() ) ;
 		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
-		tag.setInteger(TAG_EXP, 0) ;
 		
 	}
 	

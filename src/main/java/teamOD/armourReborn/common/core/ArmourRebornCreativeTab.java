@@ -34,11 +34,12 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 	public void displayAllRelevantItems (List<ItemStack> list) {
 		this.list = list ;
 		
-		addItem (ModItems.MATERIALS) ;
-		addItem( Item.getItemFromBlock(ModFluids.steel.getBlock()) ) ;
-		addItem( Item.getItemFromBlock(ModFluids.iron.getBlock()) ) ;
+		addItem( ModItems.MATERIALS ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeMaster) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeBlocks) ) ;
+		addItem( Item.getItemFromBlock(ModBlocks.forgeHeater) ) ;
+		addItem( Item.getItemFromBlock(ModBlocks.oresMaterials) ) ;
+		addItem( Item.getItemFromBlock(ModBlocks.forgeAnvil) ) ;
 		
 	}
 	

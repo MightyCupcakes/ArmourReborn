@@ -34,11 +34,6 @@ public final class ModCraftingRecipes {
 	public static HashMap <Integer, String> oreIDs = new HashMap <Integer, String> () ;
 	public static HashMap <FluidMod, ItemStack[]> castingRecipes = new HashMap <FluidMod, ItemStack[]> () ;
 	
-	/**
-	 * The identifier string for armormaterials in this hashmap is registered as : material + armourType
-	 */
-	public static HashMap <String, ArmorMaterial> armourMaterials = new HashMap <String, ArmorMaterial> () ;
-	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
 	
 	public static void init () {
@@ -121,31 +116,6 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addArmourRecipes () {
-		
-		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
-		
-		// Create ArmorMaterial class for each material first before registering armour to the game
-		for (String key : LibItemStats.armourTypesStats.keySet()) {
-			
-			for (MaterialsMod material : materials) {
-				
-				String name = material.getIdentifier() + key ; // i.e "ironplate", "ironchain", "ironleather"
-				String textureName = LibMisc.PREFIX_MOD + ":" + name ;
-				
-				int durability = (int) (material.getBaseDurabilityMultiplier() + LibItemStats.armourTypesStats.get(key)[1]) ;
-				int[] reductionAmounts = new int[4] ;
-				
-				for (int i = 0; i < reductionAmounts.length; i ++) {
-					reductionAmounts[i] = (int) (material.getBaseArmourValue()[i] * LibItemStats.armourTypesStats.get(key)[0]) ;
-				}
-				
-				ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 1, SoundEvents.item_armor_equip_generic) ;
-				armourMaterials.put(mat.getName(), mat) ;
-			}
-		}
-		
-		// Register armours to the gameregistry
-		ModItems.registerArmours() ;
 		
 		// TODO ADD ARMOUR CRAFTING RECIPES HERE
 	}
