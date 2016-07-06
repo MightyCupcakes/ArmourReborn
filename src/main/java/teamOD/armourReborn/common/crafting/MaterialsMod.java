@@ -2,8 +2,11 @@ package teamOD.armourReborn.common.crafting;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
 
@@ -49,10 +52,16 @@ public class MaterialsMod {
 		return traits ;
 	}
 	
-	public void writeToNBT (NBTTagCompound cmp) {
-		for (ITrait trait: traits) {			
-			cmp.setString(IModifiable.IDENTIFIER, trait.getIdentifier()) ;
+	public List<String> readFromNBT (NBTTagCompound cmp) {
+		
+		List<String> list = Lists.newLinkedList() ;
+		NBTTagList tagList = cmp.getTagList(identifier, 10) ;
+		
+		for (int i = 0; i < tagList.tagCount(); i++ ) {
+			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
+			list.add(tag.getString(IModifiable.IDENTIFIER)) ;
 		}
+		return list ;
 	}
 	
 	public int[] getBaseArmourValue () {

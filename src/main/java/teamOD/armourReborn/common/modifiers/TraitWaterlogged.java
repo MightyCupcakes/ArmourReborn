@@ -19,8 +19,13 @@ public class TraitWaterlogged extends AbstractTrait {
 
 	@Override
 	public void modifyMovementSpeed(EntityPlayer player, ItemStack armour) {
-		if (player.isInWater()) {
-			player.addPotionEffect(new PotionEffect (Potion.getPotionById(2), 1, 1, true, true));
+		Potion weakness = Potion.getPotionById(2) ;
+		
+		if (player.isInWater() ) {
+			
+			if (player.getActivePotionEffect(weakness) != null && player.getActivePotionEffect(weakness).getDuration() > 1) return ;
+			
+			player.addPotionEffect(new PotionEffect (Potion.getPotionById(2), 5 * 20, 1, true, true));
 		}
 	}
 }

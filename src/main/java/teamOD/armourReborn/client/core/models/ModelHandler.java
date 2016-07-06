@@ -17,6 +17,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.block.tile.TileForgeAnvil;
 import teamOD.armourReborn.common.fluids.ModFluids;
+import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibItemNames;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -26,12 +27,23 @@ import static teamOD.armourReborn.common.item.ModItems.*;
 public class ModelHandler {
 	
 	public static void registerModels () {
+		
+		registerStandardItems () ;
 		registerResources () ;
 		registerFluids () ;
 		registerBlocks () ;
 	}
 	
 	private static void registerStandardItems () {
+		
+		// Armour
+		Iterable <Item[]> armour = ModItems.getAllModArmour() ;
+		
+		for (Item[] armourPieces : armour) {
+			for (Item thisPiece : armourPieces) {
+				registerItemModel (thisPiece) ;
+			}
+		}
 	}
 	
 	private static void registerBlocks () {

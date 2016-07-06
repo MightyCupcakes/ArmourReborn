@@ -67,17 +67,6 @@ public class ModifierEvents {
 	}
 	
 	@SubscribeEvent
-	public void onTooltipDisplay (ItemTooltipEvent event) {
-		if (event.getEntityPlayer() == null) return ;
-		
-		if (event.getItemStack().getItem() instanceof ItemModArmour) {
-			ItemModArmour modArmour = (ItemModArmour) event.getItemStack().getItem() ;
-			
-			event.getToolTip().addAll( LibUtil.getItemToolTip(event.getEntityPlayer(), event.getItemStack(), modArmour ) ) ;
-		}
-	}
-	
-	@SubscribeEvent
 	public void onRepair (ModifierEvents.OnRepair event) {
 		if (event.stack.getItem() instanceof IModifiable) {
 			for ( ITrait trait : LibUtil.getModifiersListMaterials(event.stack) ) {

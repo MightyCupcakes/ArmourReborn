@@ -20,9 +20,9 @@ public class CommonProxy {
 	
 	public void preInit (FMLPreInitializationEvent event) {
 		ModBlocks.init () ;
+		ModMaterials.init() ;
 		ModItems.init () ;
 		ModFluids.init ();
-		ModMaterials.init() ;
 		ModTraitsModifiersRegistry.init() ;
 		ModLevels.init() ;
 		

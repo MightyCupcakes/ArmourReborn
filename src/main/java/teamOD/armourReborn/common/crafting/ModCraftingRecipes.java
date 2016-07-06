@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 
 public final class ModCraftingRecipes {
 	
-	private static final ImmutableList <String> suffixes = ImmutableList.of ("ingot", "block", "ore") ;
+	private static final ImmutableList <String> preffixes = ImmutableList.of ("ingot", "block", "ore") ;
 	
 	public static HashMap <String, FluidStack> meltingRecipes = new HashMap <String, FluidStack> () ;
 	public static HashMap <Integer, String> oreIDs = new HashMap <Integer, String> () ;
@@ -122,7 +122,7 @@ public final class ModCraftingRecipes {
 	
 	private static void addMeltingRecipe (String material, Fluid output) {
 
-		for (String suffix: suffixes) {
+		for (String suffix: preffixes) {
 			meltingRecipes.put (suffix + material, new FluidStack (output, LibItemStats.getValue(suffix)) ) ;
 			oreIDs.put (OreDictionary.getOreID(suffix + material), suffix + material) ;
 		}

@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.FMLLog;
+import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.modifiers.IModifiable;
 import teamOD.armourReborn.common.modifiers.ITrait;
@@ -79,6 +80,31 @@ public class LibUtil {
 	
 	// Modifiers tags utilities 
 	
+	public static void writeMaterialTraitsToNBT (MaterialsMod material, NBTTagCompound cmp) {
+		NBTTagList tagList = new NBTTagList () ;
+		
+		for (ITrait trait: material.getTraits()) {
+			NBTTagCompound materialTag = new NBTTagCompound () ;
+			materialTag.setString(IModifiable.IDENTIFIER, trait.getIdentifier()) ;
+			tagList.appendTag(materialTag) ;
+		}
+		
+		cmp.setTag("materialTraits", tagList);
+	}
+	
+	public static List<String> readMaterialTraitsFromNBT (NBTTagCompound cmp) {
+		List<String> list = Lists.newLinkedList() ;
+		
+		NBTTagList tagList = cmp.getTagList("materialTraits", 10) ;
+		
+		for (int i = 0; i < tagList.tagCount(); i ++ ) {
+			NBTTagCompound tag = tagList.getCompoundTagAt(i) ;
+			list.add(tag.getString(IModifiable.IDENTIFIER)) ;			
+		}
+		
+		return list ;
+	}
+	
 	public static List<ITrait> getModifiersFromTag (NBTTagList tagList) {
 		List <ITrait> list = Lists.newLinkedList() ;
 		
@@ -134,7 +160,7 @@ public class LibUtil {
 				return null ;
 			}
 			
-			list.addAll(getModifiersFromTag (tagList)) ;
+			list.addAll( getMaterialsTraitsFromNBT (tagList) ) ;
 		
 		}
 		
@@ -151,22 +177,22 @@ public class LibUtil {
 		return list ;
 	}
 	
-	public static List<String> getItemToolTip (EntityPlayer player, ItemStack stack, ItemModArmour armour) {
-		List<String> tooltip = Lists.newLinkedList() ;
+	public static List<ITrait> getMaterialsTraitsFromNBT (NBTTagList tagList) {
+		List<ITrait> result = Lists.newLinkedList() ;
 		
-		List<ITrait> traits ;
-		
-		if (!armour.hasArmourSet(player)) {
-			traits = getModifiersListMaterials (stack) ;
-		} else {
-			traits = getModifiersListAll (stack) ;
+		for (int i = 0; i < tagList.tagCount(); i++ ) {
+			NBTTagCompound thisTag = tagList.getCompoundTagAt(i) ;
+			
+			List<String> traits = readMaterialTraitsFromNBT(thisTag) ;
+			
+			for (String identifier : traits) {
+				ITrait trait = ModTraitsModifiersRegistry.getTraitFromIdentifier(identifier) ;
+			
+				result.add(trait) ;
+			}
 		}
 		
-		for (ITrait trait : traits) {
-			tooltip.add( formatIdentifier(trait) ) ;
-		}
-		
-		return tooltip ;
+		return result ;
 	}
 	
 	/**

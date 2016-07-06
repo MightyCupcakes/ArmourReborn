@@ -16,6 +16,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.crafting.ModMaterials;
+import teamOD.armourReborn.common.item.equipment.ItemChainArmour;
+import teamOD.armourReborn.common.item.equipment.ItemLeatherCompositeArmour;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.item.equipment.ItemPlateArmour;
 import teamOD.armourReborn.common.lib.LibItemNames;
@@ -82,23 +84,42 @@ public final class ModItems {
 					armour[3] = new ItemPlateArmour (armourName + "boots", mat, EntityEquipmentSlot.LEGS, 1) ;
 					
 					modArmours.put(material.getIdentifier() + key, armour) ;
+					addArmourSet (armour) ;
 				
 				} else if (key.equals("chain")) {
-					// TODO
-				
-				} else if (key.equals("leather")) {
-					// TODO
+					armour[0] = new ItemChainArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
+					armour[1] = new ItemChainArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
+					armour[2] = new ItemChainArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemChainArmour (armourName + "boots", mat, EntityEquipmentSlot.LEGS, 1) ;
 					
+					modArmours.put(material.getIdentifier() + key, armour) ;
+					addArmourSet (armour) ;
+				
+				} else if (key.equals("leather")) {System.out.println(key);
+					armour[0] = new ItemLeatherCompositeArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
+					armour[1] = new ItemLeatherCompositeArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
+					armour[2] = new ItemLeatherCompositeArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemLeatherCompositeArmour (armourName + "boots", mat, EntityEquipmentSlot.LEGS, 1) ;
+					
+					modArmours.put(material.getIdentifier() + key, armour) ;
+					addArmourSet (armour) ;
 				}
 				
 				
-				// Establish armour set
-				for (int i = 0; i < armour.length; i ++) {
-					ItemModArmour armourItem = (ItemModArmour) armour[i] ;
-					
-					armourItem.armourSet[i] = new ItemStack (armourItem) ;
-				}
+				
 			}
+		}
+	}
+	
+	private static void addArmourSet (Item[] armour) {
+		// Establish armour set
+		for (int i = 0; i < armour.length; i ++) {
+			ItemModArmour armourItem = (ItemModArmour) armour[i] ;
+			
+			armourItem.armourSet[0] = new ItemStack (armour[0]) ;
+			armourItem.armourSet[1] = new ItemStack (armour[1]) ;
+			armourItem.armourSet[2] = new ItemStack (armour[2]) ;
+			armourItem.armourSet[3] = new ItemStack (armour[3]) ;
 		}
 	}
 	
@@ -126,5 +147,9 @@ public final class ModItems {
 	
 	public static ArmorMaterial getArmorMaterialByName (String name) {
 		return armourMaterials.get(name) ;
+	}
+	
+	public static Iterable<Item[]> getAllModArmour () {
+		return modArmours.values() ;
 	}
 }

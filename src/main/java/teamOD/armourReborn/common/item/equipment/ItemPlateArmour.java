@@ -2,6 +2,8 @@ package teamOD.armourReborn.common.item.equipment;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -21,7 +23,7 @@ public class ItemPlateArmour extends ItemModArmour {
 	@Override
 	public List<ITrait> getArmourTypeTrait() {
 		// TODO Auto-generated method stub
-		return null;
+		return ImmutableList.<ITrait>of() ;
 	}
 
 	@Override

@@ -2,11 +2,15 @@ package teamOD.armourReborn.common.item.equipment;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +25,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
+import teamOD.armourReborn.common.crafting.ModMaterials;
 import teamOD.armourReborn.common.leveling.ILevelable;
 import teamOD.armourReborn.common.leveling.ModLevels;
 import teamOD.armourReborn.common.leveling.ModLevels.LevelInfo;
@@ -48,6 +53,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		super (mat, index, type) ;
 		
 		this.type = type;
+		this.armourSet = new ItemStack[4] ;
 		this.setNoRepair() ;
 		
 		setCreativeTab(ArmourRebornCreativeTab.INSTANCE);
@@ -274,7 +280,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		// Materials Traits
 		for (MaterialsMod material : materials) {
 			NBTTagCompound materialTag = new NBTTagCompound () ;
-			material.writeToNBT(materialTag) ;
+			LibUtil.writeMaterialTraitsToNBT(material, materialTag) ;
 			modTag.appendTag(materialTag) ;
 		}
 		
@@ -304,7 +310,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		// Leveling stuff
 		LevelInfo level = ModLevels.getLevelInfo(getLevel(stack)) ;
 		
+		tooltip.add("") ; // A empty line so it looks nice
 		tooltip.add(level.getColour() + level.getSkillString()) ;
+		
+		tooltip.add("") ; // More empty lines
 		
 		// Modifiers and traits
 		NBTTagCompound tag = stack.getTagCompound() ;
@@ -313,10 +322,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		// Materials Traits
 		thisList = tag.getTagList(ITrait.MATERIAL_TRAITS, 10) ;
 		
-		for (int i = 0; i < thisList.tagCount(); i++ ) {
-			NBTTagCompound thisTag = thisList.getCompoundTagAt(i) ;
-			ITrait trait = ModTraitsModifiersRegistry.getTraitFromIdentifier(thisTag.getString(IDENTIFIER)) ;
-			
+		for (ITrait trait: LibUtil.getMaterialsTraitsFromNBT(thisList) ) {
 			tooltip.add(LibUtil.formatIdentifier(trait)) ;
 		}
 		
@@ -346,6 +352,16 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 				
 				tooltip.add(LibUtil.formatIdentifier(trait)) ;
 			}
+		}
+	}
+	
+	@Override
+	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
+		
+		for (MaterialsMod material : materials) {
+			ItemStack armour = buildItem (ImmutableList.of(material)) ;
+			subItems.add(armour) ; 
 		}
 	}
 }

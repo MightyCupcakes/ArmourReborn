@@ -6,12 +6,12 @@ public class ModTraitsModifiersRegistry {
 	
 	protected static HashMap<String, ITrait> traitRegistry = new HashMap<String, ITrait> () ;
 	
-	public static ITrait evasion1 = new TraitEvasion(0) ;
-	public static ITrait evasion2 = new TraitEvasion(1) ;
-	public static ITrait evasion3 = new TraitEvasion(2) ;
-	public static ITrait reprisal1 = new TraitReprisal(0) ;
-	public static ITrait reprisal2 = new TraitReprisal(1) ;
-	public static ITrait reprisal3 = new TraitReprisal(2) ;
+	public static ITrait evasion1 = new TraitEvasion(1) ;
+	public static ITrait evasion2 = new TraitEvasion(2) ;
+	public static ITrait evasion3 = new TraitEvasion(3) ;
+	public static ITrait reprisal1 = new TraitReprisal(1) ;
+	public static ITrait reprisal2 = new TraitReprisal(2) ;
+	public static ITrait reprisal3 = new TraitReprisal(3) ;
 	public static ITrait waterlogged = new TraitWaterlogged() ;
 	public static ITrait surge = new TraitSurge() ;
 	
