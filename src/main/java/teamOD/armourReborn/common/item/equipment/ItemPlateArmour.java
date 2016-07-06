@@ -24,4 +24,10 @@ public class ItemPlateArmour extends ItemModArmour {
 		return null;
 	}
 
+	@Override
+	protected void addArmourSetEnchantments(ItemStack armour) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

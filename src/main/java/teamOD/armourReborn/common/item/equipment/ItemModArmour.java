@@ -83,6 +83,16 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 				traits.onArmorTick(world, player, itemStack) ;
 			}
 		}
+		
+		if ( hasArmourSet (player) ) {
+			addArmourSetEnchantments (itemStack) ;
+		
+		} else {
+			
+			if (itemStack.getItem() instanceof ItemModArmour) {
+				LibUtil.removeVanillaEnchantment(itemStack);
+			}
+		}
 	}
 
 	@Override
@@ -121,6 +131,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		return false ;
 	}
+	
+	protected abstract void addArmourSetEnchantments (ItemStack armour) ;
 	
 	
 	@Override

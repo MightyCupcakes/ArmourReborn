@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -197,6 +198,30 @@ public class LibUtil {
 		
 		int repairAmt = Math.min(amount, stack.getItemDamage()) ;
 		stack.setItemDamage(stack.getItemDamage() - repairAmt) ;
+	}
+	
+	/**
+	 * Adds a vanilla enchantment to the armour. This used for set bonuses as ModArmour cannot be enchanted in a vanilla enchantment table
+	 * 
+	 * @param armour	The itemstack of the armour
+	 * @param ench		The Enchantment
+	 * @param level		The level of the enchantment
+	 */
+	public static void addVanillaEnchantment (ItemStack armour, Enchantment ench, int level) {
+		armour.addEnchantment(ench, level);
+	}
+	
+	/**
+	 * This removes ALL vanilla enchantments from the armour. Again used only for ModArmour. If used on a vanilla item, every enchantment will be wiped!
+	 *
+	 * @param armour 	The itemstack of the armour
+	 */
+	public static void removeVanillaEnchantment (ItemStack armour) {
+		NBTTagCompound tag = armour.getTagCompound() ;
+		
+		if (tag.hasKey("ench")) {
+			tag.removeTag("ench") ;
+		}
 	}
 
 }
