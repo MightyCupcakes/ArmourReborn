@@ -132,7 +132,7 @@ public final class ModItems {
 		int[] reductionAmounts = new int[4] ;
 		
 		for (int i = 0; i < reductionAmounts.length; i ++) {
-			reductionAmounts[i] = (int) (material.getBaseArmourValue()[i] * LibItemStats.armourTypesStats.get(key)[0]) ;
+			reductionAmounts[i] = (int) Math.round(material.getBaseArmourValue()[i] * LibItemStats.armourTypesStats.get(key)[0]) ;
 		}
 		
 		ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 1, SoundEvents.item_armor_equip_generic) ;

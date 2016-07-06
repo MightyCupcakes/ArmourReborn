@@ -113,7 +113,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		
-		for (ITrait modifier : LibUtil.getModifiersListMaterials(stack)) {
+		for (ITrait modifier : LibUtil.getTraitsListMaterials(stack)) {
 			damage = modifier.onDamage(stack, damage, damage, entity);
 		}
 		

@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.modifiers.IModifiable;
+import teamOD.armourReborn.common.modifiers.IModifier;
 import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 import teamOD.armourReborn.common.modifiers.ModifierEvents;
@@ -121,7 +122,7 @@ public class LibUtil {
 	 * Gets the list of modifiers/traits associated only to its materials from a IModifiable
 	 * 
 	 */
-	public static List<ITrait> getModifiersListMaterials (ItemStack stack) {
+	public static List<ITrait> getTraitsListMaterials (ItemStack stack) {
 		return getModifiersList (stack, true, false) ;
 	}
 	
@@ -129,8 +130,38 @@ public class LibUtil {
 		return getModifiersList (stack, true, true) ;
 	}
 	
-	public static List<ITrait> getModifiersListArmourSet (ItemStack stack) {
+	public static List<ITrait> getTraitsListArmourSet (ItemStack stack) {
 		return getModifiersList (stack, false, true) ;
+	}
+	
+	/**
+	 * Gets the list of traits/modifiers from an armour excluding the ones associated to the armourset.
+	 */
+	public static List<ITrait> getTraitsModifiersList (ItemStack stack) {
+		List<ITrait> result = Lists.newLinkedList() ;
+		
+		result.addAll( getTraitsListMaterials (stack) ) ;
+		result.addAll( getModifiersFromArmour (stack) ) ;		
+		
+		return result ;
+	}
+	
+	public static List<ITrait> getModifiersFromArmour (ItemStack stack) {
+		List<ITrait> result = Lists.newLinkedList() ;
+		
+		NBTTagCompound tag = stack.getTagCompound() ;
+		
+		if (tag.hasKey(IModifier.MODIFIERS)) {
+			NBTTagList tagList = tag.getTagList(IModifier.MODIFIERS, 10) ;
+			
+			for (int i = 0; i < tagList.tagCount(); i++ ) {
+				NBTTagCompound cmp = tagList.getCompoundTagAt(i) ;
+				
+				result.add(ModTraitsModifiersRegistry.getTraitFromIdentifier( cmp.getString(IModifiable.IDENTIFIER)) ) ;
+			}
+		}
+		
+		return result ;
 	}
 	
 	/**

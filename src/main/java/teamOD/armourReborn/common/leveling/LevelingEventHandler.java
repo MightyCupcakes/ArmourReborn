@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.modifiers.ModifierEvents;
 
 public class LevelingEventHandler {
 	@SubscribeEvent
@@ -22,8 +23,22 @@ public class LevelingEventHandler {
 			
 			if ( ! (stack.getItem() instanceof ILevelable) ) continue ;
 			
+			ILevelable armour = (ILevelable) stack.getItem() ;
+			int exp = (int) event.getAmount() ; // 1 damage == 1 exp
+			
+			// If its player damage, the exp is doubled.
+			if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
+				exp *= 2 ;
+			}
+			
+			armour.addExp(stack, player, exp) ;
 			
 		}
+	}
+	
+	@SubscribeEvent
+	public void onRepair (ModifierEvents.OnRepair event) {
+		
 	}
 	
 	@SubscribeEvent
@@ -34,6 +49,7 @@ public class LevelingEventHandler {
 			ILevelable armour = (ILevelable) event.getItemStack().getItem() ;
 			int level = armour.getLevel(event.getItemStack()) ;
 			
+			event.getItemStack().clearCustomName() ;
 			event.getItemStack().setStackDisplayName(ModLevels.getLevelInfo(level).getColour() + event.getItemStack().getDisplayName()) ;
 		}
 	}

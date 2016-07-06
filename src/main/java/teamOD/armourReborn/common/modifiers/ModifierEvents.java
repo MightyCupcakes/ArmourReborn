@@ -26,7 +26,7 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getModifiersListMaterials(armourPiece)) {
+					for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
 						modifier.modifyMovementSpeed(player, armourPiece) ;
 					}
 				}
@@ -46,7 +46,7 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getModifiersListMaterials(armourPiece)) {
+					for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
 						
 						EntityLivingBase entity = null ;
 						
@@ -69,7 +69,7 @@ public class ModifierEvents {
 	@SubscribeEvent
 	public void onRepair (ModifierEvents.OnRepair event) {
 		if (event.stack.getItem() instanceof IModifiable) {
-			for ( ITrait trait : LibUtil.getModifiersListMaterials(event.stack) ) {
+			for ( ITrait trait : LibUtil.getTraitsModifiersList(event.stack) ) {
 				trait.onRepair(event.stack, event.amount);
 			}
 		}
