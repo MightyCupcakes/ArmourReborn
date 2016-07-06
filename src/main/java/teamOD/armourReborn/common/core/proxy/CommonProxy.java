@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.core.command.CommandGiveModArmour;
+import teamOD.armourReborn.common.core.command.CommandLevelUpArmour;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.crafting.ModMaterials;
 import teamOD.armourReborn.common.fluids.ModFluids;
@@ -40,6 +41,7 @@ public class CommonProxy {
 	
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand (new CommandGiveModArmour ()) ;
+		event.registerServerCommand (new CommandLevelUpArmour ()) ;
 	}
  
 }

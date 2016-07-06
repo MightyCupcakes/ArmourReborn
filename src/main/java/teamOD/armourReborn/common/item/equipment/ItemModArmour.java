@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -76,6 +77,14 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return damageReduceAmount ;
+	}
+	
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		
+		if (stack.getItem() instanceof ILevelable && entityIn instanceof EntityPlayer) {
+			levelingUpdate (stack, (EntityPlayer) entityIn) ;
+		}
 	}
 	
 	@Override
@@ -218,6 +227,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - info.getExpNeeded() ) ;
 		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
 		
+		info = ModLevels.getLevelInfo (getLevel(armour)) ;
 		player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
 		
 	}

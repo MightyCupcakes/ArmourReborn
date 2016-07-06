@@ -95,7 +95,7 @@ public final class ModItems {
 					modArmours.put(material.getIdentifier() + key, armour) ;
 					addArmourSet (armour) ;
 				
-				} else if (key.equals("leather")) {System.out.println(key);
+				} else if (key.equals("leather")) {
 					armour[0] = new ItemLeatherCompositeArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
 					armour[1] = new ItemLeatherCompositeArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
 					armour[2] = new ItemLeatherCompositeArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;

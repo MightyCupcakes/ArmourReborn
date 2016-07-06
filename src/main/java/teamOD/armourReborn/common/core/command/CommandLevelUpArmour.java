@@ -8,12 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 
-public class CommandGiveModArmour extends CommandBase {
+public class CommandLevelUpArmour extends CommandBase {
 
 	@Override
 	public String getCommandName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "leveluparmour" ;
 	}
 	
 	@Override
@@ -23,11 +22,28 @@ public class CommandGiveModArmour extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "<player>";
+		return "<player> <expAmt>";
 	}
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		EntityPlayer player = getPlayer (server, sender, args[0]) ;
+
+		if (player != null) {
+			ItemStack stack = player.getHeldItemMainhand() ;
+
+			if (stack != null && stack.getItem() instanceof ItemModArmour) {
+				ItemModArmour armour = (ItemModArmour) stack.getItem() ;
+
+				armour.addExp(stack, player, parseInt(args[1]) );
+
+			} else if (stack == null) {
+				throw new CommandException ("no item in main hand.") ;
+
+			} else if ( ! (stack.getItem() instanceof ItemModArmour) ) {
+				throw new CommandException ("item in main hand is not from the mod ArmourReborn") ;
+			}
+		}
 		
 	}
 
