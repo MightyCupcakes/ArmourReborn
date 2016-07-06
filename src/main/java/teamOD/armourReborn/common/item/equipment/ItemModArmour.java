@@ -82,16 +82,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		
-		if (stack.getItem() instanceof ILevelable && entityIn instanceof EntityPlayer) {
-			levelingUpdate (stack, (EntityPlayer) entityIn) ;
-		}
 	}
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (itemStack.getItem() instanceof ILevelable) {
-			levelingUpdate (itemStack, player) ;
-		}
 		
 		if (itemStack.getItem() instanceof IModifiable) {
 			for ( ITrait traits : LibUtil.getModifiersListAll(itemStack) ) {
@@ -174,6 +168,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		tag.setInteger(TAG_EXP, armourExp);
 		
+		levelingUpdate (armour, player) ;
+		
 	}
 
 	@Override
@@ -230,6 +226,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		info = ModLevels.getLevelInfo (getLevel(armour)) ;
 		player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
 		
+		// For cheaters who can somehow level up their armour more than once in one update
+		levelingUpdate (armour, player) ;
+		
 	}
 	
 	@Override
@@ -242,6 +241,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 	public abstract List<ITrait> getArmourTypeTrait () ;
 	
+	/**
+	 * Add the given modifier to the armour in the itemstack
+	 */
 	@Override
 	public void addModifier (ItemStack armour, IModifier modifier) {
 		addModifier (armour, modifier) ;

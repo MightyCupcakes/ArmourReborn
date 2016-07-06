@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
@@ -50,8 +51,7 @@ public class ModelHandler {
 		registerBlockModels (ModBlocks.forgeMaster) ;
 		registerBlockModels (ModBlocks.forgeBlocks) ;
 		registerBlockModels (ModBlocks.forgeHeater) ;
-		
-		registerTESR (ModBlocks.forgeAnvil) ;
+		registerBlockModels (ModBlocks.forgeAnvil) ;
 	}
 	
 	private static void registerFluids () {
@@ -88,12 +88,6 @@ public class ModelHandler {
 	
 	public static void registerItemModel (Item item) {
 		registerItemModel (item, 0) ;
-	}
-	
-	private static void registerTESR (Block block) {
-		registerBlockModels (block) ;
-		
-		ClientRegistry.bindTileEntitySpecialRenderer(TileForgeAnvil.class, new ModelForgeAnvil () );
 	}
 	
 	private static void registerFluidsModel (Fluid fluid) {
