@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
@@ -44,8 +45,6 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
 	public ItemStack[] armourSet ;
-	
-	protected int modifiersSlot = LibItemStats.DEFAULT_MODIFIER_SLOTS ; 
 	
 	public static double armourModifier = 1 ;
 	public static double durabilityModifier = 1 ;
@@ -81,7 +80,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		
+		// NO-OP for now
 	}
 	
 	@Override
@@ -216,7 +215,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		if (info.getTraitIdentifiers() != null) {
 			for (ITrait trait : info.getTraitIdentifiers()) {
-				addModifier (armour, trait) ;
+				addModifier (armour, trait, false) ;
 			}
 		}
 		
@@ -246,17 +245,30 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 */
 	@Override
 	public void addModifier (ItemStack armour, IModifier modifier) {
-		addModifier (armour, modifier) ;
+		addModifier (armour, modifier, true) ;
 	}
 	
 	/**
 	 * For traits provided by leveling up of armour.
 	 * @param armour
 	 * @param modifier
+	 * @param requireSlot	if set to true, this modifier uses up a slot when added.
 	 */
-	private void addModifier (ItemStack armour, ITrait modifier) {
+	private void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		NBTTagList modTag ;
+		
+		// Check for slots left
+		if (requireSlot) {
+			
+			if (tag.hasKey(MODIFIER_SLOTS) && tag.getInteger(MODIFIER_SLOTS) > 0) {
+				tag.setInteger(MODIFIER_SLOTS, tag.getInteger(MODIFIER_SLOTS) - 1);
+			
+			} else {
+				// No slots left - abort! abort!
+				return ;
+			}
+		}
 		
 		if (tag.hasKey(IModifier.MODIFIERS)) {
 			modTag = tag.getTagList(IModifier.MODIFIERS, 10) ;
@@ -287,6 +299,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		this.addBaseTags(tag) ;
 		
 		// Modifiers and traits
+		tag.setInteger(MODIFIER_SLOTS, LibItemStats.DEFAULT_MODIFIER_SLOTS);
+		
 		modTag = new NBTTagList () ;
 				
 		// Materials Traits
@@ -319,6 +333,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		
+		boolean shift = LibUtil.isShiftKeyDown() ;
+		
 		// Leveling stuff
 		LevelInfo level = ModLevels.getLevelInfo(getLevel(stack)) ;
 		
@@ -365,6 +382,17 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 				tooltip.add(LibUtil.formatIdentifier(trait)) ;
 			}
 		}
+		
+		tooltip.add("") ; // more empty spaces!
+		
+		if (!shift) {
+			tooltip.add(TextFormatting.WHITE + "Press shift to show more information.") ;
+		
+		} else {			
+			tooltip.add (TextFormatting.WHITE + "Modifier slots: " + LibUtil.getStackModifierSlots(stack)) ;
+			tooltip.add (TextFormatting.WHITE + "Durability: " + LibUtil.getItemCurrentDurability(stack) + "/" + stack.getMaxDamage()) ;
+		}
+		
 	}
 	
 	@Override

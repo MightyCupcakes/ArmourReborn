@@ -14,6 +14,7 @@ import teamOD.armourReborn.common.crafting.MaterialsMod;
 public interface IModifiable {
 	
 	public static final String IDENTIFIER = "identifier" ;
+	public static final String MODIFIER_SLOTS = "slotsLeft" ;
 	
 	public ItemStack buildItem (List<MaterialsMod> materials) ;
 	

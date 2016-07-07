@@ -2,6 +2,7 @@ package teamOD.armourReborn.common.block;
 
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -23,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.TileForgeComponent;
 import teamOD.armourReborn.common.block.tile.TileForgeMaster;
 

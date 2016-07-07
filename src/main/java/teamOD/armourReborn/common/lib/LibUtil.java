@@ -79,6 +79,22 @@ public class LibUtil {
 		return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) ;
 	}
 	
+	public static int getItemCurrentDurability (ItemStack stack) {
+		int damage = stack.getItemDamage() ;
+		int maxDamage = stack.getMaxDamage() ;
+		
+		return maxDamage - damage ;
+	}
+	
+	public static int getStackModifierSlots (ItemStack stack) {
+		NBTTagCompound tag = stack.getTagCompound() ;
+		
+		if (tag.hasKey(IModifiable.MODIFIER_SLOTS)) {
+			return tag.getInteger(IModifiable.MODIFIER_SLOTS) ;
+		}
+		
+		return 0 ;
+	}
 	// Modifiers tags utilities 
 	
 	public static void writeMaterialTraitsToNBT (MaterialsMod material, NBTTagCompound cmp) {

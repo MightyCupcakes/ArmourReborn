@@ -9,7 +9,7 @@ import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public final class ModLevels {
-	private static List<LevelInfo> levels = Lists.newLinkedList();
+	private static List<LevelInfo> levels = Lists.newArrayListWithCapacity(10);
 	
 	public static void init () {
 		

@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -18,6 +19,8 @@ public class ModifierEvents {
 	public void updatePlayerMovementStatus (LivingUpdateEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
+			
+			player.stepHeight = 0.5F ;
 
 			Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 			
@@ -55,11 +58,31 @@ public class ModifierEvents {
 						}
 						
 						modifier.onHit(armourPiece, entity, player, event.getAmount());
-						
-						if (modifier.negateDamage(armourPiece, player)) {
-							event.setCanceled(true) ;
-							break ;
-						}
+					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerAttacked (LivingAttackEvent event) {
+		if (! (event.getEntityLiving() instanceof EntityPlayer) ) {
+			return ;
+		}
+		
+		EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
+		
+		Iterable<ItemStack> armour = player.getArmorInventoryList() ;
+		
+		for (ItemStack armourPiece : armour) {
+			if (armourPiece == null) continue ;
+			
+			if (armourPiece.getItem() instanceof IModifiable) {
+				
+				for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
+					if (modifier.negateDamage(armourPiece, player)) {
+						event.setCanceled(true) ;System.out.println("damage evaded");
+						break ;
 					}
 				}
 			}

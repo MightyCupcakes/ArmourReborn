@@ -9,8 +9,9 @@ import net.minecraft.util.text.TextFormatting;
 import teamOD.armourReborn.common.lib.LibUtil;
 
 /**
+ * BLADEMAIL!
  * Armour with this trait will have a chance to do the same damage back to the source
- * The incoming damage is not negated, however.
+ * The incoming damage is not negated, however. 
  *
  */
 public class TraitReprisal extends AbstractTrait {

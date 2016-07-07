@@ -14,14 +14,25 @@ public final class LibItemStats {
 	public static final ArmorMaterial steelArmourMat = EnumHelper.addArmorMaterial("STEEL", "steel", 20, new int[] {4,4,4,2}, 1, SoundEvents.item_armor_equip_gold) ;
 	public static final ArmorMaterial aluminiumArmourMat = EnumHelper.addArmorMaterial("ALUMINIUM", "aluminium", 34, new int[] {3,8,6,3}, 1, SoundEvents.item_armor_equip_diamond) ;
 	
-	public static final ImmutableMap <String, double[]> armourTypesStats = ImmutableMap.of("plate", new double[] {1,1}, "chain", new double[] {0.8, 1.25}, "leather", new double[] {0.7,0.8}) ;
+	/** 
+	 * The string is the name of this armourset.
+	 * 
+	 * The double array represents the values and should contain only 2 values.
+	 * The first value in the array represents the Armour value modifier
+	 * and the second represents the durability modifier
+	 */
+	public static final ImmutableMap <String, double[]> armourTypesStats = ImmutableMap.of(
+			"plate", new double[] {1,1}, 
+			"chain", new double[] {0.8, 1.25}, 
+			"leather", new double[] {0.7,0.8}
+			) ;
+	
+	public static final int DEFAULT_MODIFIER_SLOTS = 3 ;
 	
 	public static final int VALUE_INGOT = 144;
 	public static final int VALUE_NUGGET = VALUE_INGOT / 9;
 	public static final int VALUE_BLOCK = VALUE_INGOT * 9;
 	public static final int VALUE_ORE = VALUE_INGOT * 2;
-	
-	public static final int DEFAULT_MODIFIER_SLOTS = 3 ;
 	
 	public static int getValue (String suffix) {
 		if (suffix.equals("nugget")) {

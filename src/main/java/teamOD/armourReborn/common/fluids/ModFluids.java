@@ -32,18 +32,18 @@ public class ModFluids {
 	public static void init () {
 		
 		iron = registerMoltenBlock ("iron", 0xFFFF0000) ;
-		steel = registerMoltenBlock ("steel", 0xFFFFFFFF, 1200) ;
-		aluminium = registerMoltenBlock ("aluminium", 0xff808080, 1300) ;
+		steel = registerMoltenBlock ("steel", 0xFFFFFFFF, 1200, true) ;
+		aluminium = registerMoltenBlock ("aluminium", 0xff808080, 1300, true) ;
 		copper = registerMoltenBlock ("copper", 0xffC87533) ;
 		gold = registerMoltenBlock ("gold", 0xfff6d609) ;
 		coal = registerMoltenBlock ("coal", 0xff000000) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {
-		return registerMoltenBlock (name, colour, 1000) ;
+		return registerMoltenBlock (name, colour, 1000, true) ;
 	}
 	
-	private static FluidMod registerMoltenBlock (String name, int colour, int meltingPoint) {
+	private static FluidMod registerMoltenBlock (String name, int colour, int meltingPoint, boolean allowedFluids) {
 		
 		FluidMod fluid ;
 		String regName = "molten_" + name ;
@@ -56,7 +56,8 @@ public class ModFluids {
 		fluid.setBlock(block) ;
 		
 		FluidRegistry.addBucketForFluid(fluid);
-		modFluids.add(fluid) ;
+		
+		if (allowedFluids) modFluids.add(fluid) ;
 		
 		return fluid ;
 	}
