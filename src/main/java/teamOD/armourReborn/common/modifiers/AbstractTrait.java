@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 
 public abstract class AbstractTrait implements ITrait {
 	protected String identifier ;
+	protected String traitFamily ;
 	protected TextFormatting colour ;
 	
 	protected int level ;
@@ -18,6 +19,7 @@ public abstract class AbstractTrait implements ITrait {
 	}
 	
 	public AbstractTrait (String identifier, int level, TextFormatting colour) {
+		this.traitFamily = identifier ;
 		this.identifier = identifier + " " + ITrait.levelStrings.get(level) ;
 		this.colour = colour ;
 		this.level = level ;
@@ -44,8 +46,8 @@ public abstract class AbstractTrait implements ITrait {
 	}
 
 	@Override
-	public boolean canApplyTogether(IModifier modifier) {
-		return true ;
+	public boolean canApplyTogether(ITrait modifier) {
+		return !(modifier.getIdentifier().contains(traitFamily)) ;
 	}
 
 	@Override
@@ -76,5 +78,10 @@ public abstract class AbstractTrait implements ITrait {
 	@Override
 	public int onDamage (ItemStack armour, int amount, int newAmount, EntityLivingBase entity) {
 		return amount ;
+	}
+	
+	@Override
+	public void emitAuraEffect (EntityPlayer player, ItemStack armour) {
+		// NO-OP
 	}
 }

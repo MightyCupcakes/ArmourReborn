@@ -57,7 +57,7 @@ public interface ITrait {
 	 * @param modifier	The modifier to be to applied alongside this modifier to a armour
 	 * @return true if given modifier can be applied with this modifier; false otherwise
 	 */
-	public boolean canApplyTogether (IModifier modifier) ;
+	public boolean canApplyTogether (ITrait modifier) ;
 	
 	/**
 	 * Called when an player entity is hit, just before damage is dealt. Damage is the final damage dealt after critical hit calculations (if any)
@@ -115,5 +115,7 @@ public interface ITrait {
 	 * @param itemStack
 	 */
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) ;
+	
+	public void emitAuraEffect (EntityPlayer player, ItemStack armour) ;
 
 }

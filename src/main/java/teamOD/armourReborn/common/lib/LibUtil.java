@@ -8,12 +8,14 @@ import org.lwjgl.input.Keyboard;
 import com.google.common.collect.Lists;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
@@ -132,6 +134,33 @@ public class LibUtil {
 		}
 		
 		return list ;
+	}
+	
+	/**
+	 * Uses MineCraft 1.9.0 armour damage reduction formula to calculate the percentage of damage reduced
+	 * 
+	 * @param damage 	the raw damage to be dealt
+	 * @param armourValue
+	 * @param toughness		diamond armour has 2 for each piece, and 0 for the rest
+	 * @return	percentage of damage reduced
+	 */
+	public static double calculateArmourReduction (int damage, int armourValue, int toughness) {
+		
+		return ( 1 - Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25 ) ;
+	}
+	
+	/**
+	 * Return all entites within the given distance from the player
+	 * 
+	 * @param player
+	 * @param distance
+	 */
+	public static List<Entity> getEntitiesAroundPlayer (EntityPlayer player, double distance) {
+		World world = player.getEntityWorld() ;
+		
+		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expandXyz(distance)) ;
+		
+		return entities ;
 	}
 	
 	/**
