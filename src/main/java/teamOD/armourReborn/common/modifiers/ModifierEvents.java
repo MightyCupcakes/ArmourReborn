@@ -126,16 +126,18 @@ public class ModifierEvents {
 	
 	public static class OnRepair extends Event {
 		
+		public final EntityPlayer player ;
 		public final int amount ;
 		public final ItemStack stack ;
 		
-		public OnRepair (ItemStack stack, int amount) {
+		public OnRepair (EntityPlayer player, ItemStack stack, int amount) {
+			this.player = player ;
 			this.stack = stack ;
 			this.amount = amount ;
 		}
 		
-		public static boolean fireEvent (ItemStack stack, int amount) {
-			OnRepair event = new OnRepair (stack, amount) ;
+		public static boolean fireEvent (EntityPlayer player, ItemStack stack, int amount) {
+			OnRepair event = new OnRepair (player, stack, amount) ;
 			
 			return !MinecraftForge.EVENT_BUS.post(event) ;
 		}

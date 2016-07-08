@@ -337,12 +337,13 @@ public final class LibUtil {
 	/**
 	 * Call to repair any armour to fire the onrepair event.
 	 * 
+	 * @param player
 	 * @param stack		The armour itemstack
 	 * @param amount	The amount to repair. This might be modified later by traits.
 	 */
-	public static void repairArmour (ItemStack stack, int amount) {
+	public static void repairArmour (EntityPlayer player, ItemStack stack, int amount) {
 		
-		ModifierEvents.OnRepair.fireEvent(stack, amount) ;
+		ModifierEvents.OnRepair.fireEvent(player, stack, amount) ;
 		
 		int repairAmt = Math.min(amount, stack.getItemDamage()) ;
 		stack.setItemDamage(stack.getItemDamage() - repairAmt) ;

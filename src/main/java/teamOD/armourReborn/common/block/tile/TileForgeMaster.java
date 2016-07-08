@@ -86,7 +86,11 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			outputToAnvil() ;
 		}
 		
-		tick = (tick + 1) % 20 ;
+		tick ++ ;
+		
+		if (tick == 20) {
+			tick = 0 ;
+		}
 	}
 
 	@Override
