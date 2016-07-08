@@ -13,9 +13,6 @@ public class ItemChainArmour extends ItemModArmour {
 
 	public ItemChainArmour (String name, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
 		super (type, name, mat, index) ;
-		
-		this.armourModifier = 0.8D ;
-		this.durabilityModifier = 1.25D ;
 	}
 
 	@Override

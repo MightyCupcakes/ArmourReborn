@@ -13,9 +13,6 @@ public class ItemLeatherCompositeArmour extends ItemModArmour {
 
 	public ItemLeatherCompositeArmour (String name, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
 		super(type, name, mat, index);
-
-		this.armourModifier = 0.7D ;
-		this.durabilityModifier = 0.8D ;
 	}
 
 	@Override

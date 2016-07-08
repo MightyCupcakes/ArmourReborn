@@ -126,7 +126,7 @@ public interface ITrait {
 	public void emitAuraEffect (EntityPlayer player, ItemStack armour) ;
 	
 	/**
-	 * For traits that fire when player leaves a dimension for another one
+	 * For traits that fire when player leaves a dimension for the nether
 	 * @param player
 	 * @param armour
 	 */

@@ -9,11 +9,16 @@ public class ModTraitsModifiersRegistry {
 	public static ITrait evasion1 = new TraitEvasion(1) ;
 	public static ITrait evasion2 = new TraitEvasion(2) ;
 	public static ITrait evasion3 = new TraitEvasion(3) ;
+	
 	public static ITrait reprisal1 = new TraitReprisal(1) ;
 	public static ITrait reprisal2 = new TraitReprisal(2) ;
 	public static ITrait reprisal3 = new TraitReprisal(3) ;
+	
 	public static ITrait waterlogged = new TraitWaterlogged() ;
+	
 	public static ITrait surge = new TraitSurge() ;
+	
+	public static ITrait flammable = new TraitFlammable() ;
 	
 	public static void init () {
 		registerTrait (evasion1) ;
@@ -24,6 +29,7 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (reprisal3) ;
 		registerTrait (waterlogged) ;
 		registerTrait (surge) ;
+		registerTrait (flammable) ;
 	}
 	
 	public static ITrait getTraitFromIdentifier (String identifier) {

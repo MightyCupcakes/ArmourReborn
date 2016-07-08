@@ -25,7 +25,9 @@ import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 import teamOD.armourReborn.common.modifiers.ModifierEvents;
 
-public class LibUtil {
+public final class LibUtil {
+	
+	public static Random randGenerator = new Random () ;
 	
 	/**
 	 * Log a message using the logger provided by ForgeModLoader
@@ -71,9 +73,7 @@ public class LibUtil {
 		return null;
 	}
 	
-	public static float getRandomFloat () {
-		Random randGenerator = new Random () ;
-		
+	public static float getRandomFloat () {		
 		return randGenerator.nextFloat() ;
 	}
 	
@@ -144,7 +144,7 @@ public class LibUtil {
 	 * @param toughness		diamond armour has 2 for each piece, and 0 for the rest
 	 * @return	percentage of damage reduced
 	 */
-	public static double calculateArmourReduction (double damage, int armourValue, int toughness) {
+	public static double calculateArmourReduction (double damage, int armourValue, float toughness) {
 		
 		return ( 1 - Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25 ) ;
 	}

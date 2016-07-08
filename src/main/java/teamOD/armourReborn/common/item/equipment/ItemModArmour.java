@@ -41,13 +41,12 @@ import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
 	
+	public static final String TOUGHNESS = "toughnessValue" ;
+	
 	public EntityEquipmentSlot type;
 	
 	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
 	public ItemStack[] armourSet ;
-	
-	public static double armourModifier = 1 ;
-	public static double durabilityModifier = 1 ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat, int index) {
 		super (mat, index, type) ;
@@ -70,7 +69,13 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			return new ArmorProperties (0, 0, 0) ;
 		}
 		
-		return new ArmorProperties (0, LibUtil.calculateArmourReduction(damage, damageReduceAmount, 0), armor.getMaxDamage() - armor.getItemDamage() + 1) ;
+		float toughness = 0F ;
+		
+		if (armor.getTagCompound() != null && armor.getTagCompound().hasKey(TOUGHNESS)) {
+			toughness = armor.getTagCompound().getFloat(TOUGHNESS) ;
+		}
+		
+		return new ArmorProperties (0, LibUtil.calculateArmourReduction(damage, damageReduceAmount, toughness), armor.getMaxDamage() - armor.getItemDamage() + 1) ;
 	}
 
 	@Override
@@ -211,7 +216,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		if (isMaxLevel(tag)) return ;
 		
-		LevelInfo info = ModLevels.getLevelInfo (getLevel(armour)) ;
+		int expNeededToLevel = ModLevels.getLevelInfo (getLevel(armour)).getExpNeeded() ;
+		LevelInfo info = ModLevels.getLevelInfo (getLevel(armour) + 1) ;
 		
 		if (info.getTraitIdentifiers() != null) {
 			for (ITrait trait : info.getTraitIdentifiers()) {
@@ -219,10 +225,11 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			}
 		}
 		
-		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - info.getExpNeeded() ) ;
+		tag.setFloat(TOUGHNESS, tag.getFloat(TOUGHNESS) + info.getToughness()) ;
+		tag.setInteger(MODIFIER_SLOTS, tag.getInteger(MODIFIER_SLOTS) + info.getNumModifierSlots());
+		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - expNeededToLevel ) ;
 		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
 		
-		info = ModLevels.getLevelInfo (getLevel(armour)) ;
 		player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
 		
 		// For cheaters who can somehow level up their armour more than once in one update
@@ -306,6 +313,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		// Levels
 		this.addBaseTags(tag) ;
+		
+		// toughness
+		tag.setFloat(TOUGHNESS, 0) ;
 		
 		// Modifiers and traits
 		tag.setInteger(MODIFIER_SLOTS, LibItemStats.DEFAULT_MODIFIER_SLOTS);

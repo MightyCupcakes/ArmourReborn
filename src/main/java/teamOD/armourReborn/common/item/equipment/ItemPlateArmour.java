@@ -15,9 +15,6 @@ public class ItemPlateArmour extends ItemModArmour {
 	
 	public ItemPlateArmour (String name, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
 		super (type, name, mat, index) ;
-		
-		this.armourModifier = 1D ;
-		this.durabilityModifier = 1D ;
 	}
 
 	@Override
