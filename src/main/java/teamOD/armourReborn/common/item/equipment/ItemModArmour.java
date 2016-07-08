@@ -416,7 +416,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
+		Iterable<MaterialsMod> materials = ModMaterials.getAllRegisteredMaterials() ;
 		
 		for (MaterialsMod material : materials) {
 			ItemStack armour = buildItem (ImmutableList.of(material)) ;

@@ -60,7 +60,7 @@ public final class ModItems {
 	 */
 	private static void registerArmours () {
 		
-		Iterable<MaterialsMod> materials = ModMaterials.materialsRegistry.values() ;
+		Iterable<MaterialsMod> materials = ModMaterials.getAllRegisteredMaterials() ;
 		
 		for (String key : LibItemStats.armourTypesStats.keySet()) {
 			for (MaterialsMod material : materials) {

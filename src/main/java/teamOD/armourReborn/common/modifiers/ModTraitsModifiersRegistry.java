@@ -2,6 +2,8 @@ package teamOD.armourReborn.common.modifiers;
 
 import java.util.HashMap;
 
+import net.minecraft.util.text.TextFormatting;
+
 public class ModTraitsModifiersRegistry {
 	
 	protected static HashMap<String, ITrait> traitRegistry = new HashMap<String, ITrait> () ;
@@ -20,6 +22,8 @@ public class ModTraitsModifiersRegistry {
 	
 	public static ITrait flammable = new TraitFlammable() ;
 	
+	private static ITrait nullTrait = new TraitNone() ;
+	
 	public static void init () {
 		registerTrait (evasion1) ;
 		registerTrait (evasion2) ;
@@ -32,13 +36,31 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (flammable) ;
 	}
 	
+	/**
+	 * Returns the ITrait object registered by the given identifier string.
+	 * If no such trait exists, this will return a trait object that does nothing.
+	 * 
+	 */
 	public static ITrait getTraitFromIdentifier (String identifier) {
-		return traitRegistry.get(identifier) ;
+		ITrait trait = traitRegistry.get(identifier) ;
+		
+		return (trait == null) ? nullTrait : trait ;
 	}
 	
 	private static void registerTrait (ITrait trait) {
 		if ( traitRegistry.containsKey(trait.getIdentifier()) ) return ;
 		
 		traitRegistry.put(trait.getIdentifier(), trait) ;
+	}
+	
+	/**
+	 * A trait that does nothing. The registry will return this instead of null to prevent nullpointers.
+	 *
+	 */
+	private static class TraitNone extends AbstractTrait {
+		
+		public TraitNone () {
+			super ("NOOP", TextFormatting.BLACK) ;
+		}
 	}
 }

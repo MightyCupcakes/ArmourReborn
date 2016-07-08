@@ -10,7 +10,7 @@ import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class ModMaterials {
 	
-	public static HashMap<Item, MaterialsMod> materialsRegistry = new HashMap<Item, MaterialsMod> () ;
+	private static HashMap<Item, MaterialsMod> materialsRegistry = new HashMap<Item, MaterialsMod> () ;
 	
 	public static MaterialsMod paper ;
 	public static MaterialsMod iron ;
@@ -36,5 +36,9 @@ public class ModMaterials {
 	
 	private static void registerMaterial (Item item, MaterialsMod material) {
 		materialsRegistry.put(item, material) ;
+	}
+	
+	public static Iterable<MaterialsMod> getAllRegisteredMaterials () {
+		return materialsRegistry.values() ;
 	}
 }

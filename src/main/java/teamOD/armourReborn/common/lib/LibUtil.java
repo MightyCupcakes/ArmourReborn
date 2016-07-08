@@ -302,11 +302,11 @@ public final class LibUtil {
 	public static List<ITrait> getArmourTraits (EntityPlayer player, ItemStack armour) {
 		List<ITrait> result = Lists.newLinkedList() ;
 		
+		result.addAll(getTraitsModifiersList(armour)) ;
+		
 		if (armour.getItem() instanceof ItemModArmour) {
 			
 			ItemModArmour modArmour = (ItemModArmour) armour.getItem() ;
-			
-			result.addAll(getTraitsModifiersList(armour)) ;
 			
 			if (modArmour.hasArmourSet(player)) {
 				result.addAll(getTraitsListArmourSet(armour)) ;
