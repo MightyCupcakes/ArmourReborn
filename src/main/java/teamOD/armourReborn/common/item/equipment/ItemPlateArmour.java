@@ -23,10 +23,4 @@ public class ItemPlateArmour extends ItemModArmour {
 		return ImmutableList.<ITrait>of() ;
 	}
 
-	@Override
-	protected void addArmourSetEnchantments(ItemStack armour) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -1,10 +1,13 @@
 package teamOD.armourReborn.common.item.equipment;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,6 +50,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
 	public ItemStack[] armourSet ;
+	
+	protected Map<Enchantment, Integer> armourSetEnchantments = Collections.emptyMap() ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat, int index) {
 		super (mat, index, type) ;
@@ -126,13 +131,13 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	}
 	
 	public boolean hasArmourSetItem (EntityPlayer player, int slot) {
-		ItemStack stack = player.inventory.armorItemInSlot(slot);
+		ItemStack stack = player.inventory.armorInventory[3 - slot] ;
 		
 		if (stack == null) return false ;
 		
 		switch (slot) {
 		
-		case 0 :
+		case 0:
 			return stack.getItem() == armourSet[0].getItem() ;
 		case 1:
 			return stack.getItem() == armourSet[1].getItem() ;
@@ -145,7 +150,13 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		return false ;
 	}
 	
-	protected abstract void addArmourSetEnchantments (ItemStack armour) ;
+	protected void addArmourSetEnchantments (ItemStack armour) {
+		if (armour.isItemEnchanted()) return ;
+		
+		for (Enchantment ench : armourSetEnchantments.keySet()) {
+			LibUtil.addVanillaEnchantment(armour, ench, armourSetEnchantments.get(ench)) ;
+		}
+	}
 	
 	
 	@Override

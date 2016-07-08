@@ -16,12 +16,6 @@ public class ItemChainArmour extends ItemModArmour {
 	}
 
 	@Override
-	protected void addArmourSetEnchantments(ItemStack armour) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public List<ITrait> getArmourTypeTrait() {
 		// TODO Auto-generated method stub
 		return ImmutableList.<ITrait>of() ;
