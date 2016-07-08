@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -29,8 +30,9 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
+					for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
 						modifier.modifyMovementSpeed(player, armourPiece) ;
+						modifier.emitAuraEffect(player, armourPiece);
 					}
 				}
 			}
@@ -49,7 +51,7 @@ public class ModifierEvents {
 				
 				if (armourPiece.getItem() instanceof IModifiable) {
 					
-					for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
+					for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
 						
 						EntityLivingBase entity = null ;
 						
@@ -79,11 +81,35 @@ public class ModifierEvents {
 			
 			if (armourPiece.getItem() instanceof IModifiable) {
 				
-				for (ITrait modifier : LibUtil.getTraitsModifiersList(armourPiece)) {
+				for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
 					if (modifier.negateDamage(armourPiece, player)) {
 						event.setCanceled(true) ;System.out.println("damage evaded");
 						break ;
 					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent 
+	public void onTravelToNether (EntityTravelToDimensionEvent event) {
+		if ( ! (event.getEntity() instanceof EntityPlayer )) {
+			return ;
+		}
+		
+		if (event.getDimension() != -1) return ;
+		
+		EntityPlayer player = (EntityPlayer) event.getEntity() ;
+		
+		Iterable<ItemStack> armour = player.getArmorInventoryList() ;
+		
+		for (ItemStack armourPiece : armour) {
+			if (armourPiece == null) continue ;
+			
+			if (armourPiece.getItem() instanceof IModifiable) {
+				
+				for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
+					modifier.onLeavingDimension(player, armourPiece);
 				}
 			}
 		}

@@ -144,7 +144,7 @@ public class LibUtil {
 	 * @param toughness		diamond armour has 2 for each piece, and 0 for the rest
 	 * @return	percentage of damage reduced
 	 */
-	public static double calculateArmourReduction (int damage, int armourValue, int toughness) {
+	public static double calculateArmourReduction (double damage, int armourValue, int toughness) {
 		
 		return ( 1 - Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25 ) ;
 	}
@@ -171,8 +171,18 @@ public class LibUtil {
 		return getModifiersList (stack, true, false) ;
 	}
 	
+	/**
+	 * Returns all traits/modifiers associated to this armour
+	 * Does not take into account if said trait should be active or not
+	 * 
+	 */
 	public static List<ITrait> getModifiersListAll (ItemStack stack) {
-		return getModifiersList (stack, true, true) ;
+		List<ITrait> traits = Lists.newLinkedList() ;
+		
+		traits.addAll(getTraitsModifiersList(stack)) ;
+		traits.addAll(getTraitsListArmourSet(stack)) ;
+		
+		return traits ;
 	}
 	
 	public static List<ITrait> getTraitsListArmourSet (ItemStack stack) {
@@ -191,6 +201,9 @@ public class LibUtil {
 		return result ;
 	}
 	
+	/**
+	 * Gets the list of modifiers from the armour
+	 */
 	public static List<ITrait> getModifiersFromArmour (ItemStack stack) {
 		List<ITrait> result = Lists.newLinkedList() ;
 		
@@ -253,6 +266,12 @@ public class LibUtil {
 		return list ;
 	}
 	
+	/** 
+	 * Given a NBTTagList, returns a list of ITrait objects represented by the taglist
+	 * 
+	 * @param tagList
+	 * @return
+	 */
 	public static List<ITrait> getMaterialsTraitsFromNBT (NBTTagList tagList) {
 		List<ITrait> result = Lists.newLinkedList() ;
 		
@@ -266,6 +285,33 @@ public class LibUtil {
 			
 				result.add(trait) ;
 			}
+		}
+		
+		return result ;
+	}
+	
+	/**
+	 * Given an itemstack of ItemModArmour, returns a list of ITrait objects representing its traits
+	 * This function will take into account armour sets and returns the corresponding traits if its active.
+	 * Should be used to find out the list of trait active for any armour piece at any given time.
+	 * 
+	 * @param player
+	 * @param armour
+	 * @return
+	 */
+	public static List<ITrait> getArmourTraits (EntityPlayer player, ItemStack armour) {
+		List<ITrait> result = Lists.newLinkedList() ;
+		
+		if (armour.getItem() instanceof ItemModArmour) {
+			
+			ItemModArmour modArmour = (ItemModArmour) armour.getItem() ;
+			
+			result.addAll(getTraitsModifiersList(armour)) ;
+			
+			if (modArmour.hasArmourSet(player)) {
+				result.addAll(getTraitsListArmourSet(armour)) ;
+			}
+			
 		}
 		
 		return result ;

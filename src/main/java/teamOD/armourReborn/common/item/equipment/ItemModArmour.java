@@ -70,7 +70,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			return new ArmorProperties (0, 0, 0) ;
 		}
 		
-		return new ArmorProperties (0, damageReduceAmount / 25D, armor.getMaxDamage() - armor.getItemDamage() + 1) ;
+		return new ArmorProperties (0, LibUtil.calculateArmourReduction(damage, damageReduceAmount, 0), armor.getMaxDamage() - armor.getItemDamage() + 1) ;
 	}
 
 	@Override
@@ -254,7 +254,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 * @param modifier
 	 * @param requireSlot	if set to true, this modifier uses up a slot when added.
 	 */
-	private void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot) {
+	public void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		NBTTagList modTag ;
 		
@@ -266,6 +266,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			
 			} else {
 				// No slots left - abort! abort!
+				return ;
+			}
+		}
+		
+		// Check if said modifier can co-exist with its peers
+		for (ITrait trait: LibUtil.getModifiersListAll (armour)) {
+			if ( !trait.canApplyTogether(modifier) ) {
+				LibUtil.LogToFML(1, "Modifier error: %s and %s cannot co-exist with each other!", trait.getIdentifier(), modifier.getIdentifier()) ;
+				
 				return ;
 			}
 		}

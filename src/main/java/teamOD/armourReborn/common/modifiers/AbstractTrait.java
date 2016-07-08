@@ -84,4 +84,9 @@ public abstract class AbstractTrait implements ITrait {
 	public void emitAuraEffect (EntityPlayer player, ItemStack armour) {
 		// NO-OP
 	}
+	
+	@Override
+	public void onLeavingDimension (EntityPlayer player, ItemStack armour) {
+		// NO OP
+	}
 }

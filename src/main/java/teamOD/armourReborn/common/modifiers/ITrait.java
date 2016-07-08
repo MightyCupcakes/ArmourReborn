@@ -85,6 +85,7 @@ public interface ITrait {
 	 * @param target	The target player the status effect is applied upon
 	 * @param status	The status effect to be applied to the target
 	 */
+	@Deprecated
 	public void onStatusEffect (ItemStack armour, EntityLivingBase target, PotionType status) ;
 	
 	/**
@@ -116,6 +117,19 @@ public interface ITrait {
 	 */
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) ;
 	
+	/**
+	 * For traits that does something to entites around the player like an aura
+	 * 
+	 * @param player
+	 * @param armour
+	 */
 	public void emitAuraEffect (EntityPlayer player, ItemStack armour) ;
+	
+	/**
+	 * For traits that fire when player leaves a dimension for another one
+	 * @param player
+	 * @param armour
+	 */
+	public void onLeavingDimension (EntityPlayer player, ItemStack armour) ;
 
 }

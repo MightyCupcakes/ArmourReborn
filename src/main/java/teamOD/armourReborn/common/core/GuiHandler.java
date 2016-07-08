@@ -5,6 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import teamOD.armourReborn.client.core.gui.IGuiScreen;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 
 public class GuiHandler implements IGuiHandler {
