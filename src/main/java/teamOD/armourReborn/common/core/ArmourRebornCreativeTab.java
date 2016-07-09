@@ -22,7 +22,7 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 	
 	@Override
 	public ItemStack getIconItemStack () {
-		return new ItemStack (Items.diamond_chestplate) ;
+		return new ItemStack (ModItems.getArmourByName("paperleather")[1]) ;
 	}
 	
 	@Override
@@ -40,6 +40,12 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 		addItem( Item.getItemFromBlock(ModBlocks.forgeHeater) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.oresMaterials) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeAnvil) ) ;
+		
+		for (Item[] armour : ModItems.getAllModArmour()) {
+			for (Item armourPiece : armour) {
+				addItem ( armourPiece ) ;
+			}
+		}
 		
 	}
 	
