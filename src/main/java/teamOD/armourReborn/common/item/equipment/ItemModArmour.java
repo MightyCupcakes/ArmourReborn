@@ -377,6 +377,11 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	}
 	
 	@Override
+	public boolean hasEffect(ItemStack stack) {
+		return false ;
+	}
+	
+	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		
 		boolean shift = LibUtil.isShiftKeyDown() ;
