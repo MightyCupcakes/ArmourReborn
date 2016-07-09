@@ -78,28 +78,28 @@ public final class ModItems {
 				
 				if (key.equals("plate")) {
 					
-					armour[0] = new ItemPlateArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemPlateArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemPlateArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemPlateArmour (armourName + "boots", mat, EntityEquipmentSlot.FEET, 1) ;
+					armour[0] = new ItemPlateArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
+					armour[1] = new ItemPlateArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
+					armour[2] = new ItemPlateArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemPlateArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
 					
 					modArmours.put(material.getIdentifier() + key, armour) ;
 					addArmourSet (armour) ;
 				
 				} else if (key.equals("chain")) {
-					armour[0] = new ItemChainArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemChainArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemChainArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemChainArmour (armourName + "boots", mat, EntityEquipmentSlot.FEET, 1) ;
+					armour[0] = new ItemChainArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
+					armour[1] = new ItemChainArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
+					armour[2] = new ItemChainArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemChainArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
 					
 					modArmours.put(material.getIdentifier() + key, armour) ;
 					addArmourSet (armour) ;
 				
 				} else if (key.equals("leather")) {
-					armour[0] = new ItemLeatherCompositeArmour (armourName + "helm", mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemLeatherCompositeArmour (armourName + "chest", mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemLeatherCompositeArmour (armourName + "legs", mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemLeatherCompositeArmour (armourName + "boots", mat, EntityEquipmentSlot.FEET, 1) ;
+					armour[0] = new ItemLeatherCompositeArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
+					armour[1] = new ItemLeatherCompositeArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
+					armour[2] = new ItemLeatherCompositeArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
+					armour[3] = new ItemLeatherCompositeArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
 					
 					modArmours.put(material.getIdentifier() + key, armour) ;
 					addArmourSet (armour) ;

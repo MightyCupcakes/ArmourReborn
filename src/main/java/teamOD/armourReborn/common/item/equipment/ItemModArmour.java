@@ -52,6 +52,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public ItemStack[] armourSet ;
 	
 	protected Map<Enchantment, Integer> armourSetEnchantments = Collections.emptyMap() ;
+	protected MaterialsMod materials ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat, int index) {
 		super (mat, index, type) ;
@@ -447,11 +448,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-		Iterable<MaterialsMod> materials = ModMaterials.getAllRegisteredMaterials() ;
-		
-		for (MaterialsMod material : materials) {
-			ItemStack armour = buildItem (ImmutableList.of(material)) ;
-			subItems.add(armour) ; 
-		}
+		ItemStack armour = buildItem (ImmutableList.of(materials)) ;
+		subItems.add(armour) ; 
 	}
 }

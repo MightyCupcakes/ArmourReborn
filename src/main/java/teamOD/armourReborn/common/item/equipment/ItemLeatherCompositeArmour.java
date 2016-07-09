@@ -9,13 +9,15 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.ITrait;
 
 public class ItemLeatherCompositeArmour extends ItemModArmour {
 
-	public ItemLeatherCompositeArmour (String name, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
+	public ItemLeatherCompositeArmour (String name, MaterialsMod material, ArmorMaterial mat, EntityEquipmentSlot type, int index) {
 		super(type, name, mat, index);
+		this.materials = material ;
 		
 		armourSetEnchantments = ImmutableMap.of(Enchantment.getEnchantmentByID(7), 2) ;
 	}
