@@ -47,9 +47,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private FluidTank fluidInventory;
 	
 	public TileForgeAnvil(){
-		inputInventory = new ItemStack[4];
+		inputInventory = new ItemStack[5];
 		outputInventory = new ItemStack[5];
-		fluidInventory = new FluidTank(5000);
+		fluidInventory = new FluidTank(4000);
 	}
 	
 	@Override
