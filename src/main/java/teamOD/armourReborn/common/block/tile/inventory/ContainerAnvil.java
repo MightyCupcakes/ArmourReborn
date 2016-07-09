@@ -17,7 +17,8 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 		super(tile, inventoryPlayer);
 
 		addInventorySlots(8, 13, 4);
-		addOutputSlots(75, 49, 4);
+		addInventorySlots(111, 49, 1);
+		addOutputSlots(8, 49, 4);
 		addOutputSlots(111, 13, 1);
 	}
 
