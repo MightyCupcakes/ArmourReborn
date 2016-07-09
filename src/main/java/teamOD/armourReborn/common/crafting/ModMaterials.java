@@ -23,7 +23,8 @@ public class ModMaterials {
 		paper = new MaterialsMod ("paper", Items.paper, 
 				ImmutableList.of(
 						ModTraitsModifiersRegistry.waterlogged, 
-						ModTraitsModifiersRegistry.evasion2
+						ModTraitsModifiersRegistry.evasion2,
+						ModTraitsModifiersRegistry.flammable
 						)) ;
 		
 		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}) ;

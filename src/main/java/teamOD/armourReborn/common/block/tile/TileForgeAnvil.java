@@ -222,28 +222,30 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		System.out.println("Removing from slot " + index);
 		
-		if (index >= 4){
-			for (int i = 4; i < 9; i++){
+		if (index >= inputInventory.length){
+			for (int i = inputInventory.length; i < inputInventory.length + outputInventory.length; i++){
 				setInventorySlotContents(i, null, true);
 			}
 		} else {
 			setInventorySlotContents (index, null, true) ;
 		}
 		
-		switch (index){
-		case 4:
+		int temp = index - inputInventory.length;
+		
+		switch (temp){
+		case 0:
 			this.drain(null, LibItemStats.VALUE_INGOT * 5, true) ;
 			break;
-		case 5:
+		case 1:
 			this.drain(null, LibItemStats.VALUE_INGOT * 8, true) ;
 			break;
-		case 6:
+		case 2:
 			this.drain(null, LibItemStats.VALUE_INGOT * 7, true) ;
 			break;
-		case 7:
+		case 3:
 			this.drain(null, LibItemStats.VALUE_INGOT * 4, true) ;
 			break;
-		case 8:
+		case 4:
 			this.drain(null, LibItemStats.VALUE_INGOT, true) ;
 			break;
 		}
