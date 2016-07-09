@@ -232,7 +232,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		if (info.getTraitIdentifiers() != null) {
 			for (ITrait trait : info.getTraitIdentifiers()) {
-				addModifier (armour, trait, false) ;
+				addModifier (armour, trait, false, true) ;
 			}
 		}
 		
@@ -263,7 +263,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 */
 	@Override
 	public void addModifier (ItemStack armour, IModifier modifier) {
-		addModifier (armour, modifier, true) ;
+		addModifier (armour, modifier, true, false) ;
 	}
 	
 	/**
@@ -271,8 +271,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 * @param armour
 	 * @param modifier
 	 * @param requireSlot	if set to true, this modifier uses up a slot when added.
+	 * @param forced	if set to true, the modifier will be added no matter what
 	 */
-	public void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot) {
+	public void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot, boolean forced) {
 		NBTTagCompound tag = armour.getTagCompound() ;
 		NBTTagList modTag ;
 		
@@ -288,19 +289,33 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			}
 		}
 		
-		// Check if said modifier can co-exist with its peers
-		for (ITrait trait: LibUtil.getModifiersListAll (armour)) {
-			if ( !trait.canApplyTogether(modifier) ) {
-				LibUtil.LogToFML(1, "Modifier error: %s and %s cannot co-exist with each other!", trait.getIdentifier(), modifier.getIdentifier()) ;
-				
-				return ;
-			}
-		}
-		
 		if (tag.hasKey(IModifier.MODIFIERS)) {
 			modTag = tag.getTagList(IModifier.MODIFIERS, 10) ;
 		} else {
 			modTag = new NBTTagList () ;
+		}
+		
+		// Check if said modifier can co-exist with its peers
+		for (ITrait trait: LibUtil.getModifiersListAll (armour)) {
+			if ( !trait.canApplyTogether(modifier) && !forced) {
+				LibUtil.LogToFML(1, "Modifier error: %s and %s cannot co-exist with each other!", trait.getIdentifier(), modifier.getIdentifier()) ;
+
+				return ;
+			} 
+
+			else if (!trait.canApplyTogether(modifier) && forced) {
+				if (trait.getTraitFamily().equals(modifier.getTraitFamily())) {
+					
+					for (int i = 0; i < modTag.tagCount(); i ++ ) {
+						NBTTagCompound nbt = modTag.getCompoundTagAt(i) ;
+						
+						if ( nbt.getString(IDENTIFIER).equals(trait.getIdentifier()) ) {
+							modTag.removeTag(i) ;
+							break ;
+						}
+					}
+				}
+			}
 		}
 		
 		NBTTagCompound newMod = new NBTTagCompound () ;

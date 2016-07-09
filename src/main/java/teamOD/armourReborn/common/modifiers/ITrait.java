@@ -43,6 +43,8 @@ public interface ITrait {
 	 */
 	public int getLevel () ;
 	
+	public String getTraitFamily () ;
+	
 	/**
 	 * Called when this modifier modifies the movement speed of a player in any way
 	 * 

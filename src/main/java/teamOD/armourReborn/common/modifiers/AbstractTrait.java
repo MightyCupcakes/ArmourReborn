@@ -39,6 +39,11 @@ public abstract class AbstractTrait implements ITrait {
 	public int getLevel() {
 		return level;
 	}
+	
+	@Override
+	public String getTraitFamily () {
+		return traitFamily ;
+	}
 
 	@Override
 	public void modifyMovementSpeed(EntityPlayer player, ItemStack armour) {

@@ -18,7 +18,8 @@ public class ModTraitsModifiersRegistry {
 	
 	public static ITrait waterlogged = new TraitWaterlogged() ;
 	
-	public static ITrait surge = new TraitSurge() ;
+	public static ITrait surge1 = new TraitSurge(1) ;
+	public static ITrait surge2 = new TraitSurge(2) ;
 	
 	public static ITrait flammable = new TraitFlammable() ;
 	
@@ -32,7 +33,8 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (reprisal2) ;
 		registerTrait (reprisal3) ;
 		registerTrait (waterlogged) ;
-		registerTrait (surge) ;
+		registerTrait (surge1) ;
+		registerTrait (surge2) ;
 		registerTrait (flammable) ;
 	}
 	

@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -7,9 +9,11 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 
 public class TraitSurge extends AbstractTrait {
-
-	public TraitSurge() {
-		super("surge", TextFormatting.BLUE) ;
+	
+	public static final ImmutableList<Float> speeds = ImmutableList.of(0F, 0.035F, 0.065F, 0.085F) ;
+	
+	public TraitSurge(int level) {
+		super("surge", level, TextFormatting.BLUE) ;
 	}
 	
 	@Override
@@ -17,7 +21,7 @@ public class TraitSurge extends AbstractTrait {
 		player.stepHeight = 1F ;
 		
 		if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInWater()) {
-			player.moveFlying(0F, 1F, 0.035F);
+			player.moveFlying(0F, 1F, speeds.get(getLevel()));
 		}
 	}
 }

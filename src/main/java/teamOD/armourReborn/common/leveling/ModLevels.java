@@ -17,12 +17,12 @@ public final class ModLevels {
 		levels.add(new LevelInfo (2, "Acclimated", 2110, TextFormatting.WHITE)) ;
 		levels.add(new LevelInfo (3, "Comfortable", 2379, TextFormatting.WHITE)) ;
 		levels.add(new LevelInfo (4, "Accustomed", 2674, TextFormatting.BLUE)) ;
-		levels.add(new LevelInfo (5, "Well Accustomed", 2999, TextFormatting.BLUE, 1, ModTraitsModifiersRegistry.surge)) ;
+		levels.add(new LevelInfo (5, "Well Accustomed", 2999, TextFormatting.BLUE, 1, ModTraitsModifiersRegistry.surge1)) ;
 		levels.add(new LevelInfo (6, "Adept", 3343, TextFormatting.GREEN)) ;
 		levels.add(new LevelInfo (7, "Expert", 3719, TextFormatting.YELLOW)) ;
 		levels.add(new LevelInfo (8, "Master", 4129, TextFormatting.GOLD)) ;
 		levels.add(new LevelInfo (9, "Grandmaster", 4567, TextFormatting.RED)) ;
-		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE)) ;
+		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE, 1, 0, ModTraitsModifiersRegistry.surge2)) ;
 	}
 	
 	public static LevelInfo getLevelInfo (int level) {
