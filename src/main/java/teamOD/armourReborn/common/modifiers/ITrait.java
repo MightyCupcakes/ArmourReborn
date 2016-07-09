@@ -61,6 +61,8 @@ public interface ITrait {
 	 */
 	public boolean canApplyTogether (ITrait modifier) ;
 	
+	public boolean canApplyToEquipment (ItemStack armour) ;
+	
 	/**
 	 * Called when an player entity is hit, just before damage is dealt. Damage is the final damage dealt after critical hit calculations (if any)
 	 * 

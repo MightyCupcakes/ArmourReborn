@@ -296,6 +296,11 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			modTag = new NBTTagList () ;
 		}
 		
+		// Check if this modifier can be added to this armour type
+		if (!modifier.canApplyToEquipment(armour)) {
+			return ;
+		}
+		
 		// Check if said modifier can co-exist with its peers
 		for (ITrait trait: LibUtil.getModifiersListAll (armour)) {
 			if ( !trait.canApplyTogether(modifier) && !forced) {

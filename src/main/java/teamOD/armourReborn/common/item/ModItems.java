@@ -104,9 +104,6 @@ public final class ModItems {
 					modArmours.put(material.getIdentifier() + key, armour) ;
 					addArmourSet (armour) ;
 				}
-				
-				
-				
 			}
 		}
 	}

@@ -44,6 +44,11 @@ public abstract class AbstractTrait implements ITrait {
 	public String getTraitFamily () {
 		return traitFamily ;
 	}
+	
+	@Override
+	public boolean canApplyToEquipment (ItemStack armour) {
+		return true ;
+	}
 
 	@Override
 	public void modifyMovementSpeed(EntityPlayer player, ItemStack armour) {

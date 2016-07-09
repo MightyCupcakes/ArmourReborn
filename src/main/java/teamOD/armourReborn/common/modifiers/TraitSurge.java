@@ -3,6 +3,8 @@ package teamOD.armourReborn.common.modifiers;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -23,5 +25,16 @@ public class TraitSurge extends AbstractTrait {
 		if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInWater()) {
 			player.moveFlying(0F, 1F, speeds.get(getLevel()));
 		}
+	}
+	
+	@Override
+	public boolean canApplyToEquipment (ItemStack armour) {
+		if (armour.getItem() instanceof ItemArmor) {
+			ItemArmor armourPiece = (ItemArmor) armour.getItem() ;
+			
+			return armourPiece.armorType == EntityEquipmentSlot.FEET ;
+		}
+		
+		return false ;
 	}
 }

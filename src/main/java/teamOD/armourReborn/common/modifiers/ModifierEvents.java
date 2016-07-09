@@ -1,5 +1,7 @@
 package teamOD.armourReborn.common.modifiers;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,6 +21,7 @@ public class ModifierEvents {
 	@SubscribeEvent
 	public void updatePlayerMovementStatus (LivingUpdateEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
+						
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
 			
 			player.stepHeight = 0.5F ;
@@ -34,6 +37,7 @@ public class ModifierEvents {
 						modifier.modifyMovementSpeed(player, armourPiece) ;
 						modifier.emitAuraEffect(player, armourPiece);
 					}
+					
 				}
 			}
 		}
