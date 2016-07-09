@@ -1,5 +1,6 @@
 package teamOD.armourReborn.common.block.tile.inventory;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -12,12 +13,15 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 	public static int sizeY = 18 ;
 	
 	public int index = 0;
+	public int outputSlot ;
 	
 	public ContainerAnvil(T tile, InventoryPlayer inventoryPlayer) {
 		super(tile, inventoryPlayer);
 
 		addInventorySlots(8, 13, 4);
 		addInventorySlots(111, 49, 1);
+		outputSlot = index ;
+		
 		addOutputSlots(8, 49, 4);
 		addOutputSlots(111, 13, 1);
 	}
@@ -44,6 +48,15 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 			
 			index ++ ;
 		}
+	}
+	
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+		ItemStack itemstack = null;
+		
+		if (index > outputSlot) return itemstack ;
+		
+		return super.transferStackInSlot(playerIn, index) ;
 	}
 	
 	private class outputSlot extends Slot {

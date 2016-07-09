@@ -14,6 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -81,7 +82,10 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 		ItemStack item = playerIn.getHeldItemMainhand() ;
 		
 		int amt = (entity.getTankInfo(EnumFacing.NORTH)[0].fluid != null) ? entity.getTankInfo(EnumFacing.NORTH)[0].fluid.amount : 0 ;
-		System.out.println("Internal Tank: " + amt);
+		FluidStack fluid = (entity.getTankInfo(EnumFacing.NORTH)[0].fluid != null) ? entity.getTankInfo(EnumFacing.NORTH)[0].fluid : null ;
+		if (fluid != null) {
+			System.out.println("Internal Tank: " + fluid.getUnlocalizedName() + " " + amt);
+		}
 	
 		
 		if (item == null) {

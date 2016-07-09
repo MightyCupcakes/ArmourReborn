@@ -26,6 +26,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
@@ -52,7 +54,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	private boolean isActive ;
 	private ItemStack[] inventory ;
 	private InternalForgeTank internalTank ;
-	private HashMap<FluidStack, BlockPos> anvilPos ;
+	private HashMap<Fluid, BlockPos> anvilPos ;
 	private int tick, timeElapsed ;
 	
 	private int minX, minY, minZ ;
@@ -65,7 +67,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
-		anvilPos = new HashMap<FluidStack, BlockPos> () ;
+		anvilPos = new HashMap<Fluid, BlockPos> () ;
 		
 	}
 	
@@ -198,7 +200,12 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 					
 					if (entity instanceof TileForgeAnvil) {
 						TileForgeAnvil a = (TileForgeAnvil) entity ;
-						anvilPos.put(a.getTankInfo().fluid, currentPos.offset(directions)) ;
+						
+						if (a.getTankInfo().fluid != null) {
+							anvilPos.put(a.getTankInfo().fluid.getFluid(), currentPos.offset(directions)) ;
+						} else {
+							anvilPos.put(FluidRegistry.WATER, currentPos.offset(directions)) ;
+						}
 					}
 				}
 			}
@@ -302,7 +309,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			
 			// Try to find an anvil with the current fluid and fill it first
 			// Else get any empty anvil.
-			BlockPos aPos = (anvilPos.containsKey(fluid)) ? anvilPos.get(fluid) : anvilPos.get(null) ;
+			BlockPos aPos = (anvilPos.containsKey(fluid)) ? anvilPos.get(fluid) : anvilPos.get(FluidRegistry.WATER) ;
 			
 			// No empty anvil available and not anvil filled with the current liquid
 			if (aPos == null) {
@@ -572,7 +579,15 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			
 			if (worldObj != null) {
 				TileForgeAnvil anvil = (TileForgeAnvil) worldObj.getTileEntity(p) ;
-				if (anvil != null) anvilPos.put (anvil.getTankInfo().fluid, p) ;
+				if (anvil != null) {
+					FluidStack fluid = anvil.getTankInfo().fluid ;
+					
+					if (fluid != null) {
+						anvilPos.put(fluid.getFluid(), p) ;
+					} else {
+						anvilPos.put(FluidRegistry.WATER, p) ;
+					}
+				}
 			}
 		}
 	}
