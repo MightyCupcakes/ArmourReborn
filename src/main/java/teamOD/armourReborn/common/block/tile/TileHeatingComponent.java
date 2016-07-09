@@ -77,7 +77,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 					hasHeated = true ;
 				
 				} else {
-					itemTemps[i] += internalTemp / 300 ;
+					itemTemps[i] += internalTemp >> 8  ;
 					hasHeated = true ;
 				}
 			} else {
@@ -180,7 +180,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	}
 	
 	public void updateInternalTemps (int temp) {
-		internalTemp = temp ;
+		internalTemp = temp - 300 ;
 	}
 	
 	public void addFuel (int amt) {
