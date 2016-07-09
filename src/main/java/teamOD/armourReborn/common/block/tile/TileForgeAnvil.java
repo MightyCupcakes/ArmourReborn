@@ -263,6 +263,29 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		if (!isItemValidForSlot(index, stack) && !forced) return ; 
 		
+		if (!forced && index >= inputInventory.length && stack == null) {
+			int temp = index - inputInventory.length ;
+			
+			switch (temp){
+			case 0:
+				fluidInventory.drain(LibItemStats.VALUE_INGOT * 5, true) ;
+				break;
+			case 1:
+				fluidInventory.drain(LibItemStats.VALUE_INGOT * 8, true) ;
+				break;
+			case 2:
+				fluidInventory.drain(LibItemStats.VALUE_INGOT * 7, true) ;
+				break;
+			case 3:
+				fluidInventory.drain(LibItemStats.VALUE_INGOT * 4, true) ;
+				break;
+			case 4:
+				fluidInventory.drain(LibItemStats.VALUE_INGOT, true) ;
+				break;
+			}
+			
+		}
+		
 		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, fluidInventory.getFluid()));
 		}
