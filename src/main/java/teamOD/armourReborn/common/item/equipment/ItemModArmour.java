@@ -456,4 +456,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		ItemStack armour = buildItem (ImmutableList.of(materials)) ;
 		subItems.add(armour) ; 
 	}
+	
+	@Override
+	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+		return false ;
+	}
 }
