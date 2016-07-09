@@ -29,6 +29,17 @@ public class ModMaterials {
 		
 		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}) ;
 		registerMaterial (paper.getItem(), paper) ;
+		
+		
+		//iron
+		iron = new MaterialsMod ("iron", Items.iron_ingot, 
+				ImmutableList.of( 
+						ModTraitsModifiersRegistry.reprisal1
+						)) ;
+		
+		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,4,3,2}) ;
+		registerMaterial (iron.getItem(), iron) ;
+		
 	}
 	
 	public static MaterialsMod getMaterialFromItem (Item item) {
