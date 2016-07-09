@@ -68,23 +68,22 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			if (fluidInventory.getFluidAmount() >= item.stackSize * LibItemStats.VALUE_INGOT ) {
 				switch (item.stackSize) {
 				case 1:
-					setInventorySlotContents(8, new ItemStack(item.getItem()), true);
 					break ;
 					
 				case 4:
-					setInventorySlotContents(7, new ItemStack(item.getItem()), true);
+					setInventorySlotContents(inputInventory.length + 3, new ItemStack(item.getItem()), true);
 					break ;
 					
 				case 5:
-					setInventorySlotContents(4, new ItemStack(item.getItem()), true);
+					setInventorySlotContents(inputInventory.length, new ItemStack(item.getItem()), true);
 					break ;
 					
 				case 7:
-					setInventorySlotContents(6, new ItemStack(item.getItem()), true);
+					setInventorySlotContents(inputInventory.length + 2, new ItemStack(item.getItem()), true);
 					break ;
 					
 				case 8:
-					setInventorySlotContents(5, new ItemStack(item.getItem()), true);
+					setInventorySlotContents(inputInventory.length + 1, new ItemStack(item.getItem()), true);
 					break ;
 					
 				default:
