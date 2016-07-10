@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
+import teamOD.armourReborn.common.lib.LibItemNames.ArmourTypeNames;
 
 public final class LibItemStats {
 	// UNUSED!!
@@ -21,10 +22,10 @@ public final class LibItemStats {
 	 * The first value in the array represents the Armour value modifier
 	 * and the second represents the durability modifier
 	 */
-	public static final ImmutableMap <String, double[]> armourTypesStats = ImmutableMap.of(
-			"plate", new double[] {1,1}, 
-			"chain", new double[] {0.8, 1.25}, 
-			"leather", new double[] {0.7,0.8}
+	public static final ImmutableMap <ArmourTypeNames, double[]> armourTypesStats = ImmutableMap.of(
+			ArmourTypeNames.PLATE, new double[] {1,1}, 
+			ArmourTypeNames.CHAIN, new double[] {0.8, 1.25}, 
+			ArmourTypeNames.LEATHER, new double[] {0.7,0.8}
 			) ;
 	
 	public static final int DEFAULT_MODIFIER_SLOTS = 3 ;

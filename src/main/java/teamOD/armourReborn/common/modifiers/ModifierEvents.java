@@ -80,6 +80,8 @@ public class ModifierEvents {
 		
 		Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 		
+		if (event.getSource().getEntity() == null) return ;
+		
 		for (ItemStack armourPiece : armour) {
 			if (armourPiece == null) continue ;
 			
@@ -87,7 +89,7 @@ public class ModifierEvents {
 				
 				for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
 					if (modifier.negateDamage(armourPiece, player)) {
-						event.setCanceled(true) ;System.out.println("damage evaded");
+						event.setCanceled(true) ;
 						break ;
 					}
 				}

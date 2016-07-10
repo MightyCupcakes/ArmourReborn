@@ -1,9 +1,11 @@
 package teamOD.armourReborn.common.core;
 
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import teamOD.armourReborn.common.block.ModBlocks;
@@ -22,7 +24,7 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 	
 	@Override
 	public ItemStack getIconItemStack () {
-		return new ItemStack (ModItems.getArmourByName("paperleather")[1]) ;
+		return new ItemStack (ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.CHEST)) ;
 	}
 	
 	@Override
@@ -41,8 +43,8 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 		addItem( Item.getItemFromBlock(ModBlocks.oresMaterials) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeAnvil) ) ;
 		
-		for (Item[] armour : ModItems.getAllModArmour()) {
-			for (Item armourPiece : armour) {
+		for (Map <EntityEquipmentSlot, Item> armour : ModItems.getAllModArmour()) {
+			for (Item armourPiece : armour.values()) {
 				addItem ( armourPiece ) ;
 			}
 		}

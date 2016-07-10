@@ -48,7 +48,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	public EntityEquipmentSlot type;
 	
-	// Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots
+	/** Armour items in this set. Index 0 should contain the helmet, 1 the chest, 2 the leggings and 3 the boots */
 	public ItemStack[] armourSet ;
 	
 	protected Map<Enchantment, Integer> armourSetEnchantments = Collections.emptyMap() ;
@@ -378,16 +378,6 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	}
 	
 	@Override
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.COMMON ;
-	}
-	
-	@Override
-	public boolean hasEffect(ItemStack stack) {
-		return false ;
-	}
-	
-	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		
 		boolean shift = LibUtil.isShiftKeyDown() ;
@@ -459,6 +449,16 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+		return false ;
+	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack stack) {
+		return EnumRarity.COMMON ;
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack) {
 		return false ;
 	}
 }

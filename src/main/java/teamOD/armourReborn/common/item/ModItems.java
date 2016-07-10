@@ -21,6 +21,7 @@ import teamOD.armourReborn.common.item.equipment.ItemLeatherCompositeArmour;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.item.equipment.ItemPlateArmour;
 import teamOD.armourReborn.common.lib.LibItemNames;
+import teamOD.armourReborn.common.lib.LibItemNames.ArmourTypeNames;
 import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -30,9 +31,9 @@ public final class ModItems {
 	
 	/**
 	 * Stores the armourset for each armourType/material combo
-	 * index 0 is helmet, 1 is plate, 2 is legs and 3 is boots 
 	 */
-	private static Map<String, Item[]> modArmours = Maps.newHashMap() ;
+	private static Map<String, Map<EntityEquipmentSlot, Item>> modArmours = Maps.newHashMap() ;
+	
 	/**
 	 * The identifier string for armormaterials in this hashmap is registered as : material + armourType
 	 */
@@ -62,11 +63,11 @@ public final class ModItems {
 		
 		Iterable<MaterialsMod> materials = ModMaterials.getAllRegisteredMaterials() ;
 		
-		for (String key : LibItemStats.armourTypesStats.keySet()) {
+		for (ArmourTypeNames key : LibItemStats.armourTypesStats.keySet()) {
 			for (MaterialsMod material : materials) {
 				
 				ArmorMaterial mat ;
-				String armourName = material.getIdentifier() + key ;
+				String armourName = material.getIdentifier() + key.getName() ;
 				
 				if (armourMaterials.containsKey(armourName)) {
 					mat = armourMaterials.get(armourName) ;
@@ -74,55 +75,55 @@ public final class ModItems {
 					mat = addArmourMaterial(key, material) ;
 				}
 				
-				Item[] armour = new Item[4] ;
+				Map<EntityEquipmentSlot, Item> armour = Maps.newEnumMap(EntityEquipmentSlot.class) ;
 				
-				if (key.equals("plate")) {
+				if (key.matches(ArmourTypeNames.PLATE)) {
 					
-					armour[0] = new ItemPlateArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemPlateArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemPlateArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemPlateArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
+					armour.put (EntityEquipmentSlot.HEAD, new ItemPlateArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1)) ;
+					armour.put (EntityEquipmentSlot.CHEST, new ItemPlateArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1)) ;
+					armour.put (EntityEquipmentSlot.LEGS, new ItemPlateArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2)) ;
+					armour.put (EntityEquipmentSlot.FEET, new ItemPlateArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1)) ;
 					
-					modArmours.put(material.getIdentifier() + key, armour) ;
+					modArmours.put(armourName, armour) ;
 					addArmourSet (armour) ;
 				
-				} else if (key.equals("chain")) {
-					armour[0] = new ItemChainArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemChainArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemChainArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemChainArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
+				} else if (key.matches(ArmourTypeNames.CHAIN)) {
+					armour.put (EntityEquipmentSlot.HEAD, new ItemChainArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1)) ;
+					armour.put (EntityEquipmentSlot.CHEST, new ItemChainArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1)) ;
+					armour.put (EntityEquipmentSlot.LEGS, new ItemChainArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2)) ;
+					armour.put (EntityEquipmentSlot.FEET, new ItemChainArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1)) ;
 					
-					modArmours.put(material.getIdentifier() + key, armour) ;
+					modArmours.put(armourName, armour) ;
 					addArmourSet (armour) ;
 				
-				} else if (key.equals("leather")) {
-					armour[0] = new ItemLeatherCompositeArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1) ;
-					armour[1] = new ItemLeatherCompositeArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1) ;
-					armour[2] = new ItemLeatherCompositeArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2) ;
-					armour[3] = new ItemLeatherCompositeArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1) ;
+				} else if (key.matches(ArmourTypeNames.LEATHER)) {
+					armour.put (EntityEquipmentSlot.HEAD, new ItemLeatherCompositeArmour (armourName + "helm", material, mat, EntityEquipmentSlot.HEAD, 1)) ;
+					armour.put (EntityEquipmentSlot.CHEST, new ItemLeatherCompositeArmour (armourName + "chest", material, mat, EntityEquipmentSlot.CHEST, 1)) ;
+					armour.put (EntityEquipmentSlot.LEGS, new ItemLeatherCompositeArmour (armourName + "legs", material, mat, EntityEquipmentSlot.LEGS, 2)) ;
+					armour.put (EntityEquipmentSlot.FEET, new ItemLeatherCompositeArmour (armourName + "boots", material, mat, EntityEquipmentSlot.FEET, 1)) ;
 					
-					modArmours.put(material.getIdentifier() + key, armour) ;
+					modArmours.put(armourName, armour) ;
 					addArmourSet (armour) ;
 				}
 			}
 		}
 	}
 	
-	private static void addArmourSet (Item[] armour) {
+	private static void addArmourSet (Map<EntityEquipmentSlot, Item> armour) {
 		// Establish armour set
-		for (int i = 0; i < armour.length; i ++) {
-			ItemModArmour armourItem = (ItemModArmour) armour[i] ;
+		for (Item item : armour.values()) {
+			ItemModArmour armourItem = (ItemModArmour) item ;
 			
-			armourItem.armourSet[0] = new ItemStack (armour[0]) ;
-			armourItem.armourSet[1] = new ItemStack (armour[1]) ;
-			armourItem.armourSet[2] = new ItemStack (armour[2]) ;
-			armourItem.armourSet[3] = new ItemStack (armour[3]) ;
+			armourItem.armourSet[0] = new ItemStack (armour.get(EntityEquipmentSlot.HEAD)) ;
+			armourItem.armourSet[1] = new ItemStack (armour.get(EntityEquipmentSlot.CHEST)) ;
+			armourItem.armourSet[2] = new ItemStack (armour.get(EntityEquipmentSlot.LEGS)) ;
+			armourItem.armourSet[3] = new ItemStack (armour.get(EntityEquipmentSlot.FEET)) ;
 		}
 	}
 	
-	private static ArmorMaterial addArmourMaterial (String key, MaterialsMod material) {
+	private static ArmorMaterial addArmourMaterial (ArmourTypeNames key, MaterialsMod material) {
 		
-		String name = material.getIdentifier() + key ; // i.e "ironplate", "ironchain", "ironleather"
+		String name = material.getIdentifier() + key.getName() ; // i.e "ironplate", "ironchain", "ironleather"
 		String textureName = LibMisc.PREFIX_MOD + ":" + name ;
 		
 		int durability = (int) (material.getBaseDurabilityMultiplier() + LibItemStats.armourTypesStats.get(key)[1]) ;
@@ -138,7 +139,7 @@ public final class ModItems {
 		return mat ;
 	}
 	
-	public static Item[] getArmourByName (String name) {
+	public static Map<EntityEquipmentSlot, Item> getArmourByName (String name) {
 		return modArmours.get(name) ;
 	}
 	
@@ -146,7 +147,7 @@ public final class ModItems {
 		return armourMaterials.get(name) ;
 	}
 	
-	public static Iterable<Item[]> getAllModArmour () {
+	public static Iterable<Map<EntityEquipmentSlot, Item>> getAllModArmour () {
 		return modArmours.values() ;
 	}
 }

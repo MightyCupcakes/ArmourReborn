@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -24,6 +25,8 @@ import teamOD.armourReborn.common.lib.LibMisc;
 
 import static teamOD.armourReborn.common.item.ModItems.*;
 
+import java.util.Map;
+
 
 public class ModelHandler {
 	
@@ -36,13 +39,12 @@ public class ModelHandler {
 	}
 	
 	private static void registerStandardItems () {
-		
+
 		// Armour
-		Iterable <Item[]> armour = ModItems.getAllModArmour() ;
-		
-		for (Item[] armourPieces : armour) {
-			for (Item thisPiece : armourPieces) {
-				registerItemModel (thisPiece) ;
+		for (Map <EntityEquipmentSlot, Item> armour : ModItems.getAllModArmour()) {
+
+			for (Item armourPiece : armour.values()) {
+				registerItemModel (armourPiece) ;
 			}
 		}
 	}

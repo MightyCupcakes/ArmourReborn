@@ -19,4 +19,24 @@ public final class LibItemNames {
 			"oreCopper"
 	} ;
 	
+	public enum ArmourTypeNames {
+		LEATHER ("leather"),
+		CHAIN ("chain"),
+		PLATE ("plate") ;
+		
+		private String name ;
+		
+		private ArmourTypeNames (String name) {
+			this.name = name ;
+		}
+		
+		public String getName () {
+			return name ;
+		}
+		
+		public boolean matches (ArmourTypeNames other) {
+			return other.getName().equals(this.getName()) ;
+		}
+	}
+	
 }
