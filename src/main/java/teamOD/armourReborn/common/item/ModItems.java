@@ -28,6 +28,7 @@ import teamOD.armourReborn.common.lib.LibMisc;
 public final class ModItems {
 	
 	public static Item MATERIALS ;
+	public static Item ModBook ;
 	
 	/**
 	 * Stores the armourset for each armourType/material combo
@@ -41,6 +42,7 @@ public final class ModItems {
 	
 	public static void init () {
 		MATERIALS = new ItemMaterials () ;
+		ModBook = new ItemKnowledgeTome (LibItemNames.ModBook) ;
 		
 		registerOreDict () ;
 		registerArmours () ;

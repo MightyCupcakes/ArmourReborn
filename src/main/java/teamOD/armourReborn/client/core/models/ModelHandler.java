@@ -47,6 +47,8 @@ public class ModelHandler {
 				registerItemModel (armourPiece) ;
 			}
 		}
+		
+		registerItemModel (ModItems.ModBook) ;
 	}
 	
 	private static void registerBlocks () {
