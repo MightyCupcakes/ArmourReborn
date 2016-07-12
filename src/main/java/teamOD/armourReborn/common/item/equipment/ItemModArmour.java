@@ -3,13 +3,17 @@ package teamOD.armourReborn.common.item.equipment;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -45,6 +49,10 @@ import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, ILevelable, IModifiable  {
 	
 	public static final String TOUGHNESS = "toughnessValue" ;
+	public static final String ARMOUR_VALUE = "armourValue" ;
+	
+	// Vanilla stuff
+	public static final UUID[] field_185084_n = new UUID[] {UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 	
 	public EntityEquipmentSlot type;
 	
@@ -75,18 +83,20 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			return new ArmorProperties (0, 0, 0) ;
 		}
 		
-		float toughness = 0F ;
+		float toughness = 0;
+		float armourValue = damageReduceAmount;
 		
-		if (armor.getTagCompound() != null && armor.getTagCompound().hasKey(TOUGHNESS)) {
-			toughness = armor.getTagCompound().getFloat(TOUGHNESS) ;
+		if (armor.getTagCompound() != null) {
+			toughness = armor.getTagCompound().getFloat(TOUGHNESS) ;		
+			armourValue = armor.getTagCompound().getFloat(ARMOUR_VALUE) ;
 		}
 		
-		return new ArmorProperties (0, LibUtil.calculateArmourReduction(damage, damageReduceAmount, toughness), armor.getMaxDamage() - armor.getItemDamage() + 1) ;
+		return new ArmorProperties (0, LibUtil.calculateArmourReduction(damage, armourValue, toughness), armor.getMaxDamage() - armor.getItemDamage() + 1) ;
 	}
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return damageReduceAmount ;
+		return (armor.getTagCompound().hasKey(ARMOUR_VALUE)) ? (int) armor.getTagCompound().getFloat(ARMOUR_VALUE) : damageReduceAmount ;
 	}
 	
 	@Override
@@ -237,6 +247,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			}
 		}
 		
+		tag.setFloat(ARMOUR_VALUE, tag.getFloat(ARMOUR_VALUE) + info.getArmourValue());
 		tag.setFloat(TOUGHNESS, tag.getFloat(TOUGHNESS) + info.getToughness()) ;
 		tag.setInteger(MODIFIER_SLOTS, tag.getInteger(MODIFIER_SLOTS) + info.getNumModifierSlots());
 		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - expNeededToLevel ) ;
@@ -346,7 +357,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		// Levels
 		this.addBaseTags(tag) ;
 		
-		// toughness
+		// toughness and armour
+		tag.setFloat(ARMOUR_VALUE, damageReduceAmount) ;
 		tag.setFloat(TOUGHNESS, 0) ;
 		
 		// Modifiers and traits
@@ -445,6 +457,21 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		ItemStack armour = buildItem (ImmutableList.of(materials)) ;
 		subItems.add(armour) ; 
+	}
+	
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack) ;
+
+		if (slot == this.armorType && stack.getItem() instanceof ItemModArmour) {
+			NBTTagCompound tag = stack.getTagCompound() ;
+			float armour = tag.getFloat(ARMOUR_VALUE) ;
+			
+			multimap.put(SharedMonsterAttributes.ARMOR.getAttributeUnlocalizedName(), new AttributeModifier(field_185084_n[slot.getIndex()], "Armor modifier", (double)armour, 0));
+		}
+
+		return multimap;
 	}
 	
 	@Override

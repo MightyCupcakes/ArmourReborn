@@ -22,7 +22,7 @@ public final class ModLevels {
 		levels.add(new LevelInfo (7, "Expert", 3719, TextFormatting.YELLOW)) ;
 		levels.add(new LevelInfo (8, "Master", 4129, TextFormatting.GOLD)) ;
 		levels.add(new LevelInfo (9, "Grandmaster", 4567, TextFormatting.RED)) ;
-		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE, 1, 0, ModTraitsModifiersRegistry.surge2)) ;
+		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE, 1, 0, 0, ModTraitsModifiersRegistry.surge2)) ;
 	}
 	
 	public static LevelInfo getLevelInfo (int level) {
@@ -58,21 +58,25 @@ public final class ModLevels {
 		/** Provides extra toughness (if any) ON TOP of existing toughness */
 		private final float toughness ;
 		
+		/** Provides extra armour (if any) ON TOP of existing armour */
+		private final float armourValue ;
+		
 		public LevelInfo (int level, String skill, int exp, TextFormatting colour, ITrait... traitsIdentifiers) {
 			this (level, skill, exp, colour, 0, traitsIdentifiers) ;
 		}
 		
 		public LevelInfo (int level, String skill, int exp, TextFormatting colour, int slots, ITrait... traitsIdentifiers) {
-			this (level, skill, exp, colour, slots, 0, traitsIdentifiers) ; 
+			this (level, skill, exp, colour, slots, 0, 0, traitsIdentifiers) ; 
 		}
 		
-		public LevelInfo (int level, String skill, int exp, TextFormatting colour, int slots, float toughness, ITrait... traitsIdentifiers) {
+		public LevelInfo (int level, String skill, int exp, TextFormatting colour, int slots, float armour, float toughness, ITrait... traitsIdentifiers) {
 			this.level = level ;
 			this.skill = skill ;
 			this.colour = colour ;
 			this.expNeeded = exp ;
 			this.traitsIdentifiers = traitsIdentifiers ;
 			this.modifierSlots = slots ;
+			this.armourValue = armour ;
 			this.toughness = toughness ;
 		}
 		
@@ -102,6 +106,10 @@ public final class ModLevels {
 		
 		public float getToughness () {
 			return toughness ;
+		}
+		
+		public float getArmourValue () {
+			return armourValue ;
 		}
 	}
 }

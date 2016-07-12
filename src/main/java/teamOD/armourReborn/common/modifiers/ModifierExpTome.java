@@ -9,7 +9,7 @@ import teamOD.armourReborn.common.leveling.ILevelable;
 public class ModifierExpTome extends AbstractModifier {
 	
 	public ModifierExpTome () {
-		super ("more exp", TextFormatting.GOLD) ;
+		super ("knowledgable", TextFormatting.GOLD) ;
 	}
 	
 	@Override

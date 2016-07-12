@@ -144,7 +144,7 @@ public final class LibUtil {
 	 * @param toughness		diamond armour has 2 for each piece, and 0 for the rest
 	 * @return	percentage of damage reduced
 	 */
-	public static double calculateArmourReduction (double damage, int armourValue, float toughness) {
+	public static double calculateArmourReduction (double damage, float armourValue, float toughness) {
 		
 		return ( 1 - Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25 ) ;
 	}
