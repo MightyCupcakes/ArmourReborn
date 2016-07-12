@@ -14,6 +14,10 @@ public abstract class AbstractModifier extends AbstractTrait implements IModifie
 	public AbstractModifier(String identifier, TextFormatting colour) {
 		super(identifier, colour);
 	}
+	
+	public AbstractModifier (String identifier, int level, TextFormatting colour) {
+		super (identifier, level, colour) ;
+	}
 
 	@Override
 	public void addItem(Item item) {

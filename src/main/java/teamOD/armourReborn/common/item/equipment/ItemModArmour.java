@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import teamOD.armourReborn.common.core.ArmourRebornCreativeTab;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.crafting.ModMaterials;
@@ -52,7 +53,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	public static final String ARMOUR_VALUE = "armourValue" ;
 	
 	// Vanilla stuff
-	public static final UUID[] field_185084_n = new UUID[] {UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
+	public static UUID[] field_185084_n ;
+	//public static final UUID[] field_185084_n = new UUID[] {UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 	
 	public EntityEquipmentSlot type;
 	
@@ -68,6 +70,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		this.type = type;
 		this.armourSet = new ItemStack[4] ;
 		this.setNoRepair() ;
+		
+		field_185084_n = ReflectionHelper.getPrivateValue(ItemArmor.class, this, "field_185084_n") ;
 		
 		setCreativeTab(ArmourRebornCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
@@ -449,6 +453,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		} else {			
 			tooltip.add (TextFormatting.WHITE + "Modifier slots: " + LibUtil.getStackModifierSlots(stack)) ;
 			tooltip.add (TextFormatting.WHITE + "Durability: " + LibUtil.getItemCurrentDurability(stack) + "/" + stack.getMaxDamage()) ;
+			tooltip.add (TextFormatting.WHITE + "Exp: " + this.getExp(stack) + "/" + ModLevels.getLevelInfo(this.getLevel(stack)).getExpNeeded() ) ;
 		}
 		
 	}
