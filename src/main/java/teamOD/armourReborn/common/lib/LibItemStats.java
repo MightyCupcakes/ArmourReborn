@@ -30,8 +30,8 @@ public final class LibItemStats {
 	
 	public static final int DEFAULT_MODIFIER_SLOTS = 3 ;
 	
-	public static final int EXP_PER_DMG = 1 ;
-	public static final int EXP_PER_REPAIR = 1 ;
+	public static final int EXP_PER_DMG = 5 ;
+	public static final int EXP_PER_REPAIR = 10 ;
 	public static final float EXP_MULTIPLIER_PLAYER_DMG = 2 ;
 	
 	public static final int VALUE_INGOT = 144;

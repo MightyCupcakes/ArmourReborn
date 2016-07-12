@@ -23,6 +23,10 @@ public class ModTraitsModifiersRegistry {
 	
 	public static ITrait flammable = new TraitFlammable() ;
 	
+	public static ITrait frostbite = new ModifierFrostbite() ;
+	
+	public static ITrait nullField = new TraitNullField() ;
+	
 	private static ITrait nullTrait = new TraitNone() ;
 	
 	public static void init () {
@@ -36,6 +40,8 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (surge1) ;
 		registerTrait (surge2) ;
 		registerTrait (flammable) ;
+		registerTrait (frostbite) ;
+		registerTrait (nullField) ;
 	}
 	
 	/**

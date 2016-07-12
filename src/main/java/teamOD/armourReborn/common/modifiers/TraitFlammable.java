@@ -17,7 +17,7 @@ public class TraitFlammable extends AbstractTrait {
 	
 	@Override
 	public void onLeavingDimension (EntityPlayer player, ItemStack armour) {
-		player.setFire(10) ;
+		player.setFire(5) ;
 		
 		armour.setItemDamage(armour.getItemDamage() / 2);
 	}
