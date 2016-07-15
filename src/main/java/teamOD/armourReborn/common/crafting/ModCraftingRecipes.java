@@ -2,6 +2,7 @@ package teamOD.armourReborn.common.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -22,17 +23,20 @@ import teamOD.armourReborn.common.lib.LibMisc;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public final class ModCraftingRecipes {
 	
 	private static final ImmutableList <String> preffixes = ImmutableList.of ("ingot", "block", "ore") ;
 	
-	public static HashMap <String, FluidStack> meltingRecipes = new HashMap <String, FluidStack> () ;
-	public static HashMap <Integer, String> oreIDs = new HashMap <Integer, String> () ;
-	public static HashMap <FluidMod, ItemStack[]> castingRecipes = new HashMap <FluidMod, ItemStack[]> () ;
+	private static Map <String, FluidStack> meltingRecipes = Maps.newHashMap() ;
+	private static Map <Integer, String> oreIDs = Maps.newHashMap() ;
+	private static Map <FluidMod, ItemStack[]> castingRecipes = Maps.newHashMap() ;
+	private static Map <Item, List<Object>> ModRecipes = Maps.newHashMap() ;
 	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
 	
@@ -188,12 +192,36 @@ public final class ModCraftingRecipes {
 		
 		return null ;
 	}
+	
+	private static void registerModRecipe (ItemStack output, Object... recipe) {
+		List<Object> list = Lists.newLinkedList() ;
+		
+		list.add(output) ;
+
+		for (Object ingredient : recipe) {
+			list.add(ingredient) ;
+		}
+		
+		ModRecipes.put(output.getItem(), list) ;
+	}
+	
+	public static List<Object> getModRecipe (Item item) {
+		List<Object> list = Lists.newLinkedList() ;
+		
+		if (ModRecipes.containsKey(item)) {
+			list.addAll(ModRecipes.get(item)) ;
+		}
+		
+		return list ;
+	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
+		registerModRecipe (output, recipe) ;
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
 	}
 	
 	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
 	}
+	
 }

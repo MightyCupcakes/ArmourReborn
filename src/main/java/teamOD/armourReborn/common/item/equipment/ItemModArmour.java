@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
 
@@ -467,7 +468,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
 
-		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack) ;
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create() ;
 
 		if (slot == this.armorType && stack.getItem() instanceof ItemModArmour) {
 			NBTTagCompound tag = stack.getTagCompound() ;

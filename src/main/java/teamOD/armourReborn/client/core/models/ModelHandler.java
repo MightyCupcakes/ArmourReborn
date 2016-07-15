@@ -49,6 +49,7 @@ public class ModelHandler {
 		}
 		
 		registerItemModel (ModItems.ModBook) ;
+		registerItemModel (ModItems.ModDust) ;
 	}
 	
 	private static void registerBlocks () {

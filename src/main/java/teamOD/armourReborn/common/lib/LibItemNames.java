@@ -8,6 +8,7 @@ public final class LibItemNames {
 	public static final String MATERIALS = "materials" ;
 	public static final String oreMATERIALS = "oreMaterials" ;
 	public static final String ModBook = "knowledgeTome" ;
+	public static final String ModDust = "AghanimsDust" ;
 	
 	public static final String[] MATERIALS_NAMES = {
 			"ingotSteel",

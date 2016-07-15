@@ -19,6 +19,7 @@ import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.leveling.LevelingEventHandler;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.modifiers.ModifierEvents;
+import teamOD.armourReborn.common.tweaks.AddDropsToMobs;
 import teamOD.armourReborn.common.tweaks.NerfVanillaArmours;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.MC_VERSIONS) 
@@ -62,6 +63,7 @@ public class ArmourReborn {
 		MinecraftForge.EVENT_BUS.register( new NerfVanillaArmours () );
 		MinecraftForge.EVENT_BUS.register( new LevelingEventHandler () );
 		MinecraftForge.EVENT_BUS.register( new ModifierEvents () );
+		MinecraftForge.EVENT_BUS.register( new AddDropsToMobs () );
 	}
 	
 	@EventHandler
