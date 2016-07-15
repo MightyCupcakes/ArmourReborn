@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import teamOD.armourReborn.common.item.ItemMod;
+import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class ModMaterials {
@@ -39,6 +41,24 @@ public class ModMaterials {
 		
 		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,4,3,2}) ;
 		registerMaterial (iron.getItem(), iron) ;
+		
+		//steel
+		steel = new MaterialsMod ("steel", ModItems.MATERIALS, 
+				ImmutableList.of( 
+						ModTraitsModifiersRegistry.reprisal2
+						)) ;
+		
+		steel.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,4,3,2}) ;
+		registerMaterial (steel.getItem(), steel) ;
+		
+		//aluAlloy
+		aluAlloy = new MaterialsMod ("aluminium", ModItems.MATERIALS, 
+				ImmutableList.of( 
+						ModTraitsModifiersRegistry.frostbite
+						)) ;
+		
+		aluAlloy.setBaseDurabilityMultiplier(4D).setBaseArmourValue(new int[] {3,4,3,2}) ;
+		registerMaterial (aluAlloy.getItem(), aluAlloy) ;
 		
 	}
 	
