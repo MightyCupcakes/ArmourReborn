@@ -18,6 +18,7 @@ import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -120,8 +121,11 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addArmourRecipes () {
-		
-		// TODO ADD ARMOUR CRAFTING RECIPES HERE
+		/*addOreDictRecipe(new ItemStack(null,1,0),
+				"III", 
+				"I I", 
+				"III", 
+				'I', "ingotIron");*/
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {
