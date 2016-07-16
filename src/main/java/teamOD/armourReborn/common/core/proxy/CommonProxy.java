@@ -15,6 +15,7 @@ import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.leveling.ModLevels;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 import teamOD.armourReborn.common.network.PacketHandler;
+import teamOD.armourReborn.common.potion.ModPotions;
 import teamOD.armourReborn.common.world.WorldGenReborn;
 
 public class CommonProxy {
@@ -26,6 +27,7 @@ public class CommonProxy {
 		ModTraitsModifiersRegistry.init() ;
 		ModLevels.init() ;
 		ModMaterials.init() ;
+		ModPotions.init() ;
 		
 		ModItems.initArmours() ;
 		
