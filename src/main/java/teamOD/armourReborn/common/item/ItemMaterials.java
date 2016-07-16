@@ -12,7 +12,7 @@ import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ItemMaterials extends ItemMod {
 	
-	public final int types = 3 ;
+	public final int types = 4 ;
 
 	public ItemMaterials() {
 		

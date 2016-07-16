@@ -47,10 +47,13 @@ public final class ModItems {
 		ModDust = new ItemAghaDust (LibItemNames.ModDust) ;
 		
 		registerOreDict () ;
-		registerArmours () ;
 		
 		// add minecraft:Coal to oredict
 		OreDictionary.registerOre("ingotCoal", Items.coal);
+	}
+	
+	public static void initArmours () {
+		registerArmours () ;
 	}
 	
 	public static void registerOreDict () {
@@ -69,6 +72,8 @@ public final class ModItems {
 		
 		for (ArmourTypeNames key : LibItemStats.armourTypesStats.keySet()) {
 			for (MaterialsMod material : materials) {
+				
+				if (!material.isApplicableArmourSet(key)) continue ;
 				
 				ArmorMaterial mat ;
 				String armourName = material.getIdentifier() + key.getName() ;

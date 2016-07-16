@@ -28,6 +28,10 @@
 
         "molten_coal": [{
             "custom": {"fluid": "molten_coal"}
+        }],
+
+        "molten_aluminiumalloy": [{
+            "custom": {"fluid": "molten_aluminiumalloy"}
         }]
     }
 }

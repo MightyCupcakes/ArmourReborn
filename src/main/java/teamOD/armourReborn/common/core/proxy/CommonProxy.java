@@ -21,11 +21,13 @@ public class CommonProxy {
 	
 	public void preInit (FMLPreInitializationEvent event) {
 		ModBlocks.init () ;
-		ModMaterials.init() ;
 		ModItems.init () ;
 		ModFluids.init ();
 		ModTraitsModifiersRegistry.init() ;
 		ModLevels.init() ;
+		ModMaterials.init() ;
+		
+		ModItems.initArmours() ;
 		
 		PacketHandler.init(); 
 	}

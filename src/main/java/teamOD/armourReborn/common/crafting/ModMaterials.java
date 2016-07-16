@@ -3,16 +3,18 @@ package teamOD.armourReborn.common.crafting;
 import java.util.HashMap;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import teamOD.armourReborn.common.item.ItemMod;
+import net.minecraft.item.ItemStack;
 import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.lib.LibItemNames.ArmourTypeNames;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class ModMaterials {
 	
-	private static HashMap<Item, MaterialsMod> materialsRegistry = new HashMap<Item, MaterialsMod> () ;
+	private static HashMap<String, MaterialsMod> materialsRegistry = Maps.newHashMap() ;
 	
 	public static MaterialsMod paper ;
 	public static MaterialsMod iron ;
@@ -22,43 +24,43 @@ public class ModMaterials {
 	public static void init () {
 		
 		// paper
-		paper = new MaterialsMod ("paper", Items.paper, 
+		paper = new MaterialsMod ("paper", new ItemStack (Items.paper), 
 				ImmutableList.of(
 						ModTraitsModifiersRegistry.waterlogged, 
 						ModTraitsModifiersRegistry.evasion2,
 						ModTraitsModifiersRegistry.flammable
 						)) ;
 		
-		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}) ;
-		registerMaterial (paper.getItem(), paper) ;
+		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.LEATHER) ;
+		registerMaterial (paper.getItem().getUnlocalizedName(), paper) ;
 		
 		
 		//iron
-		iron = new MaterialsMod ("iron", Items.iron_ingot, 
+		iron = new MaterialsMod ("iron", new ItemStack (Items.iron_ingot), 
 				ImmutableList.of( 
 						ModTraitsModifiersRegistry.reprisal1
 						)) ;
 		
-		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,4,3,2}) ;
-		registerMaterial (iron.getItem(), iron) ;
+		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;
+		registerMaterial (iron.getItem().getUnlocalizedName(), iron) ;
 		
 		//steel
-		steel = new MaterialsMod ("steel", ModItems.MATERIALS, 
+		steel = new MaterialsMod ("steel", new ItemStack (ModItems.MATERIALS, 1, 0), 
 				ImmutableList.of( 
 						ModTraitsModifiersRegistry.reprisal2
 						)) ;
 		
-		steel.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,4,3,2}) ;
-		registerMaterial (steel.getItem(), steel) ;
+		steel.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;
+		registerMaterial (ModItems.MATERIALS.getUnlocalizedName(steel.getItemstack()), steel) ;
 		
 		//aluAlloy
-		aluAlloy = new MaterialsMod ("aluminium", ModItems.MATERIALS, 
+		aluAlloy = new MaterialsMod ("aluminium", new ItemStack (ModItems.MATERIALS, 1, 3), 
 				ImmutableList.of( 
 						ModTraitsModifiersRegistry.frostbite
 						)) ;
 		
-		aluAlloy.setBaseDurabilityMultiplier(4D).setBaseArmourValue(new int[] {3,4,3,2}) ;
-		registerMaterial (aluAlloy.getItem(), aluAlloy) ;
+		aluAlloy.setBaseDurabilityMultiplier(4D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;
+		registerMaterial (ModItems.MATERIALS.getUnlocalizedName(aluAlloy.getItemstack()), aluAlloy) ;
 		
 	}
 	
@@ -66,7 +68,7 @@ public class ModMaterials {
 		return materialsRegistry.get(item) ;
 	}
 	
-	private static void registerMaterial (Item item, MaterialsMod material) {
+	private static void registerMaterial (String item, MaterialsMod material) {
 		materialsRegistry.put(item, material) ;
 	}
 	
