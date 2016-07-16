@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibUtil;
+import teamOD.armourReborn.common.potion.ModPotions;
 
 public class ModifierEvents {
 	
@@ -118,6 +120,13 @@ public class ModifierEvents {
 					modifier.onLeavingDimension(player, armourPiece);
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onEnderTeleport(EnderTeleportEvent event) {
+		if(ModPotions.enderference.getLevel(event.getEntityLiving()) > 0) {
+			event.setCanceled(true);
 		}
 	}
 	
