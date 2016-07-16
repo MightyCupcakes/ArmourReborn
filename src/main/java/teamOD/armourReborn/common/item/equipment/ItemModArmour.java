@@ -399,6 +399,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		
 		boolean shift = LibUtil.isShiftKeyDown() ;
 		
+		if (stack.getTagCompound() == null) return ;
+		
 		// Leveling stuff
 		LevelInfo level = ModLevels.getLevelInfo(getLevel(stack)) ;
 		
@@ -470,7 +472,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create() ;
 
-		if (slot == this.armorType && stack.getItem() instanceof ItemModArmour) {
+		if (slot == this.armorType && stack.getItem() instanceof ItemModArmour && stack.getTagCompound() != null) {
 			NBTTagCompound tag = stack.getTagCompound() ;
 			float armour = tag.getFloat(ARMOUR_VALUE) ;
 			

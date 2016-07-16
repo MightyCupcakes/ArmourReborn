@@ -38,7 +38,7 @@ public class ModMaterials {
 		//iron
 		iron = new MaterialsMod ("iron", new ItemStack (Items.iron_ingot), 
 				ImmutableList.of( 
-						ModTraitsModifiersRegistry.reprisal1
+						ModTraitsModifiersRegistry.rusty
 						)) ;
 		
 		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;

@@ -97,6 +97,28 @@ public final class LibUtil {
 		
 		return 0 ;
 	}
+	
+	public static float getCurrentArmourValue (ItemStack armour) {
+		if ( !(armour.getItem() instanceof ItemModArmour) ) {
+			return 0 ;
+		}
+		
+		NBTTagCompound tag = armour.getTagCompound() ;
+		float armourValue = tag.getFloat(ItemModArmour.ARMOUR_VALUE) ;
+		
+		return armourValue ;
+	}
+	
+	public static void setArmourValue (ItemStack armour, float value) {
+		if ( !(armour.getItem() instanceof ItemModArmour) ) {
+			return ;
+		}
+		
+		NBTTagCompound tag = armour.getTagCompound() ;
+		tag.setFloat(ItemModArmour.ARMOUR_VALUE, value) ;
+	
+	}
+	
 	// Modifiers tags utilities 
 	
 	public static void writeMaterialTraitsToNBT (MaterialsMod material, NBTTagCompound cmp) {
