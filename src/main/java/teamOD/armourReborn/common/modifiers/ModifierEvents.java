@@ -1,7 +1,5 @@
 package teamOD.armourReborn.common.modifiers;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,12 +9,11 @@ import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.potion.ModPotions;
+import teamOD.armourReborn.common.potion.PotionMod;
 
 public class ModifierEvents {
 	
@@ -40,6 +37,18 @@ public class ModifierEvents {
 						modifier.emitAuraEffect(player, armourPiece);
 					}
 					
+				}
+			}
+			
+			for (PotionMod potion : ModPotions.getModPotions()) {
+				
+				if (!player.isPotionActive(potion)) continue ;
+				
+				if (player.getActivePotionEffect(potion).getDuration() <= 1) {
+					potion.removeEffect(player) ;
+					player.removeActivePotionEffect(potion) ;
+				} else {
+					potion.applyEffect(player) ;
 				}
 			}
 		}

@@ -56,7 +56,7 @@ public class ModMaterials {
 		//aluAlloy
 		aluAlloy = new MaterialsMod ("aluminium", new ItemStack (ModItems.MATERIALS, 1, 3), 
 				ImmutableList.of( 
-						ModTraitsModifiersRegistry.frostbite
+						ModTraitsModifiersRegistry.nullField
 						)) ;
 		
 		aluAlloy.setBaseDurabilityMultiplier(4D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;

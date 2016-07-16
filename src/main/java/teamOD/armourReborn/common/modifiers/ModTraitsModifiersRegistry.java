@@ -10,30 +10,23 @@ public class ModTraitsModifiersRegistry {
 	
 	public static ITrait evasion1 = new TraitEvasion(1) ;
 	public static ITrait evasion2 = new TraitEvasion(2) ;
-	public static ITrait evasion3 = new TraitEvasion(3) ;
-	
+	public static ITrait evasion3 = new TraitEvasion(3) ;	
 	public static ITrait reprisal1 = new TraitReprisal(1) ;
 	public static ITrait reprisal2 = new TraitReprisal(2) ;
-	public static ITrait reprisal3 = new TraitReprisal(3) ;
-	
-	public static ITrait waterlogged = new TraitWaterlogged() ;
-	
+	public static ITrait reprisal3 = new TraitReprisal(3) ;	
+	public static ITrait waterlogged = new TraitWaterlogged() ;	
 	public static ITrait surge1 = new TraitSurge(1) ;
-	public static ITrait surge2 = new TraitSurge(2) ;
-	
-	public static ITrait flammable = new TraitFlammable() ;
-	
-	public static ITrait frostbite = new ModifierFrostbite() ;
-	
-	public static ITrait unburnt = new ModifierUnburnt() ;
-	
-	public static ITrait enderference = new ModifierEnderference() ;
-	
+	public static ITrait surge2 = new TraitSurge(2) ;	
+	public static ITrait flammable = new TraitFlammable() ;	
+	public static ITrait frostbite = new ModifierFrostbite() ;	
+	public static ITrait unburnt1 = new ModifierUnburnt(1) ;	
+	public static ITrait enderference = new ModifierEnderference() ;	
+	public static ITrait stability = new ModifierUnyielding() ;
 	public static ITrait nullField = new TraitNullField() ;
-	
-	public static ITrait rusty = new TraitRust() ;
+	public static ITrait rusty = new TraitRust() ;	
 	
 	private static ITrait nullTrait = new TraitNone() ;
+	
 	
 	public static void init () {
 		registerTrait (evasion1) ;
@@ -50,8 +43,9 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (rusty) ;
 		
 		registerTrait (frostbite) ;
-		registerTrait (unburnt) ;
+		registerTrait (unburnt1) ;
 		registerTrait (enderference) ;
+		registerTrait (stability) ;
 	}
 	
 	/**
