@@ -1,5 +1,6 @@
 package teamOD.armourReborn.common.modifiers;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,7 @@ import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.lib.LibUtil;
@@ -136,6 +138,33 @@ public class ModifierEvents {
 	public void onEnderTeleport(EnderTeleportEvent event) {
 		if(ModPotions.enderference.getLevel(event.getEntityLiving()) > 0) {
 			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerTargeted (LivingSetAttackTargetEvent event) {
+		if ( !(event.getTarget() instanceof EntityPlayer) ) {
+			return ;
+		}
+		
+		if ( !(event.getEntityLiving() instanceof EntityLiving)) {
+			return ;
+		}
+		
+		EntityLiving attacker = (EntityLiving) event.getEntity() ;
+		EntityPlayer player = (EntityPlayer) event.getTarget() ;
+		
+		Iterable<ItemStack> armour = player.getArmorInventoryList() ;
+		
+		for (ItemStack armourPiece : armour) {
+			if (armourPiece == null) continue ;
+			
+			if (armourPiece.getItem() instanceof IModifiable) {
+				
+				for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
+					modifier.onPlayerTargeted(attacker, player, armourPiece);
+				}
+			}
 		}
 	}
 	

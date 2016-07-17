@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -135,5 +136,13 @@ public interface ITrait {
 	 * @param armour
 	 */
 	public void onLeavingDimension (EntityPlayer player, ItemStack armour) ;
+	
+	/**
+	 * Fires when an entity targets the player
+	 * @param attacker
+	 * @param player
+	 * @param armour
+	 */
+	public void onPlayerTargeted (EntityLiving attacker, EntityPlayer player, ItemStack armour) ;
 
 }

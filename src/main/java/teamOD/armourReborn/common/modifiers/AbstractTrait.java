@@ -1,5 +1,6 @@
 package teamOD.armourReborn.common.modifiers;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -98,5 +99,10 @@ public abstract class AbstractTrait implements ITrait {
 	@Override
 	public void onLeavingDimension (EntityPlayer player, ItemStack armour) {
 		// NO OP
+	}
+	
+	@Override
+	public void onPlayerTargeted (EntityLiving attacker, EntityPlayer player, ItemStack armour) {
+		//NO OP
 	}
 }

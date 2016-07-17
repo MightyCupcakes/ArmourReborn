@@ -77,19 +77,19 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 					break ;
 					
 				case 4:
-					setInventorySlotContents(inputInventory.length + 3, new ItemStack(item.getItem()), true);
+					addArmoursAndModifiers(inputInventory.length + 3, new ItemStack(item.getItem()) ) ;
 					break ;
 					
 				case 5:
-					setInventorySlotContents(inputInventory.length, new ItemStack(item.getItem()), true);
+					addArmoursAndModifiers(inputInventory.length, new ItemStack(item.getItem()) );
 					break ;
 					
 				case 7:
-					setInventorySlotContents(inputInventory.length + 2, new ItemStack(item.getItem()), true);
+					addArmoursAndModifiers(inputInventory.length + 2, new ItemStack(item.getItem()) );
 					break ;
 					
 				case 8:
-					setInventorySlotContents(inputInventory.length + 1, new ItemStack(item.getItem()), true);
+					addArmoursAndModifiers(inputInventory.length + 1, new ItemStack(item.getItem()) );
 					break ;
 					
 				default:
@@ -101,34 +101,58 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	
 	protected void addArmoursAndModifiers (int slot, ItemStack item) {
 		
-		if ( !(item.getItem() instanceof ItemModArmour) ) {
-			return ;
-		}
+		if ( item != null && (item.getItem() instanceof ItemModArmour) ) {
 		
-		ItemModArmour armour = (ItemModArmour) item.getItem() ;
-		modifiersCosts.removeAll(slot) ;
-		
-		for (int i = 0; i < inputInventory.length; i ++) {
-			ItemStack stack = getStackInSlot (i) ;
+			ItemModArmour armour = (ItemModArmour) item.getItem() ;
+			modifiersCosts.removeAll(slot) ;
 			
-			if (stack != null) {
-				List<IModifier> modifiers = ModTraitsModifiersRegistry.getModifierByItem(stack) ;
-
-				if (modifiers != null && modifiers.size() > 0) {
-					
-					for (IModifier modifier : modifiers) {
-						if (LibUtil.armourHasTrait(item, modifier)) continue ;
+			for (int i = 0; i < inputInventory.length; i ++) {
+				ItemStack stack = getStackInSlot (i) ;
+				
+				if (stack != null) {
+					List<IModifier> modifiers = ModTraitsModifiersRegistry.getModifierByItem(stack) ;
+	
+					if (modifiers != null && modifiers.size() > 0) {
 						
-						armour.addModifier(item, modifier, true, true) ;
-						modifiersCosts.put(slot, modifier.getItemStack()) ;
-						
-						break ;
+						for (IModifier modifier : modifiers) {
+							
+							if (modifier.getItemStack().stackSize > stack.stackSize) break ;
+							
+							if (LibUtil.armourHasTrait(item, modifier)) continue ;
+							
+							armour.addModifier(item, modifier, true, true) ;
+							modifiersCosts.put(slot, modifier.getItemStack()) ;
+							
+							break ;
+						}
 					}
 				}
 			}
 		}
 		
 		setInventorySlotContents(slot, item, true) ;
+	}
+	
+	protected void payModifiersCosts (int slot) {
+		
+		Iterable<ItemStack> costs = modifiersCosts.get(slot) ;
+		
+		for (ItemStack stack: costs) {
+			
+			for (int i = 0; i < inputInventory.length; i ++) {
+				if (getStackInSlot(i) != null && getStackInSlot(i).getItem() == stack.getItem()) {
+					ItemStack item = getStackInSlot(i).copy() ;
+					
+					item.stackSize = item.stackSize - stack.stackSize ;
+					
+					if (item.stackSize == 0) {
+						item = null ;
+					}
+					
+					setInventorySlotContents(i, item, true) ;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -260,15 +284,23 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		switch (temp){
 		case 0:
 			this.drain(null, LibItemStats.VALUE_INGOT * 5, true) ;
+			payModifiersCosts(index) ;
+			
 			break;
 		case 1:
 			this.drain(null, LibItemStats.VALUE_INGOT * 8, true) ;
+			payModifiersCosts(index) ;
+			
 			break;
 		case 2:
 			this.drain(null, LibItemStats.VALUE_INGOT * 7, true) ;
+			payModifiersCosts(index) ;
+			
 			break;
 		case 3:
 			this.drain(null, LibItemStats.VALUE_INGOT * 4, true) ;
+			payModifiersCosts(index) ;
+			
 			break;
 		case 4:
 			this.drain(null, LibItemStats.VALUE_INGOT, true) ;

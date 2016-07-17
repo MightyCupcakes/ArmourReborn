@@ -35,13 +35,16 @@ public final class ModTraitsModifiersRegistry {
 	
 	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (Blocks.stone)) ;	// TODO
-	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.stone)) ;	// TODO
+	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.cobblestone)) ;	// TODO
 	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
-	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.stone)) ; // TODO
+	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.sand)) ; // TODO
 	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.obsidian)) ;
 	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
 	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
-	public static ITrait angel = new ModifierGuardianAngel (new ItemStack(Blocks.stone)) ; // TODO 
+	public static ITrait angel = new ModifierGuardianAngel (new ItemStack(Blocks.diamond_block)) ; // TODO 
+	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Blocks.bedrock)) ; // TODO
+	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Blocks.bedrock)) ; // TODO
+	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Blocks.bedrock)) ; // TODO
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -68,6 +71,9 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (reinforced1) ;
 		registerTrait (reinforced2) ;
 		registerTrait (reinforced3) ;
+		registerTrait (invisible1) ;
+		registerTrait (invisible2) ;
+		registerTrait (invisible3) ;
 		registerTrait (angel) ;
 	}
 	

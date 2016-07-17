@@ -305,7 +305,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 			
 			// Try to find an anvil with the current fluid and fill it first
 			// Else get any empty anvil.
-			BlockPos aPos = (anvilPos.containsKey(fluid)) ? anvilPos.get(fluid) : anvilPos.get(FluidRegistry.WATER) ;
+			BlockPos aPos = (anvilPos.containsKey(fluid.getFluid())) ? anvilPos.get(fluid.getFluid()) : anvilPos.get(FluidRegistry.WATER) ;
 			
 			// No empty anvil available and not anvil filled with the current liquid
 			if (aPos == null) {
