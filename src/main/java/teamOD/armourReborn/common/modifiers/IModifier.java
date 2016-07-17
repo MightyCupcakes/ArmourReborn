@@ -16,6 +16,7 @@ import net.minecraft.util.DamageSource;
 public interface IModifier extends ITrait {
 	
 	public static final String MODIFIERS = "modifiers" ;
+	public static final String COOLDOWN = "cooldown" ;
 	
 	/**
 	 * Returns the associated item to this modifier. That is, given this item in anvil, this modifier will be added to the armour

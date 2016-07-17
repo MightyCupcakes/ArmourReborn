@@ -18,6 +18,7 @@ public final class ModTraitsModifiersRegistry {
 	private static Map<String, ITrait> traitRegistry = Maps.newHashMap() ;
 	private static Map<String, IModifier[]> modifierRegistry = Maps.newHashMap() ;
 	
+	// Traits
 	public static ITrait evasion1 = new TraitEvasion(1) ;
 	public static ITrait evasion2 = new TraitEvasion(2) ;
 	public static ITrait evasion3 = new TraitEvasion(3) ;	
@@ -30,6 +31,8 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait flammable = new TraitFlammable() ;	
 	public static ITrait nullField = new TraitNullField() ;
 	public static ITrait rusty = new TraitRust() ;
+	
+	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (Blocks.stone)) ;	// TODO
 	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.stone)) ;	// TODO
 	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
@@ -37,6 +40,7 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.obsidian)) ;
 	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
 	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
+	public static ITrait angel = new ModifierGuardianAngel (new ItemStack(Blocks.stone)) ; // TODO 
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -62,6 +66,7 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (reinforced1) ;
 		registerTrait (reinforced2) ;
 		registerTrait (reinforced3) ;
+		registerTrait (angel) ;
 	}
 	
 	/**
@@ -109,7 +114,7 @@ public final class ModTraitsModifiersRegistry {
 				}
 				
 				if (i == currModifiers.length) {
-					modifierList[++i] = modifier ;
+					modifierList[i++] = modifier ;
 				}
 				
 			} else {

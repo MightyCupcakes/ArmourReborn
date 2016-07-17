@@ -47,7 +47,7 @@ public class ModMaterials {
 		//steel
 		steel = new MaterialsMod ("steel", new ItemStack (ModItems.MATERIALS, 1, 0), 
 				ImmutableList.of( 
-						ModTraitsModifiersRegistry.reprisal2
+						ModTraitsModifiersRegistry.nullField
 						)) ;
 		
 		steel.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.values()) ;
