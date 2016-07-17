@@ -8,8 +8,8 @@ import teamOD.armourReborn.common.leveling.ILevelable;
 
 public class ModifierExpTome extends AbstractModifier {
 	
-	public ModifierExpTome () {
-		super ("knowledgable", TextFormatting.GOLD) ;
+	public ModifierExpTome (ItemStack item) {
+		super ("knowledgable", TextFormatting.GOLD, item) ;
 	}
 	
 	@Override

@@ -1,12 +1,20 @@
 package teamOD.armourReborn.common.modifiers;
 
-import java.util.HashMap;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import teamOD.armourReborn.common.lib.LibUtil;
 
-public class ModTraitsModifiersRegistry {
+public final class ModTraitsModifiersRegistry {
 	
-	protected static HashMap<String, ITrait> traitRegistry = new HashMap<String, ITrait> () ;
+	private static Map<String, ITrait> traitRegistry = Maps.newHashMap() ;
+	private static Map<String, IModifier> modifierRegistry = Maps.newHashMap() ;
 	
 	public static ITrait evasion1 = new TraitEvasion(1) ;
 	public static ITrait evasion2 = new TraitEvasion(2) ;
@@ -18,12 +26,12 @@ public class ModTraitsModifiersRegistry {
 	public static ITrait surge1 = new TraitSurge(1) ;
 	public static ITrait surge2 = new TraitSurge(2) ;	
 	public static ITrait flammable = new TraitFlammable() ;	
-	public static ITrait frostbite = new ModifierFrostbite() ;	
-	public static ITrait unburnt1 = new ModifierUnburnt(1) ;	
-	public static ITrait enderference = new ModifierEnderference() ;	
-	public static ITrait stability = new ModifierUnyielding() ;
 	public static ITrait nullField = new TraitNullField() ;
-	public static ITrait rusty = new TraitRust() ;	
+	public static ITrait rusty = new TraitRust() ;
+	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (Blocks.stone)) ;	// TODO
+	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.stone)) ;	// TODO
+	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
+	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.stone)) ; // TODO
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -43,7 +51,7 @@ public class ModTraitsModifiersRegistry {
 		registerTrait (rusty) ;
 		
 		registerTrait (frostbite) ;
-		registerTrait (unburnt1) ;
+		registerTrait (unburnt) ;
 		registerTrait (enderference) ;
 		registerTrait (stability) ;
 	}
@@ -62,7 +70,32 @@ public class ModTraitsModifiersRegistry {
 	private static void registerTrait (ITrait trait) {
 		if ( traitRegistry.containsKey(trait.getIdentifier()) ) return ;
 		
+		if (trait instanceof IModifier) {
+			IModifier modifier = (IModifier) trait ;
+			ItemStack item = modifier.getItemStack() ;
+			
+			if (item == null) {
+				LibUtil.LogToFML(2, "Modifier registration error: Cannot register %s - no item is associated to it", modifier.getIdentifier());
+				return ;
+			}
+			
+			modifierRegistry.put(item.getUnlocalizedName(), modifier) ;
+
+		}
+		
 		traitRegistry.put(trait.getIdentifier(), trait) ;
+	}
+	
+	/**
+	 * Returns the modifier associated to this itemstack; null if no such modifier exists
+	 * @param item
+	 * @return
+	 */
+	public static IModifier getModifierByItem (ItemStack item) {
+		
+		String name = item.getUnlocalizedName() ;
+		
+		return  modifierRegistry.get(name) ;
 	}
 	
 	/**

@@ -17,8 +17,8 @@ import teamOD.armourReborn.common.lib.LibUtil;
 
 public class ModifierFrostbite extends AbstractModifier {
 
-	public ModifierFrostbite () {
-		super("frostbite", TextFormatting.AQUA);
+	public ModifierFrostbite (ItemStack item) {
+		super("frostbite", TextFormatting.AQUA, item);
 	}
 	
 	@Override

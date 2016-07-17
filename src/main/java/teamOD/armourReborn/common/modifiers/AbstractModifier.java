@@ -9,23 +9,25 @@ import net.minecraft.util.text.TextFormatting;
 
 public abstract class AbstractModifier extends AbstractTrait implements IModifier {
 	
-	protected Item item ;
+	protected ItemStack item ;
 
-	public AbstractModifier(String identifier, TextFormatting colour) {
+	public AbstractModifier(String identifier, TextFormatting colour, ItemStack item) {
 		super(identifier, colour);
+		this.item = item ;
 	}
 	
-	public AbstractModifier (String identifier, int level, TextFormatting colour) {
+	public AbstractModifier (String identifier, int level, TextFormatting colour, ItemStack item) {
 		super (identifier, level, colour) ;
-	}
-
-	@Override
-	public void addItem(Item item) {
 		this.item = item ;
 	}
 
 	@Override
-	public Item getItem() {
+	public ItemStack getItemStack () {
 		return item ;
+	}
+	
+	@Override
+	public Item getItem () {
+		return item.getItem() ;
 	}
 }

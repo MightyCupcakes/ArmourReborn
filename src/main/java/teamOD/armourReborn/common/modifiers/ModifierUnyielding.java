@@ -9,8 +9,8 @@ import teamOD.armourReborn.common.potion.ModPotions;
 
 public class ModifierUnyielding extends AbstractModifier {
 
-	public ModifierUnyielding () {
-		super ("unyielding", TextFormatting.DARK_GREEN) ;
+	public ModifierUnyielding (ItemStack item) {
+		super ("unyielding", TextFormatting.DARK_GREEN, item) ;
 	}
 	
 	@Override

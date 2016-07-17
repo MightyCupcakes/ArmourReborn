@@ -13,8 +13,8 @@ import teamOD.armourReborn.common.potion.ModPotions;
 
 public class ModifierEnderference extends AbstractModifier {
 	
-	public ModifierEnderference () {
-		super ("enderference", TextFormatting.LIGHT_PURPLE) ;
+	public ModifierEnderference (ItemStack item) {
+		super ("enderference", TextFormatting.LIGHT_PURPLE, item) ;
 	}
 	
 	@Override

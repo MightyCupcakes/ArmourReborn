@@ -18,11 +18,10 @@ public interface IModifier extends ITrait {
 	public static final String MODIFIERS = "modifiers" ;
 	
 	/**
-	 * Associates this item to this modifier. That is, given this item in anvil, this modifier will be added to the armour
+	 * Returns the associated item to this modifier. That is, given this item in anvil, this modifier will be added to the armour
 	 * @param item
-	 */
-	public void addItem (Item item) ;
-	
-	public Item getItem () ;
-	
+	 */	
+	public ItemStack getItemStack () ;
+
+	public Item getItem() ;
 }
