@@ -339,6 +339,19 @@ public final class LibUtil {
 		return result ;
 	}
 	
+	public static boolean armourHasTrait (ItemStack armour, ITrait trait) {
+		
+		List<ITrait> list = getModifiersListAll (armour) ;
+		
+		for (ITrait thisTrait : list) {
+			if ( thisTrait.getIdentifier().equals(trait.getIdentifier()) ) {
+				return true ;
+			}
+		}
+		
+		return false ;
+	}
+	
 	/**
 	 * Format a trait's identifier for display; the original identifier is not modified.
 	 * 

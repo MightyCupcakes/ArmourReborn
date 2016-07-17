@@ -1,21 +1,18 @@
 package teamOD.armourReborn.common.block.tile;
 
-import java.util.Stack;
+import java.util.List;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -27,16 +24,19 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import teamOD.armourReborn.client.core.gui.ForgeAnvilGui;
-import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerAnvil;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
 import teamOD.armourReborn.common.block.tile.inventory.ITileInventory;
 import teamOD.armourReborn.common.block.tile.network.ForgeAnvilInventoryUpdatePacket;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
-import teamOD.armourReborn.common.network.PacketHandler;
-import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.fluids.FluidMod;
+import teamOD.armourReborn.common.fluids.ModFluids;
+import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
+import teamOD.armourReborn.common.lib.LibUtil;
+import teamOD.armourReborn.common.modifiers.IModifier;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
+import teamOD.armourReborn.common.network.PacketHandler;
 
 public class TileForgeAnvil extends TileMod implements IInventory, ITileInventory, IFluidHandler {
 	
@@ -46,10 +46,15 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private ItemStack[] outputInventory;
 	private FluidTank fluidInventory;
 	
+	/** Items to deduct from inputinventory when modifiers are added to armours */
+	private Multimap<Integer, ItemStack> modifiersCosts ;
+	
 	public TileForgeAnvil(){
 		inputInventory = new ItemStack[5];
 		outputInventory = new ItemStack[5];
 		fluidInventory = new FluidTank(4000);
+		
+		modifiersCosts = HashMultimap.<Integer, ItemStack>create();
 	}
 	
 	@Override
@@ -95,11 +100,31 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	}
 	
 	protected void addArmoursAndModifiers (int slot, ItemStack item) {
+		
+		if ( !(item.getItem() instanceof ItemModArmour) ) {
+			return ;
+		}
+		
+		ItemModArmour armour = (ItemModArmour) item.getItem() ;
+		modifiersCosts.removeAll(slot) ;
+		
 		for (int i = 0; i < inputInventory.length; i ++) {
 			ItemStack stack = getStackInSlot (i) ;
 			
 			if (stack != null) {
-				// TODO add modifiers to armour here
+				List<IModifier> modifiers = ModTraitsModifiersRegistry.getModifierByItem(stack) ;
+
+				if (modifiers != null && modifiers.size() > 0) {
+					
+					for (IModifier modifier : modifiers) {
+						if (LibUtil.armourHasTrait(item, modifier)) continue ;
+						
+						armour.addModifier(item, modifier, true, true) ;
+						modifiersCosts.put(slot, modifier.getItemStack()) ;
+						
+						break ;
+					}
+				}
 			}
 		}
 		

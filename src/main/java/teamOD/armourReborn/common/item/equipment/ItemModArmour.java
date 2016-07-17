@@ -288,7 +288,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	 * @param armour
 	 * @param modifier
 	 * @param requireSlot	if set to true, this modifier uses up a slot when added.
-	 * @param forced	if set to true, the modifier will be added no matter what
+	 * @param forced	if set to true, the modifier will be added if it belongs to the same trait family
 	 */
 	public void addModifier (ItemStack armour, ITrait modifier, boolean requireSlot, boolean forced) {
 		NBTTagCompound tag = armour.getTagCompound() ;

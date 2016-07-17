@@ -31,6 +31,7 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait flammable = new TraitFlammable() ;	
 	public static ITrait nullField = new TraitNullField() ;
 	public static ITrait rusty = new TraitRust() ;
+	public static ITrait fireResist = new TraitFireResistant() ;
 	
 	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (Blocks.stone)) ;	// TODO
@@ -58,6 +59,7 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (flammable) ;
 		registerTrait (nullField) ;
 		registerTrait (rusty) ;
+		registerTrait (fireResist) ;
 		
 		registerTrait (frostbite) ;
 		registerTrait (unburnt) ;

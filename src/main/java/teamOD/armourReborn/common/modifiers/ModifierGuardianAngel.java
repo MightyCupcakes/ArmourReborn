@@ -1,6 +1,10 @@
 package teamOD.armourReborn.common.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -9,8 +13,21 @@ import net.minecraft.world.World;
 
 public class ModifierGuardianAngel extends AbstractModifier {
 	
+	public static ImmutableList<Float> multipliers = ImmutableList.of(0F, 1F, 1.5F, 2F) ;
+	
 	public ModifierGuardianAngel (ItemStack item) {
 		super ("guardian Angel", TextFormatting.YELLOW, item) ;
+	}
+	
+	@Override
+	public boolean canApplyToEquipment (ItemStack armour) {
+		if (armour.getItem() instanceof ItemArmor) {
+			ItemArmor armourPiece = (ItemArmor) armour.getItem() ;
+			
+			return armourPiece.armorType == EntityEquipmentSlot.CHEST ;
+		}
+		
+		return false ;
 	}
 	
 	@Override
@@ -24,8 +41,8 @@ public class ModifierGuardianAngel extends AbstractModifier {
 		
 		if (health <= 0.25 && world.getTotalWorldTime() >= time) {
 			PotionEffect healPlayer = new PotionEffect (Potion.getPotionById(6), 1, 0, false, false) ;
-			PotionEffect fortitude = new PotionEffect (Potion.getPotionById(11), 200, 0, true, true) ;
-			PotionEffect regeneration = new PotionEffect (Potion.getPotionById(10), 200, 0, true, true) ;
+			PotionEffect fortitude = new PotionEffect (Potion.getPotionById(11), 100, 0, true, true) ;
+			PotionEffect regeneration = new PotionEffect (Potion.getPotionById(10), 100, 0, true, true) ;
 			
 			PotionEffect[] effects = new PotionEffect[] { healPlayer, fortitude, regeneration } ;
 			
