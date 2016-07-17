@@ -355,9 +355,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		return armour ;
 	}
 	
+	public ItemStack buildItem() {
+		return buildItem(ImmutableList.of(materials)) ;
+	}
+	
 	public NBTTagCompound buildItemTag (List<MaterialsMod> materials) {
 		NBTTagCompound tag = new NBTTagCompound () ;
 		NBTTagList modTag ;
+		
+		tag.setBoolean(LibMisc.MOD_ID, true);
 		
 		// Levels
 		this.addBaseTags(tag) ;

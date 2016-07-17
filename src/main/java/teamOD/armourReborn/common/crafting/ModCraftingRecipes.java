@@ -2,6 +2,7 @@ package teamOD.armourReborn.common.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public final class ModCraftingRecipes {
 		
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
-				new ItemStack(Items.iron_boots, 4, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0),
 				new ItemStack(Items.iron_leggings, 7, 0),
 				new ItemStack(Items.iron_chestplate, 8, 0),
 				new ItemStack(Items.iron_helmet, 5, 0)

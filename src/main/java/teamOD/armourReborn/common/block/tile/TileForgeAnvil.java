@@ -33,6 +33,7 @@ import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
+import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.IModifier;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
@@ -105,6 +106,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 			ItemModArmour armour = (ItemModArmour) item.getItem() ;
 			modifiersCosts.removeAll(slot) ;
+			
+			if ( item.getTagCompound() == null || !(item.getTagCompound().hasKey(LibMisc.MOD_ID)) ) {
+				item = armour.buildItem() ;
+			}
 			
 			for (int i = 0; i < inputInventory.length; i ++) {
 				ItemStack stack = getStackInSlot (i) ;

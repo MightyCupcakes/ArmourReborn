@@ -145,7 +145,7 @@ public final class ModTraitsModifiersRegistry {
 		
 		String name = item.getUnlocalizedName() ;
 		
-		return ImmutableList.copyOf(modifierRegistry.get(name)) ;
+		return (modifierRegistry.containsKey(name)) ? ImmutableList.copyOf(modifierRegistry.get(name)) : ImmutableList.<IModifier>of() ;
 	}
 	
 	/**
