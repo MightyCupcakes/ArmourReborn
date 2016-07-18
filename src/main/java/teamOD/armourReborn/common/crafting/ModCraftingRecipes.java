@@ -69,10 +69,26 @@ public final class ModCraftingRecipes {
 		
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
-				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0),
-				new ItemStack(Items.iron_leggings, 7, 0),
-				new ItemStack(Items.iron_chestplate, 8, 0),
-				new ItemStack(Items.iron_helmet, 5, 0)
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0)
+				) ;	
+		
+		registerCastingRecipe (ModFluids.aluAlloy, 
+				new ItemStack (ModItems.MATERIALS, 1, 3), 
+				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.FEET), 4, 0)
+				) ;	
+		
+		registerCastingRecipe (ModFluids.steel, 
+				new ItemStack (ModItems.MATERIALS, 1, 0), 
+				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.FEET), 4, 0)
 				) ;	
 		
 	}
@@ -122,11 +138,33 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addArmourRecipes () {
-		/*addOreDictRecipe(new ItemStack(null,1,0),
-				"III", 
+		addOreDictRecipe(new ItemStack(ModItems.getArmourByName("ironleather").get(EntityEquipmentSlot.HEAD), 1, 0),
+				"LLL", 
 				"I I", 
+				"   ", 
+				'I', "ingotIron",
+				'L', "leather");
+		
+		addOreDictRecipe(new ItemStack(ModItems.getArmourByName("ironleather").get(EntityEquipmentSlot.CHEST), 1, 0),
+				"L L", 
+				"LIL", 
 				"III", 
-				'I', "ingotIron");*/
+				'I', "ingotIron",
+				'L', "leather");
+		
+		addOreDictRecipe(new ItemStack(ModItems.getArmourByName("ironleather").get(EntityEquipmentSlot.LEGS), 1, 0),
+				"LLL", 
+				"I I", 
+				"I I", 
+				'I', "ingotIron",
+				'L', "leather");
+		
+		addOreDictRecipe(new ItemStack(ModItems.getArmourByName("ironleather").get(EntityEquipmentSlot.FEET), 1, 0),
+				"   ", 
+				"I I", 
+				"L L", 
+				'I', "ingotIron",
+				'L', "leather");
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {
