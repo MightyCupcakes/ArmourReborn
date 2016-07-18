@@ -1,0 +1,7 @@
+{
+    "parent": "armourreborn:item/standard_item",
+    "textures": 
+    {
+        "layer0": "armourreborn:items/infusedBlaze"
+    }
+}

@@ -467,6 +467,8 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 			tooltip.add (TextFormatting.WHITE + "Exp: " + this.getExp(stack) + "/" + ModLevels.getLevelInfo(this.getLevel(stack)).getExpNeeded() ) ;
 		}
 		
+		tooltip.add("") ; // more empty spaces!
+		
 	}
 	
 	@Override

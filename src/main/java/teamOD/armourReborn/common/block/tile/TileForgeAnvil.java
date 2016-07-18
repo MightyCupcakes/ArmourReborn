@@ -266,8 +266,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		cmp.setTag("Inventory", nbttaglist) ;
 	}
 	
-	public void sync () {
-		return ;
+	protected void updateOutputInventory () {
+		for (int i = inputInventory.length; i < inputInventory.length + outputInventory.length; i++){
+			setInventorySlotContents(i, null, true);
+		}
 	}
 
 	@Override
@@ -340,22 +342,11 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		System.out.println("Removing from slot " + index);
 		
-		if (index >= inputInventory.length){
-			for (int i = inputInventory.length; i < inputInventory.length + outputInventory.length; i++){
-				setInventorySlotContents(i, null, true);
-			}
-		} else {
-			
-			if (index == repairSlot) {
-				payModifiersCosts(index) ;
-				
-				for (int i = inputInventory.length; i < inputInventory.length + outputInventory.length; i++){
-					setInventorySlotContents(i, null, true);
-				}
-			}
-			
-			setInventorySlotContents (index, null, true) ;				
+		if (index == repairSlot) {
+			payModifiersCosts(index) ;
 		}
+
+		setInventorySlotContents (index, null, true) ;				
 		
 		int temp = index - inputInventory.length;
 		
@@ -496,7 +487,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
 		FluidStack amt = fluidInventory.drain(maxDrain, doDrain) ;
 		
-		if (doDrain) tankContentChanged() ;
+		if (doDrain) {
+			tankContentChanged() ;
+			updateOutputInventory() ;
+		}
 		return amt ;
 	}
 

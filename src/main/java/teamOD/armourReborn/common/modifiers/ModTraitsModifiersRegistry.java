@@ -35,17 +35,17 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait fireResist = new TraitFireResistant() ;
 	
 	// Modifiers
-	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;	// TODO
-	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.cobblestone)) ;	// TODO
+	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;
+	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 2)) ;
 	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
 	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.sand)) ; // TODO
 	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.obsidian)) ;
 	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
 	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
 	public static ITrait angel = new ModifierGuardianAngel (new ItemStack(Blocks.diamond_block)) ; // TODO 
-	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Blocks.bedrock)) ; // TODO
-	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Blocks.bedrock)) ; // TODO
-	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Blocks.bedrock)) ; // TODO
+	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Items.skull)) ; // TODO
+	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.skull)) ; // TODO
+	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.skull)) ; // TODO
 	public static ITrait expBoost = new ModifierExpTome (new ItemStack(Blocks.gold_block)) ;
 	public static ITrait commanding = new ModifierCommandingPresence(new ItemStack (Blocks.lapis_block)) ; //TODO
 	public static ITrait featherfall1= new ModifierShockAbsorber(1, new ItemStack(Items.feather, 16)) ;

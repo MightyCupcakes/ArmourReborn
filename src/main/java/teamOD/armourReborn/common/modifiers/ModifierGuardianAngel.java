@@ -16,6 +16,10 @@ public class ModifierGuardianAngel extends AbstractModifier {
 	public static ImmutableList<Float> multipliers = ImmutableList.of(0F, 1F, 1.5F, 2F) ;
 	public static final String GUARDIAN_COOLDOWN = "guardian" + COOLDOWN ;
 	
+	public static final Potion INSTANT = Potion.getPotionById(6) ;
+	public static final Potion DEFENSE = Potion.getPotionById(11) ;
+	public static final Potion REGEN = Potion.getPotionById(10) ;
+	
 	public ModifierGuardianAngel (ItemStack item) {
 		super ("guardian Angel", TextFormatting.YELLOW, item) ;
 	}
@@ -40,10 +44,12 @@ public class ModifierGuardianAngel extends AbstractModifier {
 		float health = player.getHealth() / player.getMaxHealth() ;
 		long time = itemStack.getTagCompound().getLong(GUARDIAN_COOLDOWN) ;
 		
+		if (player.getActivePotionEffect(DEFENSE) != null) return ;
+		
 		if (health <= 0.25 && world.getTotalWorldTime() >= time) {
-			PotionEffect healPlayer = new PotionEffect (Potion.getPotionById(6), 1, 0, false, false) ;
-			PotionEffect fortitude = new PotionEffect (Potion.getPotionById(11), 100, 0, true, true) ;
-			PotionEffect regeneration = new PotionEffect (Potion.getPotionById(10), 100, 0, true, true) ;
+			PotionEffect healPlayer = new PotionEffect (INSTANT, 1, 0, false, false) ;
+			PotionEffect fortitude = new PotionEffect (DEFENSE, 100, 0, true, true) ;
+			PotionEffect regeneration = new PotionEffect (REGEN, 100, 0, true, true) ;
 			
 			PotionEffect[] effects = new PotionEffect[] { healPlayer, fortitude, regeneration } ;
 			

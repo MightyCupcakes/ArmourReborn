@@ -24,7 +24,8 @@ public final class LibItemNames {
 	
 	public static final String[] MODIFIERS_MATERIALS_NAMES =  {
 			"aghanimsDust",
-			"infusedSnowball"
+			"infusedSnowball",
+			"infusedFlame"
 	} ;
 	
 	public enum ArmourTypeNames {

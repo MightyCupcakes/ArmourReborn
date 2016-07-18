@@ -268,6 +268,14 @@ public final class ModCraftingRecipes {
 				'S', new ItemStack(Items.snowball, 1, 0),
 				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
 				) ;
+		
+		addShapedRecipe (new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 2),
+				"BBB",
+				"BAB",
+				"BBB",
+				'B', new ItemStack(Items.blaze_powder, 1, 0),
+				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
+				) ;
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

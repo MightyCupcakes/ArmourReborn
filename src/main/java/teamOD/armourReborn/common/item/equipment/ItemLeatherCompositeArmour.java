@@ -12,6 +12,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.ITrait;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class ItemLeatherCompositeArmour extends ItemModArmour {
 
@@ -25,7 +26,7 @@ public class ItemLeatherCompositeArmour extends ItemModArmour {
 	@Override
 	public List<ITrait> getArmourTypeTrait() {
 		// TODO Auto-generated method stub
-		return ImmutableList.<ITrait>of() ;
+		return ImmutableList.<ITrait>of(ModTraitsModifiersRegistry.reprisal1) ;
 	}
 
 }
