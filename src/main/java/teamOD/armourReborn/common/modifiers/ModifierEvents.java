@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -166,6 +167,34 @@ public class ModifierEvents {
 				}
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerFalling (LivingFallEvent event) {
+		if ( !(event.getEntity() instanceof EntityPlayer) ) {
+			return ;
+		}
+		
+		EntityPlayer player = (EntityPlayer) event.getEntity() ;
+		
+		Iterable<ItemStack> armour = player.getArmorInventoryList() ;
+		
+		float distance = event.getDistance() ;
+		
+		for (ItemStack armourPiece : armour) {
+			if (armourPiece == null) continue ;
+			
+			if (armourPiece.getItem() instanceof IModifiable) {
+				
+				for (ITrait modifier : LibUtil.getArmourTraits(player, armourPiece)) {
+					float newDist = modifier.onPlayerFalling(player, armourPiece, event.getDistance()) ;
+					
+					distance = (newDist < distance) ? newDist : distance ;
+				}
+			}
+		}
+		
+		event.setDistance(distance) ;
 	}
 	
 	@SubscribeEvent

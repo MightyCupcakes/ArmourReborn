@@ -115,15 +115,23 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				ItemStack stack = getStackInSlot (i) ;
 				
 				if (stack != null) {
+					// Gets the list of modifiers in the same family
+					// this is applicable for modifiers with multiple levels
+					// else its only one single modifier in the list
 					List<IModifier> modifiers = ModTraitsModifiersRegistry.getModifierByItem(stack) ;
 	
 					if (modifiers != null && modifiers.size() > 0) {
 						
 						for (IModifier modifier : modifiers) {
 							
+							// Not enough items in input inventory for the modifier
 							if (modifier.getItemStack().stackSize > stack.stackSize) break ;
 							
+							// Armour already have this modifier
 							if (LibUtil.armourHasTrait(item, modifier)) continue ;
+							
+							// Not applicable to this armour type
+							if (!modifier.canApplyToEquipment(item)) break ;
 							
 							armour.addModifier(item, modifier, true, true) ;
 							modifiersCosts.put(slot, modifier.getItemStack()) ;

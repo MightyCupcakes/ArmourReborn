@@ -202,28 +202,28 @@ public final class ModCraftingRecipes {
 				"LLL", 
 				"I I", 
 				"   ", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'I', "ingotAluminiumAlloy",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.CHEST)),
 				"L L", 
 				"LIL", 
 				"III", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'I', "ingotAluminiumAlloy",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.LEGS)),
 				"LLL", 
 				"I I", 
 				"I I", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'I', "ingotAluminiumAlloy",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.FEET)),
 				"   ", 
 				"I I", 
 				"L L", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'I', "ingotAluminiumAlloy",
 				'L', "leather");
 		
 		//Steel Leather Armour
@@ -231,28 +231,28 @@ public final class ModCraftingRecipes {
 				"LLL", 
 				"I I", 
 				"   ", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'I', "ingotSteel",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.CHEST)),
 				"L L", 
 				"LIL", 
 				"III", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'I', "ingotSteel",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.LEGS)),
 				"LLL", 
 				"I I", 
 				"I I", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'I', "ingotSteel",
 				'L', "leather");
 		
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.FEET)),
 				"   ", 
 				"I I", 
 				"L L", 
-				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'I', "ingotSteel",
 				'L', "leather");
 	}
 	

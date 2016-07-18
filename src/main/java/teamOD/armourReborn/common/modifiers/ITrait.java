@@ -144,5 +144,7 @@ public interface ITrait {
 	 * @param armour
 	 */
 	public void onPlayerTargeted (EntityLiving attacker, EntityPlayer player, ItemStack armour) ;
+	
+	public float onPlayerFalling (EntityPlayer player, ItemStack armour, float distance) ;
 
 }
