@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -350,6 +351,18 @@ public final class LibUtil {
 		}
 		
 		return false ;
+	}
+	
+	public static ItemStack buildArmourCustomNBT (Item armour) {
+		ItemStack stack = new ItemStack (armour) ;
+		
+		if (armour instanceof ItemModArmour) {
+			ItemModArmour modArmour = (ItemModArmour) armour ;
+			
+			stack = modArmour.buildItem() ;
+		}
+		
+		return stack ;
 	}
 	
 	/**
