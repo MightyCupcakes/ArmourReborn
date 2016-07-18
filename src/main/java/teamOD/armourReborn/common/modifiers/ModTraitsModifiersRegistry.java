@@ -33,6 +33,7 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait nullField = new TraitNullField() ;
 	public static ITrait rusty = new TraitRust() ;
 	public static ITrait fireResist = new TraitFireResistant() ;
+	public static ITrait angel = new TraitGuardianAngel() ;
 	
 	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;
@@ -42,7 +43,6 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.obsidian)) ;
 	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
 	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
-	public static ITrait angel = new ModifierGuardianAngel (new ItemStack(Blocks.diamond_block)) ; // TODO 
 	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Items.skull)) ; // TODO
 	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.skull)) ; // TODO
 	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.skull)) ; // TODO
@@ -69,6 +69,7 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (nullField) ;
 		registerTrait (rusty) ;
 		registerTrait (fireResist) ;
+		registerTrait (angel) ;
 		
 		registerTrait (frostbite) ;
 		registerTrait (unburnt) ;
@@ -80,7 +81,6 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (invisible1) ;
 		registerTrait (invisible2) ;
 		registerTrait (invisible3) ;
-		registerTrait (angel) ;
 		registerTrait (expBoost) ;
 		registerTrait (commanding) ;
 		registerTrait (featherfall1) ;

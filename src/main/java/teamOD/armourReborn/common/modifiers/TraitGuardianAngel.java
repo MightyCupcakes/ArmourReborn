@@ -11,17 +11,16 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-public class ModifierGuardianAngel extends AbstractModifier {
+public class TraitGuardianAngel extends AbstractTrait {
 	
-	public static ImmutableList<Float> multipliers = ImmutableList.of(0F, 1F, 1.5F, 2F) ;
-	public static final String GUARDIAN_COOLDOWN = "guardian" + COOLDOWN ;
+	public static final String GUARDIAN_COOLDOWN = "guardian" + IModifier.COOLDOWN ;
 	
 	public static final Potion INSTANT = Potion.getPotionById(6) ;
 	public static final Potion DEFENSE = Potion.getPotionById(11) ;
 	public static final Potion REGEN = Potion.getPotionById(10) ;
 	
-	public ModifierGuardianAngel (ItemStack item) {
-		super ("guardian Angel", TextFormatting.YELLOW, item) ;
+	public TraitGuardianAngel () {
+		super ("guardian Angel", TextFormatting.YELLOW) ;
 	}
 	
 	@Override
@@ -48,8 +47,8 @@ public class ModifierGuardianAngel extends AbstractModifier {
 		
 		if (health <= 0.25 && world.getTotalWorldTime() >= time) {
 			PotionEffect healPlayer = new PotionEffect (INSTANT, 1, 0, false, false) ;
-			PotionEffect fortitude = new PotionEffect (DEFENSE, 100, 0, true, true) ;
-			PotionEffect regeneration = new PotionEffect (REGEN, 100, 0, true, true) ;
+			PotionEffect fortitude = new PotionEffect (DEFENSE, 200, 0, true, true) ;
+			PotionEffect regeneration = new PotionEffect (REGEN, 200, 0, true, true) ;
 			
 			PotionEffect[] effects = new PotionEffect[] { healPlayer, fortitude, regeneration } ;
 			
