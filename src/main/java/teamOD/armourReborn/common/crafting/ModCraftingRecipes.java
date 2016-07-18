@@ -70,9 +70,9 @@ public final class ModCraftingRecipes {
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0),
-				new ItemStack(Items.iron_leggings, 7, 0),
-				new ItemStack(Items.iron_chestplate, 8, 0),
-				new ItemStack(Items.iron_helmet, 5, 0)
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0)
 				) ;	
 		
 	}
