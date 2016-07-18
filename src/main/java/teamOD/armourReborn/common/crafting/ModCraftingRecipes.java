@@ -139,7 +139,36 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addArmourRecipes () {
+		//Paper Leather Armour
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.HEAD)),
+				"LLL", 
+				"I I", 
+				"   ", 
+				'I', "paper",
+				'L', "leather");
 		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.CHEST)),
+				"L L", 
+				"LIL", 
+				"III", 
+				'I', "paper",
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.LEGS)),
+				"LLL", 
+				"I I", 
+				"I I", 
+				'I', "paper",
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.FEET)),
+				"   ", 
+				"I I", 
+				"L L", 
+				'I', "paper",
+				'L', "leather");
+		
+		//Iron Leather Armour
 		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("ironleather").get(EntityEquipmentSlot.HEAD)),
 				"LLL", 
 				"I I", 
@@ -166,6 +195,64 @@ public final class ModCraftingRecipes {
 				"I I", 
 				"L L", 
 				'I', "ingotIron",
+				'L', "leather");
+		
+		//Aluminium Leather Armour
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.HEAD)),
+				"LLL", 
+				"I I", 
+				"   ", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.CHEST)),
+				"L L", 
+				"LIL", 
+				"III", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.LEGS)),
+				"LLL", 
+				"I I", 
+				"I I", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("aluminiumleather").get(EntityEquipmentSlot.FEET)),
+				"   ", 
+				"I I", 
+				"L L", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 3),
+				'L', "leather");
+		
+		//Steel Leather Armour
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.HEAD)),
+				"LLL", 
+				"I I", 
+				"   ", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.CHEST)),
+				"L L", 
+				"LIL", 
+				"III", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.LEGS)),
+				"LLL", 
+				"I I", 
+				"I I", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
+				'L', "leather");
+		
+		addOreDictRecipe(LibUtil.buildArmourCustomNBT(ModItems.getArmourByName("steelleather").get(EntityEquipmentSlot.FEET)),
+				"   ", 
+				"I I", 
+				"L L", 
+				'I', new ItemStack (ModItems.MATERIALS, 1, 0),
 				'L', "leather");
 	}
 	
