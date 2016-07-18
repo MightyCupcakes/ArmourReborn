@@ -18,8 +18,8 @@ public class AddDropsToMobs {
 		
 		float rand = LibUtil.getRandomFloat() ;
 		
-		if (rand <= 0.1F) {
-			ItemStack newDrop = new ItemStack (ModItems.ModDust, 1) ;
+		if (rand <= 0.2F) {
+			ItemStack newDrop = new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 0) ;
 			event.getDrops().add(new EntityItem (event.getEntity().worldObj, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, newDrop)) ;
 		}
 	}

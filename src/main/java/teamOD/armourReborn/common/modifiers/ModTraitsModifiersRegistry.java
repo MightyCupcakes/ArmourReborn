@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibUtil;
 
 public final class ModTraitsModifiersRegistry {
@@ -34,7 +35,7 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait fireResist = new TraitFireResistant() ;
 	
 	// Modifiers
-	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (Blocks.stone)) ;	// TODO
+	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;	// TODO
 	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (Blocks.cobblestone)) ;	// TODO
 	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
 	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.sand)) ; // TODO

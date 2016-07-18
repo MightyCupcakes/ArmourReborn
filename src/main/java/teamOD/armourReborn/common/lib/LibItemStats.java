@@ -34,6 +34,8 @@ public final class LibItemStats {
 	public static final int EXP_PER_REPAIR = 10 ;
 	public static final float EXP_MULTIPLIER_PLAYER_DMG = 2 ;
 	
+	public static final float REPAIR_PER_MB = 1 ;
+	
 	public static final int VALUE_INGOT = 144;
 	public static final int VALUE_NUGGET = VALUE_INGOT / 9;
 	public static final int VALUE_BLOCK = VALUE_INGOT * 9;

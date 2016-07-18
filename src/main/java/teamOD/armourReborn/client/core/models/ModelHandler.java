@@ -28,7 +28,7 @@ import static teamOD.armourReborn.common.item.ModItems.*;
 import java.util.Map;
 
 
-public class ModelHandler {
+public final class ModelHandler {
 	
 	public static void registerModels () {
 		
@@ -49,7 +49,6 @@ public class ModelHandler {
 		}
 		
 		registerItemModel (ModItems.ModBook) ;
-		registerItemModel (ModItems.ModDust) ;
 	}
 	
 	private static void registerBlocks () {
@@ -82,6 +81,13 @@ public class ModelHandler {
 		for (int i = 0; i < LibItemNames.ORE_MATERIALS_NAMES.length; i ++) {
 			String name = ForgeRegistries.BLOCKS.getKey(ModBlocks.oresMaterials).toString() ;
 			ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory_" + LibItemNames.ORE_MATERIALS_NAMES[i]));	
+		}
+		
+		item = ModItems.MOD_MODIFIERS_MATERIALS ;
+		
+		for (int i = 0; i < LibItemNames.MODIFIERS_MATERIALS_NAMES.length; i++) {
+			 String name = LibMisc.MOD_ID + ":" + LibItemNames.MODIFIERS_MATERIALS_NAMES[i];
+			 ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
 		}
 	}
 	

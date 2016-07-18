@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 public class ModifierGuardianAngel extends AbstractModifier {
 	
 	public static ImmutableList<Float> multipliers = ImmutableList.of(0F, 1F, 1.5F, 2F) ;
+	public static final String GUARDIAN_COOLDOWN = "guardian" + COOLDOWN ;
 	
 	public ModifierGuardianAngel (ItemStack item) {
 		super ("guardian Angel", TextFormatting.YELLOW, item) ;
@@ -32,12 +33,12 @@ public class ModifierGuardianAngel extends AbstractModifier {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (!itemStack.getTagCompound().hasKey(COOLDOWN)) {
-			itemStack.getTagCompound().setLong(COOLDOWN, world.getTotalWorldTime()) ;
+		if (!itemStack.getTagCompound().hasKey(GUARDIAN_COOLDOWN)) {
+			itemStack.getTagCompound().setLong(GUARDIAN_COOLDOWN, world.getTotalWorldTime()) ;
 		}
 		
 		float health = player.getHealth() / player.getMaxHealth() ;
-		long time = itemStack.getTagCompound().getLong(COOLDOWN) ;
+		long time = itemStack.getTagCompound().getLong(GUARDIAN_COOLDOWN) ;
 		
 		if (health <= 0.25 && world.getTotalWorldTime() >= time) {
 			PotionEffect healPlayer = new PotionEffect (Potion.getPotionById(6), 1, 0, false, false) ;
@@ -50,7 +51,7 @@ public class ModifierGuardianAngel extends AbstractModifier {
 				player.addPotionEffect(effect) ;
 			}
 			
-			itemStack.getTagCompound().setLong(COOLDOWN, world.getTotalWorldTime() + (45 * 20));
+			itemStack.getTagCompound().setLong(GUARDIAN_COOLDOWN, world.getTotalWorldTime() + (45 * 20));
 		}
 	}
 }

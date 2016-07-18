@@ -18,6 +18,7 @@ public class ModifierCommandingPresence extends AbstractModifier {
 	
 	@Override
 	public void emitAuraEffect (EntityPlayer player, ItemStack armour) {
+		
 		List<Entity> entities = LibUtil.getEntitiesAroundPlayer(player, 3) ;
 		entities.add(player) ;
 		
@@ -28,6 +29,8 @@ public class ModifierCommandingPresence extends AbstractModifier {
 			if ( !(entity instanceof EntityPlayer) ) continue ;
 			
 			EntityPlayer p = (EntityPlayer) entity ;
+			
+			if (p.getActivePotionEffect(Potion.getPotionById(3)) != null || p.getActivePotionEffect(Potion.getPotionById(5)) != null) continue ;
 			
 			p.addPotionEffect(haste) ;
 			p.addPotionEffect(strength) ;

@@ -49,6 +49,7 @@ public final class ModCraftingRecipes {
 		addCastingRecipes () ;
 		addAlloyRecipes () ;
 		addArmourRecipes () ;
+		addItemRecipes () ;
 	}
 	
 	private static void addCastingRecipes () {
@@ -256,6 +257,19 @@ public final class ModCraftingRecipes {
 				'L', "leather");
 	}
 	
+	/**
+	 * For misc items that do not fall in the above categories
+	 */
+	private static void addItemRecipes () {
+		addShapedRecipe (new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1),
+				"SSS",
+				"SAS",
+				"SSS",
+				'S', new ItemStack(Items.snowball, 1, 0),
+				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
+				) ;
+	}
+	
 	private static void addMeltingRecipe (String material, Fluid output) {
 
 		for (String suffix: preffixes) {
@@ -354,6 +368,11 @@ public final class ModCraftingRecipes {
 	
 	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
+	}
+	
+	private static void addShapedRecipe (ItemStack output, Object... recipe) {
+		registerModRecipe (output, recipe) ;
+		GameRegistry.addRecipe(output, recipe) ;
 	}
 	
 }

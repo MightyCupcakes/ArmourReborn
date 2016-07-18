@@ -29,7 +29,7 @@ public final class ModItems {
 	
 	public static Item MATERIALS ;
 	public static Item ModBook ;
-	public static Item ModDust ;
+	public static Item MOD_MODIFIERS_MATERIALS ;
 	
 	/**
 	 * Stores the armourset for each armourType/material combo
@@ -44,7 +44,7 @@ public final class ModItems {
 	public static void init () {
 		MATERIALS = new ItemMaterials () ;
 		ModBook = new ItemKnowledgeTome (LibItemNames.ModBook) ;
-		ModDust = new ItemAghaDust (LibItemNames.ModDust) ;
+		MOD_MODIFIERS_MATERIALS = new ItemModifiersMaterials (LibItemNames.MODIFIER_MATERIALS) ;
 		
 		registerOreDict () ;
 		

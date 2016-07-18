@@ -88,9 +88,8 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 		}
 	
 		
-		if (item == null) {
-			playerIn.openGui(ArmourReborn.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		} 
+
+		playerIn.openGui(ArmourReborn.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		
 		return true ;
 	}

@@ -258,7 +258,9 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		tag.setInteger(TAG_EXP, tag.getInteger(TAG_EXP) - expNeededToLevel ) ;
 		tag.setInteger(TAG_LEVEL, getLevel(armour) + 1 ) ;
 		
-		player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
+		if (player != null) {
+			player.addChatComponentMessage(new TextComponentString ("Your armour mastery level has increased! It is now " + info.getSkillString()));
+		}
 		
 		// For cheaters who can somehow level up their armour more than once in one update
 		levelingUpdate (armour, player) ;
@@ -486,6 +488,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		}
 
 		return multimap;
+	}
+	
+	public MaterialsMod getModMaterial () {
+		return materials ;
 	}
 	
 	@Override

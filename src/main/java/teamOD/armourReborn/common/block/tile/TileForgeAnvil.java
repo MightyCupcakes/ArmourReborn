@@ -47,6 +47,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private ItemStack[] outputInventory;
 	private FluidTank fluidInventory;
 	
+	private final int repairSlot ;
+	private boolean repairSlotContentsChanged ;
+	
 	/** Items to deduct from inputinventory when modifiers are added to armours */
 	private Multimap<Integer, ItemStack> modifiersCosts ;
 	
@@ -54,6 +57,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		inputInventory = new ItemStack[5];
 		outputInventory = new ItemStack[5];
 		fluidInventory = new FluidTank(4000);
+		
+		repairSlot = 4 ;
+		repairSlotContentsChanged = false ;
 		
 		modifiersCosts = HashMultimap.<Integer, ItemStack>create();
 	}
@@ -97,6 +103,16 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 						break ;
 				}
 			}
+		}
+		
+		// Repair slot stuff
+		ItemStack item = this.getStackInSlot(repairSlot) ;
+		
+		if (item != null && repairSlotContentsChanged) {
+			addArmoursAndModifiers (repairSlot, item) ;
+			calculateArmourRepairAmt() ;
+			
+			repairSlotContentsChanged = false ;
 		}
 	}
 	
@@ -164,6 +180,46 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 					
 					setInventorySlotContents(i, item, true) ;
 				}
+			}
+		}
+	}
+	
+	protected void calculateArmourRepairAmt () {
+		ItemStack stack = this.getStackInSlot(repairSlot) ;
+		
+		if (stack == null) return ;
+		
+		if (stack.getItem() instanceof ItemModArmour) {
+			ItemModArmour armour = (ItemModArmour) stack.getItem() ;
+			
+			ItemStack repairMaterial = armour.getModMaterial().getItemstack() ;
+			FluidStack fluid = ModCraftingRecipes.findRecipe(repairMaterial) ;
+			
+			if (fluidInventory.getFluid() != null && fluid.getFluid() == fluidInventory.getFluid().getFluid() ) {
+				
+				int repairCost ;
+				int repairAmt ;
+				FluidStack drainAmt ;
+				
+				float damage = stack.getMaxDamage() - LibUtil.getItemCurrentDurability(stack) ;
+				
+				if (stack.isItemDamaged()) {
+					repairCost = (int) Math.ceil(damage / (LibItemStats.VALUE_INGOT * LibItemStats.REPAIR_PER_MB)) * LibItemStats.VALUE_INGOT ;
+				} else {
+					repairCost = 0 ;
+				}
+				
+				drainAmt = this.drain(null, repairCost, false) ;
+				
+				if (drainAmt.amount == repairCost) {
+					repairAmt = repairCost ;
+				
+				} else {
+					repairAmt = drainAmt.amount ;
+				}
+				
+				this.drain(null, drainAmt, true) ;
+				LibUtil.repairArmour(null, stack, repairAmt) ;
 			}
 		}
 	}
@@ -289,7 +345,16 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				setInventorySlotContents(i, null, true);
 			}
 		} else {
-			setInventorySlotContents (index, null, true) ;
+			
+			if (index == repairSlot) {
+				payModifiersCosts(index) ;
+				
+				for (int i = inputInventory.length; i < inputInventory.length + outputInventory.length; i++){
+					setInventorySlotContents(i, null, true);
+				}
+			}
+			
+			setInventorySlotContents (index, null, true) ;				
 		}
 		
 		int temp = index - inputInventory.length;
@@ -335,6 +400,8 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, fluidInventory.getFluid()));
+			
+			if (index == repairSlot) repairSlotContentsChanged = true ;
 		}
 		
 		if (index < inputInventory.length) {

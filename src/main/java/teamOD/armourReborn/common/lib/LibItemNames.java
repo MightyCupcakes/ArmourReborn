@@ -8,7 +8,7 @@ public final class LibItemNames {
 	public static final String MATERIALS = "materials" ;
 	public static final String oreMATERIALS = "oreMaterials" ;
 	public static final String ModBook = "knowledgeTome" ;
-	public static final String ModDust = "AghanimsDust" ;
+	public static final String MODIFIER_MATERIALS = "modifierMaterials" ;
 	
 	public static final String[] MATERIALS_NAMES = {
 			"ingotSteel",
@@ -20,6 +20,11 @@ public final class LibItemNames {
 	public static final String[] ORE_MATERIALS_NAMES = {
 			"oreAluminium",
 			"oreCopper"
+	} ;
+	
+	public static final String[] MODIFIERS_MATERIALS_NAMES =  {
+			"aghanimsDust",
+			"infusedSnowball"
 	} ;
 	
 	public enum ArmourTypeNames {
