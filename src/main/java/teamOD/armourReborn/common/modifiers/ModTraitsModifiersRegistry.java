@@ -45,6 +45,8 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Blocks.bedrock)) ; // TODO
 	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Blocks.bedrock)) ; // TODO
 	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Blocks.bedrock)) ; // TODO
+	public static ITrait expBoost = new ModifierExpTome (new ItemStack(Blocks.gold_block)) ;
+	public static ITrait commanding = new ModifierCommandingPresence(new ItemStack (Blocks.lapis_block)) ; //TODO
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -75,6 +77,8 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (invisible2) ;
 		registerTrait (invisible3) ;
 		registerTrait (angel) ;
+		registerTrait (expBoost) ;
+		registerTrait (commanding) ;
 	}
 	
 	/**

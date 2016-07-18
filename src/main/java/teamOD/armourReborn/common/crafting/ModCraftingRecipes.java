@@ -69,6 +69,7 @@ public final class ModCraftingRecipes {
 		
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
+<<<<<<< HEAD
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
@@ -89,6 +90,12 @@ public final class ModCraftingRecipes {
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.LEGS), 7, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.FEET), 4, 0)
+=======
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0)
+>>>>>>> 721bbcf2a4e4dd5299a016320ce99075ea1f1ff5
 				) ;	
 		
 	}
