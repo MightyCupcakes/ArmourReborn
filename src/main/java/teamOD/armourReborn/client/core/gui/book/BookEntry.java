@@ -10,6 +10,7 @@ public class BookEntry {
 	
 	public final String name ;
 	public final List<BookPage> pages = Lists.newArrayList() ;
+	public String buttonName ;
 	
 	public BookEntry (String name, BookPage... entries) {
 		this.name = name ;

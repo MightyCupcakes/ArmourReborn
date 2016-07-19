@@ -22,6 +22,7 @@ public class GuiDocumentation extends GuiScreen {
 	public final int guiHeight = 180 ;
 	
 	public int left, top ;
+	public GuiButton nextButton, prevButton ;
 	
 	@Override
 	public final void initGui() {
@@ -37,7 +38,18 @@ public class GuiDocumentation extends GuiScreen {
 		buttonList.clear(); 
 		
 		if (isMainPage()) {
-			buttonList.add(new GuiTextButton(0, left + 15, top + 15, 110, 10, "Introduction", BookEntriesRegistry.forgeMultiblock)) ;
+			int startx = left + 15 ;
+			int starty = top + 15 ;
+			
+			int i = 0 ;
+			
+			Iterable<BookEntry> entries = BookEntriesRegistry.getRegisteredEntries() ;
+			
+			for (BookEntry entry : entries) {
+				buttonList.add(new GuiTextButton(i, startx, starty + (10*i), 110, 10, entry.buttonName, entry)) ;
+				
+				i++ ;
+			}
 		}
 	}
 	

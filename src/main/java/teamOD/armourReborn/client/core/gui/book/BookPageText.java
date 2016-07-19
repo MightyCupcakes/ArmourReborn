@@ -1,5 +1,9 @@
 package teamOD.armourReborn.client.core.gui.book;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
@@ -17,21 +21,67 @@ public class BookPageText extends BookPage {
 	
 	@Override
 	public void renderPage (GuiDocumentation parent) {
-		renderText (parent.getLeft() + 15, parent.getTop() + 15);
+		BookPageText.renderText (parent.getLeft() + 15, parent.getTop() + 15, title, this.unlocalizedName);
 	}
 	
-	public void renderText (int x, int y) {
+	public static void renderText (int x, int y, String title, String unlocalizedName) {
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		
-		String text = I18n.format(this.unlocalizedName) ;
+		String text ;
+		
+		if (title != null) {
+			text = I18n.format(title) ;
+			
+			font.drawStringWithShadow(text, x, y, 0) ;
+			
+			y += paragraphSize * 2 ;
+		}
+		
+		text = I18n.format(unlocalizedName) ;
 		String[] textEntries = text.split("<br>");
 		
+		List<List<String>> lines = Lists.newLinkedList() ;
+		
 		for (String string : textEntries) {
-			font.drawString(string, x, y, 0) ;
+			String[] words = string.split(" ") ;
 			
-			y += this.paragraphSize ;
+			List<String> thisLine = Lists.newLinkedList() ;
+			lines.add(thisLine) ;
+			int length = 0 ;
+			
+			for (String s: words) {
+				
+				if (length + s.length() + 1 <= 30) {
+					thisLine.add(s) ;
+					
+					length += s.length() + 1 ;
+				} else {
+					thisLine = Lists.newLinkedList() ;
+					lines.add(thisLine) ;
+					
+					thisLine.add(s) ;
+					
+					length = s.length() + 1;
+				}
+			}
+			
+			lines.add(Lists.<String>newLinkedList()) ;
+		}
+		
+		for (Iterable<String> line : lines) {
+			
+			int xi = x ;
+			
+			for (String s: line) {
+				font.drawString(s, xi, y, 0) ;
+				
+				xi += font.getStringWidth(s) + 4 ;
+			}
+			
+			y += paragraphSize ;
+			
 		}
 		
 		font.setUnicodeFlag(unicode);

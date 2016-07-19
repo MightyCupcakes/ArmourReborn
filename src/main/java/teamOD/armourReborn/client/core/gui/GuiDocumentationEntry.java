@@ -1,7 +1,9 @@
 package teamOD.armourReborn.client.core.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import teamOD.armourReborn.client.core.gui.book.BookEntry;
 import teamOD.armourReborn.client.core.gui.book.BookPage;
+import teamOD.armourReborn.client.core.gui.button.GuiPageButton;
 
 public class GuiDocumentationEntry extends GuiDocumentation {
 	
@@ -15,6 +17,16 @@ public class GuiDocumentationEntry extends GuiDocumentation {
 	}
 	
 	@Override
+	public void onInitGui () {
+		super.onInitGui();
+		
+		buttonList.add(nextButton = new GuiPageButton (322, getLeft() + 110, getTop() + 160, entry, true)) ;
+		buttonList.add(prevButton = new GuiPageButton (323, getLeft() + 15, getTop() + 160, entry, false)) ;
+		
+		updatePageButtons() ;
+	}
+	
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {			
 		BookPage thisPage = entry.pages.get(page) ;
 		
@@ -25,6 +37,28 @@ public class GuiDocumentationEntry extends GuiDocumentation {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		
 		thisPage.renderPage(this) ;
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		
+		switch (par1GuiButton.id) {
+		case 322:
+			page ++ ;
+			break ;
+			
+		case 323:
+			page -- ;
+			break ;
+		}
+		
+		updatePageButtons();
+	}
+	
+	public void updatePageButtons() {
+		prevButton.enabled = (page != 0);
+		
+		nextButton.enabled = (page + 1 < entry.pages.size());
 	}
 	
 	@Override
