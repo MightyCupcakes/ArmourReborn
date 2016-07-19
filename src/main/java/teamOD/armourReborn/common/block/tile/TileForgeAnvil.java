@@ -48,18 +48,22 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private FluidTank fluidInventory;
 	
 	private final int repairSlot ;
-	private boolean repairSlotContentsChanged ;
+	private boolean repairSlotContentsChanged, inputInventorySlotChanged ;
+	private ItemStack repairSlotOriginal ;
 	
 	/** Items to deduct from inputinventory when modifiers are added to armours */
 	private Multimap<Integer, ItemStack> modifiersCosts ;
 	
-	public TileForgeAnvil(){
+	public TileForgeAnvil() {
 		inputInventory = new ItemStack[5];
 		outputInventory = new ItemStack[5];
 		fluidInventory = new FluidTank(4000);
 		
 		repairSlot = 4 ;
-		repairSlotContentsChanged = false ;
+		repairSlotContentsChanged = true ;
+		inputInventorySlotChanged = true ;
+		
+		repairSlotOriginal = null ;
 		
 		modifiersCosts = HashMultimap.<Integer, ItemStack>create();
 	}
@@ -108,17 +112,27 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		// Repair slot stuff
 		ItemStack item = this.getStackInSlot(repairSlot) ;
 		
-		if (item != null && repairSlotContentsChanged) {
-			addArmoursAndModifiers (repairSlot, item) ;
-			calculateArmourRepairAmt() ;
+		if (item != null) {
+			
+			// Only do calculations when slots changed to save on resources
+			if ( inputInventorySlotChanged || repairSlotContentsChanged ) {
+				addArmoursAndModifiers (repairSlot, item) ;
+				calculateArmourRepairAmt() ;
+			}
 			
 			repairSlotContentsChanged = false ;
+			inputInventorySlotChanged = false ;
+		
 		}
 	}
 	
 	protected void addArmoursAndModifiers (int slot, ItemStack item) {
 		
 		if ( item != null && (item.getItem() instanceof ItemModArmour) ) {
+			
+			if (slot == repairSlot) {
+				item = (repairSlotOriginal == null) ? item : repairSlotOriginal.copy();
+			}
 		
 			ItemModArmour armour = (ItemModArmour) item.getItem() ;
 			modifiersCosts.removeAll(slot) ;
@@ -128,6 +142,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			}
 			
 			for (int i = 0; i < inputInventory.length; i ++) {
+				
+				if (i == repairSlot) continue ;
+				
+				// Get the current item in input inventory
 				ItemStack stack = getStackInSlot (i) ;
 				
 				if (stack != null) {
@@ -242,6 +260,15 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				inventory.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(itemTag), true);
 			}
 		}
+		
+		readReapirSlotNBT (cmp) ;
+	}
+	
+	private void readReapirSlotNBT (NBTTagCompound cmp) {
+		NBTTagList nbttaglist = cmp.getTagList("repairSlot" , 10) ;
+		NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(0) ;
+		
+		repairSlotOriginal = ItemStack.loadItemStackFromNBT(itemTag) ;
 	}
 	
 	@Override
@@ -264,6 +291,19 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		}
 		
 		cmp.setTag("Inventory", nbttaglist) ;
+		writeRepairSlotNBT (cmp) ;
+	}
+	
+	private void writeRepairSlotNBT (NBTTagCompound cmp) {
+		NBTTagList nbttaglist = new NBTTagList();
+		NBTTagCompound itemTag = new NBTTagCompound () ;
+		
+		if (repairSlotOriginal != null) {
+			repairSlotOriginal.writeToNBT(itemTag) ;
+		}
+		
+		nbttaglist.appendTag(itemTag) ;
+		cmp.setTag("repairSlot", nbttaglist) ;
 	}
 	
 	protected void updateOutputInventory () {
@@ -392,7 +432,18 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		if (worldObj != null && !ItemStack.areItemStacksEqual(stack, getStackInSlot(index)) && !worldObj.isRemote && worldObj instanceof WorldServer) {
 			PacketHandler.sendToPlayers((WorldServer) worldObj, getPos(), new ForgeAnvilInventoryUpdatePacket (getPos(), stack, index, fluidInventory.getFluid()));
 			
-			if (index == repairSlot) repairSlotContentsChanged = true ;
+			if (index == repairSlot && stack != null) {
+				if (getStackInSlot(index) == null) {
+					repairSlotOriginal = stack.copy() ;
+					LibUtil.LogToFML(1, "hihi");
+				}
+				
+				repairSlotContentsChanged = true ;
+			
+			} else if ( index < inputInventory.length ) {
+				inputInventorySlotChanged = true ;
+			}
+			
 		}
 		
 		if (index < inputInventory.length) {

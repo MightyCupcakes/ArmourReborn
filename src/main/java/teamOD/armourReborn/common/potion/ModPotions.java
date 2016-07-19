@@ -15,8 +15,13 @@ public final class ModPotions {
 	public static PotionMod stability ;
 	public static PotionMod fireImmune ;
 	
+	// Potions that does nothing. To prevent overlaps.
+	public static PotionMod guardianPotion ;
+	
 	public static void init () {
 		enderference = new PotionMod (new ResourceLocation(LibMisc.MOD_ID, "enderference"), true, false, 0x21985f) ;
+		
+		guardianPotion = new PotionMod (new ResourceLocation(LibMisc.MOD_ID, "guardianPotion"), false, false, 0x000000) ;
 		
 		stability = new PotionStability (new ResourceLocation(LibMisc.MOD_ID, "stability"), false, false, 0x000000) ;
 		registerModPotion (stability) ;

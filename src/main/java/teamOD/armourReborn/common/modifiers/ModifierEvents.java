@@ -49,7 +49,7 @@ public class ModifierEvents {
 				
 				if (player.getActivePotionEffect(potion).getDuration() <= 1) {
 					potion.removeEffect(player) ;
-					player.removeActivePotionEffect(potion) ;
+					player.removePotionEffect(potion) ;
 				} else {
 					potion.applyEffect(player) ;
 				}

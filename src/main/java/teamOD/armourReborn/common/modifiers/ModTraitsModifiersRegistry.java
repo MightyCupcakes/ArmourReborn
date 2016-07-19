@@ -44,13 +44,14 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
 	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
 	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Items.skull)) ; // TODO
-	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.skull)) ; // TODO
-	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.skull)) ; // TODO
+	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.skull, 8)) ; // TODO
+	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.skull, 16)) ; // TODO
 	public static ITrait expBoost = new ModifierExpTome (new ItemStack(Blocks.gold_block)) ;
 	public static ITrait commanding = new ModifierCommandingPresence(new ItemStack (Blocks.lapis_block)) ; //TODO
 	public static ITrait featherfall1= new ModifierShockAbsorber(1, new ItemStack(Items.feather, 16)) ;
 	public static ITrait featherfall2 = new ModifierShockAbsorber(2, new ItemStack(Items.feather, 32)) ;
 	public static ITrait featherfall3 = new ModifierShockAbsorber(3, new ItemStack(Items.feather, 64)) ;
+	public static ITrait underTheSea = new ModifierDepthStrider(new ItemStack(Blocks.prismarine)) ;
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -86,6 +87,7 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (featherfall1) ;
 		registerTrait (featherfall2) ;
 		registerTrait (featherfall3) ;
+		registerTrait (underTheSea) ;
 	}
 	
 	/**

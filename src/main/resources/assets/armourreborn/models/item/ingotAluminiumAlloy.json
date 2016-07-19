@@ -1,5 +1,5 @@
 {
-    "parent": "armourreborn:item/standard_item",
+    "parent": "minecraft:item/generated",
     "textures": 
     {
         "layer0": "armourreborn:items/IngotAluAlloy"

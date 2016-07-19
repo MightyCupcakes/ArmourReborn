@@ -10,6 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import teamOD.armourReborn.common.potion.ModPotions;
 
 public class TraitGuardianAngel extends AbstractTrait {
 	
@@ -18,20 +19,10 @@ public class TraitGuardianAngel extends AbstractTrait {
 	public static final Potion INSTANT = Potion.getPotionById(6) ;
 	public static final Potion DEFENSE = Potion.getPotionById(11) ;
 	public static final Potion REGEN = Potion.getPotionById(10) ;
+	public static final Potion GUARDIAN = ModPotions.guardianPotion ;
 	
 	public TraitGuardianAngel () {
 		super ("guardian Angel", TextFormatting.YELLOW) ;
-	}
-	
-	@Override
-	public boolean canApplyToEquipment (ItemStack armour) {
-		if (armour.getItem() instanceof ItemArmor) {
-			ItemArmor armourPiece = (ItemArmor) armour.getItem() ;
-			
-			return armourPiece.armorType == EntityEquipmentSlot.CHEST ;
-		}
-		
-		return false ;
 	}
 	
 	@Override
@@ -43,14 +34,15 @@ public class TraitGuardianAngel extends AbstractTrait {
 		float health = player.getHealth() / player.getMaxHealth() ;
 		long time = itemStack.getTagCompound().getLong(GUARDIAN_COOLDOWN) ;
 		
-		if (player.getActivePotionEffect(DEFENSE) != null) return ;
+		if (player.getActivePotionEffect(GUARDIAN) != null) return ;
 		
 		if (health <= 0.25 && world.getTotalWorldTime() >= time) {
 			PotionEffect healPlayer = new PotionEffect (INSTANT, 1, 0, false, false) ;
 			PotionEffect fortitude = new PotionEffect (DEFENSE, 200, 0, true, true) ;
 			PotionEffect regeneration = new PotionEffect (REGEN, 200, 0, true, true) ;
+			PotionEffect guardian = new PotionEffect (GUARDIAN, 200, 0, false, false) ;
 			
-			PotionEffect[] effects = new PotionEffect[] { healPlayer, fortitude, regeneration } ;
+			PotionEffect[] effects = new PotionEffect[] { healPlayer, fortitude, regeneration, guardian } ;
 			
 			for (PotionEffect effect : effects) {
 				player.addPotionEffect(effect) ;
