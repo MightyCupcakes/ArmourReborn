@@ -4,16 +4,16 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.TextFormatting;
 import teamOD.armourReborn.common.lib.LibUtil;
 
-public class ModifierCommandingPresence extends AbstractModifier {
+public class TraitCommandingPresence extends AbstractTrait {
 	
-	public ModifierCommandingPresence (ItemStack item) {
-		super ("commander's Aura", TextFormatting.GREEN, item) ;
+	public TraitCommandingPresence () {
+		super ("commander's Aura", TextFormatting.GREEN) ;
 	}
 	
 	@Override
@@ -22,15 +22,15 @@ public class ModifierCommandingPresence extends AbstractModifier {
 		List<Entity> entities = LibUtil.getEntitiesAroundPlayer(player, 3) ;
 		entities.add(player) ;
 		
-		PotionEffect haste = new PotionEffect (Potion.getPotionById(3), 100, 0, false, false) ;
-		PotionEffect strength = new PotionEffect (Potion.getPotionById(5), 100, 0, false, false) ;
+		PotionEffect haste = new PotionEffect (MobEffects.digSpeed, 100, 0, false, false) ;
+		PotionEffect strength = new PotionEffect (MobEffects.damageBoost, 100, 0, false, false) ;
 		
 		for (Entity entity : entities) {
 			if ( !(entity instanceof EntityPlayer) ) continue ;
 			
 			EntityPlayer p = (EntityPlayer) entity ;
 			
-			if (p.getActivePotionEffect(Potion.getPotionById(3)) != null || p.getActivePotionEffect(Potion.getPotionById(5)) != null) continue ;
+			if (p.getActivePotionEffect(MobEffects.digSpeed) != null || p.getActivePotionEffect(MobEffects.damageBoost) != null) continue ;
 			
 			p.addPotionEffect(haste) ;
 			p.addPotionEffect(strength) ;

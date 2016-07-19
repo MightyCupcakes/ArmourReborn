@@ -6,10 +6,10 @@ import net.minecraft.enchantment.EnchantmentFrostWalker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
@@ -35,7 +35,7 @@ public class ModifierFrostbite extends AbstractModifier {
 				if (entity instanceof EntityMob) {
 					
 					EntityMob mob = (EntityMob) entity ;
-					mob.addPotionEffect(new PotionEffect (Potion.getPotionById(2), 8 * 20, 1)) ;
+					mob.addPotionEffect(new PotionEffect (MobEffects.moveSlowdown, 8 * 20, 1)) ;
 				}
 			}
 		}

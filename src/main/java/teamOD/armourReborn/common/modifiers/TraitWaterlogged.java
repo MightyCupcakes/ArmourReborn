@@ -1,6 +1,7 @@
 package teamOD.armourReborn.common.modifiers;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -25,7 +26,7 @@ public class TraitWaterlogged extends AbstractTrait {
 			
 			if (player.getActivePotionEffect(weakness) != null && player.getActivePotionEffect(weakness).getDuration() > 1) return ;
 			
-			player.addPotionEffect(new PotionEffect (Potion.getPotionById(2), 5 * 20, 1, true, true));
+			player.addPotionEffect(new PotionEffect (MobEffects.moveSlowdown, 5 * 20, 1, true, true));
 		}
 	}
 }

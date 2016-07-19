@@ -1,10 +1,7 @@
 package teamOD.armourReborn.common.modifiers;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -16,9 +13,9 @@ public class TraitGuardianAngel extends AbstractTrait {
 	
 	public static final String GUARDIAN_COOLDOWN = "guardian" + IModifier.COOLDOWN ;
 	
-	public static final Potion INSTANT = Potion.getPotionById(6) ;
-	public static final Potion DEFENSE = Potion.getPotionById(11) ;
-	public static final Potion REGEN = Potion.getPotionById(10) ;
+	public static final Potion INSTANT = MobEffects.heal;
+	public static final Potion DEFENSE = MobEffects.resistance ;
+	public static final Potion REGEN = MobEffects.regeneration;
 	public static final Potion GUARDIAN = ModPotions.guardianPotion ;
 	
 	public TraitGuardianAngel () {
