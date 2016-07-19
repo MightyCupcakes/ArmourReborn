@@ -67,11 +67,6 @@ public abstract class AbstractTrait implements ITrait {
 	}
 
 	@Override
-	public void onStatusEffect(ItemStack armour, EntityLivingBase target, PotionType status) {
-		// NO OP		
-	}
-
-	@Override
 	public boolean negateDamage(ItemStack armour, EntityLivingBase target) {
 		return false;
 	}

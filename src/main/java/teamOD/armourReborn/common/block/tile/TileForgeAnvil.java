@@ -435,7 +435,6 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			if (index == repairSlot && stack != null) {
 				if (getStackInSlot(index) == null) {
 					repairSlotOriginal = stack.copy() ;
-					LibUtil.LogToFML(1, "hihi");
 				}
 				
 				repairSlotContentsChanged = true ;

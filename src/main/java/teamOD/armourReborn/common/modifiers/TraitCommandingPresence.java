@@ -12,8 +12,8 @@ import teamOD.armourReborn.common.lib.LibUtil;
 
 public class TraitCommandingPresence extends AbstractTrait {
 	
-	public TraitCommandingPresence () {
-		super ("commander's Aura", TextFormatting.GREEN) ;
+	public TraitCommandingPresence (int level) {
+		super ("commander's Aura", level, TextFormatting.GREEN) ;
 	}
 	
 	@Override
@@ -22,8 +22,8 @@ public class TraitCommandingPresence extends AbstractTrait {
 		List<Entity> entities = LibUtil.getEntitiesAroundPlayer(player, 3) ;
 		entities.add(player) ;
 		
-		PotionEffect haste = new PotionEffect (MobEffects.digSpeed, 100, 0, false, false) ;
-		PotionEffect strength = new PotionEffect (MobEffects.damageBoost, 100, 0, false, false) ;
+		PotionEffect haste = new PotionEffect (MobEffects.digSpeed, 100, this.getLevel() - 1, false, false) ;
+		PotionEffect strength = new PotionEffect (MobEffects.damageBoost, 100, this.getLevel() - 1, false, false) ;
 		
 		for (Entity entity : entities) {
 			if ( !(entity instanceof EntityPlayer) ) continue ;

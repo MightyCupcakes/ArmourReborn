@@ -34,7 +34,8 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait rusty = new TraitRust() ;
 	public static ITrait fireResist = new TraitFireResistant() ;
 	public static ITrait angel = new TraitGuardianAngel() ;
-	public static ITrait commanding = new TraitCommandingPresence() ;
+	public static ITrait commanding1 = new TraitCommandingPresence(1) ;
+	public static ITrait commanding2 = new TraitCommandingPresence(2) ;
 	
 	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;
@@ -71,7 +72,8 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (rusty) ;
 		registerTrait (fireResist) ;
 		registerTrait (angel) ;
-		registerTrait (commanding) ;
+		registerTrait (commanding1) ;
+		registerTrait (commanding2) ;
 		
 		registerTrait (frostbite) ;
 		registerTrait (unburnt) ;

@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -15,8 +16,9 @@ import net.minecraft.world.World;
 
 public class TraitNullField extends AbstractTrait{
 	
-	public static ImmutableList<Integer> potionIDs = ImmutableList.of(19, 20) ;
-
+	public static ImmutableList<Potion> potionIDs = ImmutableList.of(MobEffects.poison, MobEffects.blindness, MobEffects.confusion, MobEffects.weakness) ;
+	public static final String NULLFIELD_COOLDOWN = "nullfield" + IModifier.COOLDOWN ;
+	
 	public TraitNullField() {
 		super("null Field", TextFormatting.GRAY);
 	}
@@ -24,17 +26,30 @@ public class TraitNullField extends AbstractTrait{
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack armour) {
 		List<PotionEffect> toRemove = Lists.newLinkedList() ;
+		boolean hasRemoved = false ;
 		
 		if (player.worldObj.isRemote) return ;
 		
-		for (PotionEffect potion: player.getActivePotionEffects()) {
-			if ( potionIDs.contains(Potion.getIdFromPotion(potion.getPotion())) ) {
-				toRemove.add(potion) ;
-			}
+		if (!armour.getTagCompound().hasKey(NULLFIELD_COOLDOWN)) {
+			armour.getTagCompound().setLong(NULLFIELD_COOLDOWN, world.getTotalWorldTime()) ;
 		}
 		
-		for (PotionEffect potion: toRemove) {
-			player.removePotionEffect(potion.getPotion());
+		long time = armour.getTagCompound().getLong(NULLFIELD_COOLDOWN) ;
+		
+		if (world.getTotalWorldTime() >= time) {
+		
+			for (PotionEffect potion: player.getActivePotionEffects()) {
+				if ( potionIDs.contains(potion.getPotion()) ) {
+					toRemove.add(potion) ;
+				}
+			}
+			
+			for (PotionEffect potion: toRemove) {
+				player.removePotionEffect(potion.getPotion());
+				hasRemoved = true ;
+			}
+			
+			armour.getTagCompound().setLong(NULLFIELD_COOLDOWN, world.getTotalWorldTime() + (5 * 20));
 		}
 	}
 }

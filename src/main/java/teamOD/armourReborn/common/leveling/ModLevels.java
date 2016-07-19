@@ -20,9 +20,9 @@ public final class ModLevels {
 		levels.add(new LevelInfo (5, "Well Accustomed", 2999, TextFormatting.BLUE, 1, ModTraitsModifiersRegistry.surge1)) ;
 		levels.add(new LevelInfo (6, "Adept", 3343, TextFormatting.GREEN, 0, 1, 0)) ;
 		levels.add(new LevelInfo (7, "Expert", 3719, TextFormatting.YELLOW, 0, 0, 0.25F)) ;
-		levels.add(new LevelInfo (8, "Master", 4129, TextFormatting.GOLD, 0, 0, 0.25F)) ;
+		levels.add(new LevelInfo (8, "Master", 4129, TextFormatting.GOLD, 0, 0, 0.25F, ModTraitsModifiersRegistry.commanding1)) ;
 		levels.add(new LevelInfo (9, "Grandmaster", 4567, TextFormatting.RED, 0, 0, 0.5F, ModTraitsModifiersRegistry.surge2)) ;
-		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE, 1, 1, 1, ModTraitsModifiersRegistry.angel)) ;
+		levels.add(new LevelInfo (10, "Legendary", 0, TextFormatting.DARK_PURPLE, 1, 1, 1, ModTraitsModifiersRegistry.angel, ModTraitsModifiersRegistry.commanding2)) ;
 	}
 	
 	public static LevelInfo getLevelInfo (int level) {

@@ -28,7 +28,7 @@ public final class LibItemStats {
 			ArmourTypeNames.LEATHER, new double[] {0.7,0.8}
 			) ;
 	
-	public static final int DEFAULT_MODIFIER_SLOTS = 3 ;
+	public static final int DEFAULT_MODIFIER_SLOTS = 2 ;
 	
 	public static final int EXP_PER_DMG = 5 ;
 	public static final int EXP_PER_REPAIR = 10 ;

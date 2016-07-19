@@ -84,16 +84,6 @@ public interface ITrait {
 	public boolean negateDamage (ItemStack armour, EntityLivingBase target) ;
 	
 	/**
-	 * Called before applying status effect to the target.
-	 * 
-	 * @param armour	The armourset the target is wearing
-	 * @param target	The target player the status effect is applied upon
-	 * @param status	The status effect to be applied to the target
-	 */
-	@Deprecated
-	public void onStatusEffect (ItemStack armour, EntityLivingBase target, PotionType status) ;
-	
-	/**
 	 * Called when the armour is repaired. For modifiers that does something when the armour is about to be repaired.
 	 * 
 	 * @param armour	The armour to be repaired
