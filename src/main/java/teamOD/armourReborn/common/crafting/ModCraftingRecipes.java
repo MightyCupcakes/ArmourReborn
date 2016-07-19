@@ -1,14 +1,19 @@
 package teamOD.armourReborn.common.crafting;
 
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -19,18 +24,8 @@ import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
-import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
-import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public final class ModCraftingRecipes {
 	
@@ -39,7 +34,7 @@ public final class ModCraftingRecipes {
 	private static Map <String, FluidStack> meltingRecipes = Maps.newHashMap() ;
 	private static Map <Integer, String> oreIDs = Maps.newHashMap() ;
 	private static Map <FluidMod, ItemStack[]> castingRecipes = Maps.newHashMap() ;
-	private static Map <Item, List<Object>> ModRecipes = Maps.newHashMap() ;
+	private static Map <Item, IRecipe> ModRecipes = Maps.newHashMap() ;
 	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
 	
@@ -347,31 +342,24 @@ public final class ModCraftingRecipes {
 		return null ;
 	}
 	
-	private static void registerModRecipe (ItemStack output, Object... recipe) {
-		List<Object> list = Lists.newLinkedList() ;
-		
-		list.add(output) ;
-
-		for (Object ingredient : recipe) {
-			list.add(ingredient) ;
-		}
-		
-		ModRecipes.put(output.getItem(), list) ;
+	private static void registerLatestAddedModRecipe (ItemStack output) {
+		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
+		ModRecipes.put(output.getItem(), list.get(list.size() - 1)) ;
 	}
 	
-	public static List<Object> getModRecipe (Item item) {
-		List<Object> list = Lists.newLinkedList() ;
+	public static IRecipe getModRecipe (Item item) {
 		
-		if (ModRecipes.containsKey(item)) {
-			list.addAll(ModRecipes.get(item)) ;
-		}
+		return ModRecipes.get(item) ;
+	}
+	
+	public static IRecipe getModRecipe (Block block) {
 		
-		return list ;
+		return getModRecipe (Item.getItemFromBlock(block)) ;
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
-		registerModRecipe (output, recipe) ;
 		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(output, recipe));
+		registerLatestAddedModRecipe (output) ;
 	}
 	
 	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
@@ -379,8 +367,8 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addShapedRecipe (ItemStack output, Object... recipe) {
-		registerModRecipe (output, recipe) ;
 		GameRegistry.addRecipe(output, recipe) ;
+		registerLatestAddedModRecipe (output) ;
 	}
 	
 }

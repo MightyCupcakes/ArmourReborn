@@ -1,14 +1,13 @@
 package teamOD.armourReborn.client.core.gui;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import teamOD.armourReborn.client.core.gui.book.BookEntriesRegistry;
+import teamOD.armourReborn.client.core.gui.book.BookEntry;
+import teamOD.armourReborn.client.core.gui.button.GuiModButton;
+import teamOD.armourReborn.client.core.gui.button.GuiTextButton;
 import teamOD.armourReborn.common.lib.LibMisc;
 
 public class GuiDocumentation extends GuiScreen {
@@ -16,6 +15,8 @@ public class GuiDocumentation extends GuiScreen {
 	public static GuiDocumentation currentBook = new GuiDocumentation () ;
 	
 	public static final ResourceLocation texture = new ResourceLocation (LibMisc.MOD_ID, "textures/gui/guiBook.png") ;
+	
+	public ResourceLocation customTexture ;
 	
 	public final int guiWidth = 146 ;
 	public final int guiHeight = 180 ;
@@ -28,20 +29,54 @@ public class GuiDocumentation extends GuiScreen {
 		
 		left = this.width / 2 - guiWidth / 2 ;
 		top = this.height / 2 - guiHeight / 2 ;
+		
+		onInitGui();
+	}
+	
+	public void onInitGui () {
+		buttonList.clear(); 
+		
+		if (isMainPage()) {
+			buttonList.add(new GuiTextButton(0, left + 15, top + 15, 110, 10, "Introduction", BookEntriesRegistry.forgeMultiblock)) ;
+		}
 	}
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		GlStateManager.color(1F, 1F, 1F, 1F) ;
 		
-		mc.renderEngine.bindTexture(texture) ;
+		ResourceLocation bookTexture = (customTexture == null) ? texture : customTexture ;
+		
+		mc.renderEngine.bindTexture(bookTexture) ;
 		this.drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight) ;
-		mc.fontRendererObj.drawString("hi", left + 10, top + 10, 0x666666) ;
+		
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton par1GuiButton) {
+		if (par1GuiButton instanceof GuiModButton) {
+			BookEntry entry = ((GuiModButton) par1GuiButton).getEntry() ;
+			
+			mc.displayGuiScreen( new GuiDocumentationEntry (this, entry) );
+		}
 	}
 	
 	@Override
 	public boolean doesGuiPauseGame () {
 		return false ;
+	}
+	
+	public boolean isMainPage () {
+		return true ;
+	}
+	
+	public int getLeft () {
+		return left ;
+	}
+	
+	public int getTop () {
+		return top ;
 	}
 
 }

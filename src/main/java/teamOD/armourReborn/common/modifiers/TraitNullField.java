@@ -49,7 +49,9 @@ public class TraitNullField extends AbstractTrait{
 				hasRemoved = true ;
 			}
 			
-			armour.getTagCompound().setLong(NULLFIELD_COOLDOWN, world.getTotalWorldTime() + (5 * 20));
+			if (hasRemoved) {
+				armour.getTagCompound().setLong(NULLFIELD_COOLDOWN, world.getTotalWorldTime() + (5 * 20));
+			}
 		}
 	}
 }

@@ -17,3 +17,7 @@ tile.fluid.armourreborn.molten_steel.name=Molten Steel
 tile.fluid.armourreborn.molten_aluminium.name=Molten Aluminium
 tile.fluid.armourreborn.molten_copper.name=Molten Copper
 
+# MOD DOCUMENTATION
+
+# FORGE MULTIBLOCK
+armourreborn.page.multiblock0=This multiblock is so cool and totally balanced.<br>It is also an ore doubler. OSfrog

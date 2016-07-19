@@ -3,23 +3,24 @@ package teamOD.armourReborn.client.core.gui.book;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import teamOD.armourReborn.client.core.gui.GuiDocumentation;
 
 public class BookPage {
 	
 	public String unlocalizedName;
-	public GuiScreen parent ;
+	public ResourceLocation texture ;
 	
-	public BookPage (GuiScreen parent, String unlocalizedName) {
-		this.parent = parent ;
+	public BookPage (String unlocalizedName) {
 		this.unlocalizedName = unlocalizedName;
+		this.texture = null ;
 	}
 	
-	public void renderPage () {
+	public void renderPage (GuiDocumentation parent) {
 		
 	}
 	
@@ -43,14 +44,18 @@ public class BookPage {
 		GlStateManager.disableLighting();
 	}
 	
-	public void renderItemOnGrid (int x, int y, ItemStack stack) {
+	public void renderItemOnGrid (GuiDocumentation parent, int x, int y, ItemStack stack) {
 		if (stack == null || stack.getItem() == null) {
 			return ;
 		}
 		
-		int xPos = 0 ;
-		int yPos = 0 ;
+		int xPos = parent.getLeft() + x * 22 + 17 + (y == 0  && x == 3 ? 10 : 0);
+		int yPos = parent.getTop() + y * 22 + 56 - (y == 0 ? 7 : 0);
 		
 		this.renderItem(xPos, yPos, stack) ;
+	}
+	
+	public ResourceLocation getTexture () {
+		return texture ;
 	}
 }
