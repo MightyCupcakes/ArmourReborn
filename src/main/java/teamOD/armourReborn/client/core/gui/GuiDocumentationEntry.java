@@ -55,6 +55,14 @@ public class GuiDocumentationEntry extends GuiDocumentation {
 		updatePageButtons();
 	}
 	
+	@Override
+	public void updateScreen() {
+		super.updateScreen();
+		
+		BookPage thisPage = entry.pages.get(page) ;
+		thisPage.updateScreen(this);
+	}
+	
 	public void updatePageButtons() {
 		prevButton.enabled = (page != 0);
 		

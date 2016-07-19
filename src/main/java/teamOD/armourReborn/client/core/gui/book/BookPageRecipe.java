@@ -2,6 +2,8 @@ package teamOD.armourReborn.client.core.gui.book;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -18,11 +20,15 @@ import teamOD.armourReborn.common.lib.LibMisc;
 
 public class BookPageRecipe extends BookPage {
 	
-	public final Item recipes ;
+	public final List<Item> recipes = Lists.newLinkedList() ;
+	private int recipeAt = 0 ;
 
-	public BookPageRecipe(String unlocalizedName, Item recipes) {
+	public BookPageRecipe(String unlocalizedName, Item... recipesToDisplay) {
 		super(unlocalizedName) ;
-		this.recipes = recipes ;
+		
+		for (Item item: recipesToDisplay) {
+			this.recipes.add(item) ;
+		}
 		this.texture = new ResourceLocation (LibMisc.MOD_ID, "textures/gui/guiBookCrafting.png") ;
 	}
 	
@@ -34,7 +40,15 @@ public class BookPageRecipe extends BookPage {
 	public void renderPage (GuiDocumentation parent) {
 		TextureManager renderer = Minecraft.getMinecraft().renderEngine ;
 		
-		IRecipe recipe = ModCraftingRecipes.getModRecipe(recipes) ;
+		IRecipe recipe = null;
+		
+		if (recipes.size() == 0) return ;
+		
+		if (recipes.size() == 1) {
+			recipe = ModCraftingRecipes.getModRecipe(recipes.get(0)) ;
+		} else {
+			recipe = ModCraftingRecipes.getModRecipe(recipes.get(recipeAt)) ;
+		}
 		
 		if(recipe instanceof ShapedRecipes) {
 			ShapedRecipes shaped = (ShapedRecipes)recipe; 
@@ -64,5 +78,19 @@ public class BookPageRecipe extends BookPage {
 		}
 		
 		renderItem(parent.getLeft() + 62, parent.getTop() + 42, recipe.getRecipeOutput());
+		
+		BookPageText.renderText(parent.getLeft() + 15, parent.getTop() + 15, null, unlocalizedName);
+	}
+	
+	@Override
+	public void updateScreen(GuiDocumentation parent) {
+		
+		if(parent.ticksElapsed == 0) {
+			recipeAt++;
+
+			if(recipeAt == recipes.size()) {
+				recipeAt = 0;
+			}
+		}
 	}
 }

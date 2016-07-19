@@ -5,8 +5,10 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import teamOD.armourReborn.common.block.ModBlocks;
+import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
 
 public final class BookEntriesRegistry {
@@ -15,10 +17,23 @@ public final class BookEntriesRegistry {
 	
 	public static BookEntry introduction ;
 	public static BookEntry forgeMultiblock ;
+	public static BookEntry armourTypes ;
+	public static BookEntry materialTypes ;
+	public static BookEntry traits ;
+	public static BookEntry modifiers ;
+	public static BookEntry levels ;
 	
 	public static void init () {
+		
 		introduction = new BookEntry ("introduction", new BookPageText("0"),
-				new BookPageText("1")) ;
+				new BookPageText("1"),
+				new BookPageText("2"),
+				new BookPageRecipe ("3", ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.FEET),
+						ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.LEGS),
+						ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.CHEST),
+						ModItems.getArmourByName("paperleather").get(EntityEquipmentSlot.HEAD)
+						)
+				) ;
 		registerBookEntry(introduction).buttonName = "Introduction" ;
 		
 		forgeMultiblock = new BookEntry ("multiblock", new BookPageText ("0"),
@@ -26,9 +41,30 @@ public final class BookEntriesRegistry {
 				new BookPagePicture("2", new ResourceLocation (LibMisc.MOD_ID, "textures/gui/entries/forgeBack.png") ),
 				new BookPageRecipe ("3", ModBlocks.forgeMaster ),
 				new BookPageRecipe ("4", ModBlocks.forgeHeater ),
-				new BookPageRecipe ("5", ModBlocks.forgeBlocks )
+				new BookPageRecipe ("5", ModBlocks.forgeBlocks ),
+				new BookPageRecipe ("6", ModBlocks.forgeAnvil )
 				) ;
 		registerBookEntry(forgeMultiblock).buttonName = "The Furnance Multiblock" ;
+		
+		armourTypes = new BookEntry ("armourTypes", new BookPageText ("0") 
+				) ;
+		registerBookEntry(armourTypes).buttonName = "The Armour Sets" ;
+		
+		materialTypes = new BookEntry ("materialTypes", new BookPageText ("0")
+				) ;
+		registerBookEntry(materialTypes).buttonName = "The Armour Materials" ;
+		
+		traits = new BookEntry ("traits", new BookPageText ("0")
+				) ;
+		registerBookEntry(traits).buttonName = "Armour Traits" ;
+		
+		modifiers = new BookEntry ("modifiers", new BookPageText ("0")
+				) ;
+		registerBookEntry(modifiers).buttonName = "Armour Modifiers" ;
+		
+		levels = new BookEntry ("levels", new BookPageText ("0")
+				) ;
+		registerBookEntry(levels).buttonName = "Armour Levels" ;
 	}
 	
 	private static BookEntry registerBookEntry (BookEntry book) {

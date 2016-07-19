@@ -58,4 +58,8 @@ public class BookPage {
 	public ResourceLocation getTexture () {
 		return texture ;
 	}
+	
+	public void updateScreen(GuiDocumentation parent) {
+		// NO OP
+	}
 }

@@ -24,6 +24,8 @@ public class GuiDocumentation extends GuiScreen {
 	public int left, top ;
 	public GuiButton nextButton, prevButton ;
 	
+	public int ticksElapsed = 0 ;
+	
 	@Override
 	public final void initGui() {
 		super.initGui() ;
@@ -72,6 +74,14 @@ public class GuiDocumentation extends GuiScreen {
 			
 			mc.displayGuiScreen( new GuiDocumentationEntry (this, entry) );
 		}
+	}
+	
+	@Override
+	public void updateScreen() {
+		if(GuiScreen.isShiftKeyDown())
+			return;
+
+		ticksElapsed = (++ticksElapsed == 20) ? 0 : ticksElapsed;
 	}
 	
 	@Override
