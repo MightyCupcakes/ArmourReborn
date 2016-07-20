@@ -36,7 +36,7 @@ public class GuiDocumentationEntry extends GuiDocumentation {
 		
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		
-		thisPage.renderPage(this) ;
+		thisPage.renderPage(this, mouseX, mouseY) ;
 	}
 	
 	@Override

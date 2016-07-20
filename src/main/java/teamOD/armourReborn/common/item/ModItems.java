@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -50,6 +51,8 @@ public final class ModItems {
 		
 		// add minecraft:Coal to oredict
 		OreDictionary.registerOre("ingotCoal", Items.coal);
+		// add blockSand to oredict
+		OreDictionary.registerOre("blockSand", Blocks.sand);
 	}
 	
 	public static void initArmours () {

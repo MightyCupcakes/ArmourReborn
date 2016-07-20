@@ -32,6 +32,10 @@
 
         "molten_aluminiumalloy": [{
             "custom": {"fluid": "molten_aluminiumalloy"}
+        }],
+
+        "molten_silicate": [{
+            "custom": {"fluid": "molten_silicate"}
         }]
     }
 }

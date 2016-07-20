@@ -20,7 +20,7 @@ public class BookPageText extends BookPage {
 	}
 	
 	@Override
-	public void renderPage (GuiDocumentation parent) {
+	public void renderPage (GuiDocumentation parent, int mx, int my) {
 		BookPageText.renderText (parent.getLeft() + 15, parent.getTop() + 15, title, this.unlocalizedName);
 	}
 	

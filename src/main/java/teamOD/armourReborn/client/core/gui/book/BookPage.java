@@ -20,7 +20,7 @@ public class BookPage {
 		this.texture = null ;
 	}
 	
-	public void renderPage (GuiDocumentation parent) {
+	public void renderPage (GuiDocumentation parent, int mx, int my) {
 		
 	}
 	

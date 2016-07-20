@@ -28,7 +28,7 @@ public class BookPagePicture extends BookPage {
 	}
 	
 	@Override
-	public void renderPage (GuiDocumentation parent) {
+	public void renderPage (GuiDocumentation parent, int mx, int my) {
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(resource);
 

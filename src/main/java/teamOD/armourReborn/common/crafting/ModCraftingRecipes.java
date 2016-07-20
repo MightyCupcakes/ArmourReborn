@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -64,6 +65,10 @@ public final class ModCraftingRecipes {
 				new ItemStack (ModItems.MATERIALS, 1, 2)
 				) ;
 		
+		registerCastingRecipe (ModFluids.silicate, 
+				new ItemStack (Blocks.glass, 1)
+				) ;
+		
 		registerCastingRecipe (ModFluids.iron, 
 				new ItemStack(Items.iron_ingot, 1, 0), 
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0),
@@ -73,7 +78,7 @@ public final class ModCraftingRecipes {
 				) ;	
 		
 		registerCastingRecipe (ModFluids.aluAlloy, 
-				new ItemStack (ModItems.MATERIALS, 1, 3), 
+				new ItemStack(ModItems.MATERIALS, 1, 3), 
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.LEGS), 7, 0),
@@ -81,7 +86,7 @@ public final class ModCraftingRecipes {
 				) ;	
 		
 		registerCastingRecipe (ModFluids.steel, 
-				new ItemStack (ModItems.MATERIALS, 1, 0), 
+				new ItemStack(ModItems.MATERIALS, 1, 0), 
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.LEGS), 7, 0),
@@ -92,7 +97,18 @@ public final class ModCraftingRecipes {
 	
 	
 	private static void addAlloyRecipes () {
-		registerAlloyRecipe (new FluidStack (ModFluids.steel, 1), new FluidStack (ModFluids.iron, 2), new FluidStack (ModFluids.coal, 1)) ;
+		// Steel alloy
+		registerAlloyRecipe (new FluidStack (ModFluids.steel, 1), 
+				new FluidStack (ModFluids.iron, 2), 
+				new FluidStack (ModFluids.coal, 1)
+				) ;
+		
+		// Aluminium alloy
+		registerAlloyRecipe (new FluidStack (ModFluids.aluAlloy, 1), 
+				new FluidStack (ModFluids.aluminium, 3), 
+				new FluidStack (ModFluids.copper, 1),
+				new FluidStack (ModFluids.silicate, 2) 
+				) ;
 	}
 	
 	private static void addForgeRecipes () {
@@ -132,6 +148,7 @@ public final class ModCraftingRecipes {
 		addMeltingRecipe ("Copper", ModFluids.copper) ;
 		addMeltingRecipe ("Gold", ModFluids.gold) ;
 		addMeltingRecipe ("Coal", ModFluids.coal) ;
+		addMeltingRecipe ("Sand", ModFluids.silicate, LibItemStats.VALUE_ORE) ;
 	}
 	
 	private static void addArmourRecipes () {
@@ -274,9 +291,24 @@ public final class ModCraftingRecipes {
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {
+		addMeltingRecipe (material, output, -1) ;
+	}
+	
+	/**
+	 * Given a material string like Coal, it will prefix the material with preset oredictionary prefixes like ingot, block and ore.
+	 * Capitalization of characters is necessary in order to follow standard conventions.
+	 * 
+	 * If a value is provided, the recipe will use this value as the output instead of standard values. The value is in amount of mB.
+	 * @param material
+	 * @param output
+	 * @param value
+	 */
+	private static void addMeltingRecipe (String material, Fluid output, int value) {
 
 		for (String suffix: preffixes) {
-			meltingRecipes.put (suffix + material, new FluidStack (output, LibItemStats.getValue(suffix)) ) ;
+			int amount = (value < 0) ? LibItemStats.getValue(suffix) : value ;
+			
+			meltingRecipes.put (suffix + material, new FluidStack (output, amount) ) ;
 			oreIDs.put (OreDictionary.getOreID(suffix + material), suffix + material) ;
 		}
 	}

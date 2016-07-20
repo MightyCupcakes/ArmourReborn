@@ -1,5 +1,6 @@
 package teamOD.armourReborn.client.core.gui.book;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -7,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -15,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import teamOD.armourReborn.client.core.gui.GuiDocumentation;
+import teamOD.armourReborn.client.core.gui.RenderUtils;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.lib.LibMisc;
 
@@ -37,7 +40,7 @@ public class BookPageRecipe extends BookPage {
 	}
 	
 	@Override
-	public void renderPage (GuiDocumentation parent) {
+	public void renderPage (GuiDocumentation parent, int mx, int my) {
 		TextureManager renderer = Minecraft.getMinecraft().renderEngine ;
 		
 		IRecipe recipe = null;
@@ -77,7 +80,15 @@ public class BookPageRecipe extends BookPage {
 			}
 		}
 		
-		renderItem(parent.getLeft() + 62, parent.getTop() + 42, recipe.getRecipeOutput());
+		int outputX = parent.getLeft() + 62 ;
+		int outputY = parent.getTop() + 42 ;
+		
+		renderItem(outputX, outputY, recipe.getRecipeOutput());
+		
+		if(mx >= outputX && my >= outputY && mx < outputX + 16 && my < outputY + 16) {
+			String name = I18n.format(recipe.getRecipeOutput().getUnlocalizedName()) ;
+			RenderUtils.renderTooltip(mx, my, Collections.singletonList((name))) ;
+		}
 		
 		BookPageText.renderText(parent.getLeft() + 15, parent.getTop() + 15, null, unlocalizedName);
 	}

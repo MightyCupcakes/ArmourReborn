@@ -23,6 +23,7 @@ public class ModFluids {
 	public static FluidMod gold ;
 	public static FluidMod coal ;
 	public static FluidMod aluAlloy ;
+	public static FluidMod silicate ;
 	
 	public static List<FluidMod> modFluids = Lists.newLinkedList() ;
 	
@@ -39,6 +40,7 @@ public class ModFluids {
 		gold = registerMoltenBlock ("gold", 0xfff6d609) ;
 		coal = registerMoltenBlock ("coal", 0xff000000) ;
 		aluAlloy = registerMoltenBlock ("aluminiumalloy", 0xffC5DAE0) ;
+		silicate = registerMoltenBlock ("silicate", 0xff8693b6, 1600, true) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {

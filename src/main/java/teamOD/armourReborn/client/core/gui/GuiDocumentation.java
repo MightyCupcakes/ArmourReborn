@@ -48,7 +48,7 @@ public class GuiDocumentation extends GuiScreen {
 			Iterable<BookEntry> entries = BookEntriesRegistry.getRegisteredEntries() ;
 			
 			for (BookEntry entry : entries) {
-				buttonList.add(new GuiTextButton(i, startx, starty + (10*i), 110, 10, entry.buttonName, entry)) ;
+				buttonList.add(new GuiTextButton(i, startx, starty + (13 * i), 110, 10, entry.buttonName, entry)) ;
 				
 				i++ ;
 			}

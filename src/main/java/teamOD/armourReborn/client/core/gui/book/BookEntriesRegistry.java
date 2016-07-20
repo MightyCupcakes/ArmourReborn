@@ -64,7 +64,7 @@ public final class BookEntriesRegistry {
 		
 		levels = new BookEntry ("levels", new BookPageText ("0")
 				) ;
-		registerBookEntry(levels).buttonName = "Armour Levels" ;
+		registerBookEntry(levels).buttonName = "Armour Mastery Levels" ;
 	}
 	
 	private static BookEntry registerBookEntry (BookEntry book) {
