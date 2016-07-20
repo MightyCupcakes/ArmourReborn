@@ -14,13 +14,24 @@ public class BookPageText extends BookPage {
 	public static final int paragraphSize = 10 ;
 	
 	public String title ;
+	public boolean customTitle ;
 
 	public BookPageText(String unlocalizedName) {
+		this(unlocalizedName, false);
+	}
+	
+	public BookPageText(String unlocalizedName, boolean customTitle) {
 		super(unlocalizedName);
+		this.customTitle = customTitle ;
 	}
 	
 	@Override
 	public void renderPage (GuiDocumentation parent, int mx, int my) {
+		
+		if (customTitle) {
+			this.title = this.unlocalizedName + ".title" ;
+		}
+		
 		BookPageText.renderText (parent.getLeft() + 15, parent.getTop() + 15, title, this.unlocalizedName);
 	}
 	

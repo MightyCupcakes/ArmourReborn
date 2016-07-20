@@ -35,6 +35,14 @@ armourreborn.page.multiblock4=Stores really hot fluids like lava in order to mel
 armourreborn.page.multiblock5=Nothing special here.
 armourreborn.page.multiblock6=Casts metals into ingots and armours. Also it fixes armour.
 
+# SETS
+armourreborn.entry.armourTypes=Armour Sets
+armourreborn.page.armourTypes=There are three different types of armour sets added by this mod. In addition of the vanilla plate and chain armour, this mod adds a leather composite armour which aims to be a more early game centric armour set. If you wear 4 pieces of armour belonging to the same set, the armour will recieve a set bonus that is unique to the armour set.
+
+# MATERIALS
+armourreborn.entry.materialTypes=Armour Materials
+armourreborn.page.materialTypes0=The material determines the base durability and armour value of the armour. Materials also have a unique trait that might be annoying or beneficial that cannot be removed.
+
 # Modifiers
 armourreborn.entry.modifiers=Armour Modifiers
 armourreborn.page.modifiers0=Modifiers act like armour traits. However, armour modifiers can be added to an armour by placing the appropriate item in the forge anvil. Some modifiers can be leveled up - in such cases the subsequent levels can be attained by putting the specified amount of items in the anvil along with the armour. All modifiers requires a modifier slot.
@@ -62,3 +70,41 @@ armourreborn.page.modifiers7=All hail the unburnt! Allows you to bathe in lava. 
 
 armourreborn.page.modifiers8.title=Depth Strider
 armourreborn.page.modifiers8=When applied to a helmet, it allows you to see and move well underwater.
+
+# TRAITS
+armourreborn.entry.traits=Armour Traits
+armourreborn.page.traits0=Armour Traits are inherent to the armour and cannot be modified in any way. Armour traits gives your armour special properties and/or effects that can range to be a hinderance or of a huge lifesaver.
+
+armourreborn.page.traits1.title=Evasion
+armourreborn.page.traits1=Armour with evasion allows to dodge attacks and thereby negating all of its damage. higher levels of evasion increases the chances of this happening.
+
+armourreborn.page.traits2.title=Reprisal
+armourreborn.page.traits2=Armour with this trait will return the favour to the attacker for attacking you. The returned attack has the same damage but it not the same type. The original attack is not canceled and you still take damage as per normal.
+
+armourreborn.page.traits3.title=Waterlogged
+armourreborn.page.traits3=Armour with this trait tends to be too water asborbant and therefore weigh you down when in water.
+
+armourreborn.page.traits4.title=Surge
+armourreborn.page.traits4=This trait is only applicable to boots and allows you to move faster and climb 1 block obstacles with ease.
+
+armourreborn.page.traits5.title=Flammable
+armourreborn.page.traits5=Armour with this trait bursts into flames in the nether, causing durability damage and burns the wearer.
+
+armourreborn.page.traits6.title=Null field
+armourreborn.page.traits6=Armour with null field is said to periodically nullify some annoying status effects like weakness and poison on the wearer. 
+
+armourreborn.page.traits7.title=Rust
+armourreborn.page.traits7=Armour with rust will have its effectively drastically decreased when below a 25% durability.
+
+armourreborn.page.traits8.title=Fire resistant
+armourreborn.page.traits8=Fire resistant armour will stop burning when removed from the source of fire immediately.
+
+armourreborn.page.traits9.title=Guardian angel
+armourreborn.page.traits9=Armour with this trait is said to be blessed by some divine power and if the player's health happens to drop below 25%, it will provide instant health along with a 10 second increased defense and regeneration in an effort to keep the player alive. This effect however havea internal 45 second cooldown
+
+armourreborn.page.traits10.title=Commanding presence
+armourreborn.page.traits10=Armours with this trait grants to the wearer along with player around him a slight boost to attack/mining speed and damage.
+
+# LEVELS
+armourreborn.entry.levels=Armour Mastery System
+armourreborn.page.levels0=The armour mastery system is an attempt to reward the continual usage of the same armour by providing boosts to the defence values. It will also provide some unique and powerful traits that are otherwise unobtainable using items. Such traits added by levels do not require modifier slots and cannot be modified by anyway.

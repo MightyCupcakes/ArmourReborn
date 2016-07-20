@@ -1,5 +1,6 @@
 package teamOD.armourReborn.client.core.gui.book;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -8,6 +9,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import teamOD.armourReborn.client.core.gui.GuiDocumentation;
+import teamOD.armourReborn.client.core.gui.RenderUtils;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
 import teamOD.armourReborn.common.modifiers.IModifier;
@@ -54,6 +56,11 @@ public class BookPageModifier extends BookPage {
 			}
 		} else {
 			renderItem (parent.getLeft() + 58, parent.getTop() + 125, modifiers.get(0).getItemStack(), true) ;
+			
+			if(mx >= parent.getLeft() + 58 && my >= parent.getTop() + 125 && mx < parent.getLeft() + 74 && my < parent.getTop() + 141) {
+				String name = I18n.format(modifiers.get(0).getItemStack().getUnlocalizedName()) ;
+				RenderUtils.renderTooltip(mx, my, Collections.singletonList((name))) ;
+			}
 		}
 	}
 }
