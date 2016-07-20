@@ -6,8 +6,6 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,9 +38,7 @@ public class BookPageRecipe extends BookPage {
 	}
 	
 	@Override
-	public void renderPage (GuiDocumentation parent, int mx, int my) {
-		TextureManager renderer = Minecraft.getMinecraft().renderEngine ;
-		
+	public void renderPage (GuiDocumentation parent, int mx, int my) {		
 		IRecipe recipe = null;
 		
 		if (recipes.size() == 0) return ;

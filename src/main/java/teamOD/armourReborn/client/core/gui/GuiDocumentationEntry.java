@@ -30,6 +30,8 @@ public class GuiDocumentationEntry extends GuiDocumentation {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {			
 		BookPage thisPage = entry.pages.get(page) ;
 		
+		this.customTexture = null ;
+		
 		if (thisPage.getTexture() != null) {
 			this.customTexture = thisPage.getTexture() ;
 		}

@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibMisc;
+import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public final class BookEntriesRegistry {
 	
@@ -58,7 +59,24 @@ public final class BookEntriesRegistry {
 				) ;
 		registerBookEntry(traits).buttonName = "Armour Traits" ;
 		
-		modifiers = new BookEntry ("modifiers", new BookPageText ("0")
+		modifiers = new BookEntry ("modifiers", new BookPageText ("0"),
+				new BookPageModifier ("1", ModTraitsModifiersRegistry.expBoost),
+				new BookPageModifier ("2", ModTraitsModifiersRegistry.frostbite),
+				new BookPageModifier ("3", ModTraitsModifiersRegistry.featherfall1, 
+						ModTraitsModifiersRegistry.featherfall2,
+						ModTraitsModifiersRegistry.featherfall3
+						),
+				new BookPageModifier ("4", ModTraitsModifiersRegistry.invisible1,
+						ModTraitsModifiersRegistry.invisible2,
+						ModTraitsModifiersRegistry.invisible3
+						),
+				new BookPageModifier ("5", ModTraitsModifiersRegistry.reinforced1,
+						ModTraitsModifiersRegistry.reinforced2,
+						ModTraitsModifiersRegistry.reinforced3
+						),
+				new BookPageModifier ("6", ModTraitsModifiersRegistry.stability),
+				new BookPageModifier ("7", ModTraitsModifiersRegistry.unburnt),
+				new BookPageModifier ("8", ModTraitsModifiersRegistry.underTheSea)
 				) ;
 		registerBookEntry(modifiers).buttonName = "Armour Modifiers" ;
 		

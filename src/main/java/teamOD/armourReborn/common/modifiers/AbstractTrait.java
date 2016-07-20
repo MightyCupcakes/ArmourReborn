@@ -27,6 +27,11 @@ public abstract class AbstractTrait implements ITrait {
 	}
 	
 	@Override
+	public boolean isLevelable () {
+		return level != 0 ;
+	}
+	
+	@Override
 	public TextFormatting getColour() {
 		return colour ;
 	}

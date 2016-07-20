@@ -21,4 +21,14 @@ public class ModifierExpTome extends AbstractModifier {
 		}
 		return amount ;
 	}
+	
+	@Override
+	public int onRepair (ItemStack armour, int amount) {
+		if (armour.getItem() instanceof ILevelable) {
+			
+			ILevelable item = (ILevelable) armour.getItem() ;
+			item.addExp(armour, null, amount);
+		}
+		return amount ;
+	}
 }

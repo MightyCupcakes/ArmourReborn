@@ -65,6 +65,12 @@ public interface ITrait {
 	public boolean canApplyToEquipment (ItemStack armour) ;
 	
 	/**
+	 * Returns true if this trait is levelable. A trait is levelable if and only if its starting level is not 0.
+	 * @return
+	 */
+	public boolean isLevelable () ;
+	
+	/**
 	 * Called when an player entity is hit, just before damage is dealt. Damage is the final damage dealt after critical hit calculations (if any)
 	 * 
 	 * @param armour		The armour the target is wearing

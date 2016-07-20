@@ -34,3 +34,31 @@ armourreborn.page.multiblock3=Every multiblock requires one of this, no more no 
 armourreborn.page.multiblock4=Stores really hot fluids like lava in order to melt the metals.
 armourreborn.page.multiblock5=Nothing special here.
 armourreborn.page.multiblock6=Casts metals into ingots and armours. Also it fixes armour.
+
+# Modifiers
+armourreborn.entry.modifiers=Armour Modifiers
+armourreborn.page.modifiers0=Modifiers act like armour traits. However, armour modifiers can be added to an armour by placing the appropriate item in the forge anvil. Some modifiers can be leveled up - in such cases the subsequent levels can be attained by putting the specified amount of items in the anvil along with the armour. All modifiers requires a modifier slot.
+
+armourreborn.page.modifiers1.title=Knowledgable
+armourreborn.page.modifiers1=Knowledgable is a modifier that doubles the amount of armour experience whenever you take damage from a monster. It also doubles the amount of armour experience you get from repairing the armour in the anvil.
+
+armourreborn.page.modifiers2.title=Frostbite
+armourreborn.page.modifiers2=Frostbite when applied to your footwear causes water to freeze temporarily. This makes for very easy river crossings. When applied to other armour parts, it applies a moderate slowing effect to all monsters around you.
+
+armourreborn.page.modifiers3.title=Featherfall
+armourreborn.page.modifiers3=As implied from the name, featherfall can only be applied to the boots. It reduces the amount of damage you take when falling from high places. Higher levels of featherfall will increase the amount of damage absorbed.
+
+armourreborn.page.modifiers4.title=Invisibility!
+armourreborn.page.modifiers4=Armour with this makes certain monsters completely ignore you. At first only zombies will ignore you. Then skeletons followed by creepers. Note that higher levels will retain the effects of the lower levels.
+
+armourreborn.page.modifiers5.title=Reinforced
+armourreborn.page.modifiers5=Reinforced armours have a chance to negate any durability damage when attacked by monsters. Higher levels increases the chances of this happening.
+
+armourreborn.page.modifiers6.title=Stability
+armourreborn.page.modifiers6=Stability when applied to an armour makes you immune to any knockback.
+
+armourreborn.page.modifiers7.title=The Unburnt
+armourreborn.page.modifiers7=All hail the unburnt! Allows you to bathe in lava. Can only be applied to chest and leggings.
+
+armourreborn.page.modifiers8.title=Depth Strider
+armourreborn.page.modifiers8=When applied to a helmet, it allows you to see and move well underwater.

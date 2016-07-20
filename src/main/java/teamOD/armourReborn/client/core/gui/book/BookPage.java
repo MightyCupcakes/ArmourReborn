@@ -24,7 +24,7 @@ public class BookPage {
 		
 	}
 	
-	public void renderItem (double xPos, double yPos, ItemStack stack) {
+	public void renderItem (double xPos, double yPos, ItemStack stack, boolean renderStackSize) {
 		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 
 		GlStateManager.pushMatrix();
@@ -36,12 +36,16 @@ public class BookPage {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(xPos, yPos, 0);
 		render.renderItemAndEffectIntoGUI(stack, 0, 0);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0, "");
+		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0, (renderStackSize) ? null : "");
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();
 		
 		GlStateManager.disableLighting();
+	}
+	
+	public void renderItem (double xPos, double yPos, ItemStack stack) {
+		renderItem (xPos, yPos, stack, false) ;
 	}
 	
 	public void renderItemOnGrid (GuiDocumentation parent, int x, int y, ItemStack stack) {
@@ -52,7 +56,7 @@ public class BookPage {
 		int xPos = parent.getLeft() + x * 22 + 17 + (y == 0  && x == 3 ? 10 : 0);
 		int yPos = parent.getTop() + y * 22 + 56 - (y == 0 ? 7 : 0);
 		
-		this.renderItem(xPos, yPos, stack) ;
+		this.renderItem(xPos, yPos, stack, false) ;
 	}
 	
 	public ResourceLocation getTexture () {
