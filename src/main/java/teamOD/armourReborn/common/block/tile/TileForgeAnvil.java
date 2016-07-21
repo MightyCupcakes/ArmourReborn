@@ -31,7 +31,9 @@ import teamOD.armourReborn.common.block.tile.network.ForgeAnvilInventoryUpdatePa
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
+import teamOD.armourReborn.common.item.equipment.ItemChainArmour;
 import teamOD.armourReborn.common.item.equipment.ItemModArmour;
+import teamOD.armourReborn.common.item.equipment.ItemPlateArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.lib.LibUtil;
@@ -47,7 +49,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private ItemStack[] outputInventory;
 	private FluidTank fluidInventory;
 	
-	private final int repairSlot ;
+	private final int repairSlot, castSlot ;
 	private boolean repairSlotContentsChanged, inputInventorySlotChanged ;
 	private ItemStack repairSlotOriginal ;
 	
@@ -55,11 +57,12 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private Multimap<Integer, ItemStack> modifiersCosts ;
 	
 	public TileForgeAnvil() {
-		inputInventory = new ItemStack[5];
+		inputInventory = new ItemStack[6];
 		outputInventory = new ItemStack[5];
 		fluidInventory = new FluidTank(4000);
 		
 		repairSlot = 4 ;
+		castSlot = 5 ;
 		repairSlotContentsChanged = true ;
 		inputInventorySlotChanged = true ;
 		
@@ -81,6 +84,22 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		}
 		
 		for (ItemStack item : anvilRecipes) {
+			
+			if (item.getItem() instanceof ItemChainArmour) {
+				if (this.getStackInSlot(castSlot) == null) {
+					continue ;
+				} else {
+					if (this.getStackInSlot(castSlot).getItemDamage() != 0) continue ;
+				}
+			
+			} else if (item.getItem() instanceof ItemPlateArmour) {
+				if (this.getStackInSlot(castSlot) == null) {
+					continue ;
+				} else {
+					if (this.getStackInSlot(castSlot).getItemDamage() != 1) continue ;
+				}
+			}
+			
 			if (fluidInventory.getFluidAmount() >= item.stackSize * LibItemStats.VALUE_INGOT ) {
 				switch (item.stackSize) {
 				case 1:

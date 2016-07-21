@@ -6,6 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import teamOD.armourReborn.common.item.ItemCopperCast;
 
 public class ContainerAnvil<T extends TileEntity & IInventory> extends ContainerMod {
 
@@ -20,6 +21,8 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 
 		addInventorySlots(8, 13, 4);
 		addInventorySlots(111, 49, 1);
+		addCastSlots (87,49, 1) ;
+		
 		outputSlot = index ;
 		
 		addOutputSlots(8, 49, 4);
@@ -38,10 +41,21 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 		}
 	}
 	
+	private void addCastSlots (int x, int y, int num) {
+		for (int col = 0; col < num; col ++) {
+			Slot newSlot = new CastSlot ((IInventory) tile, index, x + col * sizeX, y) ;
+				
+			this.addSlotToContainer(newSlot) ;
+			internalInventory.add(newSlot) ;
+			
+			index ++ ;
+		}
+	}
+	
 	private void addOutputSlots (int x, int y, int num) {
 		
 		for (int col = 0; col < num; col ++) {
-			Slot newSlot = new outputSlot ((IInventory) tile, index, x + col * sizeX, y) ;
+			Slot newSlot = new OutputSlot ((IInventory) tile, index, x + col * sizeX, y) ;
 				
 			this.addSlotToContainer(newSlot) ;
 			internalInventory.add(newSlot) ;
@@ -59,9 +73,9 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 		return super.transferStackInSlot(playerIn, index) ;
 	}
 	
-	private class outputSlot extends Slot {
+	private class OutputSlot extends Slot {
 
-		public outputSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+		public OutputSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
 			super(inventoryIn, index, xPosition, yPosition);
 		}
 		
@@ -71,4 +85,18 @@ public class ContainerAnvil<T extends TileEntity & IInventory> extends Container
 		}
 		
 	}
+	
+	private class CastSlot extends Slot {
+
+		public CastSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+			super(inventoryIn, index, xPosition, yPosition);
+		}
+		
+		@Override
+		public boolean isItemValid (ItemStack stack) {
+			return stack.getItem() instanceof ItemCopperCast ;
+		}
+		
+	}
+	
 }

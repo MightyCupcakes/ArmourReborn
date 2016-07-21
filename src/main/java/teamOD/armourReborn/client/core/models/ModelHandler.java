@@ -90,6 +90,13 @@ public final class ModelHandler {
 			 String name = LibMisc.MOD_ID + ":" + LibItemNames.MODIFIERS_MATERIALS_NAMES[i];
 			 ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
 		}
+		
+		item = ModItems.COPPER_CASTS ;
+
+		for (int i = 0; i < LibItemNames.ANVIL_CAST_NAMES.length; i++) {
+			String name = LibMisc.MOD_ID + ":" + LibItemNames.ANVIL_CAST_NAMES[i];
+			ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(name, "inventory"));
+		}
 	}
 	
 	public static void registerItemModel (Item item, int meta) {

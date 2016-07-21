@@ -31,6 +31,7 @@ public final class ModItems {
 	public static Item MATERIALS ;
 	public static Item ModBook ;
 	public static Item MOD_MODIFIERS_MATERIALS ;
+	public static Item COPPER_CASTS ;
 	
 	/**
 	 * Stores the armourset for each armourType/material combo
@@ -46,6 +47,7 @@ public final class ModItems {
 		MATERIALS = new ItemMaterials () ;
 		ModBook = new ItemKnowledgeTome (LibItemNames.ModBook) ;
 		MOD_MODIFIERS_MATERIALS = new ItemModifiersMaterials (LibItemNames.MODIFIER_MATERIALS) ;
+		COPPER_CASTS = new ItemCopperCast () ;
 		
 		registerOreDict () ;
 		

@@ -34,6 +34,9 @@ armourreborn.page.multiblock3=Every multiblock requires one of this, no more no 
 armourreborn.page.multiblock4=Stores really hot fluids like lava in order to melt the metals.
 armourreborn.page.multiblock5=Nothing special here.
 armourreborn.page.multiblock6=Casts metals into ingots and armours. Also it fixes armour.
+armourreborn.page.multiblock7=The forge anvil is your primary way to fix and make more advanced armours. By default, it will cast its internal liquid metal inventory into ingots. To make armour, you must first make a corresponding copper casts. (Recipes in the following pages) and place it in the casting slot in the anvil.
+armourreborn.page.multiblock8=Used to make chain armour in the anvil. Place it in the cast slot.
+armourreborn.page.multiblock7=Used to make plate armour in the anvil. Place it in the cast slot.
 
 # SETS
 armourreborn.entry.armourTypes=Armour Sets
@@ -94,13 +97,13 @@ armourreborn.page.traits6.title=Null field
 armourreborn.page.traits6=Armour with null field is said to periodically nullify some annoying status effects like weakness and poison on the wearer. 
 
 armourreborn.page.traits7.title=Rust
-armourreborn.page.traits7=Armour with rust will have its effectively drastically decreased when below a 25% durability.
+armourreborn.page.traits7=Armour with rust will have its effectively drastically decreased when below a 25%% durability.
 
 armourreborn.page.traits8.title=Fire resistant
 armourreborn.page.traits8=Fire resistant armour will stop burning when removed from the source of fire immediately.
 
 armourreborn.page.traits9.title=Guardian angel
-armourreborn.page.traits9=Armour with this trait is said to be blessed by some divine power and if the player's health happens to drop below 25%, it will provide instant health along with a 10 second increased defense and regeneration in an effort to keep the player alive. This effect however havea internal 45 second cooldown
+armourreborn.page.traits9=Armour with this trait is said to be blessed by some divine power and if the player's health happens to drop below 25%%, it will provide instant health along with a 10 second increased defense and regeneration in an effort to keep the player alive. This effect however havea internal 45 second cooldown
 
 armourreborn.page.traits10.title=Commanding presence
 armourreborn.page.traits10=Armours with this trait grants to the wearer along with player around him a slight boost to attack/mining speed and damage.

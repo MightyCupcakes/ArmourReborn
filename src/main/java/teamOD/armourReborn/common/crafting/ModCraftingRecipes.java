@@ -1,11 +1,14 @@
 package teamOD.armourReborn.common.crafting;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -35,7 +38,7 @@ public final class ModCraftingRecipes {
 	private static Map <String, FluidStack> meltingRecipes = Maps.newHashMap() ;
 	private static Map <Integer, String> oreIDs = Maps.newHashMap() ;
 	private static Map <FluidMod, ItemStack[]> castingRecipes = Maps.newHashMap() ;
-	private static Map <Item, IRecipe> ModRecipes = Maps.newHashMap() ;
+	private static Multimap <Item, IRecipe> ModRecipes = HashMultimap.<Item, IRecipe>create() ;
 	
 	public static List <AlloyRecipes> alloyRecipes = Lists.newLinkedList() ;
 	
@@ -74,7 +77,11 @@ public final class ModCraftingRecipes {
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
-				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0)
+				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.FEET), 4, 0),
+				new ItemStack(ModItems.getArmourByName("ironchain").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("ironchain").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("ironchain").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("ironchain").get(EntityEquipmentSlot.FEET), 4, 0)
 				) ;	
 		
 		registerCastingRecipe (ModFluids.aluAlloy, 
@@ -82,7 +89,11 @@ public final class ModCraftingRecipes {
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.LEGS), 7, 0),
-				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.FEET), 4, 0)
+				new ItemStack(ModItems.getArmourByName("aluminiumplate").get(EntityEquipmentSlot.FEET), 4, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumchain").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumchain").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumchain").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("aluminiumchain").get(EntityEquipmentSlot.FEET), 4, 0)
 				) ;	
 		
 		registerCastingRecipe (ModFluids.steel, 
@@ -90,7 +101,11 @@ public final class ModCraftingRecipes {
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.LEGS), 7, 0),
-				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.FEET), 4, 0)
+				new ItemStack(ModItems.getArmourByName("steelplate").get(EntityEquipmentSlot.FEET), 4, 0),
+				new ItemStack(ModItems.getArmourByName("steelchain").get(EntityEquipmentSlot.HEAD), 5, 0),
+				new ItemStack(ModItems.getArmourByName("steelchain").get(EntityEquipmentSlot.CHEST), 8, 0),
+				new ItemStack(ModItems.getArmourByName("steelchain").get(EntityEquipmentSlot.LEGS), 7, 0),
+				new ItemStack(ModItems.getArmourByName("steelchain").get(EntityEquipmentSlot.FEET), 4, 0)
 				) ;	
 		
 	}
@@ -288,6 +303,20 @@ public final class ModCraftingRecipes {
 				'B', new ItemStack(Items.blaze_powder, 1, 0),
 				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
 				) ;
+
+		addOreDictRecipe(new ItemStack(ModItems.COPPER_CASTS,1,0),
+				"CCC",
+				"CSC",
+				"CCC",
+				'S', new ItemStack(Blocks.sand),
+				'C', "ingotCopper");
+		
+
+		addOreDictRecipe(new ItemStack(ModItems.COPPER_CASTS,1,1),
+				"CCC",
+				"C C",
+				"CCC",
+				'C', "ingotCopper");
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {
@@ -378,15 +407,32 @@ public final class ModCraftingRecipes {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
 		ModRecipes.put(output.getItem(), list.get(list.size() - 1)) ;
 	}
-	
+
 	public static IRecipe getModRecipe (Item item) {
 		
-		return ModRecipes.get(item) ;
+		Iterator <IRecipe> iterator = ModRecipes.get(item).iterator() ;
+		
+		return iterator.next() ;
 	}
 	
 	public static IRecipe getModRecipe (Block block) {
 		
 		return getModRecipe (Item.getItemFromBlock(block)) ;
+	}
+
+	public static IRecipe getModRecipeWithMeta (Item item, int meta) {
+		
+		Iterator <IRecipe> iterator = ModRecipes.get(item).iterator() ;
+		
+		while (iterator.hasNext()) {
+			IRecipe next = iterator.next() ;
+			
+			if (next.getRecipeOutput().getItemDamage() == meta) {
+				return next ;
+			}
+		}
+		
+		return null ;
 	}
 
 	private static void addOreDictRecipe(ItemStack output, Object... recipe) {

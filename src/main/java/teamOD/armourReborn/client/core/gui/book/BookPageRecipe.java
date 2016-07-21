@@ -23,6 +23,7 @@ public class BookPageRecipe extends BookPage {
 	
 	public final List<Item> recipes = Lists.newLinkedList() ;
 	private int recipeAt = 0 ;
+	private int meta = -1 ;
 
 	public BookPageRecipe(String unlocalizedName, Item... recipesToDisplay) {
 		super(unlocalizedName) ;
@@ -37,6 +38,11 @@ public class BookPageRecipe extends BookPage {
 		this (unlocalizedName, Item.getItemFromBlock(recipes)) ;
 	}
 	
+	public BookPageRecipe(String unlocalizedName, Item recipesToDisplay, int meta) {
+		this(unlocalizedName, recipesToDisplay) ;
+		this.meta = meta ;
+	}
+	
 	@Override
 	public void renderPage (GuiDocumentation parent, int mx, int my) {		
 		IRecipe recipe = null;
@@ -44,7 +50,12 @@ public class BookPageRecipe extends BookPage {
 		if (recipes.size() == 0) return ;
 		
 		if (recipes.size() == 1) {
-			recipe = ModCraftingRecipes.getModRecipe(recipes.get(0)) ;
+			
+			if (meta == -1) {
+				recipe = ModCraftingRecipes.getModRecipe(recipes.get(0)) ;
+			} else {
+				recipe = ModCraftingRecipes.getModRecipeWithMeta(recipes.get(0), meta) ;
+			}
 		} else {
 			recipe = ModCraftingRecipes.getModRecipe(recipes.get(recipeAt)) ;
 		}

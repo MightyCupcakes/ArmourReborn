@@ -9,6 +9,7 @@ public final class LibItemNames {
 	public static final String oreMATERIALS = "oreMaterials" ;
 	public static final String ModBook = "knowledgeTome" ;
 	public static final String MODIFIER_MATERIALS = "modifierMaterials" ;
+	public static final String CAST = "anvilCast" ;
 	
 	public static final String[] MATERIALS_NAMES = {
 			"ingotSteel",
@@ -26,6 +27,11 @@ public final class LibItemNames {
 			"aghanimsDust",
 			"infusedSnowball",
 			"infusedFlame"
+	} ;
+	
+	public static final String[] ANVIL_CAST_NAMES = {
+			"copperChainCast",
+			"copperPlateCast"
 	} ;
 	
 	public enum ArmourTypeNames {

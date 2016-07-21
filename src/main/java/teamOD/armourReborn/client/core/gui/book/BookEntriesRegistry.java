@@ -38,12 +38,15 @@ public final class BookEntriesRegistry {
 		registerBookEntry(introduction).buttonName = "Introduction" ;
 		
 		forgeMultiblock = new BookEntry ("multiblock", new BookPageText ("0"),
+				new BookPageText ("7"),
 				new BookPagePicture("1", new ResourceLocation (LibMisc.MOD_ID, "textures/gui/entries/forgeFront.png") ),
 				new BookPagePicture("2", new ResourceLocation (LibMisc.MOD_ID, "textures/gui/entries/forgeBack.png") ),
 				new BookPageRecipe ("3", ModBlocks.forgeMaster ),
 				new BookPageRecipe ("4", ModBlocks.forgeHeater ),
 				new BookPageRecipe ("5", ModBlocks.forgeBlocks ),
-				new BookPageRecipe ("6", ModBlocks.forgeAnvil )
+				new BookPageRecipe ("6", ModBlocks.forgeAnvil ),
+				new BookPageRecipe ("8", ModItems.COPPER_CASTS, 0 ),
+				new BookPageRecipe ("9", ModItems.COPPER_CASTS, 1 )
 				) ;
 		registerBookEntry(forgeMultiblock).buttonName = "The Furnance Multiblock" ;
 		

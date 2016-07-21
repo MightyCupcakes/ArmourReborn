@@ -42,6 +42,8 @@ public class ArmourRebornCreativeTab extends CreativeTabs {
 		addItem( Item.getItemFromBlock(ModBlocks.forgeHeater) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.oresMaterials) ) ;
 		addItem( Item.getItemFromBlock(ModBlocks.forgeAnvil) ) ;
+		addItem( ModItems.COPPER_CASTS ) ;
+		addItem( ModItems.MOD_MODIFIERS_MATERIALS ) ;
 		
 		for (Map <EntityEquipmentSlot, Item> armour : ModItems.getAllModArmour()) {
 			for (Item armourPiece : armour.values()) {
