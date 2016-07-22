@@ -317,6 +317,8 @@ public final class ModCraftingRecipes {
 				"C C",
 				"CCC",
 				'C', "ingotCopper");
+		
+		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.coal), new ItemStack (Items.paper));
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

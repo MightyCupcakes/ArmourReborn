@@ -50,13 +50,13 @@ public final class BookEntriesRegistry {
 				) ;
 		registerBookEntry(forgeMultiblock).buttonName = "The Furnance Multiblock" ;
 		
-		armourTypes = new BookEntry ("armourTypes", new BookPageText ("0") 
-				) ;
-		registerBookEntry(armourTypes).buttonName = "The Armour Sets" ;
-		
-		materialTypes = new BookEntry ("materialTypes", new BookPageText ("0")
-				) ;
-		registerBookEntry(materialTypes).buttonName = "The Armour Materials" ;
+//		armourTypes = new BookEntry ("armourTypes", new BookPageText ("0") 
+//				) ;
+//		registerBookEntry(armourTypes).buttonName = "The Armour Sets" ;
+//		
+//		materialTypes = new BookEntry ("materialTypes", new BookPageText ("0")
+//				) ;
+//		registerBookEntry(materialTypes).buttonName = "The Armour Materials" ;
 		
 		traits = new BookEntry ("traits", new BookPageText ("0"),
 				new BookPageText("1", true),
