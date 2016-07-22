@@ -1,7 +1,5 @@
 package teamOD.armourReborn.common;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import teamOD.armourReborn.common.achievement.AchievementEvents;
 import teamOD.armourReborn.common.core.GuiHandler;
 import teamOD.armourReborn.common.core.proxy.CommonProxy;
 import teamOD.armourReborn.common.fluids.ModFluids;
@@ -64,6 +63,7 @@ public class ArmourReborn {
 		MinecraftForge.EVENT_BUS.register( new LevelingEventHandler () );
 		MinecraftForge.EVENT_BUS.register( new ModifierEvents () );
 		MinecraftForge.EVENT_BUS.register( new AddDropsToMobs () );
+		MinecraftForge.EVENT_BUS.register( new AchievementEvents () );
 	}
 	
 	@EventHandler

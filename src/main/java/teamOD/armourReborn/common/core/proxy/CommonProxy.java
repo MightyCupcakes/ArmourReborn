@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import teamOD.armourReborn.common.achievement.ModAchievements;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.core.command.CommandGiveModArmour;
 import teamOD.armourReborn.common.core.command.CommandLevelUpArmour;
@@ -36,6 +37,7 @@ public class CommonProxy {
 	
 	public void init (FMLInitializationEvent event) {
 		ModCraftingRecipes.init() ;	
+		ModAchievements.init() ;
 		GameRegistry.registerWorldGenerator(WorldGenReborn.INSTANCE, 0);	
 	}
 	

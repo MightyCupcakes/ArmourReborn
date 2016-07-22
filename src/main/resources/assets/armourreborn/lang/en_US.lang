@@ -91,7 +91,9 @@ item.armourreborn.aluminiumchainchest.name=Aluminium Chain Chest
 item.armourreborn.aluminiumchainlegs.name=Aluminium Chain Leggings
 item.armourreborn.aluminiumchainboots.name=Aluminium Chain Boots
 
-
+# ACHIEVEMENTS
+achievement.armourreborn:craftingArmour=Armour!
+achievement.armourreborn:craftingArmour.desc=Wolves ain't needing those!
 
 # MOD DOCUMENTATION
 
