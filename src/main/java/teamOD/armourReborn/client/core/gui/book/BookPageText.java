@@ -77,8 +77,6 @@ public class BookPageText extends BookPage {
 					length = s.length() + 1;
 				}
 			}
-			
-			lines.add(Lists.<String>newLinkedList()) ;
 		}
 		
 		for (Iterable<String> line : lines) {

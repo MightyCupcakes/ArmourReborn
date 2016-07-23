@@ -31,7 +31,7 @@ public class ModMaterials {
 						ModTraitsModifiersRegistry.flammable
 						)) ;
 		
-		paper.setBaseDurabilityMultiplier(1D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.LEATHER) ;
+		paper.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,4,3,2}).allowArmourSet(ArmourTypeNames.LEATHER) ;
 		registerMaterial (paper.getItem().getUnlocalizedName(), paper) ;
 		
 		
@@ -41,7 +41,7 @@ public class ModMaterials {
 						ModTraitsModifiersRegistry.rusty
 						)) ;
 		
-		iron.setBaseDurabilityMultiplier(3D).setBaseArmourValue(new int[] {3,5,3,3}).allowArmourSet(ArmourTypeNames.values()) ;
+		iron.setBaseDurabilityMultiplier(14D).setBaseArmourValue(new int[] {3,5,3,3}).allowArmourSet(ArmourTypeNames.values()) ;
 		registerMaterial (iron.getItem().getUnlocalizedName(), iron) ;
 		
 		//steel
@@ -50,7 +50,7 @@ public class ModMaterials {
 						ModTraitsModifiersRegistry.nullField
 						)) ;
 		
-		steel.setBaseDurabilityMultiplier(5D).setBaseArmourValue(new int[] {3,6,4,3}).allowArmourSet(ArmourTypeNames.values()) ;
+		steel.setBaseDurabilityMultiplier(33D).setBaseArmourValue(new int[] {3,6,4,3}).allowArmourSet(ArmourTypeNames.values()) ;
 		registerMaterial (ModItems.MATERIALS.getUnlocalizedName(steel.getItemstack()), steel) ;
 		
 		//aluAlloy
@@ -59,7 +59,7 @@ public class ModMaterials {
 						ModTraitsModifiersRegistry.nullField
 						)) ;
 		
-		aluAlloy.setBaseDurabilityMultiplier(4D).setBaseArmourValue(new int[] {4,6,5,3}).allowArmourSet(ArmourTypeNames.values()) ;
+		aluAlloy.setBaseDurabilityMultiplier(25D).setBaseArmourValue(new int[] {4,6,5,3}).allowArmourSet(ArmourTypeNames.values()) ;
 		registerMaterial (ModItems.MATERIALS.getUnlocalizedName(aluAlloy.getItemstack()), aluAlloy) ;
 		
 	}

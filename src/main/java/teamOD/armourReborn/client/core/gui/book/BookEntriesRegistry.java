@@ -54,9 +54,13 @@ public final class BookEntriesRegistry {
 //				) ;
 //		registerBookEntry(armourTypes).buttonName = "The Armour Sets" ;
 //		
-//		materialTypes = new BookEntry ("materialTypes", new BookPageText ("0")
-//				) ;
-//		registerBookEntry(materialTypes).buttonName = "The Armour Materials" ;
+		materialTypes = new BookEntry ("materialTypes", new BookPageText ("0"),
+				new BookPageText ("1", true),
+				new BookPageText ("2", true),
+				new BookPageText ("3", true),
+				new BookPageText ("4", true)
+				) ;
+		registerBookEntry(materialTypes).buttonName = "The Armour Materials" ;
 		
 		traits = new BookEntry ("traits", new BookPageText ("0"),
 				new BookPageText("1", true),

@@ -122,7 +122,19 @@ armourreborn.page.armourTypes=There are three different types of armour sets add
 
 # MATERIALS
 armourreborn.entry.materialTypes=Armour Materials
-armourreborn.page.materialTypes0=The material determines the base durability and armour value of the armour. Materials also have a unique trait that might be annoying or beneficial that cannot be removed.
+armourreborn.page.materialTypes0=The material determines the base durability and armour value of the armour. Materials also have a unique trait that might be annoying or beneficial that cannot be removed. 
+
+armourreborn.page.materialTypes1.title=Paper
+armourreborn.page.materialTypes1=Meant for early game use. This material offers low levels of protection but grants the armour evasion 2. This material cannot be made into plate and chain armour.<br> <br>Associated material: Paper
+
+armourreborn.page.materialTypes2.title=Iron
+armourreborn.page.materialTypes2=The standard material that offers good amount of protection and durability. <br> <br>Associated material: Iron ingot
+
+armourreborn.page.materialTypes3.title=Steel
+armourreborn.page.materialTypes3=A more advanced material than iron that is resistant to rust. This material offers the highest amount of protection and durability.<br> <br>Associated material: Steel ingot <=> 2 iron ingot + 1 coal
+
+armourreborn.page.materialTypes4.title=Aluminium Alloy
+armourreborn.page.materialTypes4=Armour made using aluminium alloy is slightly less durable than ones made in steel. In exchange, aluminium alloy offers more protection and is resistant to certain status effects.<br> <br>Associated material: Aluminium ingot <=> 3 Aluminium ingot + 1 copper ingot + 1 sand
 
 # Modifiers
 armourreborn.entry.modifiers=Armour Modifiers
