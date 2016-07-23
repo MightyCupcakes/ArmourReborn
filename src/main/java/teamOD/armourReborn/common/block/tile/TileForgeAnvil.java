@@ -73,75 +73,75 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	
 	@Override
 	protected void updateEntity() {
-		if (fluidInventory.getFluid() == null) {
-			return ;
-		}
-		
-		ItemStack[] anvilRecipes = ModCraftingRecipes.getCastingRecipe(fluidInventory.getFluid().getFluid()) ;
-		
-		if (anvilRecipes == null) {
-			return ;
-		}
-		
-		for (ItemStack item : anvilRecipes) {
-			
-			if (item.getItem() instanceof ItemChainArmour) {
-				if (this.getStackInSlot(castSlot) == null) {
-					continue ;
-				} else {
-					if (this.getStackInSlot(castSlot).getItemDamage() != 0) continue ;
-				}
-			
-			} else if (item.getItem() instanceof ItemPlateArmour) {
-				if (this.getStackInSlot(castSlot) == null) {
-					continue ;
-				} else {
-					if (this.getStackInSlot(castSlot).getItemDamage() != 1) continue ;
-				}
-			}
-			
-			if (fluidInventory.getFluidAmount() >= item.stackSize * LibItemStats.VALUE_INGOT ) {
-				switch (item.stackSize) {
-				case 1:
-					setInventorySlotContents(inputInventory.length + 4, item.copy(), true);
-					break ;
-					
-				case 4:
-					addArmoursAndModifiers(inputInventory.length + 3, new ItemStack(item.getItem()) ) ;
-					break ;
-					
-				case 5:
-					addArmoursAndModifiers(inputInventory.length, new ItemStack(item.getItem()) );
-					break ;
-					
-				case 7:
-					addArmoursAndModifiers(inputInventory.length + 2, new ItemStack(item.getItem()) );
-					break ;
-					
-				case 8:
-					addArmoursAndModifiers(inputInventory.length + 1, new ItemStack(item.getItem()) );
-					break ;
-					
-				default:
-						break ;
-				}
-			}
-		}
 		
 		// Repair slot stuff
-		ItemStack item = this.getStackInSlot(repairSlot) ;
-		
-		if (item != null) {
-			
+		ItemStack stack = this.getStackInSlot(repairSlot) ;
+
+		if (stack != null) {
+
 			// Only do calculations when slots changed to save on resources
 			if ( inputInventorySlotChanged || repairSlotContentsChanged ) {
-				addArmoursAndModifiers (repairSlot, item) ;
+				addArmoursAndModifiers (repairSlot, stack) ;
 				calculateArmourRepairAmt() ;
 			}
-			
+
 			repairSlotContentsChanged = false ;
 			inputInventorySlotChanged = false ;
+
+		}
 		
+		if (fluidInventory.getFluid() != null) {
+		
+			ItemStack[] anvilRecipes = ModCraftingRecipes.getCastingRecipe(fluidInventory.getFluid().getFluid()) ;
+
+			if (anvilRecipes == null) {
+				return ;
+			}
+
+			for (ItemStack item : anvilRecipes) {
+
+				if (item.getItem() instanceof ItemChainArmour) {
+					if (this.getStackInSlot(castSlot) == null) {
+						continue ;
+					} else {
+						if (this.getStackInSlot(castSlot).getItemDamage() != 0) continue ;
+					}
+
+				} else if (item.getItem() instanceof ItemPlateArmour) {
+					if (this.getStackInSlot(castSlot) == null) {
+						continue ;
+					} else {
+						if (this.getStackInSlot(castSlot).getItemDamage() != 1) continue ;
+					}
+				}
+
+				if (fluidInventory.getFluidAmount() >= item.stackSize * LibItemStats.VALUE_INGOT ) {
+					switch (item.stackSize) {
+					case 1:
+						setInventorySlotContents(inputInventory.length + 4, item.copy(), true);
+						break ;
+
+					case 4:
+						addArmoursAndModifiers(inputInventory.length + 3, new ItemStack(item.getItem()) ) ;
+						break ;
+
+					case 5:
+						addArmoursAndModifiers(inputInventory.length, new ItemStack(item.getItem()) );
+						break ;
+
+					case 7:
+						addArmoursAndModifiers(inputInventory.length + 2, new ItemStack(item.getItem()) );
+						break ;
+
+					case 8:
+						addArmoursAndModifiers(inputInventory.length + 1, new ItemStack(item.getItem()) );
+						break ;
+
+					default:
+						break ;
+					}
+				}
+			}
 		}
 	}
 	
@@ -232,7 +232,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			ItemStack repairMaterial = armour.getModMaterial().getItemstack() ;
 			FluidStack fluid = ModCraftingRecipes.findRecipe(repairMaterial) ;
 			
-			if (fluidInventory.getFluid() != null && fluid.getFluid() == fluidInventory.getFluid().getFluid() ) {
+			if (fluidInventory.getFluid() != null && fluid != null && fluid.getFluid() == fluidInventory.getFluid().getFluid() ) {
 				
 				int repairCost ;
 				int repairAmt ;
