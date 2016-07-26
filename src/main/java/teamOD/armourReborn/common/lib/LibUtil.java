@@ -340,12 +340,25 @@ public final class LibUtil {
 		return result ;
 	}
 	
+	/** 
+	 * Returns true if and only if the armour possess the same trait as the given trait
+	 * or the given trait is of the same family and lower level than a trait the armour currently possess. 
+	 * 
+	 * @param armour	The armour itemstack
+	 * @param trait		The trait to check
+	 * @return
+	 */
 	public static boolean armourHasTrait (ItemStack armour, ITrait trait) {
 		
 		List<ITrait> list = getModifiersListAll (armour) ;
 		
 		for (ITrait thisTrait : list) {
+			if ( thisTrait.getTraitFamily() != trait.getTraitFamily() ) continue ;
+			
 			if ( thisTrait.getIdentifier().equals(trait.getIdentifier()) ) {
+				return true ;
+			
+			} else if ( thisTrait.getLevel() > trait.getLevel()) {
 				return true ;
 			}
 		}

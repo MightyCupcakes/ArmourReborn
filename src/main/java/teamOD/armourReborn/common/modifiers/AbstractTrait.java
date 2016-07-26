@@ -55,6 +55,11 @@ public abstract class AbstractTrait implements ITrait {
 	public boolean canApplyToEquipment (ItemStack armour) {
 		return true ;
 	}
+	
+	@Override
+	public int providesAdditionalModifier () {
+		return 0 ;
+	}
 
 	@Override
 	public void modifyMovementSpeed(EntityPlayer player, ItemStack armour) {

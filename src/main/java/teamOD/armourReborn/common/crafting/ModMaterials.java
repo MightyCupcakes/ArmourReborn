@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import teamOD.armourReborn.common.item.ModItems;
 import teamOD.armourReborn.common.lib.LibItemNames.ArmourTypeNames;
+import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
 
 public class ModMaterials {
@@ -41,16 +42,17 @@ public class ModMaterials {
 						ModTraitsModifiersRegistry.rusty
 						)) ;
 		
-		iron.setBaseDurabilityMultiplier(14D).setBaseArmourValue(new int[] {3,5,3,3}).allowArmourSet(ArmourTypeNames.values()) ;
+		iron.setBaseDurabilityMultiplier(15D).setBaseArmourValue(new int[] {3,5,3,3}).allowArmourSet(ArmourTypeNames.values()) ;
 		registerMaterial (iron.getItem().getUnlocalizedName(), iron) ;
 		
 		//steel
 		steel = new MaterialsMod ("steel", new ItemStack (ModItems.MATERIALS, 1, 0), 
-				ImmutableList.of( 
-						ModTraitsModifiersRegistry.nullField
+				ImmutableList.<ITrait>of(
+						ModTraitsModifiersRegistry.durable,
+						ModTraitsModifiersRegistry.writable
 						)) ;
 		
-		steel.setBaseDurabilityMultiplier(33D).setBaseArmourValue(new int[] {3,6,4,3}).allowArmourSet(ArmourTypeNames.values()) ;
+		steel.setBaseDurabilityMultiplier(35D).setBaseArmourValue(new int[] {3,6,4,3}).allowArmourSet(ArmourTypeNames.values()) ;
 		registerMaterial (ModItems.MATERIALS.getUnlocalizedName(steel.getItemstack()), steel) ;
 		
 		//aluAlloy

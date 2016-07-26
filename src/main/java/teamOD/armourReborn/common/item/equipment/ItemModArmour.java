@@ -377,7 +377,15 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		tag.setFloat(TOUGHNESS, 0) ;
 		
 		// Modifiers and traits
-		tag.setInteger(MODIFIER_SLOTS, LibItemStats.DEFAULT_MODIFIER_SLOTS);
+		int modifierSlots = LibItemStats.DEFAULT_MODIFIER_SLOTS ;
+		
+		for (MaterialsMod mat : materials) {
+			for ( ITrait trait: mat.getTraits() ) {
+				modifierSlots += trait.providesAdditionalModifier() ;
+			}
+		}
+		
+		tag.setInteger(MODIFIER_SLOTS, modifierSlots);
 		
 		modTag = new NBTTagList () ;
 				

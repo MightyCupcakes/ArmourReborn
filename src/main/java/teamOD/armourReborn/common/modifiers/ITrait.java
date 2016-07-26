@@ -47,6 +47,12 @@ public interface ITrait {
 	public String getTraitFamily () ;
 	
 	/**
+	 * Returns > 0 if this trait does provide additional modifier slot.
+	 * @return number of additional slots provided by this trait on top on default slots
+	 */
+	public int providesAdditionalModifier () ;
+	
+	/**
 	 * Called when this modifier modifies the movement speed of a player in any way
 	 * 
 	 * @param player	The player whose movement speed is to be modified
