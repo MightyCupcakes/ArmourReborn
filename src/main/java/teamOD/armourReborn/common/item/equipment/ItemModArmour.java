@@ -64,12 +64,14 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	
 	protected Map<Enchantment, Integer> armourSetEnchantments = Collections.emptyMap() ;
 	protected MaterialsMod materials ;
+	protected String name ;
 	
 	public ItemModArmour (EntityEquipmentSlot type, String name, ArmorMaterial mat, int index) {
 		super (mat, index, type) ;
 		
 		this.type = type;
 		this.armourSet = new ItemStack[4] ;
+		this.name = name ;
 		this.setNoRepair() ;
 		
 		field_185084_n = ReflectionHelper.getPrivateValue(ItemArmor.class, this, "field_185084_n") ;
@@ -519,5 +521,18 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 	@Override
 	public boolean hasEffect(ItemStack stack) {
 		return false ;
+	}
+	
+	/**
+	 * Given an armour itemstack, attempt to fix/replace the armour material with the given itemstack.
+	 * @param armour	The armour itemstack to be fixed/replaced
+	 * @param stack		The repair item
+	 */
+	public ItemStack replaceOrRepairArmour (EntityPlayer player, ItemStack armour, ItemStack stack) {
+		return armour ;
+	}
+	
+	public MaterialsMod getModArmourMaterial () {
+		return this.materials ;
 	}
 }

@@ -15,6 +15,7 @@ import teamOD.armourReborn.common.achievement.AchievementEvents;
 import teamOD.armourReborn.common.core.GuiHandler;
 import teamOD.armourReborn.common.core.proxy.CommonProxy;
 import teamOD.armourReborn.common.fluids.ModFluids;
+import teamOD.armourReborn.common.item.equipment.ItemArmourEvents;
 import teamOD.armourReborn.common.leveling.LevelingEventHandler;
 import teamOD.armourReborn.common.lib.LibMisc;
 import teamOD.armourReborn.common.modifiers.ModifierEvents;
@@ -59,11 +60,12 @@ public class ArmourReborn {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event) ;
 	
-		MinecraftForge.EVENT_BUS.register( new NerfVanillaArmours () );
+//		MinecraftForge.EVENT_BUS.register( new NerfVanillaArmours () );
 		MinecraftForge.EVENT_BUS.register( new LevelingEventHandler () );
 		MinecraftForge.EVENT_BUS.register( new ModifierEvents () );
 		MinecraftForge.EVENT_BUS.register( new AddDropsToMobs () );
 		MinecraftForge.EVENT_BUS.register( new AchievementEvents () );
+		MinecraftForge.EVENT_BUS.register( new ItemArmourEvents () ) ;
 	}
 	
 	@EventHandler

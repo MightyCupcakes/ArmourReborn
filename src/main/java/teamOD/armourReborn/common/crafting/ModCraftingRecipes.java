@@ -28,6 +28,8 @@ import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.fluids.FluidMod;
 import teamOD.armourReborn.common.fluids.ModFluids;
 import teamOD.armourReborn.common.item.ModItems;
+import teamOD.armourReborn.common.item.equipment.ItemLeatherCompositeArmour;
+import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 import teamOD.armourReborn.common.lib.LibItemStats;
 import teamOD.armourReborn.common.lib.LibUtil;
 
@@ -282,6 +284,11 @@ public final class ModCraftingRecipes {
 				"L L", 
 				'I', "ingotSteel",
 				'L', "leather");
+		
+		// Armour Repairs
+		for ( Item item : ModItems.getArmourByName("paperleather").values() ) {
+			GameRegistry.addShapelessRecipe(LibUtil.buildArmourCustomNBT(item), new ItemStack (item) , Items.paper) ;
+		}
 	}
 	
 	/**
