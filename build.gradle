@@ -41,7 +41,7 @@ group= "teamOD.armourReborn" // http://maven.apache.org/guides/mini/guide-naming
 archivesBaseName = config.mod_name
 
 minecraft {
-    version = "1.9-12.16.1.1887"
+    version = "1.10.2-12.18.1.2011"
     runDir = "run"
     useDepAts = true
     
