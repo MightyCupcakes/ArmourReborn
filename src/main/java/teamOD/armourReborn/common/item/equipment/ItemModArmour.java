@@ -74,7 +74,7 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		this.name = name ;
 		this.setNoRepair() ;
 		
-		field_185084_n = ReflectionHelper.getPrivateValue(ItemArmor.class, this, "field_185084_n") ;
+		field_185084_n = ReflectionHelper.getPrivateValue(ItemArmor.class, this, "ARMOR_MODIFIERS", "field_185084_n") ;
 		
 		setCreativeTab(ArmourRebornCreativeTab.INSTANCE);
 		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));

@@ -55,7 +55,7 @@ public final class ModCraftingRecipes {
 	
 	private static void addCastingRecipes () {
 		registerCastingRecipe (ModFluids.gold,
-				new ItemStack (Items.gold_ingot, 1, 0)
+				new ItemStack (Items.GOLD_INGOT, 1, 0)
 				) ;
 		
 		registerCastingRecipe (ModFluids.steel, 
@@ -71,11 +71,11 @@ public final class ModCraftingRecipes {
 				) ;
 		
 		registerCastingRecipe (ModFluids.silicate, 
-				new ItemStack (Blocks.glass, 1)
+				new ItemStack (Blocks.GLASS, 1)
 				) ;
 		
 		registerCastingRecipe (ModFluids.iron, 
-				new ItemStack(Items.iron_ingot, 1, 0), 
+				new ItemStack(Items.IRON_INGOT, 1, 0), 
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.HEAD), 5, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.CHEST), 8, 0),
 				new ItemStack(ModItems.getArmourByName("ironplate").get(EntityEquipmentSlot.LEGS), 7, 0),
@@ -146,7 +146,7 @@ public final class ModCraftingRecipes {
 				"III",
 				"IBI",
 				"III",
-				'B', new ItemStack(Items.bucket),
+				'B', new ItemStack(Items.BUCKET),
 				'I', "ingotIron");
 		
 		addOreDictRecipe(new ItemStack(ModBlocks.forgeMaster,1,0),
@@ -287,7 +287,7 @@ public final class ModCraftingRecipes {
 		
 		// Armour Repairs
 		for ( Item item : ModItems.getArmourByName("paperleather").values() ) {
-			GameRegistry.addShapelessRecipe(LibUtil.buildArmourCustomNBT(item), new ItemStack (item) , Items.paper) ;
+			GameRegistry.addShapelessRecipe(LibUtil.buildArmourCustomNBT(item), new ItemStack (item) , Items.PAPER) ;
 		}
 	}
 	
@@ -299,7 +299,7 @@ public final class ModCraftingRecipes {
 				"SSS",
 				"SAS",
 				"SSS",
-				'S', new ItemStack(Items.snowball, 1, 0),
+				'S', new ItemStack(Items.SNOWBALL, 1, 0),
 				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
 				) ;
 		
@@ -307,7 +307,7 @@ public final class ModCraftingRecipes {
 				"BBB",
 				"BAB",
 				"BBB",
-				'B', new ItemStack(Items.blaze_powder, 1, 0),
+				'B', new ItemStack(Items.BLAZE_POWDER, 1, 0),
 				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0)
 				) ;
 
@@ -315,7 +315,7 @@ public final class ModCraftingRecipes {
 				"CCC",
 				"CSC",
 				"CCC",
-				'S', new ItemStack(Blocks.sand),
+				'S', new ItemStack(Blocks.SAND),
 				'C', "ingotCopper");
 		
 
@@ -325,7 +325,7 @@ public final class ModCraftingRecipes {
 				"CCC",
 				'C', "ingotCopper");
 		
-		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.coal), new ItemStack (Items.paper));
+		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.COAL), new ItemStack (Items.PAPER));
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

@@ -52,9 +52,9 @@ public final class ModItems {
 		registerOreDict () ;
 		
 		// add minecraft:Coal to oredict
-		OreDictionary.registerOre("ingotCoal", Items.coal);
+		OreDictionary.registerOre("ingotCoal", Items.COAL);
 		// add blockSand to oredict
-		OreDictionary.registerOre("blockSand", Blocks.sand);
+		OreDictionary.registerOre("blockSand", Blocks.SAND);
 	}
 	
 	public static void initArmours () {
@@ -147,7 +147,7 @@ public final class ModItems {
 			reductionAmounts[i] = (int) Math.round(material.getBaseArmourValue()[i] * LibItemStats.armourTypesStats.get(key)[0]) ;
 		}
 		
-		ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 0, SoundEvents.item_armor_equip_generic) ;
+		ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F) ;
 		armourMaterials.put(mat.getName(), mat) ;
 		
 		return mat ;

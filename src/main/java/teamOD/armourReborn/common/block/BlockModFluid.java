@@ -24,6 +24,6 @@ public class BlockModFluid extends BlockFluidClassic {
 	}
 	
 	public BlockModFluid(Fluid fluid) {
-		this (fluid, Material.lava) ;
+		this (fluid, Material.LAVA) ;
 	}
 }

@@ -21,7 +21,7 @@ public class PotionMod extends Potion {
 		setPotionName("potion." + location.getResourcePath());
 
 	    this.hasEffect = showInInventory;
-	    potionRegistry.register(-1, location, this);
+	    REGISTRY.register(-1, location, this);
 	    
 	    fillAttributes () ;
 		

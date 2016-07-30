@@ -13,9 +13,9 @@ public class TraitGuardianAngel extends AbstractTrait {
 	
 	public static final String GUARDIAN_COOLDOWN = "guardian" + IModifier.COOLDOWN ;
 	
-	public static final Potion INSTANT = MobEffects.heal;
-	public static final Potion DEFENSE = MobEffects.resistance ;
-	public static final Potion REGEN = MobEffects.regeneration;
+	public static final Potion INSTANT = MobEffects.INSTANT_HEALTH;
+	public static final Potion DEFENSE = MobEffects.RESISTANCE ;
+	public static final Potion REGEN = MobEffects.REGENERATION;
 	public static final Potion GUARDIAN = ModPotions.guardianPotion ;
 	
 	public TraitGuardianAngel () {

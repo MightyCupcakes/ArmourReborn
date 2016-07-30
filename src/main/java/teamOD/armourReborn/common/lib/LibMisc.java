@@ -10,7 +10,7 @@ public final class LibMisc {
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:Forge@[12.16.1.1887,]" ;
-	public static final String MC_VERSIONS = "[1.9]";
+	public static final String MC_VERSIONS = "[1.9,1.10.2]";
 	public static final String PREFIX_MOD = "armourreborn" ;
 
 	// Network Contants

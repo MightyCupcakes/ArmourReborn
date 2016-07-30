@@ -29,7 +29,7 @@ public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 	}
 	
 	public BlockForgeHeater (String name) {
-		this (Material.rock, name) ;
+		this (Material.ROCK, name) ;
 	}
 
 	@Override

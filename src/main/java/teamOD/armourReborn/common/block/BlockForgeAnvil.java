@@ -39,7 +39,7 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 	}
 	
 	public BlockForgeAnvil (String name) {
-		this (Material.rock, name) ;
+		this (Material.ROCK, name) ;
 	}
 
 	@Override

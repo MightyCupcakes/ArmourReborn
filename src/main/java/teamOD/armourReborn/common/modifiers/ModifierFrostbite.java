@@ -35,7 +35,7 @@ public class ModifierFrostbite extends AbstractModifier {
 				if (entity instanceof EntityMob) {
 					
 					EntityMob mob = (EntityMob) entity ;
-					mob.addPotionEffect(new PotionEffect (MobEffects.moveSlowdown, 8 * 20, 1)) ;
+					mob.addPotionEffect(new PotionEffect (MobEffects.SLOWNESS, 8 * 20, 1)) ;
 				}
 			}
 		}

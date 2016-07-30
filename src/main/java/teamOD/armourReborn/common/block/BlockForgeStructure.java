@@ -45,7 +45,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	}
 	
 	public BlockForgeStructure (String name) {
-		this (Material.rock, name) ;
+		this (Material.ROCK, name) ;
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class BlockForgeStructure extends BlockMod implements ITileEntityProvider
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 		this.getDefaultState().withProperty(BLOCK, makeConnectedTextures (world, pos)) ;
 		
 	}

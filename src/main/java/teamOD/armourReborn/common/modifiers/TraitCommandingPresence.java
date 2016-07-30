@@ -22,15 +22,15 @@ public class TraitCommandingPresence extends AbstractTrait {
 		List<Entity> entities = LibUtil.getEntitiesAroundPlayer(player, 3) ;
 		entities.add(player) ;
 		
-		PotionEffect haste = new PotionEffect (MobEffects.digSpeed, 100, this.getLevel() - 1, false, false) ;
-		PotionEffect strength = new PotionEffect (MobEffects.damageBoost, 100, this.getLevel() - 1, false, false) ;
+		PotionEffect haste = new PotionEffect (MobEffects.HASTE, 100, this.getLevel() - 1, false, false) ;
+		PotionEffect strength = new PotionEffect (MobEffects.STRENGTH, 100, this.getLevel() - 1, false, false) ;
 		
 		for (Entity entity : entities) {
 			if ( !(entity instanceof EntityPlayer) ) continue ;
 			
 			EntityPlayer p = (EntityPlayer) entity ;
 			
-			if (p.getActivePotionEffect(MobEffects.digSpeed) != null || p.getActivePotionEffect(MobEffects.damageBoost) != null) continue ;
+			if (p.getActivePotionEffect(MobEffects.HASTE) != null || p.getActivePotionEffect(MobEffects.STRENGTH) != null) continue ;
 			
 			p.addPotionEffect(haste) ;
 			p.addPotionEffect(strength) ;

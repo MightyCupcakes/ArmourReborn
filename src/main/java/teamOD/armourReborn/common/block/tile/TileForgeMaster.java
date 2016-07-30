@@ -457,7 +457,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		if(worldObj.getTileEntity(pos) != this || worldObj.getBlockState(pos).getBlock() == Blocks.air) {
+		if(worldObj.getTileEntity(pos) != this || worldObj.getBlockState(pos).getBlock() == Blocks.AIR) {
 			return false ;
 		}
 		return true;

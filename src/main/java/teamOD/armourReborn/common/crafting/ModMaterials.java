@@ -25,7 +25,7 @@ public class ModMaterials {
 	public static void init () {
 		
 		// paper
-		paper = new MaterialsMod ("paper", new ItemStack (Items.paper), 
+		paper = new MaterialsMod ("paper", new ItemStack (Items.PAPER), 
 				ImmutableList.of(
 						ModTraitsModifiersRegistry.waterlogged, 
 						ModTraitsModifiersRegistry.evasion2,
@@ -37,7 +37,7 @@ public class ModMaterials {
 		
 		
 		//iron
-		iron = new MaterialsMod ("iron", new ItemStack (Items.iron_ingot), 
+		iron = new MaterialsMod ("iron", new ItemStack (Items.IRON_INGOT), 
 				ImmutableList.of( 
 						ModTraitsModifiersRegistry.rusty
 						)) ;

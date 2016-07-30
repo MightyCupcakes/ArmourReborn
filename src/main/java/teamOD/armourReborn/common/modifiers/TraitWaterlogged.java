@@ -26,7 +26,7 @@ public class TraitWaterlogged extends AbstractTrait {
 			
 			if (player.getActivePotionEffect(weakness) != null && player.getActivePotionEffect(weakness).getDuration() > 1) return ;
 			
-			player.addPotionEffect(new PotionEffect (MobEffects.moveSlowdown, 5 * 20, 1, true, true));
+			player.addPotionEffect(new PotionEffect (MobEffects.SLOWNESS, 5 * 20, 1, true, true));
 		}
 	}
 }

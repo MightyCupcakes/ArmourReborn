@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class TraitNullField extends AbstractTrait{
 	
-	public static ImmutableList<Potion> potionIDs = ImmutableList.of(MobEffects.poison, MobEffects.blindness, MobEffects.confusion, MobEffects.weakness) ;
+	public static ImmutableList<Potion> potionIDs = ImmutableList.of(MobEffects.POISON, MobEffects.BLINDNESS, MobEffects.NAUSEA, MobEffects.WEAKNESS) ;
 	public static final String NULLFIELD_COOLDOWN = "nullfield" + IModifier.COOLDOWN ;
 	
 	public TraitNullField() {

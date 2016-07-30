@@ -42,19 +42,19 @@ public final class ModTraitsModifiersRegistry {
 	// Modifiers
 	public static ITrait frostbite = new ModifierFrostbite(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 1)) ;
 	public static ITrait unburnt = new ModifierUnburnt(new ItemStack (ModItems.MOD_MODIFIERS_MATERIALS, 1, 2)) ;
-	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ender_pearl)) ;	
-	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.diamond_block)) ;
-	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.obsidian)) ;
-	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.obsidian, 9)) ;
-	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.obsidian, 27)) ;
-	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Items.skull)) ;
-	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.skull, 8)) ;
-	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.skull, 16)) ;
-	public static ITrait expBoost = new ModifierExpTome (new ItemStack(Blocks.gold_block)) ;
-	public static ITrait featherfall1= new ModifierShockAbsorber(1, new ItemStack(Items.feather, 16)) ;
-	public static ITrait featherfall2 = new ModifierShockAbsorber(2, new ItemStack(Items.feather, 32)) ;
-	public static ITrait featherfall3 = new ModifierShockAbsorber(3, new ItemStack(Items.feather, 64)) ;
-	public static ITrait underTheSea = new ModifierDepthStrider(new ItemStack(Blocks.prismarine)) ;
+	public static ITrait enderference = new ModifierEnderference(new ItemStack (Items.ENDER_PEARL)) ;	
+	public static ITrait stability = new ModifierUnyielding(new ItemStack (Blocks.DIAMOND_BLOCK)) ;
+	public static ITrait reinforced1 = new ModifierReinforced(1, new ItemStack(Blocks.OBSIDIAN)) ;
+	public static ITrait reinforced2 = new ModifierReinforced(2, new ItemStack(Blocks.OBSIDIAN, 9)) ;
+	public static ITrait reinforced3 = new ModifierReinforced(3, new ItemStack(Blocks.OBSIDIAN, 27)) ;
+	public static ITrait invisible1 = new ModifierInvisibility (1, new ItemStack(Items.SKULL)) ;
+	public static ITrait invisible2 = new ModifierInvisibility (2, new ItemStack(Items.SKULL, 8)) ;
+	public static ITrait invisible3 = new ModifierInvisibility (3, new ItemStack(Items.SKULL, 16)) ;
+	public static ITrait expBoost = new ModifierExpTome (new ItemStack(Blocks.GOLD_BLOCK)) ;
+	public static ITrait featherfall1= new ModifierShockAbsorber(1, new ItemStack(Items.FEATHER, 16)) ;
+	public static ITrait featherfall2 = new ModifierShockAbsorber(2, new ItemStack(Items.FEATHER, 32)) ;
+	public static ITrait featherfall3 = new ModifierShockAbsorber(3, new ItemStack(Items.FEATHER, 64)) ;
+	public static ITrait underTheSea = new ModifierDepthStrider(new ItemStack(Blocks.PRISMARINE)) ;
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	

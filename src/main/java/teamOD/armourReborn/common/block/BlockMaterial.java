@@ -24,7 +24,7 @@ public class BlockMaterial extends BlockMod {
 	private Ores[] values ;
 	
 	public BlockMaterial(String name) {
-		super(Material.rock, name);
+		super(Material.ROCK, name);
 		
 		this.setHarvestLevel("pickaxe", 2);
         this.setHardness(10f);

@@ -47,7 +47,7 @@ public class PacketHandler {
 			
 			EntityPlayerMP playerMP = (EntityPlayerMP) player ;
 			
-			if (world.getPlayerChunkManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+			if (world.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
 				INSTANCE.network.sendTo(packet, playerMP) ;
 			}
 		}

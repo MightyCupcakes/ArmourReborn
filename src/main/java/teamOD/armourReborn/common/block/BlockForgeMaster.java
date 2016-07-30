@@ -37,7 +37,7 @@ public class BlockForgeMaster extends BlockContainer {
 	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL) ;
 
 	public BlockForgeMaster (String name) {
-		super(Material.iron);
+		super(Material.IRON);
 		
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
 		
@@ -92,7 +92,7 @@ public class BlockForgeMaster extends BlockContainer {
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 		this.getDefaultState().withProperty (ACTIVE, isStructureActive (world, pos)) ;
 	}
 	

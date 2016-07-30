@@ -23,7 +23,7 @@ public class TraitSurge extends AbstractTrait {
 		player.stepHeight = 1F ;
 		
 		if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInWater()) {
-			player.moveFlying(0F, 1F, speeds.get(getLevel()));
+			player.moveRelative(0F, 1F, speeds.get(getLevel()));
 		}
 	}
 	

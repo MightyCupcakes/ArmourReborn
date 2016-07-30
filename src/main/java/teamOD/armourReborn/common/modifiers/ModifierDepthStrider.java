@@ -21,7 +21,7 @@ public class ModifierDepthStrider extends AbstractModifier {
 	@Override
 	public void emitAuraEffect (EntityPlayer player, ItemStack armour) {
 		
-		if(player.isInsideOfMaterial(Material.water)) {
+		if(player.isInsideOfMaterial(Material.WATER)) {
 			double motionX = player.motionX * SPEED_MULT;
 			double motionY = player.motionY * SPEED_MULT;
 			double motionZ = player.motionZ * SPEED_MULT;
@@ -33,25 +33,25 @@ public class ModifierDepthStrider extends AbstractModifier {
 			if(Math.abs(motionZ) < MAX_SPEED)
 				player.motionZ = motionZ;
 			
-			if (player.getActivePotionEffect(MobEffects.nightVision) == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.nightVision, 600, -322, true, false);
+			if (player.getActivePotionEffect(MobEffects.NIGHT_VISION) == null) {
+				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, 600, -322, true, false);
 				player.addPotionEffect(neweffect);
 			}
 			
-			if (player.getActivePotionEffect(MobEffects.waterBreathing) == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.waterBreathing, 600, -322, true, false);
+			if (player.getActivePotionEffect(MobEffects.WATER_BREATHING) == null) {
+				PotionEffect neweffect = new PotionEffect(MobEffects.WATER_BREATHING, 600, -322, true, false);
 				player.addPotionEffect(neweffect);
 			}
 		} else {
-			PotionEffect night = player.getActivePotionEffect(MobEffects.nightVision) ;
-			PotionEffect breath = player.getActivePotionEffect(MobEffects.waterBreathing) ;
+			PotionEffect night = player.getActivePotionEffect(MobEffects.NIGHT_VISION) ;
+			PotionEffect breath = player.getActivePotionEffect(MobEffects.WATER_BREATHING) ;
 			
 			if (night != null && night.getAmplifier() == -322) {
-				player.removePotionEffect(MobEffects.nightVision);
+				player.removePotionEffect(MobEffects.NIGHT_VISION);
 			}
 			
 			if (breath != null && breath.getAmplifier() == -322) {
-				player.removePotionEffect(MobEffects.waterBreathing);
+				player.removePotionEffect(MobEffects.WATER_BREATHING);
 			}
 		}
 	}

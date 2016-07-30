@@ -10,10 +10,10 @@ import teamOD.armourReborn.common.lib.LibItemNames.ArmourTypeNames;
 
 public final class LibItemStats {
 	// UNUSED!!
-	public static final ArmorMaterial paperArmourMat = EnumHelper.addArmorMaterial("PAPER", "paper", 1, new int[] {1,2,3,2}, 1, SoundEvents.item_armor_equip_generic) ;
-	public static final ArmorMaterial ironArmourMat = EnumHelper.addArmorMaterial("IRON", "modIron", 16, new int[] {2,4,4,2}, 1, SoundEvents.item_armor_equip_iron) ;
-	public static final ArmorMaterial steelArmourMat = EnumHelper.addArmorMaterial("STEEL", "steel", 20, new int[] {4,4,4,2}, 1, SoundEvents.item_armor_equip_gold) ;
-	public static final ArmorMaterial aluminiumArmourMat = EnumHelper.addArmorMaterial("ALUMINIUM", "aluminium", 34, new int[] {3,8,6,3}, 1, SoundEvents.item_armor_equip_diamond) ;
+//	public static final ArmorMaterial paperArmourMat = EnumHelper.addArmorMaterial("PAPER", "paper", 1, new int[] {1,2,3,2}, 1, SoundEvents.item_armor_equip_generic) ;
+//	public static final ArmorMaterial ironArmourMat = EnumHelper.addArmorMaterial("IRON", "modIron", 16, new int[] {2,4,4,2}, 1, SoundEvents.item_armor_equip_iron) ;
+//	public static final ArmorMaterial steelArmourMat = EnumHelper.addArmorMaterial("STEEL", "steel", 20, new int[] {4,4,4,2}, 1, SoundEvents.item_armor_equip_gold) ;
+//	public static final ArmorMaterial aluminiumArmourMat = EnumHelper.addArmorMaterial("ALUMINIUM", "aluminium", 34, new int[] {3,8,6,3}, 1, SoundEvents.item_armor_equip_diamond) ;
 	
 	/** 
 	 * The string is the name of this armourset.
