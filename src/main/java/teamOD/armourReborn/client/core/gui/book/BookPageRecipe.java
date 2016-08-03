@@ -93,7 +93,7 @@ public class BookPageRecipe extends BookPage {
 		renderItem(outputX, outputY, recipe.getRecipeOutput());
 		
 		if(mx >= outputX && my >= outputY && mx < outputX + 16 && my < outputY + 16) {
-			String name = I18n.format(recipe.getRecipeOutput().getUnlocalizedName()) ;
+			String name = I18n.format(recipe.getRecipeOutput().getUnlocalizedName() + ".name") ;
 			RenderUtils.renderTooltip(mx, my, Collections.singletonList((name))) ;
 		}
 		

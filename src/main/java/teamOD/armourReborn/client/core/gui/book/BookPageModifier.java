@@ -58,7 +58,7 @@ public class BookPageModifier extends BookPage {
 			renderItem (parent.getLeft() + 58, parent.getTop() + 125, modifiers.get(0).getItemStack(), true) ;
 			
 			if(mx >= parent.getLeft() + 58 && my >= parent.getTop() + 125 && mx < parent.getLeft() + 74 && my < parent.getTop() + 141) {
-				String name = I18n.format(modifiers.get(0).getItemStack().getUnlocalizedName()) ;
+				String name = I18n.format(modifiers.get(0).getItemStack().getUnlocalizedName() + ".name") ;
 				RenderUtils.renderTooltip(mx, my, Collections.singletonList((name))) ;
 			}
 		}
