@@ -167,7 +167,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 			if (amt == fluid.amount) {
 				getMasterBlock().setInventorySlotContents(slot, null) ;
 				masterTank.fill(fluid, true) ;
-				System.out.println("Item Melted, fluid added:" + fluid.getFluid().getUnlocalizedName());
+//				System.out.println("Item Melted, fluid added:" + fluid.getFluid().getUnlocalizedName());
 			}
 		}
 		

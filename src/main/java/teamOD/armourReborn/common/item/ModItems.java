@@ -84,7 +84,7 @@ public final class ModItems {
 				String armourName = material.getIdentifier() + key.getName() ;
 				
 				if (armourMaterials.containsKey(armourName)) {
-					mat = armourMaterials.get(armourName) ;
+					mat = getArmorMaterialByName(armourName) ;
 				} else {
 					mat = addArmourMaterial(key, material) ;
 				}
@@ -148,7 +148,7 @@ public final class ModItems {
 		}
 		
 		ArmorMaterial mat = EnumHelper.addArmorMaterial(name, textureName, durability, reductionAmounts, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F) ;
-		armourMaterials.put(mat.getName(), mat) ;
+		armourMaterials.put(name, mat) ;
 		
 		return mat ;
 	}

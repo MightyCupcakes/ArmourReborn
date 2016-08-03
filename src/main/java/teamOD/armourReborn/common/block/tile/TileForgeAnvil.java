@@ -399,7 +399,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack stack = getStackInSlot (index) ;
 		
-		System.out.println("Removing from slot " + index);
+//		System.out.println("Removing from slot " + index);
 		
 		if (index == repairSlot) {
 			payModifiersCosts(index) ;
@@ -434,7 +434,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			this.drain(null, LibItemStats.VALUE_INGOT, true) ;
 			break;
 		}
-		System.out.println("Remaining Fluid: " + fluidInventory.getFluidAmount());
+//		System.out.println("Remaining Fluid: " + fluidInventory.getFluidAmount());
 		return stack;
 	}
 
