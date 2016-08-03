@@ -1,12 +1,14 @@
 package teamOD.armourReborn.common.block.tile;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Queues ;
-
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Queues ;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -26,10 +28,13 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import teamOD.armourReborn.client.core.gui.ForgeGui;
 import teamOD.armourReborn.common.block.BlockForgeMaster;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerForge;
@@ -60,6 +65,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	private int minX, minY, minZ ;
 	private int maxX, maxY, maxZ ;
 	
+	private InvWrapper itemHandler ;
+	
 	public TileForgeMaster () {
 		super (INVENTORY_SIZE);
 		
@@ -68,6 +75,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		internalTank = new InternalForgeTank (this) ;
 		inventory = new ItemStack[INVENTORY_SIZE] ;
 		anvilPos = new HashMap<Fluid, BlockPos> () ;
+		itemHandler = new InvWrapper (this) ;
 		
 	}
 	
@@ -377,6 +385,21 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 	// =================================================================================== |
 	//                                Inventory Handlers                                   |
 	// =================================================================================== |
+	
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	@Nonnull
+	@Override
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return (T) itemHandler;
+		}
+		return super.getCapability(capability, facing);
+	}
+	
 	@Override
 	public String getName() {
 		return "Forge Furnance";

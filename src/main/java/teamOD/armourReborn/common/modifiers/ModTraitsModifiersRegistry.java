@@ -55,6 +55,7 @@ public final class ModTraitsModifiersRegistry {
 	public static ITrait featherfall2 = new ModifierShockAbsorber(2, new ItemStack(Items.FEATHER, 32)) ;
 	public static ITrait featherfall3 = new ModifierShockAbsorber(3, new ItemStack(Items.FEATHER, 64)) ;
 	public static ITrait underTheSea = new ModifierDepthStrider(new ItemStack(Blocks.PRISMARINE)) ;
+	public static ITrait regenWhenHungry = new ModifierHeart(new ItemStack(Items.GOLDEN_APPLE)) ;
 	
 	private static ITrait nullTrait = new TraitNone() ;
 	
@@ -94,6 +95,7 @@ public final class ModTraitsModifiersRegistry {
 		registerTrait (featherfall2) ;
 		registerTrait (featherfall3) ;
 		registerTrait (underTheSea) ;
+		registerTrait (regenWhenHungry) ;
 	}
 	
 	/**
