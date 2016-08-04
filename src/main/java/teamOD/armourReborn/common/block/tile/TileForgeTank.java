@@ -1,15 +1,19 @@
 package teamOD.armourReborn.common.block.tile;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class TileForgeTank extends TileForgeComponent implements IFluidHandler {
 	
@@ -32,6 +36,22 @@ public class TileForgeTank extends TileForgeComponent implements IFluidHandler {
 	public void setFuelStack (FluidStack stack) {
 		tank.setFluid(stack) ;
 	}
+	
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	@Nonnull
+	@Override
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return (T) tank;
+		}
+		
+		return super.getCapability(capability, facing);
+	}
+	
 	
 	@Override
 	public int fill(EnumFacing from, FluidStack resource, boolean doFill) {

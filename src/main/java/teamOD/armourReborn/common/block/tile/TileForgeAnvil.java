@@ -2,6 +2,8 @@ package teamOD.armourReborn.common.block.tile;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
@@ -18,11 +20,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import teamOD.armourReborn.client.core.gui.ForgeAnvilGui;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerAnvil;
 import teamOD.armourReborn.common.block.tile.inventory.ContainerMod;
@@ -48,6 +54,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private ItemStack[] inputInventory ;
 	private ItemStack[] outputInventory;
 	private FluidTank fluidInventory;
+	private InvWrapper itemHandler ;
 	
 	private final int repairSlot, castSlot ;
 	private boolean repairSlotContentsChanged, inputInventorySlotChanged ;
@@ -330,6 +337,35 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 			setInventorySlotContents(i, null, true);
 		}
 	}
+	
+	@Override
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+		
+		if (facing == EnumFacing.UP) {
+			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ;
+		}
+		
+		if (facing == EnumFacing.DOWN) {
+			return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ;
+		}
+		
+		return super.hasCapability(capability, facing);
+	}
+
+	@Nonnull
+	@Override
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == EnumFacing.UP) {
+			return (T) itemHandler;
+		}
+		
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing == EnumFacing.DOWN) {
+			return (T) fluidInventory ;
+		}
+		
+		return super.getCapability(capability, facing);
+	}
+	
 
 	@Override
 	public String getName() {
