@@ -168,6 +168,9 @@ armourreborn.page.modifiers8=When applied to a helmet, it allows you to see and 
 armourreborn.page.modifiers9.title=Enderference
 armourreborn.page.modifiers9=When applied to an armour piece, any enderman around you lose their ability to teleport.
 
+armourreborn.page.modifiers10.title=Heart Of Tarrasque
+armourreborn.page.modifiers10=This modifier allows natural health regeneration even when you're hungry. Can only applied to chest pieces.
+
 # TRAITS
 armourreborn.entry.traits=Armour Traits
 armourreborn.page.traits0=Armour Traits are inherent to the armour and cannot be modified in any way. Armour traits gives your armour special properties and/or effects that can range to be a hinderance or of a huge lifesaver.

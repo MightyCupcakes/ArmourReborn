@@ -94,7 +94,8 @@ public final class BookEntriesRegistry {
 				new BookPageModifier ("6", ModTraitsModifiersRegistry.stability),
 				new BookPageModifier ("7", ModTraitsModifiersRegistry.unburnt),
 				new BookPageModifier ("8", ModTraitsModifiersRegistry.underTheSea),
-				new BookPageModifier ("9", ModTraitsModifiersRegistry.enderference)
+				new BookPageModifier ("9", ModTraitsModifiersRegistry.enderference),
+				new BookPageModifier ("10", ModTraitsModifiersRegistry.regenWhenHungry)
 				) ;
 		registerBookEntry(modifiers).buttonName = "Armour Modifiers" ;
 		

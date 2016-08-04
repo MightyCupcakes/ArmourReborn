@@ -46,6 +46,11 @@ public class TileMod extends TileEntity implements ITickable {
 	public void readCustomNBT(NBTTagCompound cmp) {
 		// NO-OP
 	}
+	
+	@Override
+	public final NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
 
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {

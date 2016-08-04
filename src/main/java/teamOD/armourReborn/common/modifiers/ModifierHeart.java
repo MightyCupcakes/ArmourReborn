@@ -6,7 +6,6 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import teamOD.armourReborn.common.item.equipment.ItemModArmour;
 
 public class ModifierHeart extends AbstractModifier {
 	
