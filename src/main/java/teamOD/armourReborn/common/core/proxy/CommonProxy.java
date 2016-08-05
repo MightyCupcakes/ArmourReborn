@@ -9,6 +9,7 @@ import teamOD.armourReborn.common.achievement.ModAchievements;
 import teamOD.armourReborn.common.block.ModBlocks;
 import teamOD.armourReborn.common.core.command.CommandGiveModArmour;
 import teamOD.armourReborn.common.core.command.CommandLevelUpArmour;
+import teamOD.armourReborn.common.core.handler.ConfigHandler;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.crafting.ModMaterials;
 import teamOD.armourReborn.common.fluids.ModFluids;
@@ -22,6 +23,9 @@ import teamOD.armourReborn.common.world.WorldGenReborn;
 public class CommonProxy {
 	
 	public void preInit (FMLPreInitializationEvent event) {
+		
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		
 		ModBlocks.init () ;
 		ModItems.init () ;
 		ModFluids.init ();
@@ -38,7 +42,11 @@ public class CommonProxy {
 	public void init (FMLInitializationEvent event) {
 		ModCraftingRecipes.init() ;	
 		ModAchievements.init() ;
-		GameRegistry.registerWorldGenerator(WorldGenReborn.INSTANCE, 0);	
+		
+		if (ConfigHandler.generateOre) {
+			System.out.println("hi");
+			GameRegistry.registerWorldGenerator(WorldGenReborn.INSTANCE, 0);
+		}
 	}
 	
 	public void postInit (FMLPostInitializationEvent event) {
