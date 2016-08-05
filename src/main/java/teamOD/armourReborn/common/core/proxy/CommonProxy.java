@@ -44,7 +44,6 @@ public class CommonProxy {
 		ModAchievements.init() ;
 		
 		if (ConfigHandler.generateOre) {
-			System.out.println("hi");
 			GameRegistry.registerWorldGenerator(WorldGenReborn.INSTANCE, 0);
 		}
 	}
