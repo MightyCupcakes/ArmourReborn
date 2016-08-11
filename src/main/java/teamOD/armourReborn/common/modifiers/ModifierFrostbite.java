@@ -25,7 +25,7 @@ public class ModifierFrostbite extends AbstractModifier {
 	public void emitAuraEffect (EntityPlayer player, ItemStack item) {
 		ItemArmor armour = (ItemArmor) item.getItem() ;
 		
-		if (armour.armorType == EntityEquipmentSlot.FEET) {
+		if ( armour.armorType == EntityEquipmentSlot.FEET && !player.isSneaking() ) {
 			EnchantmentFrostWalker.freezeNearby(player, player.worldObj, new BlockPos(player), 2);
 		} else {
 			

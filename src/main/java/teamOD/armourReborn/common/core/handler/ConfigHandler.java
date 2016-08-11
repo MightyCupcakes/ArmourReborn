@@ -23,7 +23,9 @@ public final class ConfigHandler {
 	public static void load () {
 		String desc ;
 		
-		desc = "Set this to false to disable the world generation of this mod's added ores." ;
+		desc = "Set this to false to disable the world generation of this mod's added ores." + "\n" ;
+		desc += "Make sure your pack has an alternative way to obtain the following ores if disabled:" + "\n" ;
+		desc += "Copper Ore, Aluminum Ore" ;
 		generateOre = loadPropBool ("enable.worldGen", desc, generateOre) ;
 		
 		

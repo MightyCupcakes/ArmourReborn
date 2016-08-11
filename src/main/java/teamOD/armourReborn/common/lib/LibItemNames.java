@@ -19,7 +19,7 @@ public final class LibItemNames {
 	} ;
 	
 	public static final String[] ORE_MATERIALS_NAMES = {
-			"oreAluminium",
+			"oreAluminum",
 			"oreCopper"
 	} ;
 	

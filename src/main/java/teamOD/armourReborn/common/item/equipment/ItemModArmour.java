@@ -473,7 +473,10 @@ public abstract class ItemModArmour extends ItemArmor implements ISpecialArmor, 
 		if (!shift) {
 			tooltip.add(TextFormatting.WHITE + "Press shift to show more information.") ;
 		
-		} else {			
+		} else {
+			if (tag.getFloat(TOUGHNESS) > 0) {
+				tooltip.add (TextFormatting.WHITE + "+" + tag.getFloat(TOUGHNESS) + " toughness") ;
+			}
 			tooltip.add (TextFormatting.WHITE + "Modifier slots: " + LibUtil.getStackModifierSlots(stack)) ;
 			tooltip.add (TextFormatting.WHITE + "Durability: " + LibUtil.getItemCurrentDurability(stack) + "/" + stack.getMaxDamage()) ;
 			tooltip.add (TextFormatting.WHITE + "Exp: " + this.getExp(stack) + "/" + ModLevels.getLevelInfo(this.getLevel(stack)).getExpNeeded() ) ;

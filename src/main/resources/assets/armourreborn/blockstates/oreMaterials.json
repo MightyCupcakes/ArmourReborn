@@ -24,7 +24,7 @@
 		},
 
 
-		"inventory_orealuminium": [{ "textures": { "all": "armourreborn:blocks/oreAluminium" } }],
+		"inventory_orealuminum": [{ "textures": { "all": "armourreborn:blocks/oreAluminium" } }],
 		"inventory_orecopper": [{ "textures": { "all": "armourreborn:blocks/oreCopper" } }]
 	}
 }

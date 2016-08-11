@@ -161,7 +161,7 @@ public final class ModCraftingRecipes {
 		
 		addMeltingRecipe ("Iron", ModFluids.iron) ;
 		addMeltingRecipe ("Steel", ModFluids.steel) ;
-		addMeltingRecipe ("Aluminium", ModFluids.aluminium) ;
+		addMeltingRecipe ("Aluminum", ModFluids.aluminium) ;
 		addMeltingRecipe ("Copper", ModFluids.copper) ;
 		addMeltingRecipe ("Gold", ModFluids.gold) ;
 		addMeltingRecipe ("Coal", ModFluids.coal) ;
@@ -326,6 +326,8 @@ public final class ModCraftingRecipes {
 				'C', "ingotCopper");
 		
 		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.COAL), new ItemStack (Items.PAPER));
+		
+		GameRegistry.addSmelting(new ItemStack (Items.ROTTEN_FLESH), new ItemStack (Items.LEATHER), 2F);
 	}
 	
 	private static void addMeltingRecipe (String material, Fluid output) {

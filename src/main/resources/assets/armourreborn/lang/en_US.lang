@@ -145,7 +145,7 @@ armourreborn.page.modifiers1.title=Knowledgable
 armourreborn.page.modifiers1=Knowledgable is a modifier that doubles the amount of armour experience whenever you take damage from a monster. It also doubles the amount of armour experience you get from repairing the armour in the anvil.
 
 armourreborn.page.modifiers2.title=Frostbite
-armourreborn.page.modifiers2=Frostbite when applied to your footwear causes water to freeze temporarily. This makes for very easy river crossings. When applied to other armour parts, it applies a moderate slowing effect to all monsters around you.
+armourreborn.page.modifiers2=Frostbite when applied to your footwear causes water to freeze temporarily(sneak to disable this effect). This makes for very easy river crossings. When applied to other armour parts, it applies a moderate slowing effect to all monsters around you.
 
 armourreborn.page.modifiers3.title=Featherfall
 armourreborn.page.modifiers3=As implied from the name, featherfall can only be applied to the boots. It reduces the amount of damage you take when falling from high places. Higher levels of featherfall will increase the amount of damage absorbed.
