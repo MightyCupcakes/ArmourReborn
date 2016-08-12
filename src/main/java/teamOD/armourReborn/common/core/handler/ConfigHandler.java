@@ -10,6 +10,7 @@ public final class ConfigHandler {
 	public static Configuration config ;
 	
 	public static boolean generateOre = true ;
+	public static boolean disableVanillaArmours = true ;
 	
 	public static void init (File configFile) {
 		config = new Configuration (configFile) ;
@@ -27,6 +28,9 @@ public final class ConfigHandler {
 		desc += "Make sure your pack has an alternative way to obtain the following ores if disabled:" + "\n" ;
 		desc += "Copper Ore, Aluminum Ore" ;
 		generateOre = loadPropBool ("enable.worldGen", desc, generateOre) ;
+		
+		desc = "If set to true, all vanilla armours will not provide any protection to the user" ;
+		disableVanillaArmours = loadPropBool ("disable.vanillaArmour", desc, disableVanillaArmours) ;
 		
 		
 	}
