@@ -99,7 +99,8 @@ public final class BookEntriesRegistry {
 				) ;
 		registerBookEntry(modifiers).buttonName = "Armour Modifiers" ;
 		
-		levels = new BookEntry ("levels", new BookPageText ("0")
+		levels = new BookEntry ("levels", new BookPageText ("0"),
+				new BookPageText ("1")
 				) ;
 		registerBookEntry(levels).buttonName = "Armour Mastery Levels" ;
 	}
