@@ -10,7 +10,7 @@ public final class ConfigHandler {
 	public static Configuration config ;
 	
 	public static boolean generateOre = true ;
-	public static boolean disableVanillaArmours = true ;
+	public static boolean disableVanillaArmours = false ;
 	
 	public static void init (File configFile) {
 		config = new Configuration (configFile) ;
