@@ -23,6 +23,7 @@ public final class BookEntriesRegistry {
 	public static BookEntry traits ;
 	public static BookEntry modifiers ;
 	public static BookEntry levels ;
+	public static BookEntry changes ;
 	
 	public static void init () {
 		
@@ -103,6 +104,12 @@ public final class BookEntriesRegistry {
 				new BookPageText ("1")
 				) ;
 		registerBookEntry(levels).buttonName = "Armour Mastery Levels" ;
+		
+		changes = new BookEntry ("changes", new BookPageText ("0"),
+				new BookPageText ("1", true),
+				new BookPageText ("2", true)
+				) ;
+		registerBookEntry(changes).buttonName = "Miscellaneous Changes" ;
 	}
 	
 	private static BookEntry registerBookEntry (BookEntry book) {
