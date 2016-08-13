@@ -338,6 +338,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		}
 	}
 	
+	public void handleRedstoneSignal (boolean signal) {
+		
+	}
+	
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
 		

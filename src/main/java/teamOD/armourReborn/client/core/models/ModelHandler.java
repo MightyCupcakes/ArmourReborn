@@ -67,6 +67,7 @@ public final class ModelHandler {
 		registerFluidsModel (ModFluids.coal) ;
 		registerFluidsModel (ModFluids.aluAlloy) ;
 		registerFluidsModel (ModFluids.silicate) ;
+		registerFluidsModel (ModFluids.fiendFyre) ;
 	}
 	
 	private static void registerResources () {

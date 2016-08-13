@@ -30,6 +30,7 @@ tile.fluid.armourreborn.molten_gold.name=Molten Gold
 tile.fluid.armourreborn.molten_coal.name=Molten Carbon
 tile.fluid.armourreborn.molten_aluminiumalloy.name=Molten Aluminium Alloy
 tile.fluid.armourreborn.molten_silicate.name=Molten Silicate
+tile.fluid.armourreborn.molten_fiendfyre.name=Liquefied Fiend Fyre
 
 fluid.armourreborn.molten_iron=Molten Iron
 fluid.armourreborn.molten_steel=Molten Steel
@@ -39,6 +40,7 @@ fluid.armourreborn.molten_gold=Molten Gold
 fluid.armourreborn.molten_coal=Molten Carbon
 fluid.armourreborn.molten_aluminiumalloy=Molten Aluminium Alloy
 fluid.armourreborn.molten_silicate=Molten Silicate
+fluid.armourreborn.molten_fiendfyre=Liquefied Fiend Fyre
 
 # ARMOUR
 item.armourreborn.paperleatherhelm.name=Paper Leather Helmet

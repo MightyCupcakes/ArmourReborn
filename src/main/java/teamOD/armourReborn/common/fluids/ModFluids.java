@@ -4,16 +4,11 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fluids.UniversalBucket;
 import teamOD.armourReborn.common.block.BlockModFluid;
-import teamOD.armourReborn.common.item.ItemMaterials;
-import teamOD.armourReborn.common.item.ItemMod;
-import teamOD.armourReborn.common.lib.LibMisc;
 
 public class ModFluids {
 	public static FluidMod iron ;
@@ -24,6 +19,8 @@ public class ModFluids {
 	public static FluidMod coal ;
 	public static FluidMod aluAlloy ;
 	public static FluidMod silicate ;
+	
+	public static FluidMod fiendFyre ;
 	
 	public static List<FluidMod> modFluids = Lists.newLinkedList() ;
 	
@@ -41,6 +38,15 @@ public class ModFluids {
 		coal = registerMoltenBlock ("coal", 0xff000000) ;
 		aluAlloy = registerMoltenBlock ("aluminiumalloy", 0xffC5DAE0) ;
 		silicate = registerMoltenBlock ("silicate", 0xff8693b6, 1600, true) ;
+		
+		fiendFyre = registerMoltenBlock ("fiendfyre", 0xffffc529, 2600, false) ;
+		fiendFyre.setLuminosity(15) ;
+	}
+	
+	public static ItemStack getUniversalBucket (FluidMod fluid) {
+		UniversalBucket bucket = ForgeModContainer.getInstance().universalBucket ;
+		
+		return UniversalBucket.getFilledBucket (bucket, fluid) ;
 	}
 	
 	private static FluidMod registerMoltenBlock (String name, int colour) {

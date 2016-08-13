@@ -14,11 +14,12 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import teamOD.armourReborn.common.fluids.ModFluids;
 
 public class TileForgeTank extends TileForgeComponent implements IFluidHandler {
 	
 	// List of allowed fuels.
-	public static final ImmutableList<Fluid> ALLOWED_FUEL = ImmutableList.of (FluidRegistry.LAVA) ;
+	public static final ImmutableList<Fluid> ALLOWED_FUEL = ImmutableList.of (FluidRegistry.LAVA, ModFluids.fiendFyre) ;
 	
 	public static final int CAPACITY = 2000 ;
 	public static final int DRAIN_AMT = 1 ; // fuel consumed per tick

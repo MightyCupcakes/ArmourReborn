@@ -325,6 +325,13 @@ public final class ModCraftingRecipes {
 				"CCC",
 				'C', "ingotCopper");
 		
+		addShapedRecipe (ModFluids.getUniversalBucket(ModFluids.fiendFyre),
+				" F ",
+				" L ",
+				" L ",
+				'F', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 2),
+				'L', new ItemStack(Items.LAVA_BUCKET) ) ;
+		
 		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.COAL), new ItemStack (Items.PAPER));
 		
 		GameRegistry.addSmelting(new ItemStack (Items.ROTTEN_FLESH), new ItemStack (Items.LEATHER), 2F);

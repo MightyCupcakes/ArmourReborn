@@ -36,6 +36,10 @@
 
         "molten_silicate": [{
             "custom": {"fluid": "molten_silicate"}
+        }],
+
+        "molten_fiendfyre": [{
+            "custom": {"fluid": "molten_fiendfyre"}
         }]
     }
 }
