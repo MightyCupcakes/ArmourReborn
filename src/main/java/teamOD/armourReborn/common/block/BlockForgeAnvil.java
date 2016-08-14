@@ -67,27 +67,6 @@ public class BlockForgeAnvil extends BlockMod implements ITileEntityProvider {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		
 		if (worldIn.isRemote) return true ;
-		
-		
-		TileForgeAnvil entity = this.getTile(worldIn, pos) ;
-		
-		IFluidHandler tank = null ;
-		
-		if (entity instanceof IFluidHandler) {
-			tank = (IFluidHandler) entity ;
-		} else {
-			return false ;
-		}
-		
-		ItemStack item = playerIn.getHeldItemMainhand() ;
-		
-//		int amt = (entity.getTankInfo(EnumFacing.NORTH)[0].fluid != null) ? entity.getTankInfo(EnumFacing.NORTH)[0].fluid.amount : 0 ;
-//		FluidStack fluid = (entity.getTankInfo(EnumFacing.NORTH)[0].fluid != null) ? entity.getTankInfo(EnumFacing.NORTH)[0].fluid : null ;
-//		if (fluid != null) {
-//			System.out.println("Internal Tank: " + fluid.getUnlocalizedName() + " " + amt);
-//		}
-	
-		
 
 		playerIn.openGui(ArmourReborn.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		

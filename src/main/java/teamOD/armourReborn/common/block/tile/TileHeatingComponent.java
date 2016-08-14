@@ -119,6 +119,11 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	}
 	
 	public void consumeFuel () {
+		
+		if (fuelLeft == 0) {
+			return ;
+		}
+		
 		FluidStack fluid = getTankAt(heaterTankPos).getTankInfo().fluid ;
 		
 		if (fluid != null) {
@@ -135,9 +140,9 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 					PacketHandler.sendToAll(new ForgeFuelUpdatePacket (getPos(), fluid));
 				}
 			}
-			
-			fuelLeft -= DRAIN_AMT ;
 		}
+		
+		fuelLeft -= DRAIN_AMT ;
 	}
 	
 	public void updateItemHeatReq (int slot, ItemStack stack) {

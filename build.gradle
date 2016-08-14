@@ -81,7 +81,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-    deobfCompile "mezz.jei:jei_1.10.2:3.7.8.234"
+    deobfCompile "mezz.jei:jei_1.10.2:3.8.0.240"
 
 }
 

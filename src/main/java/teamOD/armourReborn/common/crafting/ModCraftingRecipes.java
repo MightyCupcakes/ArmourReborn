@@ -327,10 +327,11 @@ public final class ModCraftingRecipes {
 		
 		addShapedRecipe (ModFluids.getUniversalBucket(ModFluids.fiendFyre),
 				" F ",
-				" L ",
+				" A ",
 				" L ",
 				'F', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 2),
-				'L', new ItemStack(Items.LAVA_BUCKET) ) ;
+				'L', new ItemStack(Items.LAVA_BUCKET),
+				'A', new ItemStack(ModItems.MOD_MODIFIERS_MATERIALS, 1, 0) ) ;
 		
 		GameRegistry.addShapelessRecipe(new ItemStack (ModItems.ModBook), new ItemStack (Items.COAL), new ItemStack (Items.PAPER));
 		

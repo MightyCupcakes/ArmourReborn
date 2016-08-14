@@ -207,6 +207,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 						
 						if (a.getTankInfo().fluid != null) {
 							anvilPos.put(a.getTankInfo().fluid.getFluid(), currentPos.offset(directions)) ;
+						} else if (a.getLockedFluid() != null) {
+							anvilPos.put(a.getLockedFluid(), currentPos.offset(directions)) ;
 						} else {
 							anvilPos.put(FluidRegistry.WATER, currentPos.offset(directions)) ;
 						}

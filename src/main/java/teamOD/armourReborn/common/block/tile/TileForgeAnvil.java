@@ -26,7 +26,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import teamOD.armourReborn.client.core.gui.ForgeAnvilGui;
@@ -59,6 +58,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private final int repairSlot, castSlot ;
 	private boolean repairSlotContentsChanged, inputInventorySlotChanged ;
 	private ItemStack repairSlotOriginal ;
+	private Fluid lockedFluid ;
+	
+	private boolean lastRedstone = false ;
 	
 	/** Items to deduct from inputinventory when modifiers are added to armours */
 	private Multimap<Integer, ItemStack> modifiersCosts ;
@@ -74,12 +76,26 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		inputInventorySlotChanged = true ;
 		
 		repairSlotOriginal = null ;
+		lockedFluid = null ;
 		
 		modifiersCosts = HashMultimap.<Integer, ItemStack>create();
 	}
 	
 	@Override
 	protected void updateEntity() {
+		
+		// Redstone
+		boolean redstone = false ;
+		
+		for (EnumFacing directions : EnumFacing.VALUES) {
+			redstone = worldObj.getRedstonePower(getPos().offset(directions), directions) > 0;
+			
+			if (redstone) {
+				break ;
+			}
+		}
+		
+		handleRedstoneSignal (redstone) ;
 		
 		// Repair slot stuff
 		ItemStack stack = this.getStackInSlot(repairSlot) ;
@@ -339,18 +355,28 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	}
 	
 	public void handleRedstoneSignal (boolean signal) {
+		if (signal && signal != lastRedstone) {
+			
+			if (fluidInventory.getFluid() == null) {
+				return ;
+			}
+			
+			lockedFluid = fluidInventory.getFluid().getFluid() ;
+			
+			lastRedstone = signal ;
 		
+		} else if (!signal && signal != lastRedstone) {
+			lockedFluid = null ;
+			
+			lastRedstone = signal ;
+		}
 	}
 	
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
 		
-		if (facing == EnumFacing.UP) {
-			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ;
-		}
-		
-		if (facing == EnumFacing.DOWN) {
-			return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ;
+		if ( capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ) {
+			return true ;
 		}
 		
 		return super.hasCapability(capability, facing);
@@ -359,12 +385,8 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	@Nonnull
 	@Override
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == EnumFacing.UP) {
+		if( capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ) {
 			return (T) itemHandler;
-		}
-		
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing == EnumFacing.DOWN) {
-			return (T) fluidInventory ;
 		}
 		
 		return super.getCapability(capability, facing);
@@ -640,5 +662,9 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		if (worldObj != null && !worldObj.isRemote) {
 			PacketHandler.sendToAll(new ForgeAnvilInventoryUpdatePacket (getPos(), null, -1, fluidInventory.getFluid()) );
 		}
+	}
+	
+	public Fluid getLockedFluid () {
+		return lockedFluid ;
 	}
 }
