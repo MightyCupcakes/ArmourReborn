@@ -58,7 +58,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	private final int repairSlot, castSlot ;
 	private boolean repairSlotContentsChanged, inputInventorySlotChanged ;
 	private ItemStack repairSlotOriginal ;
-	private Fluid lockedFluid ;
+	private FluidStack lockedFluid ;
 	
 	private boolean lastRedstone = false ;
 	
@@ -304,6 +304,16 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		}
 		
 		readReapirSlotNBT (cmp) ;
+		
+		lastRedstone = cmp.getBoolean("lastRedstone") ;
+		
+		// Locked Fluid
+		nbttaglist = cmp.getTagList("lockedFluid" , 10) ;		
+		NBTTagCompound fluidTag = nbttaglist.getCompoundTagAt(0) ;
+		
+		if (!fluidTag.hasKey("noLocked")) {
+			lockedFluid = FluidStack.loadFluidStackFromNBT(fluidTag) ;
+		}
 	}
 	
 	private void readReapirSlotNBT (NBTTagCompound cmp) {
@@ -334,6 +344,21 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 		
 		cmp.setTag("Inventory", nbttaglist) ;
 		writeRepairSlotNBT (cmp) ;
+		
+		cmp.setBoolean("lastRedstone", lastRedstone);
+		
+		// Locked Fluid
+		nbttaglist = new NBTTagList();
+		NBTTagCompound fluidTag = new NBTTagCompound () ;
+		
+		if (lockedFluid != null) {
+			lockedFluid.writeToNBT(fluidTag) ;
+		} else {
+			fluidTag.setBoolean("noLocked", true);
+		}
+		nbttaglist.appendTag(fluidTag);
+		
+		cmp.setTag("lockedFluid", nbttaglist);
 	}
 	
 	private void writeRepairSlotNBT (NBTTagCompound cmp) {
@@ -361,7 +386,7 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				return ;
 			}
 			
-			lockedFluid = fluidInventory.getFluid().getFluid() ;
+			lockedFluid = fluidInventory.getFluid() ;
 			
 			lastRedstone = signal ;
 		
@@ -665,6 +690,6 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 	}
 	
 	public Fluid getLockedFluid () {
-		return lockedFluid ;
+		return (lockedFluid == null) ? null : lockedFluid.getFluid() ;
 	}
 }

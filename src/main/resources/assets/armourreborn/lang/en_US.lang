@@ -118,6 +118,8 @@ armourreborn.page.multiblock6=Casts metals into ingots and armours. Also it fixe
 armourreborn.page.multiblock7=The forge anvil is your primary way to fix and make more advanced armours. By default, it will cast its internal liquid metal inventory into ingots. To make armour, you must first make a corresponding copper casts. (Recipes in the following pages) and place it in the casting slot in the anvil.
 armourreborn.page.multiblock8=Used to make chain armour in the anvil. Place it in the cast slot.
 armourreborn.page.multiblock9=Used to make plate armour in the anvil. Place it in the cast slot.
+armourreborn.page.multiblock10=Additionally, if provided with a redstone signal, the anvil will only accept the current fluid from the furnance even after it is emptied.
+armourreborn.page.multiblock11=A fuel hotter than lava for use in the forge furnance to further speed up the melting process.
 
 # SETS
 armourreborn.entry.armourTypes=Armour Sets
