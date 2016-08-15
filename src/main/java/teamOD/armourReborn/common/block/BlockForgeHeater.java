@@ -4,6 +4,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -11,7 +12,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamOD.armourReborn.common.block.tile.TileForgeComponent;
 import teamOD.armourReborn.common.block.tile.TileForgeTank;
@@ -57,18 +59,13 @@ public class BlockForgeHeater extends BlockMod implements ITileEntityProvider {
 		
 		TileEntity entity = world.getTileEntity(pos) ;
 		
-		IFluidHandler tank = null ;
-		
-		if (entity instanceof IFluidHandler) {
-			tank = (IFluidHandler) entity ;
-		} else {
+		if ( entity == null || !entity.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side) ) {
 			return false ;
 		}
 		
-		ItemStack item = player.getHeldItemMainhand() ;
+		IFluidHandler tank = entity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side) ;
+		FluidUtil.interactWithFluidHandler(stack, tank, player) ;
 		
-		if (item == null) return false ;
-		
-		return FluidUtil.interactWithTank(item, player, tank, side) ;
+		return stack != null && !(stack.getItem() instanceof ItemBlock) ;
 	}
 }

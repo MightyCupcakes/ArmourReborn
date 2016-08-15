@@ -61,14 +61,7 @@ public class BlockForgeMaster extends BlockContainer {
 	}
 	
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		
-		if (isStructureActive(worldIn, pos)) {
-			this.setLightLevel(10F) ;
-		} else {
-			this.setLightLevel(0F) ;
-		}
-		
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {		
 		return state.withProperty(ACTIVE, isStructureActive(worldIn, pos));
 	}
 	
@@ -104,22 +97,21 @@ public class BlockForgeMaster extends BlockContainer {
 		}
 		
 		if (isStructureActive (world, pos) && !world.isRemote) {
-			// TODO GUI to display all relevant information
-			LibUtil.LogToFML(1, "Inventory opened", "") ;
-			
-			FluidStack fluid = getTileEntity(world, pos).getHeater().fluid ;
-			if (fluid != null) {
-				LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature()) ;
-			}
-			
-			int size = getTileEntity(world, pos).getInternalTank().size() ;
-			String fluids = "" ;
-			
-			for (FluidStack liquid: getTileEntity(world, pos).getInternalTank()) {
-				fluids += liquid.getUnlocalizedName() + ": " + liquid.amount + " mB" ;
-			}
-			
-			LibUtil.LogToFML(1, "INTERNAL TANK: %s", fluids);
+//			LibUtil.LogToFML(1, "Inventory opened", "") ;
+//			
+//			FluidStack fluid = getTileEntity(world, pos).getHeater().fluid ;
+//			if (fluid != null) {
+//				LibUtil.LogToFML(1, "Fuel: %s, %d mB, temp: %d ", fluid.getUnlocalizedName(), fluid.amount, fluid.getFluid().getTemperature()) ;
+//			}
+//			
+//			int size = getTileEntity(world, pos).getInternalTank().size() ;
+//			String fluids = "" ;
+//			
+//			for (FluidStack liquid: getTileEntity(world, pos).getInternalTank()) {
+//				fluids += liquid.getUnlocalizedName() + ": " + liquid.amount + " mB" ;
+//			}
+//			
+//			LibUtil.LogToFML(1, "INTERNAL TANK: %s", fluids);
 			
 			
 			player.openGui(ArmourReborn.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
@@ -150,6 +142,16 @@ public class BlockForgeMaster extends BlockContainer {
 		entity.resetStructure() ;
 		
 		super.breakBlock(worldIn, pos, state) ;
+	}
+	
+	@Override
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+		
+		if ( isStructureActive (world, pos) ) {
+			return 12 ;
+		}
+		
+		return 0 ;
 	}
 	
 	@Override
