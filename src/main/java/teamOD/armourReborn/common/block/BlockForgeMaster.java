@@ -92,6 +92,7 @@ public class BlockForgeMaster extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side,
             float clickX, float clickY, float clickZ) {
+	
 		if (player.isSneaking()) {
 			return false ;
 		}

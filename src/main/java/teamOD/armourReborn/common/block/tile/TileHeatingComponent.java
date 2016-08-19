@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import scala.actors.threadpool.Arrays;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
+import teamOD.armourReborn.common.core.handler.ConfigHandler;
 import teamOD.armourReborn.common.crafting.AlloyRecipes;
 import teamOD.armourReborn.common.crafting.ModCraftingRecipes;
 import teamOD.armourReborn.common.lib.LibUtil;
@@ -26,7 +27,7 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	// List of allowed fuels.
 	public static final ImmutableList<Fluid> ALLOWED_FUEL = ImmutableList.of (FluidRegistry.LAVA) ;
 	
-	public static final int DRAIN_AMT = 1 ; // fuel consumed per tick
+	public static final int DRAIN_AMT = ConfigHandler.fuelConsumedPerTick ; // fuel consumed per tick
 	public static final int FUEL_MULTIPLIER = 6 ;
 	
 	protected int fuelLeft ;

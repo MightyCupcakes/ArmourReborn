@@ -5,10 +5,8 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Enchantments;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import teamOD.armourReborn.common.crafting.MaterialsMod;
 import teamOD.armourReborn.common.modifiers.ITrait;
 import teamOD.armourReborn.common.modifiers.ModTraitsModifiersRegistry;
@@ -19,7 +17,7 @@ public class ItemChainArmour extends ItemModArmour {
 		super (type, name, mat, index) ;
 		this.materials = material ;
 		
-		armourSetEnchantments = ImmutableMap.of(Enchantment.getEnchantmentByID(4), 2) ;
+		armourSetEnchantments = ImmutableMap.of(Enchantments.PROJECTILE_PROTECTION, 2) ;
 	}
 
 	@Override

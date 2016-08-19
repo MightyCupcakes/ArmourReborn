@@ -11,6 +11,7 @@ public final class ConfigHandler {
 	
 	public static boolean generateOre = true ;
 	public static boolean disableVanillaArmours = false ;
+	public static int fuelConsumedPerTick = 1 ;
 	
 	public static void init (File configFile) {
 		config = new Configuration (configFile) ;
@@ -32,6 +33,9 @@ public final class ConfigHandler {
 		desc = "If set to true, all vanilla armours will not provide any protection to the user" ;
 		disableVanillaArmours = loadPropBool ("disable.vanillaArmour", desc, disableVanillaArmours) ;
 		
+		desc = "The amount of fuel consumed per tick. The conversion from this integer to mB is x/6 where x is this value." ;
+		fuelConsumedPerTick = loadPropInteger ("furnance.fuelMultiplier", desc, fuelConsumedPerTick) ;
+		
 		
 	}
 	
@@ -40,5 +44,19 @@ public final class ConfigHandler {
 		prop.setComment(desc);
 		
 		return prop.getBoolean(default_);
+	}
+	
+	private static double loadPropDouble (String propName, String desc, double default_) {
+		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
+		prop.setComment(desc);
+		
+		return prop.getDouble(default_);
+	}
+	
+	private static int loadPropInteger (String propName, String desc, int default_) {
+		Property prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_);
+		prop.setComment(desc);
+		
+		return prop.getInt(default_);
 	}
 }

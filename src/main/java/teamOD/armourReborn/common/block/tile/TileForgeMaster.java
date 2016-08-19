@@ -26,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
@@ -169,7 +170,9 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		}
 		
 		worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+		worldObj.setLightFor(EnumSkyBlock.BLOCK, this.getPos(), (isActive) ? 12 : 0);
 		worldObj.notifyNeighborsOfStateChange(getPos(), this.blockType);
+		
 		this.markDirty() ;
 		
 	}
