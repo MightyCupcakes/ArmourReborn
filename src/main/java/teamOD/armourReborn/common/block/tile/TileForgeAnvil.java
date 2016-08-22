@@ -271,6 +271,10 @@ public class TileForgeAnvil extends TileMod implements IInventory, ITileInventor
 				
 				drainAmt = this.drain(null, repairCost, false) ;
 				
+				if (drainAmt == null) {
+					return ;
+				}
+				
 				if (drainAmt.amount == repairCost) {
 					repairAmt = repairCost ;
 				
