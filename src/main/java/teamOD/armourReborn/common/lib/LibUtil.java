@@ -169,7 +169,7 @@ public final class LibUtil {
 	 */
 	public static double calculateArmourReduction (double damage, float armourValue, float toughness) {
 		
-		return ( 1 - Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25 ) ;
+		return ( Math.min( 20, Math.max( armourValue / 5, armourValue - damage / ( 2 + toughness / 4 ) ) ) / 25D ) ;
 	}
 	
 	/**
