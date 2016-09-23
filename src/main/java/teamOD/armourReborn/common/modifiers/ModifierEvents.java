@@ -25,8 +25,6 @@ public class ModifierEvents {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 						
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving() ;
-			
-			player.stepHeight = 0.5F ;
 
 			Iterable<ItemStack> armour = player.getArmorInventoryList() ;
 			
