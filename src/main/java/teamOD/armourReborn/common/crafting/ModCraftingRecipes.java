@@ -66,6 +66,10 @@ public final class ModCraftingRecipes {
 				new ItemStack (ModItems.MATERIALS, 1, 1)
 				) ;
 		
+		registerCastingRecipe (ModFluids.aluAlloy, 
+				new ItemStack (ModItems.MATERIALS, 1, 3)
+				) ;
+		
 		registerCastingRecipe (ModFluids.copper, 
 				new ItemStack (ModItems.MATERIALS, 1, 2)
 				) ;
@@ -161,7 +165,8 @@ public final class ModCraftingRecipes {
 		
 		addMeltingRecipe ("Iron", ModFluids.iron) ;
 		addMeltingRecipe ("Steel", ModFluids.steel) ;
-		addMeltingRecipe ("Aluminum", ModFluids.aluminium) ;
+		addMeltingRecipe ("Aluminium", ModFluids.aluminium) ;
+		addMeltingRecipe ("AluminiumAlloy", ModFluids.aluAlloy) ;
 		addMeltingRecipe ("Copper", ModFluids.copper) ;
 		addMeltingRecipe ("Gold", ModFluids.gold) ;
 		addMeltingRecipe ("Coal", ModFluids.coal) ;
