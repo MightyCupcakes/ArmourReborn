@@ -61,7 +61,7 @@ public class TileForgeTank extends TileForgeComponent implements IFluidHandler {
 		if (doFill) {
 			if (this.hasMaster()) {
 				getMasterBlock().updateInternalTemps(resource.getFluid().getTemperature()) ;
-				getMasterBlock().addFuel (resource.amount) ;
+				//getMasterBlock().addFuel (resource.amount) ;
 			}
 		}
 		

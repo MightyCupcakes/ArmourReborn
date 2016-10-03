@@ -268,6 +268,7 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 		}
 		
 		this.reset() ;
+		resetHeatingComponent() ;
 		
 	}
 
@@ -299,6 +300,8 @@ public class TileForgeMaster extends TileHeatingComponent implements IInventory,
 				}
 			}
 		}
+		
+		setupHeatingComponent() ;
 	}
 	
 	public boolean isActive () {

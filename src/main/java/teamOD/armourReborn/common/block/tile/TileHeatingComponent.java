@@ -8,12 +8,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidEvent.FluidFillingEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import scala.actors.threadpool.Arrays;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamOD.armourReborn.common.block.tile.inventory.InternalForgeTank;
 import teamOD.armourReborn.common.block.tile.network.ForgeFuelUpdatePacket;
 import teamOD.armourReborn.common.core.handler.ConfigHandler;
@@ -186,11 +184,11 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	}
 	
 	public void updateInternalTemps (int temp) {
-		internalTemp = temp - 300 ;
+		internalTemp = Math.max(temp - 300, 20) ;
 	}
 	
 	public void addFuel (int amt) {
-		fuelLeft += (amt * FUEL_MULTIPLIER) ;
+		fuelLeft = (amt * FUEL_MULTIPLIER) ;
 		
 		if (fuelLeft < 0) {
 			fuelLeft = 0 ;
@@ -217,6 +215,15 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 	
 	protected void setHeaterPos (BlockPos newpos) {
 		heaterTankPos = newpos ;
+	}
+	
+	protected void resetHeatingComponent () {
+		updateInternalTemps (0) ;
+		fuelLeft = 0 ;
+	}
+	
+	protected void setupHeatingComponent () {
+		searchForFuel() ;
 	}
 	
 	// NBTS
@@ -250,5 +257,12 @@ public abstract class TileHeatingComponent extends TileMultiBlock {
 		internalTemp = cmp.getInteger("temp") ;
 		itemTemps = cmp.getIntArray("itemTemps") ;
 		itemMeltingTemps = cmp.getIntArray("itemMeltingTemps") ;
+	}
+	
+	@SubscribeEvent
+	public void onFuelTankFil (FluidFillingEvent event) {
+		if (event.getPos().equals(heaterTankPos)) {
+			addFuel (event.getTank().getFluidAmount()) ;
+		}
 	}
 }
