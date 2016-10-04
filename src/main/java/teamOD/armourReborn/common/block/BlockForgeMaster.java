@@ -71,12 +71,16 @@ public class BlockForgeMaster extends BlockContainer {
 	}
 	
 	public boolean isStructureActive (IBlockAccess world, BlockPos pos) {
-		return getTileEntity(world, pos).isActive() ;
+		return getTileEntity(world, pos) != null ? getTileEntity(world, pos).isActive() : false ;
 		
 	}
 	
 	private TileForgeMaster getTileEntity (IBlockAccess world, BlockPos pos) {
-		return (TileForgeMaster) world.getTileEntity(pos) ;
+		if (world.getTileEntity(pos) instanceof TileForgeMaster) {
+			return (TileForgeMaster) world.getTileEntity(pos) ;
+		}
+		
+		return null ;
 	}
 	
 	@Override
@@ -140,7 +144,9 @@ public class BlockForgeMaster extends BlockContainer {
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileForgeMaster entity = getTileEntity (worldIn, pos) ;
 		
-		entity.resetStructure() ;
+		if (entity != null) {		
+			entity.resetStructure() ;
+		}
 		
 		super.breakBlock(worldIn, pos, state) ;
 	}
